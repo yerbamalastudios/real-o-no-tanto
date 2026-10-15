@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pronóstico real o no tanto</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Tablero de una columna: mañana/pasado arriba, ranking de fuentes y control de aciertos abajo */
+:root{
+  --bg:#eef2f5; --surface:#ffffff; --fg:#17222b; --muted:#5d6b77; --line:#d5dde3;
+  --sun:#d9781e; --rain:#2b6fb3; --good:#2e8b57; --warn:#b7791f; --bad:#c0443a;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"Source Sans 3",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10171d; --surface:#18222a; --fg:#e4ebf0; --muted:#93a3b0; --line:#2a3741;
+  --sun:#f0a050; --rain:#6aa8e6; --good:#5cc08a; --warn:#e0b050; --bad:#e8786e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10171d; --surface:#18222a; --fg:#e4ebf0; --muted:#93a3b0; --line:#2a3741;
+  --sun:#f0a050; --rain:#6aa8e6; --good:#5cc08a; --warn:#e0b050; --bad:#e8786e; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body)}
+.wrap{max-width:880px;margin:0 auto;padding-block:20px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:18px}
+h1{font:700 2.2rem/1 var(--display);margin:0;text-wrap:balance}
+h2{font:600 1.3rem/1.1 var(--display);margin:0 0 10px;letter-spacing:.03em;text-transform:uppercase}
+.sub{color:var(--muted);margin:4px 0 0;font-size:.95rem}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.day,section.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.day{display:flex;flex-direction:column;gap:8px}
+.label{font:600 .8rem var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.temps{display:flex;align-items:baseline;gap:14px;font-family:var(--display)}
+.tmax{font-size:3.4rem;font-weight:700;color:var(--sun);line-height:1}
+.tmin{font-size:2rem;font-weight:600;color:var(--muted)}
+.rain{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.9rem}
+.rain b{color:var(--rain)}
+.small{font-size:.85rem;color:var(--muted)}
+.ok{color:var(--good)} .mid{color:var(--warn)} .bad{color:var(--bad)}
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tabs button{font:600 .9rem var(--body);padding:8px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.tabs button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+button:focus-visible{outline:2px solid var(--rain);outline-offset:2px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th{font:600 .72rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td:first-child{font-family:var(--body);font-weight:600;white-space:normal;min-width:7.5em}
+.tag{display:inline-block}
+tr.tot td{font-weight:700;border-bottom:0}
+.bar{display:inline-block;height:8px;border-radius:4px;background:var(--good);vertical-align:middle;margin-right:6px}
+.tag{font:600 .7rem var(--body);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:6px}
+.chiste{font-size:.92rem;font-style:italic;color:var(--fg);border-left:3px solid var(--ym-verde);padding-left:10px}
+.alert{border-left:3px solid var(--warn);padding:8px 12px;background:var(--surface);border-radius:6px;font-size:.88rem}
+.note{font-size:.9rem;color:var(--muted);max-width:68ch}
+.note p{margin:.4em 0}
+details summary{cursor:pointer;font-weight:600;color:var(--fg)}
+
+/* Yerba Mala Studios */
+:root{--ym-verde:#3f9d6c;--ym-naranja:#f2a73b}
+.ym-sprite{position:absolute;width:0;height:0;overflow:hidden}
+#intro{position:fixed;inset:0;z-index:50;background:#14100c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:opacity .6s ease;padding:env(safe-area-inset-top,0px) 16px env(safe-area-inset-bottom,0px)}
+#intro.out{opacity:0;pointer-events:none}
+#intro .mate{position:relative;width:min(42vw,170px);animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+#intro .mate svg{width:100%;height:auto;display:block}
+.vapor{position:absolute;left:30%;top:-34%;width:40%;height:50%;pointer-events:none}
+.vapor i{position:absolute;bottom:0;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.35);filter:blur(4px);animation:vapor 2.2s ease-out infinite}
+.vapor i:nth-child(1){left:10%;animation-delay:.2s}.vapor i:nth-child(2){left:45%;animation-delay:.8s}.vapor i:nth-child(3){left:75%;animation-delay:1.4s}
+#intro .wm{font:700 clamp(2.4rem,11vw,3.6rem)/1 var(--display);letter-spacing:.02em;animation:sube .6s .35s ease both}
+#intro .wm .y{color:var(--ym-verde)} #intro .wm .m{color:var(--ym-naranja)}
+#intro .st{font:600 .9rem var(--body);letter-spacing:.55em;color:#e9dccb;margin-left:.55em;animation:sube .6s .55s ease both}
+#intro .made{font:400 .85rem var(--body);color:#a8957f;margin-top:14px;animation:sube .6s .8s ease both}
+#intro .skip{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));font-size:.75rem;color:#7d6c5a}
+@keyframes pop{from{transform:scale(.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes sube{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes vapor{0%{transform:translateY(0) scale(.6);opacity:0}25%{opacity:1}100%{transform:translateY(-60px) scale(1.8);opacity:0}}
+.brand{display:flex;align-items:center;gap:8px;font:600 .78rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.brand svg{width:26px;height:28px}
+.brand .y{color:var(--ym-verde)} .brand .m{color:var(--ym-naranja)}
+.cafecito{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.cafecito p{margin:0;flex:1 1 220px;min-width:0;font-size:.95rem}
+.cafecito a{display:inline-flex;align-items:center;gap:8px;background:var(--ym-naranja);color:#2a1a08;font:700 1rem var(--body);text-decoration:none;padding:10px 16px;border-radius:999px;white-space:nowrap}
+.cafecito a:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+footer.ym{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.82rem;color:var(--muted)}
+footer.ym svg{width:22px;height:24px}
+@media (prefers-reduced-motion:reduce){#intro *{animation:none!important}#intro{transition:none}}
+
+.finde{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:10px}
+.fd{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.fd .t{font-family:var(--display);font-size:2rem;font-weight:700;color:var(--sun);line-height:1}
+.fd .t span{font-size:1.2rem;color:var(--muted);font-weight:600;margin-left:6px}
+.veredicto{font:600 1.05rem var(--body);margin:0 0 4px}
+.efe{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.efe li{display:flex;gap:12px;align-items:baseline}
+.efe .anio{font:700 1.15rem var(--display);color:var(--ym-verde);min-width:3.4em;font-variant-numeric:tabular-nums}
+.efe .txt{min-width:0}
+.santo{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line)}
+.santo b{color:var(--ym-naranja)}
+.lema{margin:4px 0 0;font:600 1.05rem var(--body);color:var(--ym-verde)}
+.vacio-txt{font:600 1.6rem/1.1 var(--display);color:var(--muted)}
+
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top>div{min-width:0}
+.btn{font:600 .9rem var(--body);padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn.pri{background:var(--ym-verde);border-color:var(--ym-verde);color:#fff}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn:focus-visible,.aj input:focus-visible{outline:2px solid var(--rain);outline-offset:2px}
+details.aj summary{font:600 1.3rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.aj .form{display:flex;flex-direction:column;gap:8px;margin-top:12px;max-width:520px}
+.aj label{font:600 .8rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:6px}
+.aj input{font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);min-width:0;width:100%}
+.aj .row{display:flex;gap:8px;flex-wrap:wrap}
+.aj .row input{flex:1 1 200px}
+.aj .res{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.aj .res:empty{display:none}
+.aj .res button{text-align:left;border:0;border-bottom:1px solid var(--line);background:var(--surface);color:var(--fg);padding:9px 11px;font:inherit;cursor:pointer}
+.aj .res button:last-child{border-bottom:0}
+.cargando .day,.cargando .card{opacity:.55;transition:opacity .2s}
+.row-btn{display:flex;gap:8px;flex-wrap:wrap}
+body.grande .wrap{zoom:1.2}
+body.grande #btnGrande{background:var(--fg);color:var(--bg)}
+</style>
+</head>
+<body>
+<svg class="ym-sprite" aria-hidden="true"><symbol id="ymLogo" viewBox="0 0 120 130"><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="#7a4a24"/><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="none" stroke="#3a2210" stroke-width="3"/><ellipse cx="61" cy="40" rx="31" ry="9" fill="#bb9149"/><ellipse cx="61" cy="40" rx="25" ry="6" fill="#3f9d6c"/><path d="M38 34 Q30 18 44 14 Q46 28 38 34Z M52 30 Q52 12 66 12 Q62 26 52 30Z" fill="#3f9d6c"/><defs><linearGradient id="alpaca" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d949a"/><stop offset=".45" stop-color="#f4f6f7"/><stop offset="1" stop-color="#9aa1a6"/></linearGradient></defs><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="#5f666b" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="url(#alpaca)" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M70.5 33 L80.6 10" stroke="#fff" stroke-opacity=".75" stroke-width="1.2" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#d8b04a" stroke-width="5" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#f3dc8a" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="68" cy="41.5" rx="7" ry="2.6" fill="#2f7d52"/><path d="M62 41 q2 -2 4 0 M69 40 q2 -2 4 0" stroke="#5fbf86" stroke-width="1" fill="none"/><path d="M38 64 L54 70 M84 64 L68 70" stroke="#1a0e05" stroke-width="5" stroke-linecap="round"/><circle cx="47" cy="76" r="5" fill="#f2a73b"/><circle cx="75" cy="76" r="5" fill="#f2a73b"/><path d="M46 96 Q61 88 76 96" stroke="#1a0e05" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M28 98 Q60 120 92 98" stroke="#bb9149" stroke-width="5" fill="none"/></symbol></svg>
+<div id="intro" role="button" aria-label="Saltear intro">
+  <div class="mate"><div class="vapor"><i></i><i></i><i></i></div><svg viewBox="0 0 120 130" aria-hidden="true"><use href="#ymLogo"/></svg></div>
+  <div class="wm"><span class="y">Yerba</span> <span class="m">Mala</span></div>
+  <div class="st">STUDIOS</div>
+  <div class="made">Hecho en Argentina · con mate</div>
+  <div class="skip">Tocá para saltear</div>
+</div>
+<div class="wrap">
+  <header class="top"><div>
+    <div class="brand"><svg aria-hidden="true"><use href="#ymLogo"/></svg><span><span class="y">Yerba</span> <span class="m">Mala</span> Studios presenta</span></div>
+    <h1>Pronóstico real o no tanto</h1>
+    <p class="lema">El que más la pega, más pesa.</p>
+    <p class="sub" id="sub">Cebando el pronóstico…</p>
+  </div><div class="row-btn"><button class="btn" id="btnGrande" type="button" aria-pressed="false">A+ Letra grande</button><button class="btn" id="btnAct" type="button">↻ Actualizar</button></div></header>
+  <div id="alerts"></div>
+  <div class="days" id="days"></div>
+
+  <section class="card" id="cardFinde" hidden>
+    <h2>¿Cómo pinta el finde?</h2>
+    <p class="veredicto" id="veredicto"></p>
+    <div class="finde" id="finde"></div>
+    <p class="small" id="findeNota"></p>
+  </section>
+
+  <section class="card" id="cardEfe" hidden>
+    <h2>Un día como hoy</h2>
+    <ul class="efe" id="efe"></ul>
+    <p class="small" id="celebra"></p>
+    <p class="santo" id="santo"></p>
+  </section>
+
+  <section class="card">
+    <h2>¿Quién acierta más?</h2>
+    <div class="tabs" id="tabsRank">
+      <button data-l="1" class="on">A 1 día</button><button data-l="2">A 2 días</button>
+    </div>
+    <div class="tablewrap"><table id="rank"></table></div>
+    <p class="small" id="rankNote"></p>
+  </section>
+
+  <section class="card">
+    <h2>Qué dice cada fuente</h2>
+    <div class="tabs" id="tabsDet">
+      <button data-l="1" class="on">Mañana</button><button data-l="2">Pasado</button>
+    </div>
+    <div class="tablewrap"><table id="det"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Lo que pasó</h2>
+    <div class="tablewrap"><table id="obs"></table></div>
+  </section>
+
+  <details class="card aj" id="ajustes">
+    <summary>Ajustes</summary>
+    <div class="form">
+      <label for="aLugar">Lugar</label>
+      <div class="row"><input id="aLugar" type="search" autocomplete="off" placeholder="Buscar ciudad o barrio"><button class="btn" id="aBuscar" type="button">Buscar</button></div>
+      <div class="res" id="aRes"></div>
+      <label for="aMet">Clave de Meteored</label>
+      <input id="aMet" type="password" autocomplete="off" spellcheck="false" placeholder="Pegá tu clave acá">
+      <label for="aAcc">Clave de AccuWeather (opcional)</label>
+      <input id="aAcc" type="password" autocomplete="off" spellcheck="false" placeholder="Si no tenés, dejalo vacío">
+      <div class="row" style="margin-top:8px"><button class="btn pri" id="aGuardar" type="button">Guardar y actualizar</button><button class="btn" id="aBorrar" type="button">Borrar historial</button></div>
+      <p class="small" id="aInfo"></p>
+    </div>
+  </details>
+  <section class="card note">
+    <details>
+      <summary>Cómo funciona</summary>
+      <p>Cada vez que abrís la página consulta en vivo al SMN, Meteored, AccuWeather y siete modelos globales. Lo que dicen los sitios queda guardado en este navegador para compararlo cuando llegue el día.</p>
+      <p>Los modelos se pueden verificar enseguida, porque Open-Meteo guarda lo que pronosticaron antes. Los sitios empiezan a tener puntaje una semana después de abrirla por primera vez: lo que pasó sale del reanálisis ERA5, que tiene unos 5 días de demora.</p>
+      <p>Meteored y AccuWeather se consultan una sola vez por día; si recargás, usa lo que ya bajó.</p>
+      <p>El peso de cada fuente es inverso al cuadrado de su error. Una fuente nueva arranca con un peso parecido al promedio y se va ajustando a medida que junta días.</p>
+    </details>
+  </section>
+  <aside class="cafecito">
+    <p><b>¿Te sirvió el pronóstico?</b> Invitame un cafecito y me ayudás a seguir haciendo cosas como esta.</p>
+    <a href="https://cafecito.app/yerbamalastudios" target="_blank" rel="noopener">☕ Invitame un cafecito</a>
+  </aside>
+  <footer class="ym"><svg aria-hidden="true"><use href="#ymLogo"/></svg>Yerba Mala Studios · Datos: SMN, Meteored, AccuWeather y Open-Meteo</footer>
+</div>
+<script>
+(function(){const el=document.getElementById("intro");let visto=false;try{visto=sessionStorage.getItem("ym_intro")==="1";}catch(e){}
+const cerrar=()=>{el.classList.add("out");setTimeout(()=>el.remove(),650);try{sessionStorage.setItem("ym_intro","1");}catch(e){}};
+if(visto){el.remove();return;}el.addEventListener("click",cerrar);setTimeout(cerrar,2600);})();
+const $=id=>document.getElementById(id);
+const f1=(v,d=1)=>v==null||isNaN(v)?"–":(+v).toFixed(d);
+const pct=v=>v==null?"–":Math.round(v*100)+"%";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const FRASES={
+  lluviaFuerte:["Llevá paraguas o llegá como pollito mojado.","Día de tortas fritas, no hay discusión.","Si tenés ropa colgada, es ahora o nunca.","Las zanjas de La Matanza ya se están preparando."],
+  lluviaDudosa:["Puede llover, puede que no. Como el colectivo: nunca se sabe cuándo viene.","Llevá el paraguas igual, que si lo dejás seguro llueve.","El cielo está más indeciso que vos eligiendo pizza."],
+  calorFuerte:["Calor de colectivo sin aire en hora pico.","Ideal para inflar la pileta de lona.","Hoy el asfalto de la General Paz se derrite."],
+  calor:["Día de tereré, el mate cambia de temperatura.","Remera y ojotas, como manda la tradición.","Lindo para un choripán en la plaza."],
+  templado:["Ni frío ni calor: clima de asado.","El clima ideal para quejarse igual de algo.","Día perfecto, no te acostumbres."],
+  fresco:["Día de guiso y mantita.","Buzo sí, campera tal vez. Andá con capas como cebolla.","Ideal para un mate bien caliente."],
+  frio:["Sacá la campera de la abuela, la que pesa tres kilos.","Frío de pata de pingüino.","Hoy la estufa es tu mejor amiga."],
+  peleados:["Las fuentes no se ponen de acuerdo, como reunión de consorcio.","Cada sitio dice una cosa distinta. Clásico argentino."]
+};
+function chiste(d){
+  const h=[...d.fecha].reduce((a,c)=>a*31+c.charCodeAt(0),7)>>>0;
+  const pick=a=>a[h%a.length];
+  if(d.rango_tmax!=null&&d.rango_tmax>5) return pick(FRASES.peleados);
+  if(d.chance_lluvia!=null&&d.chance_lluvia>=0.6) return pick(FRASES.lluviaFuerte);
+  if(d.chance_lluvia!=null&&d.chance_lluvia>=0.3) return pick(FRASES.lluviaDudosa);
+  const t=d.tmax;
+  if(t==null) return "";
+  if(t>=32) return pick(FRASES.calorFuerte);
+  if(t>=26) return pick(FRASES.calor);
+  if(t>=18) return pick(FRASES.templado);
+  if(d.tmin!=null&&d.tmin<5) return pick(FRASES.frio);
+  return pick(FRASES.fresco);
+}
+let S=null, lRank=1, lDet=1;
+const nom=k=>S.nombres[k]||k;
+const tipo=k=>k.startsWith("om_")?'<span class="tag">modelo</span>':'<span class="tag">sitio</span>';
+function fecha(s,c){return new Date(s+"T12:00:00").toLocaleDateString("es-AR",c?{weekday:"short",day:"numeric"}:{weekday:"long",day:"numeric",month:"short"});}
+
+function render(){
+  $("sub").textContent=`${S.lugar} · actualizado ${new Date(S.generado).toLocaleString("es-AR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}`;
+  const errs=Object.entries(S.errores||{});
+  $("alerts").innerHTML=errs.length?`<div class="alert"><b>No se pudo consultar hoy:</b> ${errs.map(([k,v])=>esc(k)+" ("+esc(v).slice(0,260)+")").join("; ")}</div>`:"";
+
+  $("days").innerHTML=S.dias.map(d=>{
+    if(!d.fuentes.length) return `<article class="day vacio">
+      <div class="label">${d.anticipacion===1?"Mañana":"Pasado mañana"} · ${fecha(d.fecha)}</div>
+      <div class="vacio-txt">Sin datos todavía</div>
+      <div class="small">Ninguna fuente respondió. Revisá la conexión y tocá Actualizar.</div>
+    </article>`;
+    const r=d.rango_tmax;
+    const acuerdo=r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°)</span>`:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango)</span>`:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango)</span>`;
+    return `<article class="day">
+      <div class="label">${d.anticipacion===1?"Mañana":"Pasado mañana"} · ${fecha(d.fecha)}</div>
+      <div class="temps"><span class="tmax">${f1(d.tmax)}°</span><span class="tmin">${f1(d.tmin)}°</span></div>
+      <div class="rain"><span>Lluvia <b>${f1(d.lluvia)} mm</b></span><span>Chance <b>${pct(d.chance_lluvia)}</b></span></div>
+      <div class="chiste">${esc(chiste(d))}</div>
+      <div class="small">${acuerdo}</div>
+      <div class="small">${d.fuentes.length} fuentes · promedio simple: ${f1(d.promedio_simple_tmax)}° de máxima</div>
+    </article>`;}).join("");
+
+  // Ranking
+  const L=String(lRank);
+  const filas=Object.keys(S.nombres).map(k=>({k,s:(S.puntajes[k]||{})[L]})).filter(r=>r.s);
+  const dActual=S.dias.find(d=>d.anticipacion===lRank);
+  const peso=k=>(dActual?.fuentes.find(f=>f.fuente===k)||{}).peso_temp;
+  filas.sort((a,b)=>(a.s.error_temp??99)-(b.s.error_temp??99));
+  const maxW=Math.max(...filas.map(r=>peso(r.k)||0),0.0001);
+  $("rank").innerHTML=`<tr><th>Fuente</th><th>Error temp.</th><th>Error lluvia</th><th>Acierta si llueve</th><th>Días</th><th>Peso hoy</th></tr>`+
+    (filas.length?filas.map(r=>`<tr><td>${esc(nom(r.k))}${tipo(r.k)}</td>
+      <td>${r.s.error_temp==null?"–":"±"+f1(r.s.error_temp)+"°"}</td>
+      <td>${r.s.error_lluvia==null?"–":f1(r.s.error_lluvia)+" mm"}</td>
+      <td>${pct(r.s.acierto_lluvia)}</td><td>${r.s.dias_temp}</td>
+      <td>${peso(r.k)==null?"–":`<span class="bar" style="width:${Math.round(56*peso(r.k)/maxW)}px"></span>${pct(peso(r.k))}`}</td></tr>`).join("")
+    :`<tr><td colspan="6">Todavía no hay días verificados. Volvé en 2 o 3 días, que esto es como el asado: lleva su tiempo.</td></tr>`);
+  const sinDatos=Object.keys(S.nombres).filter(k=>!(S.puntajes[k]||{})[L] && dActual?.fuentes.some(f=>f.fuente===k));
+  const mejor=filas.find(r=>r.s.error_temp!=null);
+  const conErr=filas.filter(r=>r.s.error_temp!=null), peor=conErr.length>2?conErr[conErr.length-1]:null;
+  $("rankNote").textContent=(mejor?`La viene pegando ${nom(mejor.k)}: se equivoca ±${f1(mejor.s.error_temp)}° en promedio. `:"")+
+    (peor?`${nom(peor.k)} anda más perdido que perro en cancha de bochas (±${f1(peor.s.error_temp)}°). `:"")+
+    (sinDatos.length?`Aún sin días para verificar: ${sinDatos.map(nom).join(", ")} (arrancan con peso promedio).`:"");
+
+  // Detalle
+  const d=S.dias.find(x=>x.anticipacion===lDet);
+  $("det").innerHTML=`<tr><th>Fuente</th><th>Máx</th><th>Mín</th><th>Lluvia</th><th>Prob.</th><th>Peso T / Ll</th></tr>`+
+    d.fuentes.map(r=>`<tr><td>${esc(nom(r.fuente))}${tipo(r.fuente)}</td><td>${f1(r.tmax)}°</td><td>${f1(r.tmin)}°</td><td>${f1(r.lluvia)}</td><td>${r.prob==null?"–":Math.round(r.prob)+"%"}</td><td>${pct(r.peso_temp)} / ${pct(r.peso_lluvia)}</td></tr>`).join("")+
+    `<tr class="tot"><td>Ponderado</td><td>${f1(d.tmax)}°</td><td>${f1(d.tmin)}°</td><td>${f1(d.lluvia)}</td><td>${pct(d.chance_lluvia)}</td><td></td></tr>`;
+
+  // Observado
+  const ob=[...(S.observado_reciente||[])].reverse();
+  $("obs").innerHTML=`<tr><th>Día</th><th>Máx</th><th>Mín</th><th>Lluvia</th><th>Dato de</th></tr>`+
+    ob.map(o=>`<tr><td>${fecha(o.fecha,1)}</td><td>${f1(o.tmax)}°</td><td>${f1(o.tmin)}°</td><td>${o.lluvia==null?"–":f1(o.lluvia)+" mm"}</td><td>${esc(o.fuente_temp||"–")}</td></tr>`).join("");
+}
+
+function veredictoFinde(fd){
+  const ll=fd.map(d=>d.chance_lluvia??0), tx=fd.map(d=>d.tmax??20);
+  const llueve=ll.filter(x=>x>=0.6).length, dudoso=ll.filter(x=>x>=0.3).length, max=Math.max(...tx), min=Math.min(...fd.map(d=>d.tmin??10));
+  if(llueve===fd.length) return "Finde de guiso, mate y series. El paraguas, en la puerta.";
+  if(llueve>0) return "Un día sí y otro no: armá el asado el día bueno y no te confíes.";
+  if(dudoso>0) return "Puede caer algo: asado con un ojo en el cielo y la lona a mano.";
+  if(max>=30) return "Pinta pileta y sombra. Si hay asado, que el parrillero tome agua.";
+  if(max>=22) return "Pinta asado. Avisale a tu cuñado que esta vez lleve él el carbón.";
+  if(min<6) return "Finde de estufa y frazada. Ideal para un locro.";
+  return "Lindo para una vuelta por la plaza con el mate. Llevá un buzo por las dudas.";
+}
+function renderExtras(){
+  const fd=S.finde||[];
+  $("cardFinde").hidden=!fd.length;
+  if(fd.length){
+    $("veredicto").textContent=veredictoFinde(fd);
+    $("finde").innerHTML=fd.map(d=>`<div class="fd"><div class="label">${new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric"})}</div>
+      <div class="t">${f1(d.tmax,0)}°<span>${f1(d.tmin,0)}°</span></div>
+      <div class="rain"><span>Lluvia <b>${pct(d.chance_lluvia)}</b></span></div>
+      <div class="small">${d.fuentes.length} fuentes</div></div>`).join("");
+    const lejos=Math.max(...fd.map(d=>d.anticipacion));
+    $("findeNota").textContent=lejos>3?`Faltan ${lejos} días: tomalo con pinzas, esto todavía puede cambiar más que la cotización del dólar.`:"Ya está cerca, así que el pronóstico es bastante confiable.";
+  }
+  const e=S.efemerides;
+  $("cardEfe").hidden=!e||(!(e.eventos||[]).length&&!e.santo);
+  if(!e) return;
+  $("efe").innerHTML=(e.eventos||[]).map(x=>`<li><span class="anio">${esc(x.anio)}</span><span class="txt">${esc(x.texto)}</span></li>`).join("");
+  $("celebra").textContent=(e.celebraciones||[]).length?"Hoy se celebra: "+e.celebraciones.join(" · "):"";
+  if(e.santo){
+    const m=e.santo.match(/\b(san|santa|santo|beato|beata)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)/i);
+    const nombre=m?m[2]:null, fem=m&&/^(santa|beata)$/i.test(m[1]);
+    $("santo").innerHTML=`Santoral: <b>${esc(e.santo)}</b>`+(nombre?`<br><span class="small">¿Conocés a ${fem?"alguna":"algún"} ${esc(nombre)}? Mandale un saludo, que hoy es su día.</span>`:"")+
+      ((e.otros_santos||[]).length?`<br><span class="small">También: ${e.otros_santos.map(esc).join(" · ")}</span>`:"");
+  } else $("santo").textContent="";
+}
+function tabs(id,set){$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!S)return;set(+b.dataset.l);[...$(id).children].forEach(x=>x.classList.toggle("on",x===b));render();});}
+tabs("tabsRank",v=>lRank=v); tabs("tabsDet",v=>lDet=v);
+// ===== Motor en el navegador: consulta todo en vivo y guarda el historial en este navegador =====
+const CFG={
+  modelos:{ecmwf_ifs025:"ECMWF (Europa)",gfs_seamless:"GFS (EE.UU.)",icon_seamless:"ICON (Alemania)",gem_seamless:"GEM (Canadá)",
+    meteofrance_seamless:"Météo-France",jma_seamless:"JMA (Japón)",ukmo_seamless:"UK Met Office"},
+  diasEval:30, vidaMedia:10
+};
+const LS={
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}},
+  del(k){try{localStorage.removeItem(k);}catch(e){}}
+};
+const AJ_DEF={lugar:"Lomas del Mirador",lat:-34.66,lon:-58.53,tz:"America/Argentina/Buenos_Aires",meteored:"",accu:""};
+let AJ=Object.assign({},AJ_DEF,LS.get("pp_ajustes",{}));
+
+const ymd=d=>new Intl.DateTimeFormat("en-CA",{timeZone:AJ.tz,year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+const addDays=(s,n)=>{const d=new Date(s+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);};
+const diasEntre=(a,b)=>Math.round((Date.parse(b+"T12:00:00Z")-Date.parse(a+"T12:00:00Z"))/864e5);
+const diaSemana=s=>new Date(s+"T12:00:00Z").getUTCDay();
+function num(v){if(v&&typeof v==="object"&&!Array.isArray(v))v=v.value??v.Value;const f=parseFloat(v);return Number.isFinite(f)?f:null;}
+async function getJSON(url,opts){
+  const r=await fetch(url,opts);
+  if(!r.ok){let extra="";try{extra=(await r.text()).slice(0,120);}catch(e){}throw new Error("respondió "+r.status+(extra?": "+extra:""));}
+  return r.json();
+}
+function amigable(e){
+  if(e instanceof TypeError||/fetch|network|load failed|NetworkError/i.test(String(e&&e.message))) return "no responde o no deja consultarlo desde acá";
+  return e.message||String(e);
+}
+const qs=o=>new URLSearchParams(o).toString();
+const baseQ=()=>({latitude:AJ.lat,longitude:AJ.lon,timezone:AJ.tz});
+
+// ---------- modelos globales (Open-Meteo)
+async function fuenteModelos(){
+  const j=await getJSON("https://api.open-meteo.com/v1/forecast?"+qs({...baseQ(),
+    daily:"temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max",
+    models:Object.keys(CFG.modelos).join(","),forecast_days:8}));
+  const d=j.daily,out={};
+  for(const m of Object.keys(CFG.modelos)){
+    const serie={};
+    d.time.forEach((t,i)=>{const g=k=>(d[k+"_"+m]||[])[i];
+      const v={tmax:num(g("temperature_2m_max")),tmin:num(g("temperature_2m_min")),lluvia:num(g("precipitation_sum")),prob:num(g("precipitation_probability_max"))};
+      if(v.tmax!=null)serie[t]=v;});
+    out["om_"+m]=serie;
+  }
+  return out;
+}
+// Lo que pronosticaron los modelos 1 y 2 días antes (para el ranking, sin esperar)
+async function historialModelos(hoy){
+  const vars=[];for(const v of["temperature_2m","precipitation"])for(const L of[1,2])vars.push(`${v}_previous_day${L}`);
+  const j=await getJSON("https://previous-runs-api.open-meteo.com/v1/forecast?"+qs({...baseQ(),hourly:vars.join(","),
+    models:Object.keys(CFG.modelos).join(","),start_date:addDays(hoy,-(CFG.diasEval+2)),end_date:addDays(hoy,-1)}));
+  const h=j.hourly,ent=[];
+  for(const m of Object.keys(CFG.modelos))for(const L of[1,2]){
+    const T=h[`temperature_2m_previous_day${L}_${m}`],P=h[`precipitation_previous_day${L}_${m}`];
+    if(!T)continue;
+    const agg={};
+    h.time.forEach((t,i)=>{const a=agg[t.slice(0,10)]??={t:[],p:[]};if(T[i]!=null)a.t.push(T[i]);if(P&&P[i]!=null)a.p.push(P[i]);});
+    for(const[f,a]of Object.entries(agg)){
+      if(a.t.length<20)continue;
+      ent.push({f:"om_"+m,L,fecha:f,p:{tmax:Math.max(...a.t),tmin:Math.min(...a.t),lluvia:a.p.length>=20?a.p.reduce((x,y)=>x+y,0):null}});
+    }
+  }
+  return ent;
+}
+// Lo que pasó (reanálisis ERA5, ~5 días de demora)
+async function observado(hoy){
+  const j=await getJSON("https://archive-api.open-meteo.com/v1/archive?"+qs({...baseQ(),start_date:addDays(hoy,-(CFG.diasEval+12)),end_date:addDays(hoy,-1),
+    daily:"temperature_2m_max,temperature_2m_min,precipitation_sum"}));
+  const d=j.daily,obs={};
+  d.time.forEach((f,i)=>{const tx=num(d.temperature_2m_max[i]),tn=num(d.temperature_2m_min[i]),p=num(d.precipitation_sum[i]);
+    if(tx!=null||p!=null)obs[f]={tmax:tx,tmin:tn,lluvia:p,fuente_temp:"ERA5"};});
+  return obs;
+}
+
+// ---------- SMN
+async function fuenteSMN(hoy){
+  const serie={};let est=null;
+  for(let N=1;N<=4;N++){
+    const j=await getJSON(`https://ws.smn.gob.ar/map_items/forecast/${N}`);
+    const lista=Array.isArray(j)?j:(j.items||j.data||[]);
+    let best=null,bd=1e9;
+    for(const it of lista){const la=num(it.lat),lo=num(it.lon);if(la==null||lo==null)continue;const d=(la-AJ.lat)**2+(lo-AJ.lon)**2;if(d<bd){bd=d;best=it;}}
+    if(!best)throw new Error("la respuesta no trae estaciones");
+    est=best.name||est;
+    const w=best.weather||best;
+    const temps=Object.entries(w).filter(([k,v])=>/temp/i.test(k)&&num(v)!=null).map(([k,v])=>num(v));
+    const probs=Object.entries(w).filter(([k,v])=>/prob/i.test(k)&&num(v)!=null).map(([k,v])=>num(v));
+    if(temps.length<2)continue;
+    let f=null;for(const[k,v]of Object.entries(w))if(/date|fecha/i.test(k))f=f||aFecha(v);
+    f=f||addDays(hoy,N-1);
+    serie[f]={tmax:Math.max(...temps),tmin:Math.min(...temps),lluvia:null,prob:probs.length?Math.max(...probs):null};
+  }
+  if(!Object.keys(serie).length)throw new Error("no pude leer las temperaturas");
+  return {serie,est};
+}
+
+// ---------- lector tolerante para APIs con formato desconocido
+function buscar(o,pred,p=0,out=[]){if(p>12)return out;if(pred(o))out.push(o);
+  if(Array.isArray(o))o.forEach(v=>buscar(v,pred,p+1,out));else if(o&&typeof o==="object")Object.values(o).forEach(v=>buscar(v,pred,p+1,out));return out;}
+function aFecha(v){
+  if(typeof v==="number"){const ms=v>1e11?v:v*1000;return ymd(new Date(ms));}
+  if(typeof v==="string"){let m=v.match(/(\d{4})-(\d{2})-(\d{2})/);if(m)return m[0];m=v.match(/(\d{4})(\d{2})(\d{2})/);if(m)return`${m[1]}-${m[2]}-${m[3]}`;}
+  return null;
+}
+function extraerDiario(j){
+  const esDia=o=>{if(!o||typeof o!=="object"||Array.isArray(o))return false;const ks=Object.keys(o).join(" ").toLowerCase();return(ks.includes("max")&&ks.includes("min"))||ks.includes("temperature");};
+  const serie={};
+  for(const o of buscar(j,esDia)){
+    let f=null;
+    for(const k of["start","date","day","time","fecha","dt","datetime","valid"])for(const[kk,vv]of Object.entries(o))if(!f&&kk.toLowerCase().startsWith(k))f=aFecha(vv);
+    if(!f)continue;
+    let tmax=null,tmin=null,lluvia=null,prob=null;
+    for(const[kk,vv]of Object.entries(o)){const k=kk.toLowerCase();
+      if(vv&&typeof vv==="object"&&!Array.isArray(vv)&&("max"in vv||"min"in vv)){tmax??=num(vv.max);tmin??=num(vv.min);}
+      else if(k.includes("max")&&(k.includes("temp")||k==="max"||k==="tmax"))tmax=num(vv);
+      else if(k.includes("min")&&(k.includes("temp")||k==="min"||k==="tmin"))tmin=num(vv);
+      else if((k.includes("rain")||k.includes("precip")||k.includes("lluvia"))&&!k.includes("prob")){let v=num(vv);if(v==null&&vv&&typeof vv==="object")v=num(vv.total??vv.amount);lluvia??=v;}
+      else if(k.includes("prob"))prob=num(vv);
+    }
+    if(tmax!=null&&tmin!=null&&!(f in serie))serie[f]={tmax,tmin,lluvia,prob};
+  }
+  return serie;
+}
+// Guarda la respuesta de cada sitio una vez por día: no se gastan llamadas al recargar
+function cacheDia(nombre,hoy){const c=LS.get("pp_c_"+nombre,null);return c&&c.fecha===hoy&&c.lat===AJ.lat&&c.lon===AJ.lon?c.serie:null;}
+function guardarCache(nombre,hoy,serie){LS.set("pp_c_"+nombre,{fecha:hoy,lat:AJ.lat,lon:AJ.lon,serie});}
+
+// ---------- Meteored (límite 50 por día: acá se usa 1, y 1 más la primera vez por lugar)
+async function fuenteMeteored(hoy){
+  if(!AJ.meteored)return null;
+  const c=cacheDia("meteored",hoy);if(c)return c;
+  const h={headers:{"x-api-key":AJ.meteored,"Accept":"application/json"}};
+  const kHash="pp_meteored_hash_"+AJ.lat+"_"+AJ.lon;
+  let hash=LS.get(kHash,null);
+  if(!hash){
+    const j=await getJSON(`https://api.meteored.com/api/location/v1/search/coords/${AJ.lat}/${AJ.lon}`,h);
+    const hs=buscar(j,o=>o&&typeof o==="object"&&typeof o.hash==="string");
+    if(!hs.length)throw new Error("no devolvió una ubicación");
+    hash=hs[0].hash;LS.set(kHash,hash);
+  }
+  const j=await getJSON(`https://api.meteored.com/api/forecast/v1/daily/${hash}`,h);
+  const serie=extraerDiario(j);
+  if(!Object.keys(serie).length){LS.set("pp_debug_meteored",j);throw new Error("no pude leer el pronóstico (respuesta guardada para revisar)");}
+  guardarCache("meteored",hoy,serie);
+  return serie;
+}
+// ---------- AccuWeather (opcional)
+async function fuenteAccu(hoy){
+  if(!AJ.accu)return null;
+  const c=cacheDia("accuweather",hoy);if(c)return c;
+  const kLoc="pp_accu_loc_"+AJ.lat+"_"+AJ.lon;
+  let key=LS.get(kLoc,null);
+  if(!key){const j=await getJSON("https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?"+qs({apikey:AJ.accu,q:AJ.lat+","+AJ.lon,language:"es-ar"}));key=j.Key;LS.set(kLoc,key);}
+  const j=await getJSON(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}?`+qs({apikey:AJ.accu,metric:"true",details:"true",language:"es-ar"}));
+  const serie={};
+  for(const d of j.DailyForecasts||[]){
+    let ll=null;for(const p of["Day","Night"]){const v=num((d[p]||{}).TotalLiquid);if(v!=null)ll=(ll||0)+v;}
+    const pr=["Day","Night"].map(p=>num((d[p]||{}).PrecipitationProbability)).filter(x=>x!=null);
+    serie[d.Date.slice(0,10)]={tmax:num(d.Temperature.Maximum),tmin:num(d.Temperature.Minimum),lluvia:ll,prob:pr.length?Math.max(...pr):null};
+  }
+  guardarCache("accuweather",hoy,serie);
+  return serie;
+}
+
+// ---------- Efemérides y santoral (Wikipedia en español)
+const MESES_ES=["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const CLAVES_AR=["argentin","buenos aires","río de la plata","rio de la plata","malvinas","san martín","belgrano","sarmiento","perón","yrigoyen","alfonsín","rosas","güemes","córdoba","rosario","mendoza","tucumán","salta","la plata","patagonia","maradona","messi","boca juniors","river plate","mar del plata","santa fe","entre ríos","corrientes","la matanza"];
+function limpiarWiki(t){
+  t=t.replace(/<!--[\s\S]*?-->/g,"").replace(/<ref[^>]*\/>/g,"").replace(/<ref[^>]*>[\s\S]*?<\/ref>/g,"");
+  for(let i=0;i<3;i++)t=t.replace(/\{\{[^{}]*\}\}/g,"");
+  t=t.replace(/\[\[(?:Archivo|File|Imagen|Image):[^\]]*\]\]/g,"").replace(/\[\[([^\]|]*)\|([^\]]*)\]\]/g,"$2").replace(/\[\[([^\]]*)\]\]/g,"$1")
+     .replace(/\[https?:\/\/\S+\s([^\]]*)\]/g,"$1").replace(/'{2,}/g,"").replace(/<[^>]+>/g,"");
+  return t.replace(/\s+/g," ").trim().replace(/^[\s:;\-—]+|[\s:;\-—]+$/g,"");
+}
+function parseEfemerides(texto,fecha){
+  const sec={};let act="_";
+  for(const l of texto.split("\n")){const m=l.match(/^(=+)\s*(.*?)\s*\1\s*$/);if(m){act=limpiarWiki(m[2]).toLowerCase();sec[act]??=[];}else(sec[act]??=[]).push(l);}
+  const ev=[];let anio=null;
+  const acont=Object.entries(sec).find(([k])=>k.startsWith("acontecimientos"));
+  for(const l of acont?acont[1]:[]){
+    if(!l.startsWith("*"))continue;
+    const m=l.match(/^\*+\s*(?:\[\[)?(\d{1,4})(?:\]\])?(\s*a\.\s*C\.)?\s*[:—–-]?\s*(.*)$/);
+    let txt;
+    if(m&&!l.startsWith("**")){anio=m[1]+(m[2]?" a. C.":"");txt=limpiarWiki(m[3]);}else txt=limpiarWiki(l.replace(/^\*+/,""));
+    if(anio&&txt.length>15)ev.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});
+  }
+  const esAR=e=>CLAVES_AR.some(c=>e.texto.toLowerCase().includes(c));
+  const ar=ev.filter(esAR),resto=ev.filter(e=>!esAR(e));
+  const semilla=parseInt(fecha.replace(/-/g,""));
+  const elegidos=ar.slice(0,3);
+  for(let i=0;i<6&&elegidos.length<3&&resto.length;i++){const e=resto[(semilla*(i+7))%resto.length];if(!elegidos.includes(e))elegidos.push(e);}
+  let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
+  santos=santos.filter(Boolean);
+  const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
+  return {fecha,eventos:elegidos.map(e=>({...e,argentina:ar.includes(e)})),santo:santos[0]||null,otros_santos:santos.slice(1,4),
+    celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3)};
+}
+async function efemerides(hoy){
+  const c=LS.get("pp_c_efemerides",null);if(c&&c.fecha===hoy)return c;
+  const [a,m,d]=hoy.split("-").map(Number);
+  const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
+  const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
+  if(!txt)throw new Error("no encontré la página del día");
+  const r=parseEfemerides(txt,hoy);
+  LS.set("pp_c_efemerides",r);
+  return r;
+}
+
+// ---------- puntaje, pesos y combinación (igual que la versión de GitHub)
+function puntuar(hoy,obs,entradas){
+  const acc={};
+  for(const{f,L,fecha,p}of entradas){
+    const o=obs[fecha];if(!o||!p)continue;
+    const edad=diasEntre(fecha,hoy);if(edad<1||edad>CFG.diasEval)continue;
+    const w=0.5**(edad/CFG.vidaMedia);
+    const a=(acc[f]??={})[L]??={eT:0,wT:0,nT:0,eP:0,wP:0,nP:0,ok:0};
+    if(p.tmax!=null&&p.tmin!=null&&o.tmax!=null&&o.tmin!=null){a.eT+=w*(Math.abs(p.tmax-o.tmax)+Math.abs(p.tmin-o.tmin))/2;a.wT+=w;a.nT++;}
+    if(p.lluvia!=null&&o.lluvia!=null){a.eP+=w*Math.abs(p.lluvia-o.lluvia);a.wP+=w;a.nP++;a.ok+=(p.lluvia>=1)===(o.lluvia>=1)?1:0;}
+  }
+  const res={};
+  for(const[f,porL]of Object.entries(acc))for(const[L,a]of Object.entries(porL))
+    (res[f]??={})[L]={error_temp:a.wT?a.eT/a.wT:null,dias_temp:a.nT,error_lluvia:a.wP?a.eP/a.wP:null,dias_lluvia:a.nP,acierto_lluvia:a.nP?a.ok/a.nP:null};
+  return res;
+}
+function pesos(punt,fuentes,L){
+  const K=5,out={};
+  for(const[campo,piso,nd,clave]of[["error_temp",0.3,"dias_temp","temp"],["error_lluvia",0.5,"dias_lluvia","lluvia"]]){
+    const con=fuentes.map(f=>punt[f]?.[L]?.[campo]).filter(x=>x!=null);
+    const previo=con.length?con.reduce((a,b)=>a+b,0)/con.length:1.5;
+    const crudo={};
+    for(const f of fuentes){const s=punt[f]?.[L]||{},n=s[nd]||0,e=s[campo];const ef=e!=null?(n*e+K*previo)/(n+K):previo;crudo[f]=1/(ef+piso)**2;}
+    const tot=Object.values(crudo).reduce((a,b)=>a+b,0)||1;
+    for(const f of fuentes)(out[f]??={})[clave]=crudo[f]/tot;
+  }
+  return out;
+}
+function combinarFecha(arch,punt,f,L){
+  const fuentes=Object.keys(arch).filter(k=>arch[k]?.[f]);
+  const w=pesos(punt,fuentes,String(Math.min(L,2)));
+  const filas=[];let sT=0,sX=0,sN=0,sP=0,sPP=0,sR=0;
+  for(const k of fuentes){
+    const v=arch[k][f];
+    filas.push({fuente:k,tmax:v.tmax,tmin:v.tmin,lluvia:v.lluvia,prob:v.prob,peso_temp:w[k].temp,peso_lluvia:w[k].lluvia});
+    if(v.tmax!=null&&v.tmin!=null){sT+=w[k].temp;sX+=w[k].temp*v.tmax;sN+=w[k].temp*v.tmin;}
+    if(v.lluvia!=null){sP+=w[k].lluvia;sPP+=w[k].lluvia*v.lluvia;sR+=w[k].lluvia*(v.lluvia>=1?1:0);}
+  }
+  const txs=filas.map(r=>r.tmax).filter(x=>x!=null);
+  return{anticipacion:L,fecha:f,tmax:sT?sX/sT:null,tmin:sT?sN/sT:null,lluvia:sP?sPP/sP:null,chance_lluvia:sP?sR/sP:null,
+    promedio_simple_tmax:txs.length?txs.reduce((a,b)=>a+b,0)/txs.length:null,rango_tmax:txs.length?Math.max(...txs)-Math.min(...txs):null,
+    fuentes:filas.sort((a,b)=>b.peso_temp-a.peso_temp)};
+}
+
+// ---------- todo junto
+async function armar(){
+  const hoy=ymd(new Date()),errores={};
+  const intentar=async(nombre,fn)=>{try{return await fn();}catch(e){errores[nombre]=amigable(e);console.warn(nombre,e);return null;}};
+  // En GitHub, el programa diario deja los datos del SMN y Meteored en datos/sitios.json
+  let srv=null;
+  if(/^https?:/.test(location.protocol)){
+    try{const j=await getJSON("datos/sitios.json?t="+Date.now());
+      if(Math.abs(j.lat-AJ.lat)<0.05&&Math.abs(j.lon-AJ.lon)<0.05)srv=j;}catch(e){}
+  }
+  const [mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
+    intentar("Modelos globales",fuenteModelos),
+    intentar("Historial de modelos",()=>historialModelos(hoy)),
+    intentar("Lo que pasó (ERA5)",()=>observado(hoy)),
+    srv?null:intentar("SMN",()=>fuenteSMN(hoy)),
+    srv?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
+    srv?null:intentar("AccuWeather",()=>fuenteAccu(hoy)),
+    intentar("Efemérides",()=>efemerides(hoy))
+  ]);
+  const sitios={};let h,estSMN=smn&&smn.est;
+  if(srv){
+    h=srv.hist||{};estSMN=srv.smn_estacion||null;
+    for(const[k,v]of Object.entries(srv.errores||{}))errores[k+" (programa diario)"]=v;
+    // Lo más nuevo que bajó el programa (hoy, o ayer si todavía no corrió)
+    const ult=Object.keys(h).sort().filter(f=>f<=hoy).pop();
+    if(ult)for(const[k,serie]of Object.entries(h[ult])){const fut={};for(const[f,v]of Object.entries(serie))if(f>hoy)fut[f]=v;if(Object.keys(fut).length)sitios[k]=fut;}
+    if(ult&&diasEntre(ult,hoy)>1)errores["Programa diario"]="no corre desde el "+ult+". Revisá la pestaña Actions en GitHub";
+  }else{
+    // Pronósticos de hoy de cada sitio: se guardan en este navegador para compararlos cuando llegue el día
+    if(smn)sitios.smn=smn.serie;
+    if(met)sitios.meteored=met;
+    if(acc)sitios.accuweather=acc;
+    const hist=LS.get("pp_hist",{}),clave=AJ.lat+"_"+AJ.lon;
+    h=(hist[clave]??={});
+    for(const[k,serie]of Object.entries(sitios)){
+      const fut={};for(const[f,v]of Object.entries(serie))if(f>=hoy)fut[f]=v;
+      if(Object.keys(fut).length)(h[hoy]??={})[k]=fut;
+    }
+    for(const f of Object.keys(h))if(diasEntre(f,hoy)>CFG.diasEval+5)delete h[f];
+    if(!LS.set("pp_hist",hist))errores["Historial"]="el navegador no deja guardar datos (¿ventana privada?)";
+  }
+
+  const entradas=[...(histMod||[])];
+  for(const[emit,porF]of Object.entries(h))for(const[k,serie]of Object.entries(porF))for(const L of[1,2]){
+    const f=addDays(emit,L);if(serie[f])entradas.push({f:k,L,fecha:f,p:serie[f]});
+  }
+  const punt=puntuar(hoy,obs||{},entradas);
+  const arch={...(mod||{}),...sitios};
+  const dias=[1,2].map(L=>combinarFecha(arch,punt,addDays(hoy,L),L));
+  const finde=[];
+  for(let L=1;L<=7;L++){const f=addDays(hoy,L),wd=diaSemana(f);
+    if(wd===6||wd===0){const r=combinarFecha(arch,punt,f,L);if(r.fuentes.length)finde.push(r);if(wd===0)break;}}
+  const nombres={};for(const[k,v]of Object.entries(CFG.modelos))nombres["om_"+k]=v;
+  Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored",accuweather:"AccuWeather"});
+  const base=["Modelos globales","Historial de modelos","Lo que pasó (ERA5)","Efemérides"];
+  if(base.every(k=>errores[k])){
+    for(const k of Object.keys(errores))delete errores[k];
+    errores["Sin conexión"]="la página no pudo salir a internet. Si la abriste desde la vista previa de Claude, WhatsApp o un visor de archivos, abrila con el link o en Chrome";
+  }
+  return{lugar:AJ.lugar,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+    observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
+    diasGuardados:Object.keys(h).length,servidor:!!srv};
+}
+
+// ---------- pantalla
+function pintarAjustes(){
+  $("aLugar").value=AJ.lugar;$("aMet").value=AJ.meteored;$("aAcc").value=AJ.accu;
+  const n=Object.keys((LS.get("pp_hist",{})[AJ.lat+"_"+AJ.lon])||{}).length;
+  $("aInfo").textContent=`Historial guardado en este navegador: ${n} ${n===1?"día":"días"}.`;
+  if(!AJ.meteored)$("ajustes").open=true;
+}
+let corriendo=false;
+async function actualizar(){
+  if(corriendo)return;corriendo=true;
+  $("btnAct").disabled=true;$("btnAct").textContent="Cebando…";document.body.classList.add("cargando");
+  try{S=await armar();render();renderExtras();}
+  catch(e){console.error(e);$("sub").textContent="Se volcó el mate: "+e.message;}
+  finally{corriendo=false;$("btnAct").disabled=false;$("btnAct").textContent="↻ Actualizar";document.body.classList.remove("cargando");pintarAjustes();}
+}
+$("btnAct").addEventListener("click",actualizar);
+async function buscarLugar(){
+  const q=$("aLugar").value.trim();if(!q)return;const box=$("aRes");box.textContent="Buscando…";
+  try{
+    const j=await getJSON("https://geocoding-api.open-meteo.com/v1/search?"+qs({name:q,count:6,language:"es"}));
+    box.innerHTML="";
+    if(!j.results||!j.results.length){box.textContent="No encontré ese lugar. Probá con el nombre de la ciudad.";return;}
+    j.results.forEach(r=>{const b=document.createElement("button");b.type="button";
+      b.textContent=[r.name,r.admin2,r.admin1,r.country].filter(Boolean).join(", ");
+      b.addEventListener("click",()=>{AJ.lugar=r.name;AJ.lat=+r.latitude.toFixed(3);AJ.lon=+r.longitude.toFixed(3);AJ.tz=r.timezone||AJ.tz;
+        $("aLugar").value=r.name;box.innerHTML="";guardarAjustes();});
+      box.appendChild(b);});
+  }catch(e){box.textContent="No pude buscar: "+amigable(e);}
+}
+$("aBuscar").addEventListener("click",buscarLugar);
+$("aLugar").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();buscarLugar();}});
+function guardarAjustes(){
+  AJ.meteored=$("aMet").value.trim();AJ.accu=$("aAcc").value.trim();
+  LS.set("pp_ajustes",AJ);LS.del("pp_c_meteored");LS.del("pp_c_accuweather");
+  actualizar();
+}
+$("aGuardar").addEventListener("click",guardarAjustes);
+let confirmaBorrar=false;
+$("aBorrar").addEventListener("click",()=>{
+  if(!confirmaBorrar){confirmaBorrar=true;$("aBorrar").textContent="¿Seguro? Tocá de nuevo";setTimeout(()=>{confirmaBorrar=false;$("aBorrar").textContent="Borrar historial";},4000);return;}
+  LS.del("pp_hist");confirmaBorrar=false;$("aBorrar").textContent="Borrar historial";$("aInfo").textContent="Historial borrado.";actualizar();
+});
+function letra(on){document.body.classList.toggle("grande",on);$("btnGrande").setAttribute("aria-pressed",on);$("btnGrande").textContent=on?"A− Letra normal":"A+ Letra grande";LS.set("pp_grande",on);}
+$("btnGrande").addEventListener("click",()=>letra(!document.body.classList.contains("grande")));
+letra(LS.get("pp_grande",false));
+pintarAjustes();
+actualizar();
+</script>
+</body>
+</html>
