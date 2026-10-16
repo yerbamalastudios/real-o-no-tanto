@@ -1,12 +1,14 @@
 {
- "actualizado": "2026-10-15T21:24-03:00",
+ "actualizado": "2026-10-15T23:38-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
-   "errores": {
-    "SMN": "RuntimeError: API del SMN: la web del SMN no entregó el permiso (token) · datos abiertos: archivo vacío"
-   },
+   "errores": {},
    "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-15",
+     "n": 1
+    },
     "meteored_buscado": "Lomas del Mirador",
     "meteored_hash": "6f2daba02c3cd38daee6e2e2f572746e",
     "meteored_lugar": "Lomas del Mirador"
