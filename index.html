@@ -882,18 +882,18 @@ function chiste(d){
   const cuando=r.lluviaHora==null?"":r.lluviaHora<12?"a la mañana":r.lluviaHora<19?"a la tarde":"a la noche";
   if(d.rango_tmax!=null&&d.rango_tmax>5)ops.push(`Las fuentes no se ponen de acuerdo: ${r0(d.rango_tmax)}° de diferencia. Parece reunión de consorcio.`,"Cada modelo dice una cosa distinta. Clásico argentino: nadie da el brazo a torcer.");
   if(r.tormenta)ops.push(`Tormenta ${cuando||"en el horizonte"}: desenchufá la tele y prepará las velas por las dudas.`,"Viene con rayos y truenos. El perro ya está buscando abajo de qué cama esconderse.");
-  if(r.mm>=20)ops.push(`${r0(r.mm)} milímetros: las calles de tierra se vuelven pileta y el colectivo, lancha.`,`Llueve fuerte ${cuando}. Día ideal para tortas fritas y no salir de casa.`);
-  else if(r.p>=50)ops.push(`Lluvia ${cuando||"en algún momento"} (${r.p}%). Paraguas en la mochila y que no te agarre en la parada.`,`${r.p}% de chance de agua ${cuando}. Si colgaste ropa, ya podés ir entrándola.`);
-  else if(r.p>=30)ops.push(`Chance de lluvia del ${r.p}%. Ni sí ni no: como cuando preguntás "¿a qué hora llega el colectivo?".`,`Puede caer algo ${cuando||"suelto"}. Si dejás el paraguas, seguro llueve.`);
+  if(r.mm>=20)ops.push(`${r0(r.mm)} milímetros: las calles de tierra se vuelven pileta y el colectivo, lancha.`,`Llueve fuerte ${cuando}. Día ideal para tortas fritas y no salir de casa.`,`Se viene un baldazo: ${r0(r.mm)} mm. Revisá que la canaleta no esté tapada de hojas.`,`Agua en serio ${cuando}. Los patos de la plaza, felices.`);
+  else if(r.p>=50)ops.push(`Lluvia ${cuando||"en algún momento"} (${r.p}%). Paraguas en la mochila y que no te agarre en la parada.`,`${r.p}% de chance de agua ${cuando}. Si colgaste ropa, ya podés ir entrándola.`,`Viene mojado ${cuando}: el piso del colectivo va a ser una pista de patinaje.`,`Se larga ${cuando||"en algún momento"}. Día de pantuflas, si se puede.`);
+  else if(r.p>=30)ops.push(`Chance de lluvia del ${r.p}%. Ni sí ni no: como cuando preguntás a qué hora llega el colectivo.`,`Puede caer algo ${cuando||"suelto"}. Si dejás el paraguas, seguro llueve.`,`${r.p}% de lluvia: el cielo está más indeciso que vos eligiendo gustos de helado.`,"Nubarrones con ganas pero sin compromiso. Quizás llueva, quizás no.");
   if(r.niebla)ops.push("Arranca con niebla: a la mañana no se ve ni la vereda de enfrente. Manejá tranqui.","Niebla temprano. El conurbano en modo película de terror hasta que salga el sol.");
   if(r.raf>=55)ops.push(`Ráfagas de ${r0(r.raf)} km/h: la sombrilla de la vecina va a terminar en tu patio.`,`Viento de ${r0(r.raf)} km/h. Hoy los peinados no sobreviven.`);
   if(r.amp>=12)ops.push(`De ${r0(r.tn)}° a ${r0(r.tx)}°: a la mañana mate caliente, a la tarde tereré.`,`${r0(r.amp)}° de diferencia entre la mañana y la tarde. Un día con doble personalidad.`);
   if(r.tx>=33)ops.push(`${r0(r.tx)}° de máxima: hasta el asfalto pide sombra.`,`${r0(r.tx)}°. Pileta de lona, ventilador de pie y paciencia.`);
   else if(r.tx>=28)ops.push(r.hum>=70?`${r0(r.tx)}° y ${r0(r.hum)}% de humedad: pegajoso como mesa de bar.`:`${r0(r.tx)}° y sol: día de tereré con mucho hielo.`,"Calorcito de verdad. Las ojotas salen del placard.");
-  else if(r.tx>=22)ops.push(`${r0(r.tx)}° de máxima: clima de asado, sin excusas.`,"Ni frío ni calor. Si hoy te quejás del clima, el problema sos vos.");
-  else if(r.tx>=16)ops.push(`Máxima de ${r0(r.tx)}°: templado tirando a fresco. Clima de mate en la vereda.`,`${r0(r.tx)}° a la tarde y ${r0(r.tn)}° temprano. Lindo para caminar, con algo de abrigo.`);
-  else if(r.tx>=10)ops.push(`No pasa de ${r0(r.tx)}°. Día de guiso de lentejas y mantita.`,`Fresco todo el día, con ${r0(r.tn)}° de mínima. La estufa pide pista.`);
-  else if(r.tx!=null)ops.push(`${r0(r.tx)}° de máxima. Frío de pata de pingüino.`,`Con ${r0(r.tn)}° a la mañana, hasta el mate se enfría rápido.`);
+  else if(r.tx>=22)ops.push(`${r0(r.tx)}° de máxima: clima de asado, sin excusas.`,"Ni frío ni calor. Si hoy te quejás del clima, el problema sos vos.",`Llega a ${r0(r.tx)}°: ideal para salir a caminar y volver con antojo de helado.`,"Día de esos que te reconcilian con el conurbano.");
+  else if(r.tx>=16)ops.push(`Máxima de ${r0(r.tx)}°: templado tirando a fresco. Clima de mate en la vereda.`,`${r0(r.tx)}° a la tarde y ${r0(r.tn)}° temprano. Lindo para caminar, con algo de abrigo.`,`Ni para la pileta ni para la estufa: ${r0(r.tx)}° de máxima, término medio.`,`Fresquito agradable, ${r0(r.tn)}° a ${r0(r.tx)}°. El buzo canguro es tu mejor amigo.`);
+  else if(r.tx>=10)ops.push(`No pasa de ${r0(r.tx)}°. Día de guiso de lentejas y mantita.`,`Fresco todo el día, con ${r0(r.tn)}° de mínima. La estufa pide pista.`,`${r0(r.tx)}° de máxima: el sol sale, pero no calienta.`,"Frío de los que te hacen extrañar el verano que tanto puteaste.");
+  else if(r.tx!=null)ops.push(`${r0(r.tx)}° de máxima. Frío de pata de pingüino.`,`Con ${r0(r.tn)}° a la mañana, hasta el mate se enfría rápido.`,"Hace tanto frío que el perro pidió entrar a dormir adentro.",`${r0(r.tn)}° de mínima: el auto amanece escarchado.`);
   return elegirFrase(ops,d.fecha+"chiste");
 }
 
@@ -911,14 +911,16 @@ function tramo(d,a,b){
     p:Math.max(...ix.map(i=>h.precipitation_probability[i]??0)),mm:ix.reduce((a,i)=>a+(h.precipitation[i]??0),0),
     raf:Math.max(...ix.map(i=>(h.wind_gusts_10m||[])[i]??0)),hum:ix.reduce((a,i)=>a+((h.relative_humidity_2m||[])[i]??0),0)/ix.length};
 }
-function cieloTramo(t){   // [texto, es plural]
+function cieloTramo(t,n){   // [texto, es plural]; n = madrugada | mañana | tarde | noche
+  const oscuro=n==="noche"||n==="madrugada";
   if(t.peor===6)return["tormentas",1];
   if(t.peor===5&&(t.mm>=.5||t.p>=60))return[t.code>=80?"chaparrones":"lluvias",1];
   if(t.peor===4&&t.p>=40)return["lloviznas",1];
-  if(t.peor===3)return[t.comun<=1?"bancos de niebla que después se disipan":"niebla",t.comun<=1?1:0];
+  if(t.p>=60)return[oscuro?"nubes con probables lluvias":"nubes y probables lluvias",1];
+  if(t.peor===3)return n==="mañana"&&t.comun<=1?["bancos de niebla que después se disipan",1]:["niebla",0];
   if(t.comun===2)return["cielo cubierto",0];
-  if(t.comun===1)return["nubes y sol",1];
-  return["cielo despejado",0];
+  if(t.comun===1)return oscuro?["algunas nubes",1]:n==="tarde"?["sol entre nubes",0]:["nubes y sol",1];
+  return oscuro?["cielo despejado y estrellado",0]:["cielo despejado",0];
 }
 function sensTramo(t){
   const m=(t.tmin+t.tmax)/2;
@@ -931,32 +933,49 @@ function parteDia(d){
     .filter(x=>x.n!=="madrugada"||x.t.peor>=3||x.t.tmin<5);   // la madrugada solo si hay algo para contar
   if(!ts.length)return"";
   const temp={madrugada:t=>`unos ${r0(t.tmin)}°`,"mañana":t=>`unos ${r0(t.tmin)}°`,tarde:t=>`máxima de ${r0(t.tmax)}°`,noche:t=>`alrededor de ${r0((t.tmin+t.tmax)/2)}°`};
-  const cielos=ts.map(x=>cieloTramo(x.t)),frases=[];
+  const may=x=>x.replace(/^./,c=>c.toUpperCase());
+  const cielos=ts.map(x=>cieloTramo(x.t,x.n)),frases=[],sd=semilla(S.hoy+"parte");
+  const unoDe=(arr,k)=>arr[(sd+d.L*3+k)%arr.length];   // días seguidos usan formas distintas
   if(ts.length>1&&cielos.every(c=>c[0]===cielos[0][0])){
-    // mismo cielo todo el día: una sola frase y después cómo se mueve la temperatura
-    const [c,pl]=cielos[0];
-    frases.push(`Se ${pl?"esperan":"espera"} ${c} durante ${d.L===0?"el resto del día":"todo el día"}.`);
+    const [c,pl]=cielos[0],resto=d.L===0?"el resto del día":"todo el día";
+    frases.push(unoDe([
+      `Se ${pl?"esperan":"espera"} ${c} durante ${resto}.`,
+      `${may(c)} de punta a punta.`,
+      `Jornada con ${c} de principio a fin.`,
+      `${may(c)} desde que te levantás hasta que te acostás.`,
+      `Nada de sorpresas en el cielo: ${c} ${resto}.`],0));
     const m=ts.find(x=>x.n==="mañana"||x.n==="madrugada"),ta=ts.find(x=>x.n==="tarde"),no=ts.find(x=>x.n==="noche");
-    const tr=[];if(m)tr.push(`arranca con ${r0(m.t.tmin)}°`);if(ta)tr.push(`${m?"sube a":"llega a"} ${r0(ta.t.tmax)}° a la tarde`);if(no)tr.push(`baja a ${r0((no.t.tmin+no.t.tmax)/2)}° a la noche`);
-    if(tr.length)frases.push(tr.join(", ").replace(/^./,x=>x.toUpperCase()).replace(/, ([^,]*)$/," y $1")+".");
+    const A=m&&r0(m.t.tmin),B=ta&&r0(ta.t.tmax),C=no&&r0((no.t.tmin+no.t.tmax)/2);
+    if(m&&ta&&no)frases.push(unoDe([
+      `Arranca con ${A}°, sube a ${B}° a la tarde y baja a ${C}° a la noche.`,
+      `La mañana empieza en ${A}°, la tarde llega a ${B}° y para la cena vuelve a ${C}°.`,
+      `Mínima de ${A}° temprano, pico de ${B}° a la tarde y ${C}° cuando cae el sol.`,
+      `En el termómetro: ${A}° al levantarte, ${B}° a media tarde y ${C}° a la noche.`],1));
+    else{const tr=[];if(m)tr.push(`arranca con ${A}°`);if(ta)tr.push(`${m?"sube a":"llega a"} ${B}° a la tarde`);if(no)tr.push(`baja a ${C}° a la noche`);
+      if(tr.length)frases.push(may(tr.join(", ")).replace(/, ([^,]*)$/," y $1")+".");}
   }else{
-    ts.forEach((x,k)=>{const [c,pl]=cielos[k];
-      frases.push(`${x.txt} se ${pl?"esperan":"espera"} ${c}, con ambiente ${sensTramo(x.t)} y ${temp[x.n](x.t)}${x.t.p>=30&&x.t.peor<5?` (${x.t.p}% de chance de lluvia)`:""}.`);});
+    const momento={madrugada:"la madrugada","mañana":"la mañana",tarde:"la tarde",noche:"la noche"};
+    ts.forEach((x,k)=>{const [c,pl]=cielos[k],sens=sensTramo(x.t),tp=temp[x.n](x.t),ll=x.t.p>=30&&x.t.peor<5?` (${x.t.p}% de chance de lluvia)`:"";
+      frases.push(unoDe([
+        `${x.txt} se ${pl?"esperan":"espera"} ${c}, con ambiente ${sens} y ${tp}${ll}.`,
+        `${x.txt}, ${c} y ambiente ${sens}: ${tp}${ll}.`,
+        `Para ${momento[x.n]}, ${c}, ${tp} y clima ${sens}${ll}.`,
+        `${x.txt} tendremos ${c} y ${tp}, ambiente ${sens}${ll}.`],k));});
   }
   const raf=Math.max(...ts.map(x=>x.t.raf));
-  if(raf>=50)frases.push(`Ojo con el viento: ráfagas de hasta ${r0(raf)} km/h.`);
+  if(raf>=50)frases.push(elegirFrase([`Ojo con el viento: ráfagas de hasta ${r0(raf)} km/h.`,`Atención a las ráfagas, que pueden llegar a ${r0(raf)} km/h.`,`Sopla fuerte: hasta ${r0(raf)} km/h en ráfagas.`],d.fecha+"viento"));
   if(!frases.length)return"";
   // cierre con sello Yerba Mala, según cómo viene el día
   const r=rasgos(d),cierres=[];
   const m=ts.find(x=>x.n==="mañana"),ta=ts.find(x=>x.n==="tarde");
-  if(m&&ta&&ta.t.tmax-m.t.tmin>=10)cierres.push("Mate bien caliente a la mañana y tereré a la tarde: el combo del día.","Salí abrigado y volvé con el buzo atado a la cintura, como manda la tradición.");
-  if(r.tormenta)cierres.push("Recomendación de la casa: velas a mano, celular cargado y el mate en un termo bien cerrado.");
-  if(r.p>=50&&r.lluviaHora!=null)cierres.push(r.lluviaHora>=12?"Si tenés mandados, hacelos temprano antes de que se largue.":"Después de la lluvia, se merece unas tortas fritas.");
-  if(r.niebla)cierres.push("A la mañana, luces bajas y paciencia en la General Paz.");
-  if(r.tx>=30)cierres.push("Agua, sombra y nada de caminatas al mediodía. El mate, mejor frío.");
-  if(r.tx<14)cierres.push("Es día de guiso, yerba fuerte y mantita en el sillón.");
-  if(!cierres.length&&r.p<30)cierres.push("Ideal para cebar unos mates en la vereda y saludar a los vecinos.","Día para sacar la reposera al patio con el termo.");
-  if(!cierres.length)cierres.push("El pronóstico es real… o no tanto. Pero el mate, siempre.");
+  if(m&&ta&&ta.t.tmax-m.t.tmin>=10)cierres.push("Mate bien caliente a la mañana y tereré a la tarde: el combo del día.","Salí abrigado y volvé con el buzo atado a la cintura, como manda la tradición.","Temprano termo, a la tarde jarra con hielo. Yerba Mala aprueba.");
+  if(r.tormenta)cierres.push("Recomendación de la casa: velas a mano, celular cargado y el mate en un termo bien cerrado.","Si se corta la luz, que te agarre con el termo lleno.","Día para quedarse adentro con mate y una película. Afuera, que se arregle el cielo.");
+  if(r.p>=50&&r.lluviaHora!=null)cierres.push(...(r.lluviaHora>=12?["Si tenés mandados, hacelos temprano antes de que se largue.","La lluvia llega después del mediodía: la mañana es tuya.","Colgá la ropa temprano o ni la cuelgues."]:["Después de la lluvia, se merecen unas tortas fritas.","Mañana pasada por agua: el mate de la tarde va a saber mejor.","Paraguas a mano a la mañana, después se calma."]));
+  if(r.niebla)cierres.push("A la mañana, luces bajas y paciencia en la General Paz.","Con niebla, el colectivo aparece de golpe: estate atento en la parada.");
+  if(r.tx>=30)cierres.push("Agua, sombra y nada de caminatas al mediodía. El mate, mejor frío.","Tereré con limón y hielo: receta oficial de Yerba Mala para hoy.","Si tenés pileta de lona, es hoy o nunca.");
+  if(r.tx<14)cierres.push("Es día de guiso, yerba fuerte y mantita en el sillón.","Pavita en el fuego todo el día: hoy el mate no se corta.","Locro, mate y estufa: la santísima trinidad del frío.");
+  if(!cierres.length&&r.p<30)cierres.push("Ideal para cebar unos mates en la vereda y saludar a los vecinos.","Día para sacar la reposera al patio con el termo.","Buen día para una vuelta por la plaza con el mate bajo el brazo.","Clima de mateada con amigos. Que alguien lleve facturas.");
+  if(!cierres.length)cierres.push("El pronóstico es real… o no tanto. Pero el mate, siempre.","Un día de esos que no se deciden. Vos decidite por un mate.","Ni fu ni fa. El mate, en cambio, siempre suma.");
   return frases.join(" ")+" "+elegirFrase(cierres,d.fecha+"cierre");
 }
 
@@ -1017,11 +1036,11 @@ function ropa(d){
   else if(p>=30)ops.push("Llevá el paraguas igual: si lo dejás, llueve seguro.","Un paraguas chiquito no ocupa lugar y te salva el peinado.");
   if(tx>=27&&(d.hum||0)>=70)ops.push("Húmedo como sauna de club de barrio: ropa suelta, de algodón, y un pañuelito para la frente.");
   if(tx>=33)ops.push("Lo menos posible encima, que hoy el sol no perdona.","Gorra, agua y sombra. Y si podés, la siesta.");
-  else if(tx>=25)ops.push("Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.","Remera y bermuda. Que se vean esas piernas que no ven el sol desde marzo.");
-  else if(tx>=19)ops.push("Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.","Remera y un buzo atado a la cintura, por si refresca a la noche.");
-  else if(tx>=13)ops.push(`Con ${r0(tn)}° a la mañana, el buzo no es opcional.`,"Campera liviana: a la tarde te la sacás, a la noche la extrañás.","Buzo sí, campera tal vez. Andá en capas.");
+  else if(tx>=25)ops.push("Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.","Remera y bermuda. Que se vean esas piernas que no ven el sol desde marzo.","Ropa clara y liviana: hoy el negro es para los valientes.","La camiseta de fútbol cuenta como ropa formal con este calor.");
+  else if(tx>=19)ops.push("Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.","Remera y un buzo atado a la cintura, por si refresca a la noche.","Jean y remera: el uniforme oficial del argentino promedio.","Mangas cortas de día, algo encima cuando baja el sol.");
+  else if(tx>=13)ops.push(`Con ${r0(tn)}° a la mañana, el buzo no es opcional.`,"Campera liviana: a la tarde te la sacás, a la noche la extrañás.","Buzo sí, campera tal vez. Andá en capas.","Buzo canguro y a la calle. Si tiene capucha, mejor.","Ese camperón de jean que nunca usás: hoy es su día.");
   else if(tx<=14&&(d.hum||0)>=85)ops.push("Frío húmedo de ese que se mete en los huesos. Una capa más de la que pensabas.");
-  if(tx<13&&tx>=7)ops.push("Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.",`${r0(tx)}° de máxima: campera, bufanda y nada de hacerse el valiente.`);
+  if(tx<13&&tx>=7)ops.push("Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.",`${r0(tx)}° de máxima: campera, bufanda y nada de hacerse el valiente.`,"Camiseta térmica abajo y nadie se entera.","Medias de lana y campera hasta el cuello. Hoy no se negocia.");
   else if(tx<7)ops.push("Salí vestido de oso. Si podés, no salgas.","Guantes, gorro y bufanda. Hoy el pingüino sos vos.");
   const f=elegirFrase(ops,d.fecha+"ropa");
   return{items:items.join(""),frase:f};
