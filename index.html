@@ -359,8 +359,13 @@ const addDays=(s,n)=>{const d=new Date(s+"T12:00:00Z");d.setUTCDate(d.getUTCDate
 const diasEntre=(a,b)=>Math.round((Date.parse(b+"T12:00:00Z")-Date.parse(a+"T12:00:00Z"))/864e5);
 const diaSemana=s=>new Date(s+"T12:00:00Z").getUTCDay();
 function num(v){if(v&&typeof v==="object"&&!Array.isArray(v))v=v.value??v.Value;const f=parseFloat(v);return Number.isFinite(f)?f:null;}
-async function getJSON(url,opts){
-  const r=await fetch(url,opts);
+async function getJSON(url,opts,intentos=3){
+  let r;
+  for(let i=0;i<intentos;i++){
+    r=await fetch(url,opts);
+    if(r.status<500||i===intentos-1)break;
+    await new Promise(ok=>setTimeout(ok,1500*(i+1)));   // servidor saturado: esperar y reintentar
+  }
   if(!r.ok){let extra="";try{extra=(await r.text()).slice(0,120);}catch(e){}throw new Error("respondió "+r.status+(extra?": "+extra:""));}
   return r.json();
 }
@@ -600,6 +605,16 @@ function lugarCercano(lista){let best=null,bd=1e9;for(const l of lista){const d=
 async function armar(){
   const hoy=ymd(new Date()),errores={};
   const intentar=async(nombre,fn)=>{try{return await fn();}catch(e){errores[nombre]=amigable(e);console.warn(nombre,e);return null;}};
+  // Si un servicio falla, usar lo último que bajó bien (hasta 2 días) en lugar de dejar la página vacía
+  const conRespaldo=async(nombre,fn)=>{
+    const k="pp_ok_"+nombre+"_"+AJ.lat+"_"+AJ.lon;
+    try{const r=await fn();LS.set(k,{fecha:hoy,r});return r;}
+    catch(e){
+      const c=LS.get(k,null);
+      if(c&&diasEntre(c.fecha,hoy)<=2){errores[nombre]="no respondió; muestro lo que bajé el "+fecha(c.fecha,1);return c.r;}
+      errores[nombre]=amigable(e);console.warn(nombre,e);return null;
+    }
+  };
   // En GitHub, el programa diario deja los datos del SMN y Meteored en datos/sitios.json
   let srv=null;
   if(/^https?:/.test(location.protocol)){
@@ -609,9 +624,9 @@ async function armar(){
       srv=lugarCercano(lista);}catch(e){}
   }
   const [mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
-    intentar("Modelos globales",fuenteModelos),
-    intentar("Historial de modelos",()=>historialModelos(hoy)),
-    intentar("Lo que pasó (ERA5)",()=>observado(hoy)),
+    conRespaldo("Modelos globales",fuenteModelos),
+    conRespaldo("Historial de modelos",()=>historialModelos(hoy)),
+    conRespaldo("Lo que pasó (ERA5)",()=>observado(hoy)),
     srv?null:intentar("SMN",()=>fuenteSMN(hoy)),
     srv?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
     srv?null:intentar("AccuWeather",()=>fuenteAccu(hoy)),
@@ -657,7 +672,7 @@ async function armar(){
   const nombres={};for(const[k,v]of Object.entries(CFG.modelos))nombres["om_"+k]=v;
   Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored",accuweather:"AccuWeather"});
   const base=["Modelos globales","Historial de modelos","Lo que pasó (ERA5)","Efemérides"];
-  if(base.every(k=>errores[k])){
+  if(!mod&&!histMod&&!obs&&!efe&&base.every(k=>errores[k])){
     for(const k of Object.keys(errores))delete errores[k];
     errores["Sin conexión"]="la página no pudo salir a internet. Si la abriste desde la vista previa de Claude, WhatsApp o un visor de archivos, abrila con el link o en Chrome";
   }

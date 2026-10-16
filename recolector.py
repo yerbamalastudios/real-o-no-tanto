@@ -8,7 +8,7 @@ ver cuál acierta más. Los modelos globales y las efemérides los consulta la p
 
 Claves como secretos de GitHub: METEORED_KEY (y opcional ACCUWEATHER_KEY).
 """
-import io, json, math, os, re, traceback, urllib.parse, urllib.request, zipfile
+import io, json, math, os, re, traceback, urllib.error, urllib.parse, urllib.request, zipfile
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -31,10 +31,17 @@ LINEA_PRON = re.compile(
 
 def http(url, headers=None, binario=False, timeout=40):
     req = urllib.request.Request(url, headers={**UA, **(headers or {})})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        cuerpo = r.read()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            cuerpo = r.read()
+    except urllib.error.HTTPError as e:
+        try:
+            detalle = e.read().decode("utf-8", "replace")[:160]
+        except Exception:
+            detalle = ""
+        ruta = re.sub(r"(apikey|apiKey)=[^&]+", r"\1=***", urllib.parse.urlsplit(url).path + "?" + urllib.parse.urlsplit(url).query).rstrip("?")
+        raise RuntimeError(f"HTTP {e.code} en {ruta} {detalle}".strip()) from None
     return cuerpo if binario else json.loads(cuerpo.decode("utf-8"))
-
 
 def leer_json(ruta, defecto):
     try:
@@ -101,34 +108,63 @@ def elegir(nombres, preferidas):
     return None
 
 
-def smn_token():
-    req = urllib.request.Request("https://ws2.smn.gob.ar/", headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        html = r.read().decode("utf-8", "replace")
-    for pat in (r"localStorage\.setItem\(\s*['\"]token['\"]\s*,\s*['\"]([^'\"]+)['\"]",
-                r"['\"]token['\"]\s*:\s*['\"](eyJ[^'\"]+)['\"]", r"(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)"):
-        m = re.search(pat, html)
-        if m:
-            return m.group(1)
-    guardar_debug("smn_token.html", html[:20000])
-    raise RuntimeError("no encontré el permiso (token) en la página del SMN")
+def asegurar_navegador():
+    """Instala el Chrome invisible la primera vez (en GitHub tarda ~1 minuto)."""
+    import subprocess, sys
+    try:
+        import playwright  # noqa: F401
+    except ImportError:
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "playwright"], check=True)
+    subprocess.run([sys.executable, "-m", "playwright", "install", "--with-deps", "chromium"], check=True,
+                   stdout=subprocess.DEVNULL)
 
 
 def fuente_smn_api():
-    tok = smn_token()
-    h = {"Authorization": "JWT " + tok, "User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    asegurar_navegador()
+    from playwright.sync_api import sync_playwright
     base = "https://ws1.smn.gob.ar/v1"
-    loc = http(f"{base}/georef/location/coord?lat={CFG['lat']}&lon={CFG['lon']}", h)
-    guardar_debug("smn_lugar.json", loc)
-    ids = buscar(loc, lambda o: isinstance(o, dict) and isinstance(o.get("id"), (int, str)))
-    if not ids:
-        raise RuntimeError("el SMN no devolvió una localidad")
-    lugar = ids[0]
-    j = http(f"{base}/forecast/location/{lugar['id']}", h)
-    guardar_debug("smn_pronostico.json", j)
+    with sync_playwright() as p:
+        nav = p.chromium.launch()
+        ctx = nav.new_context(locale="es-AR", user_agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+        pg = ctx.new_page()
+        pg.goto("https://www.smn.gob.ar/", wait_until="domcontentloaded", timeout=90000)
+        tok = None
+        for _ in range(40):
+            tok = pg.evaluate("() => window.localStorage.getItem('token')")
+            if tok:
+                break
+            pg.wait_for_timeout(1000)
+        if not tok:
+            guardar_debug("smn_portada.html", pg.content()[:30000])
+            nav.close()
+            raise RuntimeError("la web del SMN no entregó el permiso (token)")
+        h = {"Authorization": "JWT " + tok, "Accept": "application/json"}
+
+        def pedir(url):
+            # Igual que hace la propia web del SMN: el pedido sale desde la página
+            try:
+                r = pg.evaluate("""async ([u, t]) => { const r = await fetch(u, {headers: {Authorization: 'JWT ' + t}});
+                                    return {s: r.status, b: await r.text()}; }""", [url, tok])
+                st, cuerpo = r["s"], r["b"]
+            except Exception:
+                rr = ctx.request.get(url, headers=h, timeout=60000)
+                st, cuerpo = rr.status, rr.text()
+            if st != 200:
+                raise RuntimeError(f"HTTP {st} en {urllib.parse.urlsplit(url).path} {cuerpo[:120]}")
+            return json.loads(cuerpo)
+        loc = pedir(f"{base}/georef/location/coord?lat={CFG['lat']}&lon={CFG['lon']}")
+        guardar_debug("smn_lugar.json", loc)
+        ids = buscar(loc, lambda o: isinstance(o, dict) and isinstance(o.get("id"), (int, str)))
+        if not ids:
+            nav.close()
+            raise RuntimeError("el SMN no devolvió una localidad")
+        lugar = ids[0]
+        j = pedir(f"{base}/forecast/location/{lugar['id']}")
+        guardar_debug("smn_pronostico.json", j)
+        nav.close()
     serie = extraer_diario(j)
     if not serie:
-        raise RuntimeError("no pude leer el pronóstico (ver datos/debug/smn_pronostico.json)")
+        raise RuntimeError("no pude leer el pronóstico (ver datos/debug)")
     return {"smn": serie}, lugar.get("name") or str(lugar["id"])
 
 
@@ -226,15 +262,27 @@ def fuente_meteored(estado):
     h = {"x-api-key": key, "Accept": "application/json"}
     base = "https://api.meteored.com/api"
     if not estado.get("meteored_hash"):
-        txt = urllib.parse.quote(CFG["lugar"])
-        j = http(f"{base}/location/v1/search/txt/{txt}", h)
-        guardar_debug("meteored_ubicacion.json", j)
-        cands = buscar(j, lambda o: isinstance(o, dict) and isinstance(o.get("hash"), str))
+        intentos = [f"{base}/location/v1/search/txt/{urllib.parse.quote(CFG['lugar'])}"]
+        if CFG.get("provincia"):
+            intentos.append(f"{base}/location/v1/search/txt/{urllib.parse.quote(CFG['lugar'] + ', ' + CFG['provincia'])}")
+        if CFG.get("cp"):
+            intentos.append(f"{base}/location/v1/search/postalcode/{urllib.parse.quote(str(CFG['cp']))}")
+        cands, fallas = [], []
+        for url in intentos:
+            try:
+                j = http(url, h)
+                guardar_debug("meteored_ubicacion.json", j)
+                cands = buscar(j, lambda o: isinstance(o, dict) and isinstance(o.get("hash"), str))
+                if cands:
+                    break
+                fallas.append(f"{urllib.parse.urlsplit(url).path}: sin resultados")
+            except Exception as e:
+                fallas.append(str(e))
         if not cands:
-            raise RuntimeError("Meteored no encontró el lugar (ver datos/debug/meteored_ubicacion.json)")
+            raise RuntimeError("no encontré el lugar · " + " | ".join(fallas))
         def puntos(o):
             t = json.dumps(o, ensure_ascii=False).lower()
-            return ("argentina" in t) * 2 + ("buenos aires" in t) + ("matanza" in t)
+            return ("argentina" in t) * 2 + ("buenos aires" in t) + (CFG["lugar"].lower() in t)
         mejor = max(cands, key=puntos)
         estado["meteored_hash"] = mejor["hash"]
         estado["meteored_lugar"] = mejor.get("name") or mejor.get("description")
@@ -289,7 +337,7 @@ def cargar_lugares():
 
 
 def recolectar_lugar(lugar, previo, hoy):
-    CFG.update({"lugar": lugar.get("buscar") or lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"]})
+    CFG.update({"lugar": lugar.get("buscar") or lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"], "cp": lugar.get("cp"), "provincia": lugar.get("provincia")})
     datos = dict(previo or {})
     datos.update({"nombre": lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"]})
     hist = datos.setdefault("hist", {})
