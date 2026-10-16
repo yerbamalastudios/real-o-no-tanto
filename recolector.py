@@ -329,6 +329,11 @@ def guardar_debug(nombre, contenido):
 
 
 
+MAX_METEORED_POR_LUGAR = 4   # corre 3 veces por día; 1 de margen por si se corre a mano
+MAX_METEORED_TOTAL = 45      # el plan gratis da 50 por día
+LLAMADAS = {"meteored": 0}
+
+
 def cargar_lugares():
     """Los lugares salen de lugares.json. Cada uno gasta 1 llamada diaria de Meteored."""
     ruta = os.path.join(RAIZ, "lugares.json")
@@ -348,9 +353,19 @@ def recolectar_lugar(lugar, previo, hoy):
     errores = {}
     hoy_s = hoy.isoformat()
     ya = hist.get(hoy_s, {})
-    tareas = [("SMN", fuente_smn)]
-    if "meteored" not in ya:   # 1 sola llamada por día y por lugar
-        tareas.append(("Meteored", lambda: fuente_meteored(estado)))
+    # El SMN está detrás de una verificación anti-robots (Cloudflare): no se consulta automáticamente.
+    tareas = [("SMN", fuente_smn)] if os.environ.get("USAR_SMN") == "1" else []
+    # Meteored: una consulta por corrida (3 por día), con tope diario para no pasar el límite de 50
+    cont = estado.get("llamadas_meteored", {})
+    if cont.get("fecha") != hoy_s:
+        cont = {"fecha": hoy_s, "n": 0}
+    if cont["n"] < MAX_METEORED_POR_LUGAR and LLAMADAS["meteored"] < MAX_METEORED_TOTAL:
+        def _met():
+            cont["n"] += 1
+            LLAMADAS["meteored"] += 1 + (0 if estado.get("meteored_hash") else 1)
+            return fuente_meteored(estado)
+        tareas.append(("Meteored", _met))
+    estado["llamadas_meteored"] = cont
     if "accuweather" not in ya:
         tareas.append(("AccuWeather", lambda: fuente_accuweather(estado)))
     for nombre, fn in tareas:

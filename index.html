@@ -91,6 +91,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .hora svg{width:30px;height:30px}
 .hora .t{font:500 1.1rem var(--num)}
 .hora .p{font:600 .75rem var(--body);color:var(--lluvia);min-height:1em}
+.hora .hu{font-size:.68rem;color:var(--txt-3);white-space:nowrap}
 
 /* días deslizables */
 .dias{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;padding:2px 2px 6px;margin:0 -2px;scrollbar-width:none}
@@ -412,7 +413,7 @@ async function fuenteModelos(){
 async function fuenteDetalle(){
   return getJSON("https://api.open-meteo.com/v1/forecast?"+qs({...baseQ(),forecast_days:8,wind_speed_unit:"kmh",
     current:"temperature_2m,apparent_temperature,weather_code,is_day,wind_speed_10m,wind_gusts_10m,wind_direction_10m,relative_humidity_2m,precipitation",
-    hourly:"temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,is_day",
+    hourly:"temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,is_day",
     daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,uv_index_max"}));
 }
 // Lo que pronosticaron los modelos 1 y 2 días antes (para el ranking, sin esperar)
@@ -881,9 +882,15 @@ function diasCompletos(){
       lluvia:w.lluvia??g("precipitation_sum"),chance_lluvia:w.chance_lluvia,prob:g("precipitation_probability_max"),
       code:g("weather_code"),viento:g("wind_speed_10m_max"),rafagas:g("wind_gusts_10m_max"),dir:g("wind_direction_10m_dominant"),
       uv:g("uv_index_max"),sale:g("sunrise"),pone:g("sunset"),
-      rango_tmax:w.rango_tmax,fuentes:w.fuentes||[],ponderado:!!w.fuentes});
+      rango_tmax:w.rango_tmax,fuentes:w.fuentes||[],ponderado:!!w.fuentes,...humedadDia(f)});
   });
   return out;
+}
+function humedadDia(f){
+  const h=S.detalle&&S.detalle.hourly;if(!h||!h.relative_humidity_2m)return{hum:null,humMax:null,humMin:null};
+  const v=h.time.map((t,i)=>t.startsWith(f)?h.relative_humidity_2m[i]:null).filter(x=>x!=null);
+  if(!v.length)return{hum:null,humMax:null,humMin:null};
+  return{hum:v.reduce((a,b)=>a+b,0)/v.length,humMax:Math.max(...v),humMin:Math.min(...v)};
 }
 function nombreDia(d){return d.L===0?"Hoy":d.L===1?"Mañana":new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long"}).replace(/^./,c=>c.toUpperCase());}
 function probDe(d){return d.prob!=null?d.prob:(d.chance_lluvia!=null?Math.round(d.chance_lluvia*100):null);}
@@ -916,10 +923,12 @@ function ropa(d){
   else if(raf>=60)f="Agarrá bien la gorra que hoy vuela sola.";
   else if(p>=50)f="Si salís sin paraguas, después no te quejes.";
   else if(p>=30)f="Llevá el paraguas igual: si lo dejás, llueve seguro.";
+  else if(tx>=27&&(d.hum||0)>=70)f="Húmedo como sauna de club de barrio. Ropa suelta y de algodón, y un pañuelito para la frente.";
   else if(tx>=33)f="Lo menos posible encima, que hoy el sol no perdona.";
   else if(tx>=25)f="Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.";
   else if(tx>=19)f="Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.";
   else if(tx>=13)f="Buzo sí, campera tal vez. La cebolla es la reina de la moda.";
+  else if(tx<=14&&(d.hum||0)>=85)f="Frío húmedo de ese que se mete en los huesos. Una capa más de la que pensabas.";
   else if(tx>=7)f="Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.";
   else f="Salí vestido de oso. Si podés, no salgas.";
   return{items:items.join(""),frase:f};
@@ -934,6 +943,7 @@ function alertas(dias){
     else if(d.lluvia>=20)agregar("lluvia","medio","🌧️","Lluvia fuerte",`Cerca de ${r0(d.lluvia)} mm. Revisá desagües y canaletas.`,d);
     if(d.rafagas>=80)agregar("viento","alto","🌬️","Viento muy fuerte",`Ráfagas de hasta ${r0(d.rafagas)} km/h. Asegurá lo que pueda volar.`,d);
     else if(d.rafagas>=55)agregar("viento","medio","🌬️","Viento fuerte",`Ráfagas de ${r0(d.rafagas)} km/h. Atá la sombrilla.`,d);
+    if(d.tmax>=30&&(d.humMax||0)>=75&&d.tmax<36)agregar("bochorno","medio","💦","Calor húmedo",`${r0(d.tmax)}° con humedad de ${r0(d.humMax)}%: se va a sentir más.`,d);
     if(d.tmax>=36)agregar("calor","alto","🥵","Calor extremo",`Hasta ${r0(d.tmax)}°. Hidratate y evitá el sol del mediodía.`,d);
     else if(d.tmax>=32)agregar("calor","medio","☀️","Mucho calor",`Máximas de ${r0(d.tmax)}°. Agua y sombra.`,d);
     if(d.tmin<=0)agregar("helada","alto","🥶","Helada",`Mínima de ${r0(d.tmin)}°. Cuidá las plantas y abrigate.`,d);
@@ -958,7 +968,7 @@ function renderTodo(){
   $("tempAhora").textContent=cur?r0(cur.temperature_2m)+"°":(hoyD?r0(hoyD.tmax)+"°":"--°");
   $("condAhora").textContent=code!=null?textoCielo(code,hoyD&&hoyD.tmax):"Sin datos del cielo";
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
-    (cur?`<span>Sensación <b>${r0(cur.apparent_temperature)}°</b></span><span>Viento <b>${r0(cur.wind_speed_10m)}</b> km/h</span>`:""):"";
+    (cur?`<span>Sensación <b>${r0(cur.apparent_temperature)}°</b></span><span>Humedad <b>${r0(cur.relative_humidity_2m)}%</b></span><span>Viento <b>${r0(cur.wind_speed_10m)}</b> km/h</span>`:""):"";
   const man=dias.find(d=>d.L===1);
   $("frase").textContent=hoyD?chiste(hoyD,hoyD):"";
 
@@ -986,10 +996,10 @@ function renderTodo(){
     const items=[];
     for(let i=ini;i<Math.min(ini+24,h.time.length);i++){
       const hh=+h.time[i].slice(11,13),p=h.precipitation_probability[i];
-      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(h.weather_code[i],h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="p">${p>=10?p+"%":""}</span></div>`);
+      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(h.weather_code[i],h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="p">${p>=10?"💧"+p+"%":""}</span><span class="hu">${h.relative_humidity_2m?r0(h.relative_humidity_2m[i])+"% hum.":""}</span></div>`);
     }
     $("horas").innerHTML=items.join("");
-    $("horasNota").textContent="% = chance de lluvia";
+    $("horasNota").textContent="💧 chance de lluvia";
   }else $("horas").innerHTML=`<p class="chico">Sin datos hora por hora.</p>`;
 
   // días deslizables
@@ -1001,6 +1011,7 @@ function renderTodo(){
       <span class="ll"><span>💧 ${p==null?"–":p+"%"}</span><span>${d.lluvia>=.1?f1(d.lluvia)+" mm":""}</span></span>
       <span class="barrita"><i style="width:${p||0}%"></i></span>
       <span class="vi">${flecha(d.dir)} ${r0(d.viento)} km/h${d.rafagas>=40?` · ráf. ${r0(d.rafagas)}`:""}</span>
+      <span class="chico">Humedad ${d.hum==null?"–":r0(d.hum)+"%"}</span>
     </button>`;}).join("");
   $("puntos").innerHTML=dias.map(d=>`<i class="${d.L===diaSel?"on":""}"></i>`).join("");
   renderDia(dias);
@@ -1030,7 +1041,7 @@ function renderDia(dias){
     svg.innerHTML=`<defs><linearGradient id="gT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb35c" stop-opacity=".55"/><stop offset="1" stop-color="#ffb35c" stop-opacity="0"/></linearGradient></defs>
       <line x1="${x0}" y1="${yB}" x2="${x1}" y2="${yB}" stroke="rgba(255,255,255,.25)"/>
       <line x1="${x0}" y1="${yB-40}" x2="${x1}" y2="${yB-40}" stroke="rgba(255,255,255,.1)" stroke-dasharray="3 4"/>
-      <text x="${x0}" y="${yB-44}" text-anchor="start" style="font-size:10px">lluvia 100%</text>
+      <text x="${x1}" y="${yB-44}" text-anchor="end" style="font-size:10px">lluvia 100%</text>
       ${barras}
       <polygon points="${X(0)},${yT1+6} ${pts} ${X(T.length-1)},${yT1+6}" fill="url(#gT)"/>
       <polyline points="${pts}" fill="none" stroke="#ffb35c" stroke-width="2.5" stroke-linejoin="round"/>
@@ -1047,10 +1058,11 @@ function renderDia(dias){
     ["Viento",`${r0(d.viento)} <small>km/h ${rumbo(d.dir)}</small>`],
     ["Ráfagas",`${r0(d.rafagas)} <small>km/h</small>`],
     ["UV",d.uv==null?"–":r0(d.uv)],
-    ["Sale el sol",hm(d.sale)],["Se pone",hm(d.pone)],["Fuentes",d.fuentes.length||"–"]
+    ["Humedad",d.hum==null?"–":`${r0(d.hum)}<small>% (máx ${r0(d.humMax)})</small>`],
+    ["Sale el sol",hm(d.sale)],["Se pone",hm(d.pone)]
   ].map(([k,v])=>`<div class="dato"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
   const r=d.rango_tmax;
-  $("acuerdo").innerHTML=(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
+  $("acuerdo").innerHTML=(d.fuentes.length?`${d.fuentes.length} fuentes. `:"")+(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
     `<i>${esc(chiste(d,d))}</i>`;
 }
 function renderLluvia(dias){
