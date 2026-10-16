@@ -1,12 +1,12 @@
 {
- "actualizado": "2026-10-15T23:38-03:00",
+ "actualizado": "2026-10-16T09:09-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-10-15",
+     "fecha": "2026-10-16",
      "n": 1
     },
     "meteored_buscado": "Lomas del Mirador",
@@ -45,6 +45,40 @@
        "prob": null,
        "tmax": 16.6,
        "tmin": 6.03
+      }
+     }
+    },
+    "2026-10-16": {
+     "meteored": {
+      "2026-10-16": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.96,
+       "tmin": 10.53
+      },
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.88,
+       "tmin": 6.02
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.01,
+       "tmin": 5.73
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.05,
+       "tmin": 8.14
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 20.0,
+       "tmin": 11.14
       }
      }
     }
