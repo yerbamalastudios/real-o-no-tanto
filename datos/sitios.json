@@ -1,0 +1,11 @@
+{
+ "actualizado": "2026-10-15T21:00-03:00",
+ "errores": {
+  "Meteored": "HTTPError: HTTP Error 404: Not Found",
+  "SMN": "RuntimeError: No pude leer el archivo pron5d del SMN (guardado en debug/)"
+ },
+ "estado": {},
+ "hist": {},
+ "lat": -34.66,
+ "lon": -58.53
+}
