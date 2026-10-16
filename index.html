@@ -74,6 +74,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .alerta b{font:600 .95rem var(--body)}
 .alerta span.t{font-size:.86rem;color:var(--txt-2)}
 .alertas.hay-alto{background:rgba(120,30,30,.28);border-color:rgba(255,120,100,.55)}
+/* ¿qué me pongo? */
+.ropa{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.ropa-dia{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ropa-dia h3{margin:0;font:600 .95rem var(--body);display:flex;justify-content:space-between;gap:8px}
+.ropa-dia h3 span{font-weight:400;color:var(--txt-2);font-size:.85rem}
+.prendas{display:flex;flex-wrap:wrap;gap:6px}
+.prenda{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:var(--vidrio-2);font-size:.88rem;white-space:nowrap}
+.ropa-dia p{margin:0;font:italic 400 .95rem var(--body)}
 /* tira de horas */
 .horas{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin:0 -6px;padding-inline:6px;scrollbar-width:none}
 .horas::-webkit-scrollbar{display:none}
@@ -239,6 +247,11 @@ body.grande .app{zoom:1.18}
   </section>
 
   <section class="alertas vidrio" id="alertas" hidden></section>
+
+  <section class="vidrio" id="cardRopa" hidden>
+    <h2 class="rotulo">👕 ¿Qué me pongo?</h2>
+    <div class="ropa" id="ropa"></div>
+  </section>
 
   <section class="vidrio">
     <h2 class="rotulo">Próximas horas <span class="der" id="horasNota"></span></h2>
@@ -875,6 +888,43 @@ function diasCompletos(){
 function nombreDia(d){return d.L===0?"Hoy":d.L===1?"Mañana":new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long"}).replace(/^./,c=>c.toUpperCase());}
 function probDe(d){return d.prob!=null?d.prob:(d.chance_lluvia!=null?Math.round(d.chance_lluvia*100):null);}
 
+// ===================== ¿qué me pongo? =====================
+function ropa(d){
+  if(!d||d.tmax==null)return null;
+  const tx=d.tmax,tn=d.tmin??tx-8,amp=tx-tn,p=probDe(d)??0,mm=d.lluvia||0,raf=d.rafagas||0,uv=d.uv||0;
+  const items=[],add=(e,t)=>items.push(`<span class="prenda">${e} ${t}</span>`);
+  const loco=amp>=12||(tn<=11&&tx>=24);
+  // abrigo según la temperatura
+  if(tx>=30){add("🩳","Bermuda");add("🎽","Musculosa");add("🧢","Gorra");}
+  else if(tx>=25){add("👕","Remera");add("🩳","Bermuda o algo liviano");}
+  else if(tx>=19){add("👕","Remera");add("👖","Pantalón");if(tn<15)add("🧥","Buzo a mano");}
+  else if(tx>=13){add("👖","Pantalón largo");add("🧥","Buzo o campera liviana");}
+  else if(tx>=7){add("🧥","Campera");add("🧣","Bufanda");}
+  else{add("🧥","Campera gruesa");add("🧣","Bufanda");add("🧤","Guantes");add("🧶","Gorro");}
+  // lluvia y viento
+  if(mm>=20){add("☔","Paraguas");add("🥾","Calzado que se pueda mojar");}
+  else if(p>=50||mm>=2)add("☔","Paraguas");
+  else if(p>=30)add("🌂","Paraguas chico, por las dudas");
+  if(raf>=50)add("🌬️","Rompeviento");
+  if(uv>=8&&p<40)add("🕶️","Anteojos y protector");
+  if(loco)add("🧅","Capas");
+  // la frase
+  let f;
+  if(loco)f=`De ${r0(tn)}° a ${r0(tx)}°: llevate el ropero entero. A la mañana pingüino, a la tarde playa.`;
+  else if(mm>=20)f="Paraguas, pilotín y paciencia. Hoy el agua gana.";
+  else if(raf>=60&&p>=50)f="Paraguas sí, pero de los fuertes. El chino de la esquina se da vuelta a la primera ráfaga.";
+  else if(raf>=60)f="Agarrá bien la gorra que hoy vuela sola.";
+  else if(p>=50)f="Si salís sin paraguas, después no te quejes.";
+  else if(p>=30)f="Llevá el paraguas igual: si lo dejás, llueve seguro.";
+  else if(tx>=33)f="Lo menos posible encima, que hoy el sol no perdona.";
+  else if(tx>=25)f="Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.";
+  else if(tx>=19)f="Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.";
+  else if(tx>=13)f="Buzo sí, campera tal vez. La cebolla es la reina de la moda.";
+  else if(tx>=7)f="Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.";
+  else f="Salí vestido de oso. Si podés, no salgas.";
+  return{items:items.join(""),frase:f};
+}
+
 // ===================== alertas =====================
 function alertas(dias){
   const out=[],agregar=(clave,nivel,ic,tit,txt,d)=>{const e=out.find(a=>a.clave===clave);if(e){e.dias.push(d);if(nivel==="alto")e.nivel="alto";}else out.push({clave,nivel,ic,tit,txt,dias:[d]});};
@@ -916,6 +966,19 @@ function renderTodo(){
   const al=alertas(dias),box=$("alertas");
   box.hidden=!al.length;box.classList.toggle("hay-alto",al.some(a=>a.nivel==="alto"));
   box.innerHTML=al.length?`<h2 class="rotulo">⚠️ Atención esta semana</h2>`+al.map(a=>`<div class="alerta ${a.nivel}"><span class="ic">${a.ic}</span><b>${esc(a.tit)} · ${a.dias.map(nombreDia).join(", ")}</b><span class="t">${esc(a.txt)}</span></div>`).join(""):"";
+
+  // ¿qué me pongo? (hoy y mañana)
+  // hoy y mañana; desde el viernes, también sábado y domingo
+  const wdHoy=new Date(S.hoy+"T12:00:00").getDay();
+  const paraRopa=[hoyD,man];
+  if(wdHoy===5)paraRopa.push(dias.find(d=>d.L===2));
+  const lista=paraRopa.filter(Boolean).map(d=>{const wd=new Date(d.fecha+"T12:00:00").getDay();
+    const n=d.L===0?"Hoy":(wd===6?"Sábado":wd===0?"Domingo":"Mañana");return[d,ropa(d),n];}).filter(x=>x[1]);
+  $("cardRopa").hidden=!lista.length;
+  $("cardRopa").querySelector(".rotulo").innerHTML=wdHoy===5?"👕 ¿Qué me pongo? <span class=\"der\">finde incluido</span>":"👕 ¿Qué me pongo?";
+  $("ropa").innerHTML=lista.map(([d,r,n])=>`<div class="ropa-dia">
+    <h3>${n}<span>${r0(d.tmin)}° a ${r0(d.tmax)}°${probDe(d)!=null?` · 💧 ${probDe(d)}%`:""}</span></h3>
+    <div class="prendas">${r.items}</div><p>${esc(r.frase)}</p></div>`).join("");
 
   // horas
   if(det&&det.hourly){
