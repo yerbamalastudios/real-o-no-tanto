@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#3b6ea8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Real o no tanto">
 <title>Pronóstico real o no tanto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;500;600&family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
@@ -127,6 +134,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .acuerdo{margin-top:10px;font-size:.88rem}
 .ok{color:#9ff0c0}.mid{color:var(--aviso)}.bad{color:#ffb0a6}
 
+.parte{margin-top:10px;padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.16);font-size:.98rem;line-height:1.5}
+.parte .quien{display:flex;align-items:center;gap:8px;font:600 .7rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:#ffc56b;margin-bottom:4px}
+.parte .quien svg{width:18px;height:20px}
+.parte:empty{display:none}
 /* lluvia semanal */
 .prox{font:600 1.05rem var(--body);margin:0 0 10px}
 .barras{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;align-items:end;height:130px}
@@ -232,6 +243,7 @@ body.grande .app{zoom:1.18}
   <div class="barra">
     <div class="marca"><svg aria-hidden="true"><use href="#ymLogo"/></svg><span><span class="y">Yerba</span> <span class="m">Mala</span> presenta</span></div>
     <div class="acciones">
+      <button class="ico-btn" id="btnInstalar" type="button" hidden>📲 Instalar</button>
       <button class="ico-btn" id="btnGrande" type="button" aria-pressed="false" title="Letra grande">A+</button>
       <button class="ico-btn" id="btnAct" type="button" title="Actualizar">↻</button>
     </div>
@@ -268,6 +280,7 @@ body.grande .app{zoom:1.18}
   <section class="vidrio" id="detalle">
     <div class="det-tit"><h3 id="detTit"></h3><span class="chico" id="detSub"></span></div>
     <svg class="grafico" id="grafico" viewBox="0 0 340 150" role="img" aria-label="Temperatura y lluvia hora por hora"></svg>
+    <div class="parte" id="parte"></div>
     <div class="datos" id="datosDia"></div>
     <div class="acuerdo" id="acuerdo"></div>
   </section>
@@ -328,6 +341,7 @@ body.grande .app{zoom:1.18}
       </div>
       <div class="fila" style="margin-top:6px"><button class="btn pri" id="aGuardar" type="button">Guardar y actualizar</button><button class="btn" id="aBorrar" type="button">Borrar historial</button></div>
       <p class="chico" id="aInfo"></p>
+      <p class="chico" id="ayudaInstalar">📲 <b>Instalarla en el celu:</b> en Android, tocá "Instalar" arriba o el menú ⋮ de Chrome → "Agregar a la pantalla principal". En iPhone, desde Safari: botón Compartir → "Agregar a inicio".</p>
     </div>
   </details>
 
@@ -844,28 +858,106 @@ function cuadro(now){
 }
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!ESC.raf)ESC.raf=requestAnimationFrame(cuadro);});
 
-// ===================== frases =====================
-const FRASES={
-  lluviaFuerte:["Llevá paraguas o llegá como pollito mojado.","Día de tortas fritas, no hay discusión.","Si tenés ropa colgada, es ahora o nunca.","Las zanjas de La Matanza ya se están preparando."],
-  lluviaDudosa:["Puede llover, puede que no. Como el colectivo: nunca se sabe cuándo viene.","Llevá el paraguas igual, que si lo dejás seguro llueve.","El cielo está más indeciso que vos eligiendo pizza."],
-  calorFuerte:["Calor de colectivo sin aire en hora pico.","Ideal para inflar la pileta de lona.","Hoy el asfalto de la General Paz se derrite."],
-  calor:["Día de tereré, el mate cambia de temperatura.","Remera y ojotas, como manda la tradición.","Lindo para un choripán en la plaza."],
-  templado:["Ni frío ni calor: clima de asado.","El clima ideal para quejarse igual de algo.","Día perfecto, no te acostumbres."],
-  fresco:["Día de guiso y mantita.","Buzo sí, campera tal vez. Andá con capas como cebolla.","Ideal para un mate bien caliente."],
-  frio:["Sacá la campera de la abuela, la que pesa tres kilos.","Frío de pata de pingüino.","Hoy la estufa es tu mejor amiga."],
-  viento:["Viento de los que te despeinan el alma. Agarrá bien la gorra.","Hoy la sombrilla vuela sola."],
-  peleados:["Las fuentes no se ponen de acuerdo, como reunión de consorcio.","Cada sitio dice una cosa distinta. Clásico argentino."]
-};
-function chiste(d,ex){
-  const h=[...d.fecha].reduce((a,c)=>a*31+c.charCodeAt(0),7)>>>0,pick=a=>a[h%a.length];
-  if(d.rango_tmax!=null&&d.rango_tmax>5)return pick(FRASES.peleados);
-  const prob=ex&&ex.prob!=null?ex.prob/100:d.chance_lluvia;
-  if(prob!=null&&prob>=.6)return pick(FRASES.lluviaFuerte);
-  if(prob!=null&&prob>=.3)return pick(FRASES.lluviaDudosa);
-  if(ex&&ex.rafagas>=55)return pick(FRASES.viento);
-  const t=d.tmax;if(t==null)return"";
-  if(t>=32)return pick(FRASES.calorFuerte);if(t>=26)return pick(FRASES.calor);if(t>=18)return pick(FRASES.templado);
-  if(d.tmin!=null&&d.tmin<5)return pick(FRASES.frio);return pick(FRASES.fresco);
+// ===================== frases (salen del clima de cada día, sin repetirse en la pantalla) =====================
+let USADAS=new Set();
+function semilla(txt){return[...txt].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);}
+function elegirFrase(opciones,clave){
+  const ops=opciones.filter(Boolean);if(!ops.length)return"";
+  const s0=semilla(clave);
+  for(let k=0;k<ops.length;k++){const f=ops[(s0+k)%ops.length];if(!USADAS.has(f)){USADAS.add(f);return f;}}
+  return ops[s0%ops.length];
+}
+// Rasgos del día: lo que después usan las frases, el parte y la ropa
+function rasgos(d){
+  const h=S.detalle&&S.detalle.hourly,r={niebla:false,lluviaHora:null,tormenta:d.code>=95};
+  if(h)h.time.forEach((t,i)=>{if(!t.startsWith(d.fecha))return;const c=h.weather_code[i],hh=+t.slice(11,13);
+    if((c===45||c===48)&&hh<=11)r.niebla=true;
+    if(r.lluviaHora==null&&(h.precipitation_probability[i]??0)>=50&&(h.precipitation[i]??0)>=.2)r.lluviaHora=hh;});
+  const tx=d.tmax,tn=d.tmin,p=probDe(d)??0;
+  Object.assign(r,{tx,tn,amp:(tx!=null&&tn!=null)?tx-tn:0,p,mm:d.lluvia||0,raf:d.rafagas||0,hum:d.hum||0,uv:d.uv||0});
+  return r;
+}
+function chiste(d){
+  const r=rasgos(d),dia=nombreDia(d).toLowerCase(),ops=[];
+  const cuando=r.lluviaHora==null?"":r.lluviaHora<12?"a la mañana":r.lluviaHora<19?"a la tarde":"a la noche";
+  if(d.rango_tmax!=null&&d.rango_tmax>5)ops.push(`Las fuentes no se ponen de acuerdo: ${r0(d.rango_tmax)}° de diferencia. Parece reunión de consorcio.`,"Cada modelo dice una cosa distinta. Clásico argentino: nadie da el brazo a torcer.");
+  if(r.tormenta)ops.push(`Tormenta ${cuando||"en el horizonte"}: desenchufá la tele y prepará las velas por las dudas.`,"Viene con rayos y truenos. El perro ya está buscando abajo de qué cama esconderse.");
+  if(r.mm>=20)ops.push(`${r0(r.mm)} milímetros: las calles de tierra se vuelven pileta y el colectivo, lancha.`,`Llueve fuerte ${cuando}. Día ideal para tortas fritas y no salir de casa.`);
+  else if(r.p>=50)ops.push(`Lluvia ${cuando||"en algún momento"} (${r.p}%). Paraguas en la mochila y que no te agarre en la parada.`,`${r.p}% de chance de agua ${cuando}. Si colgaste ropa, ya podés ir entrándola.`);
+  else if(r.p>=30)ops.push(`Chance de lluvia del ${r.p}%. Ni sí ni no: como cuando preguntás "¿a qué hora llega el colectivo?".`,`Puede caer algo ${cuando||"suelto"}. Si dejás el paraguas, seguro llueve.`);
+  if(r.niebla)ops.push("Arranca con niebla: a la mañana no se ve ni la vereda de enfrente. Manejá tranqui.","Niebla temprano. El conurbano en modo película de terror hasta que salga el sol.");
+  if(r.raf>=55)ops.push(`Ráfagas de ${r0(r.raf)} km/h: la sombrilla de la vecina va a terminar en tu patio.`,`Viento de ${r0(r.raf)} km/h. Hoy los peinados no sobreviven.`);
+  if(r.amp>=12)ops.push(`De ${r0(r.tn)}° a ${r0(r.tx)}°: a la mañana mate caliente, a la tarde tereré.`,`${r0(r.amp)}° de diferencia entre la mañana y la tarde. Un día con doble personalidad.`);
+  if(r.tx>=33)ops.push(`${r0(r.tx)}° de máxima: hasta el asfalto pide sombra.`,`${r0(r.tx)}°. Pileta de lona, ventilador de pie y paciencia.`);
+  else if(r.tx>=28)ops.push(r.hum>=70?`${r0(r.tx)}° y ${r0(r.hum)}% de humedad: pegajoso como mesa de bar.`:`${r0(r.tx)}° y sol: día de tereré con mucho hielo.`,"Calorcito de verdad. Las ojotas salen del placard.");
+  else if(r.tx>=22)ops.push(`${r0(r.tx)}° de máxima: clima de asado, sin excusas.`,"Ni frío ni calor. Si hoy te quejás del clima, el problema sos vos.");
+  else if(r.tx>=16)ops.push(`Máxima de ${r0(r.tx)}°: templado tirando a fresco. Clima de mate en la vereda.`,`${r0(r.tx)}° a la tarde y ${r0(r.tn)}° temprano. Lindo para caminar, con algo de abrigo.`);
+  else if(r.tx>=10)ops.push(`No pasa de ${r0(r.tx)}°. Día de guiso de lentejas y mantita.`,`Fresco todo el día, con ${r0(r.tn)}° de mínima. La estufa pide pista.`);
+  else if(r.tx!=null)ops.push(`${r0(r.tx)}° de máxima. Frío de pata de pingüino.`,`Con ${r0(r.tn)}° a la mañana, hasta el mate se enfría rápido.`);
+  return elegirFrase(ops,d.fecha+"chiste");
+}
+
+// ===================== el parte del día (estilo noticiero de la mañana) =====================
+const SEV=c=>c>=95?6:(c>=80&&c<=82)||(c>=61&&c<=67)?5:(c>=51&&c<=57)?4:(c===45||c===48)?3:c===3?2:(c===1||c===2)?1:0;
+function tramo(d,a,b){
+  const h=S.detalle&&S.detalle.hourly;if(!h)return null;
+  const ix=h.time.map((t,i)=>t.startsWith(d.fecha)&&+t.slice(11,13)>=a&&+t.slice(11,13)<b?i:-1).filter(i=>i>=0);
+  if(!ix.length)return null;
+  const cods=ix.map(i=>h.weather_code[i]),T=ix.map(i=>h.temperature_2m[i]);
+  const conteo={};cods.forEach(c=>{const k=SEV(c);conteo[k]=(conteo[k]||0)+1;});
+  const peor=Math.max(...cods.map(SEV));
+  const comun=+Object.entries(conteo).sort((x,y)=>y[1]-x[1])[0][0];
+  return{peor,comun,code:cods.find(c=>SEV(c)===peor),tmin:Math.min(...T),tmax:Math.max(...T),
+    p:Math.max(...ix.map(i=>h.precipitation_probability[i]??0)),mm:ix.reduce((a,i)=>a+(h.precipitation[i]??0),0),
+    raf:Math.max(...ix.map(i=>(h.wind_gusts_10m||[])[i]??0)),hum:ix.reduce((a,i)=>a+((h.relative_humidity_2m||[])[i]??0),0)/ix.length};
+}
+function cieloTramo(t){   // [texto, es plural]
+  if(t.peor===6)return["tormentas",1];
+  if(t.peor===5&&(t.mm>=.5||t.p>=60))return[t.code>=80?"chaparrones":"lluvias",1];
+  if(t.peor===4&&t.p>=40)return["lloviznas",1];
+  if(t.peor===3)return[t.comun<=1?"bancos de niebla que después se disipan":"niebla",t.comun<=1?1:0];
+  if(t.comun===2)return["cielo cubierto",0];
+  if(t.comun===1)return["nubes y sol",1];
+  return["cielo despejado",0];
+}
+function sensTramo(t){
+  const m=(t.tmin+t.tmax)/2;
+  return m<5?"muy frío":m<11?"frío":m<16?"fresco":m<22?"agradable":m<28?"cálido":m<32?"caluroso":"muy caluroso";
+}
+function parteDia(d){
+  const partes=[["madrugada",0,6,"De madrugada"],["mañana",6,12,"Por la mañana"],["tarde",12,19,"Por la tarde"],["noche",19,24,"A la noche"]];
+  const hoyH=d.L===0?new Date().getHours():-1;
+  const ts=partes.map(([n,a,b,txt])=>({n,b,txt,t:tramo(d,a,b)})).filter(x=>x.t&&!(d.L===0&&x.b<=hoyH))
+    .filter(x=>x.n!=="madrugada"||x.t.peor>=3||x.t.tmin<5);   // la madrugada solo si hay algo para contar
+  if(!ts.length)return"";
+  const temp={madrugada:t=>`unos ${r0(t.tmin)}°`,"mañana":t=>`unos ${r0(t.tmin)}°`,tarde:t=>`máxima de ${r0(t.tmax)}°`,noche:t=>`alrededor de ${r0((t.tmin+t.tmax)/2)}°`};
+  const cielos=ts.map(x=>cieloTramo(x.t)),frases=[];
+  if(ts.length>1&&cielos.every(c=>c[0]===cielos[0][0])){
+    // mismo cielo todo el día: una sola frase y después cómo se mueve la temperatura
+    const [c,pl]=cielos[0];
+    frases.push(`Se ${pl?"esperan":"espera"} ${c} durante ${d.L===0?"el resto del día":"todo el día"}.`);
+    const m=ts.find(x=>x.n==="mañana"||x.n==="madrugada"),ta=ts.find(x=>x.n==="tarde"),no=ts.find(x=>x.n==="noche");
+    const tr=[];if(m)tr.push(`arranca con ${r0(m.t.tmin)}°`);if(ta)tr.push(`${m?"sube a":"llega a"} ${r0(ta.t.tmax)}° a la tarde`);if(no)tr.push(`baja a ${r0((no.t.tmin+no.t.tmax)/2)}° a la noche`);
+    if(tr.length)frases.push(tr.join(", ").replace(/^./,x=>x.toUpperCase()).replace(/, ([^,]*)$/," y $1")+".");
+  }else{
+    ts.forEach((x,k)=>{const [c,pl]=cielos[k];
+      frases.push(`${x.txt} se ${pl?"esperan":"espera"} ${c}, con ambiente ${sensTramo(x.t)} y ${temp[x.n](x.t)}${x.t.p>=30&&x.t.peor<5?` (${x.t.p}% de chance de lluvia)`:""}.`);});
+  }
+  const raf=Math.max(...ts.map(x=>x.t.raf));
+  if(raf>=50)frases.push(`Ojo con el viento: ráfagas de hasta ${r0(raf)} km/h.`);
+  if(!frases.length)return"";
+  // cierre con sello Yerba Mala, según cómo viene el día
+  const r=rasgos(d),cierres=[];
+  const m=ts.find(x=>x.n==="mañana"),ta=ts.find(x=>x.n==="tarde");
+  if(m&&ta&&ta.t.tmax-m.t.tmin>=10)cierres.push("Mate bien caliente a la mañana y tereré a la tarde: el combo del día.","Salí abrigado y volvé con el buzo atado a la cintura, como manda la tradición.");
+  if(r.tormenta)cierres.push("Recomendación de la casa: velas a mano, celular cargado y el mate en un termo bien cerrado.");
+  if(r.p>=50&&r.lluviaHora!=null)cierres.push(r.lluviaHora>=12?"Si tenés mandados, hacelos temprano antes de que se largue.":"Después de la lluvia, se merece unas tortas fritas.");
+  if(r.niebla)cierres.push("A la mañana, luces bajas y paciencia en la General Paz.");
+  if(r.tx>=30)cierres.push("Agua, sombra y nada de caminatas al mediodía. El mate, mejor frío.");
+  if(r.tx<14)cierres.push("Es día de guiso, yerba fuerte y mantita en el sillón.");
+  if(!cierres.length&&r.p<30)cierres.push("Ideal para cebar unos mates en la vereda y saludar a los vecinos.","Día para sacar la reposera al patio con el termo.");
+  if(!cierres.length)cierres.push("El pronóstico es real… o no tanto. Pero el mate, siempre.");
+  return frases.join(" ")+" "+elegirFrase(cierres,d.fecha+"cierre");
 }
 
 // ===================== armar los días con todo junto =====================
@@ -915,22 +1007,23 @@ function ropa(d){
   if(raf>=50)add("🌬️","Rompeviento");
   if(uv>=8&&p<40)add("🕶️","Anteojos y protector");
   if(loco)add("🧅","Capas");
-  // la frase
-  let f;
-  if(loco)f=`De ${r0(tn)}° a ${r0(tx)}°: llevate el ropero entero. A la mañana pingüino, a la tarde playa.`;
-  else if(mm>=20)f="Paraguas, pilotín y paciencia. Hoy el agua gana.";
-  else if(raf>=60&&p>=50)f="Paraguas sí, pero de los fuertes. El chino de la esquina se da vuelta a la primera ráfaga.";
-  else if(raf>=60)f="Agarrá bien la gorra que hoy vuela sola.";
-  else if(p>=50)f="Si salís sin paraguas, después no te quejes.";
-  else if(p>=30)f="Llevá el paraguas igual: si lo dejás, llueve seguro.";
-  else if(tx>=27&&(d.hum||0)>=70)f="Húmedo como sauna de club de barrio. Ropa suelta y de algodón, y un pañuelito para la frente.";
-  else if(tx>=33)f="Lo menos posible encima, que hoy el sol no perdona.";
-  else if(tx>=25)f="Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.";
-  else if(tx>=19)f="Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.";
-  else if(tx>=13)f="Buzo sí, campera tal vez. La cebolla es la reina de la moda.";
-  else if(tx<=14&&(d.hum||0)>=85)f="Frío húmedo de ese que se mete en los huesos. Una capa más de la que pensabas.";
-  else if(tx>=7)f="Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.";
-  else f="Salí vestido de oso. Si podés, no salgas.";
+  // la frase, según el día y sin repetir otras de la pantalla
+  const ops=[];
+  if(loco)ops.push(`De ${r0(tn)}° a ${r0(tx)}°: llevate el ropero entero. A la mañana pingüino, a la tarde playa.`,`Salís con campera y volvés con ella en la mano. ${r0(amp)}° de diferencia no perdonan.`);
+  if(mm>=20)ops.push("Paraguas, pilotín y paciencia. Hoy el agua gana.","Zapatillas viejas o botas: las de salir hoy se quedan en casa.");
+  if(raf>=60&&p>=50)ops.push("Paraguas sí, pero de los fuertes: el chino de la esquina se da vuelta a la primera ráfaga.");
+  else if(raf>=55)ops.push("Agarrá bien la gorra, que hoy vuela sola.","Nada de pollera larga ni sombrero de ala: el viento no perdona.");
+  if(p>=50&&mm<20)ops.push("Si salís sin paraguas, después no te quejes.","Paraguas en la mochila. El que avisa no traiciona.");
+  else if(p>=30)ops.push("Llevá el paraguas igual: si lo dejás, llueve seguro.","Un paraguas chiquito no ocupa lugar y te salva el peinado.");
+  if(tx>=27&&(d.hum||0)>=70)ops.push("Húmedo como sauna de club de barrio: ropa suelta, de algodón, y un pañuelito para la frente.");
+  if(tx>=33)ops.push("Lo menos posible encima, que hoy el sol no perdona.","Gorra, agua y sombra. Y si podés, la siesta.");
+  else if(tx>=25)ops.push("Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.","Remera y bermuda. Que se vean esas piernas que no ven el sol desde marzo.");
+  else if(tx>=19)ops.push("Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.","Remera y un buzo atado a la cintura, por si refresca a la noche.");
+  else if(tx>=13)ops.push(`Con ${r0(tn)}° a la mañana, el buzo no es opcional.`,"Campera liviana: a la tarde te la sacás, a la noche la extrañás.","Buzo sí, campera tal vez. Andá en capas.");
+  else if(tx<=14&&(d.hum||0)>=85)ops.push("Frío húmedo de ese que se mete en los huesos. Una capa más de la que pensabas.");
+  if(tx<13&&tx>=7)ops.push("Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.",`${r0(tx)}° de máxima: campera, bufanda y nada de hacerse el valiente.`);
+  else if(tx<7)ops.push("Salí vestido de oso. Si podés, no salgas.","Guantes, gorro y bufanda. Hoy el pingüino sos vos.");
+  const f=elegirFrase(ops,d.fecha+"ropa");
   return{items:items.join(""),frase:f};
 }
 
@@ -956,6 +1049,7 @@ function alertas(dias){
 
 // ===================== dibujo =====================
 function renderTodo(){
+  USADAS=new Set();
   const dias=diasCompletos(),det=S.detalle,cur=det&&det.current;
   const hoyD=dias.find(d=>d.L===0)||dias[0];
   // héroe
@@ -970,7 +1064,7 @@ function renderTodo(){
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
     (cur?`<span>Sensación <b>${r0(cur.apparent_temperature)}°</b></span><span>Humedad <b>${r0(cur.relative_humidity_2m)}%</b></span><span>Viento <b>${r0(cur.wind_speed_10m)}</b> km/h</span>`:""):"";
   const man=dias.find(d=>d.L===1);
-  $("frase").textContent=hoyD?chiste(hoyD,hoyD):"";
+  $("frase").textContent=hoyD?chiste(hoyD):"";
 
   // alertas
   const al=alertas(dias),box=$("alertas");
@@ -1049,6 +1143,8 @@ function renderDia(dias){
       <circle cx="${X(iMin)}" cy="${Y(tmin)}" r="3" fill="#b9e2ff"/><text x="${Math.min(Math.max(X(iMin),20),W-20)}" y="${Y(tmin)+16}" text-anchor="middle">${r0(tmin)}°</text>
       ${horas}`;
   }else svg.innerHTML="";
+  const pt=parteDia(d);
+  $("parte").innerHTML=pt?`<div class="quien"><svg aria-hidden="true"><use href="#ymLogo"/></svg>El parte de Yerba Mala</div>${esc(pt)}`:"";
   const hm=s=>s?s.slice(11,16):"–";
   const p=probDe(d);
   $("datosDia").innerHTML=[
@@ -1063,7 +1159,7 @@ function renderDia(dias){
   ].map(([k,v])=>`<div class="dato"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
   const r=d.rango_tmax;
   $("acuerdo").innerHTML=(d.fuentes.length?`${d.fuentes.length} fuentes. `:"")+(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
-    `<i>${esc(chiste(d,d))}</i>`;
+    "";
 }
 function renderLluvia(dias){
   const h=S.detalle&&S.detalle.hourly;let prox="";
@@ -1141,7 +1237,8 @@ function renderTablas(){
 // ===================== interacción =====================
 $("dias").addEventListener("click",e=>{const b=e.target.closest(".dia");if(!b||!S)return;diaSel=+b.dataset.l;
   [...$("dias").children].forEach(x=>x.setAttribute("aria-pressed",x===b));
-  [...$("puntos").children].forEach((x,i)=>x.classList.toggle("on",$("dias").children[i]===b));renderDia(diasCompletos());});
+  [...$("puntos").children].forEach((x,i)=>x.classList.toggle("on",$("dias").children[i]===b));renderDia(diasCompletos());
+  $("detalle").scrollIntoView({behavior:"smooth",block:"nearest"});});
 function tabs(id,set){$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!S)return;set(+b.dataset.l);[...$(id).children].forEach(x=>x.classList.toggle("on",x===b));renderTablas();});}
 tabs("tabsRank",v=>lRank=v);tabs("tabsDet",v=>lDet=v);
 
@@ -1217,6 +1314,13 @@ $("aBorrar").addEventListener("click",()=>{
 function letra(on){document.body.classList.toggle("grande",on);$("btnGrande").setAttribute("aria-pressed",on);$("btnGrande").classList.toggle("on",on);LS.set("pp_grande",on);}
 $("btnGrande").addEventListener("click",()=>letra(!document.body.classList.contains("grande")));
 letra(LS.get("pp_grande",false));
+// instalable: service worker y botón "Instalar" cuando el navegador lo permite
+if("serviceWorker" in navigator&&/^https:|^http:\/\/localhost/.test(location.href))navigator.serviceWorker.register("sw.js").catch(()=>{});
+let pedidoInstalar=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();pedidoInstalar=e;$("btnInstalar").hidden=false;});
+$("btnInstalar").addEventListener("click",async()=>{if(!pedidoInstalar)return;pedidoInstalar.prompt();try{await pedidoInstalar.userChoice;}catch(e){}pedidoInstalar=null;$("btnInstalar").hidden=true;});
+addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true;});
+if(matchMedia("(display-mode: standalone)").matches)$("ayudaInstalar").hidden=true;
 prepararEscena("parcial",false,0);
 (async()=>{
   if((AJ.modo||"auto")==="auto"){await pedirUbicacion(true);}

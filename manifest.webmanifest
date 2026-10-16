@@ -1,0 +1,17 @@
+{
+  "name": "Pronóstico real o no tanto",
+  "short_name": "Real o no tanto",
+  "description": "El pronóstico que promedia varias fuentes y le da más peso a la que más acierta. De Yerba Mala Studios.",
+  "lang": "es-AR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2f72c7",
+  "theme_color": "#2f72c7",
+  "icons": [
+    {"src": "icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
