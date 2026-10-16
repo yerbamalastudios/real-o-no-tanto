@@ -1,0 +1,320 @@
+{
+ "ok": true,
+ "expiracion": 1792113257000,
+ "data": {
+  "locations": [
+   {
+    "hash": "6f2daba02c3cd38daee6e2e2f572746e",
+    "name": "Lomas del Mirador",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "2ed6c030895db874f94f78c20587bbac",
+    "name": "Santiago de Chile",
+    "description": "Santiago",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "93353c11201dee175bf24d36d7343bc8",
+    "name": "Mar del Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "7b7616648bc4329e6f65a4fa3d81af94",
+    "name": "New Delhi",
+    "description": "Delhi",
+    "country_name": "India"
+   },
+   {
+    "hash": "134712a34c8e8a2469c0cdabf9257700",
+    "name": "Ciudad de México",
+    "description": "Distrito Federal",
+    "country_name": "México"
+   },
+   {
+    "hash": "741e7899d57df2aeca0c2134f5345ad1",
+    "name": "Viña del Mar",
+    "description": "Valparaíso",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "8a78a89115306a52f4f50616038130d0",
+    "name": "Cataratas del Iguazú",
+    "description": "Misiones",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "76462834bd3ea37497e6cd3a90b3d4af",
+    "name": "Ciudad del Este",
+    "description": "Alto Paraná",
+    "country_name": "Paraguay"
+   },
+   {
+    "hash": "0de38d7602ed0dfa1dbddbf071cfc165",
+    "name": "Pozo del Tigre",
+    "description": "Santa Cruz",
+    "country_name": "Bolivia"
+   },
+   {
+    "hash": "3e061d1c34014d9ced218ef2300aa218",
+    "name": "Lomas de Zamora",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "822cbc0e1c793df8ed113d25ae331def",
+    "name": "Playa Del Carmen",
+    "description": "Quintana Roo",
+    "country_name": "México"
+   },
+   {
+    "hash": "c3bc544baf65064798af02fe93a9239c",
+    "name": "Fráncfort del Meno",
+    "description": "Hesse",
+    "country_name": "Alemania"
+   },
+   {
+    "hash": "b3a591e6859a71fd6273a187795f7ed6",
+    "name": "Ciudad Jardin Lomas Del Palomar",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "b751a615ae2cdcb5982696f3e54f6949",
+    "name": "Santiago del Estero",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8292f7ca1200c5650dc472eedbf965d7",
+    "name": "San Fernando del Valle de Catamarca",
+    "description": "Catamarca",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "df6e17044669e1f56ce73ac2d9aa4f80",
+    "name": "Punta del Este",
+    "description": "Maldonado",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "9703c36d28e57625c9ae7a5b51b0c7ab",
+    "name": "La Manga del Mar Menor",
+    "description": "Murcia",
+    "country_name": "España"
+   },
+   {
+    "hash": "29ca346095ccb448b90f1c45309bf768",
+    "name": "Colonia Del Sacramento",
+    "description": "Colonia",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "3d3335fbcc86be808d74dec363b0baec",
+    "name": "Tafí del Valle",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "fd6b2323bd87a47ea8355ef877905913",
+    "name": "Guardamar del Segura",
+    "description": "Alicante, Comunidad Valenciana",
+    "country_name": "España"
+   },
+   {
+    "hash": "740a9fadc37457c4907c7a7f79c20654",
+    "name": "Alcalá del Júcar",
+    "description": "Albacete, Castilla La Mancha",
+    "country_name": "España"
+   },
+   {
+    "hash": "b2fd22b862f7ffa7239636f355af44c2",
+    "name": "Ciudad del Cabo",
+    "description": "Sudáfrica",
+    "country_name": "Sudáfrica"
+   },
+   {
+    "hash": "5ab6d1de2a34b42861a787d818ae2fa8",
+    "name": "Ponta Delgada",
+    "description": "Azores",
+    "country_name": "Portugal"
+   },
+   {
+    "hash": "72a1bc034d1279d030f2d8de3b50d1b5",
+    "name": "Concepcion del Uruguay",
+    "description": "Entre Ríos",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c66a9435d425e69c6bb8ce26d124e218",
+    "name": "Oropesa del Mar",
+    "description": "Castellón, Comunidad Valenciana",
+    "country_name": "España"
+   },
+   {
+    "hash": "4b24ed30a399a21ad61e8522e70f33db",
+    "name": "Capilla del Monte",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "a4cc64c95ffbe72536a6d1c434951b10",
+    "name": "Santa Rosa del Palmar",
+    "description": "Santa Cruz",
+    "country_name": "Bolivia"
+   },
+   {
+    "hash": "58a6a1bfa95a471b81d2ef082b6c6a53",
+    "name": "Sant Cugat del Vallès",
+    "description": "Barcelona, Cataluña",
+    "country_name": "España"
+   },
+   {
+    "hash": "b09547007d619eb11cb13c3d709cf886",
+    "name": "Riva del Garda",
+    "description": "Trento",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "211cf9b8a66c1380389e651f35ddeaba",
+    "name": "Santillana del Mar",
+    "description": "Cantabria",
+    "country_name": "España"
+   },
+   {
+    "hash": "e6da0deeb3fafc4589f362c5243ada95",
+    "name": "Lomas del Mirador",
+    "description": "Tizapán el Alto Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "8e0df14ff044b92e7441ce6084d149ed",
+    "name": "Lomas del Mirador",
+    "description": "Tlajomulco de Zúñiga Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "266249e4598843868acee41b2fb87e63",
+    "name": "Lomas del Mirador",
+    "description": "Estado de Nayarit",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "e7fd19ee83b94812fb9705e427aef42f",
+    "name": "Lomas del Mirador",
+    "description": "Estado de Aguascalientes",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "83ad4840b5dc72a13666962c39d64280",
+    "name": "Lomas del Mirador",
+    "description": "Santa Catarina",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "433646eb97cdc4d8e965700a09023d29",
+    "name": "Lomas del Mirador",
+    "description": "Cuquío Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "fbd7f48de829b118db1e9676f6c9c5e5",
+    "name": "Lomas del Mirador",
+    "description": "Zapopan Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "9f0911329bb43a0fb4ad95ad52f995af",
+    "name": "Lomas del Mirador",
+    "description": "Guaymas Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "913adac41217fbf3db74af33169434f1",
+    "name": "Lomas del Mirador",
+    "description": "Estado de Morelos",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "a3e63557b45d2b39e28674459f951bf2",
+    "name": "Lomas del Mirador",
+    "description": "Querétaro",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "8c6e0ad12946bcf9919a5e7f03303b06",
+    "name": "Lomas del Mirador",
+    "description": "Querétaro",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "27da4ad24e0a5bc23315bfbada66c3d8",
+    "name": "Lomas del Mirador V",
+    "description": "Estado de Aguascalientes",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "c64c61db472a034d9605181641dfeb9c",
+    "name": "Lomas del Mirador II",
+    "description": "Estado de Aguascalientes",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "6b72cea5c5c1d2272eb9fc45bce7a85f",
+    "name": "Lomas del Mirador IV",
+    "description": "Estado de Aguascalientes",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "b21af27459d043e50dbe53827c0e4b86",
+    "name": "Lomas El Mirador",
+    "description": "Baruta Municipality",
+    "country_name": "República Bolivariana de Venezuela"
+   },
+   {
+    "hash": "c46ee913fdc76311777b13ee63196488",
+    "name": "Lomas del Mirador III",
+    "description": "Estado de Aguascalientes",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "4806c7bc242bc2338293665801cbfc2b",
+    "name": "Lomas de Miradores",
+    "description": "Emiliano Zapata",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "67648b37efeaade27834b56064c808f4",
+    "name": "Buenos Aires",
+    "description": "Argentina",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "7b7616648bc4329e6f65a4fa3d81af94",
+    "name": "Nueva Delhi",
+    "description": "Chanakya Puri, New Delhi",
+    "country_name": "India"
+   },
+   {
+    "hash": "6d243cb04a4394e92bd7ca7cfeb12296",
+    "name": "Valladolid",
+    "description": "Valladolid, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "707dff60168b5690a6cc8f7e8df81c95",
+    "name": "Lomas del Urubo",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "dd0de18d9971d5a24c58c9bf2b326d9b",
+    "name": "San Juan del Pirai",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   }
+  ]
+ }
+}
