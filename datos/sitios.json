@@ -1,18 +1,52 @@
 {
- "actualizado": "2026-10-15T21:14-03:00",
+ "actualizado": "2026-10-15T21:24-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
    "errores": {
-    "Meteored": "HTTPError: HTTP Error 404: Not Found",
-    "SMN": "RuntimeError: API del SMN: <urlopen error [Errno -5] No address associated with hostname> · datos abiertos: archivo vacío"
+    "SMN": "RuntimeError: API del SMN: la web del SMN no entregó el permiso (token) · datos abiertos: archivo vacío"
    },
    "estado": {
     "meteored_buscado": "Lomas del Mirador",
     "meteored_hash": "6f2daba02c3cd38daee6e2e2f572746e",
     "meteored_lugar": "Lomas del Mirador"
    },
-   "hist": {},
+   "hist": {
+    "2026-10-15": {
+     "meteored": {
+      "2026-10-15": {
+       "lluvia": 21.2,
+       "prob": null,
+       "tmax": 19.62,
+       "tmin": 12.57
+      },
+      "2026-10-16": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.11,
+       "tmin": 9.52
+      },
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.95,
+       "tmin": 5.68
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.76,
+       "tmin": 6.04
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.6,
+       "tmin": 6.03
+      }
+     }
+    }
+   },
    "lat": -34.66,
    "lon": -58.53,
    "nombre": "Lomas del Mirador"
