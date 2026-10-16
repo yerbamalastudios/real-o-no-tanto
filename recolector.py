@@ -15,10 +15,10 @@ from zoneinfo import ZoneInfo
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(RAIZ, "datos", "sitios.json")
 DEBUG_DIR = os.path.join(RAIZ, "datos", "debug")
-CFG = {"lat": -34.66, "lon": -58.53, "zona_horaria": "America/Argentina/Buenos_Aires",
+CFG = {"lugar": "Lomas del Mirador", "lat": -34.66, "lon": -58.53, "zona_horaria": "America/Argentina/Buenos_Aires",
        "smn_estacion_pronostico": ["MORON", "PALOMAR", "AEROPARQUE", "BUENOS_AIRES", "EZEIZA"]}
 TZ = ZoneInfo(CFG["zona_horaria"])
-UA = {"User-Agent": "pronostico-real-o-no-tanto/1.0 (uso personal)"}
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) pronostico-real-o-no-tanto/1.0"}
 
 
 MESES = {"ENE": 1, "JAN": 1, "FEB": 2, "MAR": 3, "ABR": 4, "APR": 4, "MAY": 5, "JUN": 6, "JUL": 7,
@@ -101,26 +101,56 @@ def elegir(nombres, preferidas):
     return None
 
 
-def fuente_smn():
-    texto = smn_zip("pron5d")
-    est = parse_pron5d(texto)
-    if not est:
-        guardar_debug("smn_pron5d.txt", texto)
-        raise RuntimeError("No pude leer el archivo pron5d del SMN (guardado en debug/)")
-    nombre = elegir(est, CFG["smn_estacion_pronostico"])
-    if not nombre:
-        raise RuntimeError("Ninguna estación preferida en pron5d. Disponibles: " + ", ".join(sorted(est)[:40]))
-    porDia = {}
-    for f, hh, t, p in est[nombre]:
-        porDia.setdefault(f.isoformat(), []).append((t, p))
-    serie = {}
-    for f, v in porDia.items():
-        if len(v) < 6:  # día incompleto (menos de 6 de los 8 horarios)
-            continue
-        ts = [x[0] for x in v]
-        serie[f] = {"tmax": max(ts), "tmin": min(ts), "lluvia": round(sum(x[1] for x in v), 1), "prob": None}
-    return {"smn": serie}, nombre
+def smn_token():
+    req = urllib.request.Request("https://ws2.smn.gob.ar/", headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        html = r.read().decode("utf-8", "replace")
+    for pat in (r"localStorage\.setItem\(\s*['\"]token['\"]\s*,\s*['\"]([^'\"]+)['\"]",
+                r"['\"]token['\"]\s*:\s*['\"](eyJ[^'\"]+)['\"]", r"(eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)"):
+        m = re.search(pat, html)
+        if m:
+            return m.group(1)
+    guardar_debug("smn_token.html", html[:20000])
+    raise RuntimeError("no encontré el permiso (token) en la página del SMN")
 
+
+def fuente_smn_api():
+    tok = smn_token()
+    h = {"Authorization": "JWT " + tok, "User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    base = "https://ws1.smn.gob.ar/v1"
+    loc = http(f"{base}/georef/location/coord?lat={CFG['lat']}&lon={CFG['lon']}", h)
+    guardar_debug("smn_lugar.json", loc)
+    ids = buscar(loc, lambda o: isinstance(o, dict) and isinstance(o.get("id"), (int, str)))
+    if not ids:
+        raise RuntimeError("el SMN no devolvió una localidad")
+    lugar = ids[0]
+    j = http(f"{base}/forecast/location/{lugar['id']}", h)
+    guardar_debug("smn_pronostico.json", j)
+    serie = extraer_diario(j)
+    if not serie:
+        raise RuntimeError("no pude leer el pronóstico (ver datos/debug/smn_pronostico.json)")
+    return {"smn": serie}, lugar.get("name") or str(lugar["id"])
+
+
+def fuente_smn():
+    try:
+        return fuente_smn_api()
+    except Exception as e1:
+        try:
+            texto = smn_zip("pron5d")
+            est = parse_pron5d(texto)
+            if not est:
+                raise RuntimeError("archivo vacío")
+            nombre = elegir(est, CFG["smn_estacion_pronostico"])
+            porDia = {}
+            for f, hh, t, p in est[nombre]:
+                porDia.setdefault(f.isoformat(), []).append((t, p))
+            serie = {f: {"tmax": max(x[0] for x in v), "tmin": min(x[0] for x in v),
+                         "lluvia": round(sum(x[1] for x in v), 1), "prob": None}
+                     for f, v in porDia.items() if len(v) >= 6}
+            return {"smn": serie}, nombre
+        except Exception as e2:
+            raise RuntimeError(f"API del SMN: {e1} · datos abiertos: {e2}")
 
 def buscar(obj, pred, prof=0):
     """Recorre un JSON y devuelve todos los nodos que cumplen pred."""
@@ -196,20 +226,24 @@ def fuente_meteored(estado):
     h = {"x-api-key": key, "Accept": "application/json"}
     base = "https://api.meteored.com/api"
     if not estado.get("meteored_hash"):
-        j = http(f"{base}/location/v1/search/coords/{CFG['lat']}/{CFG['lon']}", h)
+        txt = urllib.parse.quote(CFG["lugar"])
+        j = http(f"{base}/location/v1/search/txt/{txt}", h)
         guardar_debug("meteored_ubicacion.json", j)
-        hashes = buscar(j, lambda o: isinstance(o, dict) and isinstance(o.get("hash"), str))
-        if not hashes:
-            raise RuntimeError("Meteored no devolvió una ubicación (ver debug/meteored_ubicacion.json)")
-        estado["meteored_hash"] = hashes[0]["hash"]
-        estado["meteored_lugar"] = hashes[0].get("name") or hashes[0].get("description")
-    j = http(f"{base}/forecast/v1/daily/{estado['meteored_hash']}", h)
+        cands = buscar(j, lambda o: isinstance(o, dict) and isinstance(o.get("hash"), str))
+        if not cands:
+            raise RuntimeError("Meteored no encontró el lugar (ver datos/debug/meteored_ubicacion.json)")
+        def puntos(o):
+            t = json.dumps(o, ensure_ascii=False).lower()
+            return ("argentina" in t) * 2 + ("buenos aires" in t) + ("matanza" in t)
+        mejor = max(cands, key=puntos)
+        estado["meteored_hash"] = mejor["hash"]
+        estado["meteored_lugar"] = mejor.get("name") or mejor.get("description")
+    j = http(f"{base}/forecast/v2/daily/{estado['meteored_hash']}", h)
     guardar_debug("meteored_diario.json", j)
     serie = extraer_diario(j)
     if not serie:
-        raise RuntimeError("No pude leer el pronóstico de Meteored (ver debug/meteored_diario.json)")
+        raise RuntimeError("No pude leer el pronóstico de Meteored (ver datos/debug/meteored_diario.json)")
     return {"meteored": serie}
-
 
 def fuente_accuweather(estado):
     """1 llamada por día (más 1 la primera vez)."""
@@ -246,17 +280,28 @@ def guardar_debug(nombre, contenido):
         f.write(contenido if modo == "wb" else json.dumps(contenido, ensure_ascii=False, indent=1)[:200000])
 
 
-def main():
-    hoy = datetime.now(TZ).date()
-    datos = leer_json(SALIDA, {})
-    datos.update({"lat": CFG["lat"], "lon": CFG["lon"]})
+
+def cargar_lugares():
+    """Los lugares salen de lugares.json. Cada uno gasta 1 llamada diaria de Meteored."""
+    ruta = os.path.join(RAIZ, "lugares.json")
+    lugares = leer_json(ruta, [])
+    return lugares or [{"nombre": "Lomas del Mirador", "buscar": "Lomas del Mirador", "lat": -34.66, "lon": -58.53}]
+
+
+def recolectar_lugar(lugar, previo, hoy):
+    CFG.update({"lugar": lugar.get("buscar") or lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"]})
+    datos = dict(previo or {})
+    datos.update({"nombre": lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"]})
     hist = datos.setdefault("hist", {})
     estado = datos.setdefault("estado", {})
+    if estado.get("meteored_buscado") != CFG["lugar"]:   # si cambió el lugar, volver a buscarlo
+        estado.pop("meteored_hash", None)
+        estado["meteored_buscado"] = CFG["lugar"]
     errores = {}
     hoy_s = hoy.isoformat()
     ya = hist.get(hoy_s, {})
-    tareas = [("SMN", lambda: fuente_smn())]
-    if "meteored" not in ya:   # 1 sola llamada por día aunque el programa corra dos veces
+    tareas = [("SMN", fuente_smn)]
+    if "meteored" not in ya:   # 1 sola llamada por día y por lugar
         tareas.append(("Meteored", lambda: fuente_meteored(estado)))
     if "accuweather" not in ya:
         tareas.append(("AccuWeather", lambda: fuente_accuweather(estado)))
@@ -277,9 +322,23 @@ def main():
     corte = (hoy - timedelta(days=40)).isoformat()
     datos["hist"] = {f: v for f, v in hist.items() if f >= corte}
     datos["errores"] = errores
-    datos["actualizado"] = datetime.now(TZ).isoformat(timespec="minutes")
-    guardar_json(SALIDA, datos)
-    print("Listo.", json.dumps(errores, ensure_ascii=False))
+    return datos
+
+
+def main():
+    hoy = datetime.now(TZ).date()
+    viejo = leer_json(SALIDA, {})
+    previos = {(round(l["lat"], 2), round(l["lon"], 2)): l for l in viejo.get("lugares", [])}
+    if "hist" in viejo:   # formato anterior (un solo lugar)
+        previos[(round(viejo.get("lat", 0), 2), round(viejo.get("lon", 0), 2))] = viejo
+    salida = []
+    for lugar in cargar_lugares():
+        global DEBUG_DIR
+        DEBUG_DIR = os.path.join(RAIZ, "datos", "debug", re.sub(r"[^a-z0-9]+", "-", lugar["nombre"].lower()).strip("-"))
+        d = recolectar_lugar(lugar, previos.get((round(lugar["lat"], 2), round(lugar["lon"], 2))), hoy)
+        salida.append(d)
+        print(lugar["nombre"], json.dumps(d["errores"], ensure_ascii=False))
+    guardar_json(SALIDA, {"lugares": salida, "actualizado": datetime.now(TZ).isoformat(timespec="minutes")})
 
 
 if __name__ == "__main__":

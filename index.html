@@ -186,6 +186,8 @@ body.grande #btnGrande{background:var(--fg);color:var(--bg)}
       <label for="aLugar">Lugar</label>
       <div class="row"><input id="aLugar" type="search" autocomplete="off" placeholder="Buscar ciudad o barrio"><button class="btn" id="aBuscar" type="button">Buscar</button></div>
       <div class="res" id="aRes"></div>
+      <div class="row"><button class="btn" id="aGPS" type="button">📍 Usar mi ubicación</button></div>
+      <div id="aLugares" class="small"></div>
       <label for="aMet">Clave de Meteored</label>
       <input id="aMet" type="password" autocomplete="off" spellcheck="false" placeholder="Pegá tu clave acá">
       <label for="aAcc">Clave de AccuWeather (opcional)</label>
@@ -590,6 +592,10 @@ function combinarFecha(arch,punt,f,L){
     fuentes:filas.sort((a,b)=>b.peso_temp-a.peso_temp)};
 }
 
+// ---------- lugares que el programa diario sigue (SMN y Meteored)
+let LUGARES_SRV=[];
+function distKm(a,b,c,d){const r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)/2*r),y=(c-a)*r;return 6371*Math.hypot(x,y);}
+function lugarCercano(lista){let best=null,bd=1e9;for(const l of lista){const d=distKm(AJ.lat,AJ.lon,l.lat,l.lon);if(d<bd){bd=d;best=l;}}return bd<=15?best:null;}
 // ---------- todo junto
 async function armar(){
   const hoy=ymd(new Date()),errores={};
@@ -598,7 +604,9 @@ async function armar(){
   let srv=null;
   if(/^https?:/.test(location.protocol)){
     try{const j=await getJSON("datos/sitios.json?t="+Date.now());
-      if(Math.abs(j.lat-AJ.lat)<0.05&&Math.abs(j.lon-AJ.lon)<0.05)srv=j;}catch(e){}
+      const lista=j.lugares||(j.hist?[j]:[]);
+      LUGARES_SRV=lista.map(l=>({nombre:l.nombre||"Lomas del Mirador",lat:l.lat,lon:l.lon}));
+      srv=lugarCercano(lista);}catch(e){}
   }
   const [mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
     intentar("Modelos globales",fuenteModelos),
@@ -617,6 +625,10 @@ async function armar(){
     const ult=Object.keys(h).sort().filter(f=>f<=hoy).pop();
     if(ult)for(const[k,serie]of Object.entries(h[ult])){const fut={};for(const[f,v]of Object.entries(serie))if(f>hoy)fut[f]=v;if(Object.keys(fut).length)sitios[k]=fut;}
     if(ult&&diasEntre(ult,hoy)>1)errores["Programa diario"]="no corre desde el "+ult+". Revisá la pestaña Actions en GitHub";
+  }else if(LUGARES_SRV.length){
+    // En GitHub pero lejos de los lugares de la lista: solo modelos (el SMN y Meteored no se pueden pedir desde el navegador)
+    h={};
+    errores["SMN y Meteored"]="este lugar no está en la lista del programa diario. Elegí uno cercano en Ajustes o pedí que lo agreguen";
   }else{
     // Pronósticos de hoy de cada sitio: se guardan en este navegador para compararlos cuando llegue el día
     if(smn)sitios.smn=smn.serie;
@@ -667,7 +679,7 @@ async function actualizar(){
   $("btnAct").disabled=true;$("btnAct").textContent="Cebando…";document.body.classList.add("cargando");
   try{S=await armar();render();renderExtras();}
   catch(e){console.error(e);$("sub").textContent="Se volcó el mate: "+e.message;}
-  finally{corriendo=false;$("btnAct").disabled=false;$("btnAct").textContent="↻ Actualizar";document.body.classList.remove("cargando");pintarAjustes();}
+  finally{corriendo=false;$("btnAct").disabled=false;$("btnAct").textContent="↻ Actualizar";document.body.classList.remove("cargando");pintarAjustes();pintarLugaresSrv();}
 }
 $("btnAct").addEventListener("click",actualizar);
 async function buscarLugar(){
@@ -691,6 +703,23 @@ function guardarAjustes(){
   actualizar();
 }
 $("aGuardar").addEventListener("click",guardarAjustes);
+function elegirLugar(nombre,lat,lon){AJ.lugar=nombre;AJ.lat=+(+lat).toFixed(3);AJ.lon=+(+lon).toFixed(3);$("aLugar").value=nombre;$("aRes").innerHTML="";guardarAjustes();}
+$("aGPS").addEventListener("click",()=>{
+  if(!navigator.geolocation){$("aInfo").textContent="Este navegador no deja usar la ubicación. Buscá el lugar por nombre.";return;}
+  $("aGPS").textContent="Buscando dónde estás…";
+  navigator.geolocation.getCurrentPosition(p=>{
+    $("aGPS").textContent="📍 Usar mi ubicación";
+    const lat=p.coords.latitude,lon=p.coords.longitude;
+    let best=null,bd=1e9;for(const l of LUGARES_SRV){const d=distKm(lat,lon,l.lat,l.lon);if(d<bd){bd=d;best=l;}}
+    if(best&&bd<=15)elegirLugar(best.nombre,best.lat,best.lon);else elegirLugar("Mi ubicación",lat,lon);
+  },e=>{$("aGPS").textContent="📍 Usar mi ubicación";$("aInfo").textContent=e.code===1?"No diste permiso de ubicación. Podés buscar el lugar por nombre.":"No pude saber dónde estás. Probá buscando el lugar por nombre.";},{enableHighAccuracy:false,timeout:15000,maximumAge:600000});
+});
+function pintarLugaresSrv(){
+  const box=$("aLugares");box.innerHTML="";
+  if(!LUGARES_SRV.length)return;
+  box.append("Con SMN y Meteored: ");
+  LUGARES_SRV.forEach((l,i)=>{const b=document.createElement("button");b.type="button";b.className="btn";b.style.margin="4px 6px 0 0";b.textContent=l.nombre;b.addEventListener("click",()=>elegirLugar(l.nombre,l.lat,l.lon));box.appendChild(b);});
+}
 let confirmaBorrar=false;
 $("aBorrar").addEventListener("click",()=>{
   if(!confirmaBorrar){confirmaBorrar=true;$("aBorrar").textContent="¿Seguro? Tocá de nuevo";setTimeout(()=>{confirmaBorrar=false;$("aBorrar").textContent="Borrar historial";},4000);return;}
