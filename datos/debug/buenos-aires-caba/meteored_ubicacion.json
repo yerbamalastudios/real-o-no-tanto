@@ -1,0 +1,320 @@
+{
+ "ok": true,
+ "expiracion": 1792242163000,
+ "data": {
+  "locations": [
+   {
+    "hash": "67648b37efeaade27834b56064c808f4",
+    "name": "Buenos Aires",
+    "description": "Argentina",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "43985ff2e83d0ceb1000fd090932b66b",
+    "name": "Buenos Aires (San Isidro)",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "25698d18e274a7dd301ae4c6c09039e8",
+    "name": "Buenos Aires",
+    "description": "México",
+    "country_name": "México"
+   },
+   {
+    "hash": "c1f26f37c9ef53ad618d5a76054053bb",
+    "name": "Buenos Aires",
+    "description": "Baja California",
+    "country_name": "México"
+   },
+   {
+    "hash": "55d4f3afe2c4a5141f622502be289604",
+    "name": "Buenos Aires",
+    "description": "Chiapas",
+    "country_name": "México"
+   },
+   {
+    "hash": "e90492cf9834312043d324ec585f34de",
+    "name": "Buenos Aires",
+    "description": "Michoacán",
+    "country_name": "México"
+   },
+   {
+    "hash": "49c01964402fea6e7b21aaaff4eb9ec2",
+    "name": "Buenos Aires",
+    "description": "Puebla",
+    "country_name": "México"
+   },
+   {
+    "hash": "37161128fd5fa81f6fc1135acbd1fd43",
+    "name": "Buenos Aires Texalpan",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "34ab1dc3eb4e3feaf7cfb63df986cc82",
+    "name": "Buenos Aires Xoteapan",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "73b03a0822457a1b129a973944606e3c",
+    "name": "Colonia Buenos Aires",
+    "description": "Coahuila",
+    "country_name": "México"
+   },
+   {
+    "hash": "73bb1ed80e1f61e76679c75efa0a8ff4",
+    "name": "Barrancas (Buenos Aires)",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "442eb55a749587ae528f2ac02140f3dd",
+    "name": "Concepción de Buenos Aires",
+    "description": "Jalisco",
+    "country_name": "México"
+   },
+   {
+    "hash": "176d9260ec41b81ee5abb0291cd4e354",
+    "name": "San Nicolás Buenos Aires",
+    "description": "Puebla",
+    "country_name": "México"
+   },
+   {
+    "hash": "ea0224ed951b9b24ab229c399791b8c8",
+    "name": "San Sebastián Buenos Aires (San Sebastián)",
+    "description": "México",
+    "country_name": "México"
+   },
+   {
+    "hash": "3590122e2de7f1f4dcb0e41f5e808a74",
+    "name": "Buenos Aires",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "f7aa8b3e98327212256b1c57bf73ebef",
+    "name": "Buenos Aires",
+    "description": "Izabal",
+    "country_name": "Guatemala"
+   },
+   {
+    "hash": "6abd600b93c3e074e113017e4d3e3be6",
+    "name": "Buenos Aires",
+    "description": "Maranhão",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "6716a8dc1ace88cff43f9113eff39554",
+    "name": "Buenos Aires",
+    "description": "Texas",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "a50e42927eef2d9582c635fca8001724",
+    "name": "Buenos Aires",
+    "description": "Cauca",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "1a2f7b9754a65dc503b9b42b5ab20f26",
+    "name": "Buenos Aires",
+    "description": "Huehuetenango",
+    "country_name": "Guatemala"
+   },
+   {
+    "hash": "890a35927dbd4a8ec05dd866389f362b",
+    "name": "Buenos Aires",
+    "description": "Puntarenas",
+    "country_name": "Costa Rica"
+   },
+   {
+    "hash": "0d41bd6c2f9fed2a1a0302b1b0137252",
+    "name": "Buenos Aires",
+    "description": "Arizona",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "962d184847ec43d806066912bd3dedee",
+    "name": "Buenos Aires",
+    "description": "San Juan",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "c9d9d66a09a2b3243c15ed0a8c66b594",
+    "name": "Buenos Aires",
+    "description": "Santa Isabel",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "4ecb0d2ec290953bc57a1449276cfc86",
+    "name": "Buenos Aires",
+    "description": "Pernambuco",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "1c539fabfe7d9150b143fb990e03b194",
+    "name": "Buenos Aires",
+    "description": "Bahia",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "28455ff62a266d6f76dd32257bfea202",
+    "name": "Buenos Aires - Coelho Neto",
+    "description": "Maranhão",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "38c84c12a0d8a33d1680e52715281d1c",
+    "name": "Balneario Buenos Aires",
+    "description": "Maldonado",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "7c28ec80dd12dd0fbc6be6c1a9bfe4f0",
+    "name": "Buenos Aires de Gredos",
+    "description": "Ávila, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "f7fc428ebe2b61cd7fa7194eb9d00c06",
+    "name": "Buenos Aires Chico",
+    "description": "Chubut",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "3e7a00dc2c552b0fb95a0743575670d4",
+    "name": "Buenos Aires Primera Ampliación",
+    "description": "Saltillo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "ce788e37f2c5627b76582bd0c1969d53",
+    "name": "Buenos Aires Segunda Ampliación",
+    "description": "Saltillo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "06d5c22c603e8ba5b5ad7fa93fa0dc5d",
+    "name": "Buenos Aires",
+    "description": "Coahuayana Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "19a064d2d34422bf662ec1246fb074d3",
+    "name": "Buenos Aires",
+    "description": "Nocupétaro",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "f27dc0a632d4a48a5652630f61c6bb6f",
+    "name": "Buenos Aires",
+    "description": "Estado de Coahuila de Zaragoza",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "95af4f142e25cee1f53c8aa5c1b57c74",
+    "name": "Buenos Aires Dos",
+    "description": "Nacozari de García",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "c8fe8d8c7e5893b3cf02cf23a0ef4330",
+    "name": "Buenos Aires Iztacamel",
+    "description": "Xilitla",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "a44c7ab31ddc2ef7c20164fb116aa8bc",
+    "name": "Buenos Aires Ampliación",
+    "description": "Monclova",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "690605b3e3121813990a8165b38a302e",
+    "name": "Buenos Aires Lote 28",
+    "description": "Comondú Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "62313ba7581c460cc5b52a957e10ae6f",
+    "name": "Buenos Aires Retroceso",
+    "description": "Tamazunchale",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "787cb548eb68b8de449bceada9f784f5",
+    "name": "Buenos Aires de la Esperanza",
+    "description": "Bahía de Banderas",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "20351d10f2607be18e18a29f92cef120",
+    "name": "Buenos Aires Lote 45",
+    "description": "Comondú Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "afe07fb5e48a4e706a1a5a1f375912d5",
+    "name": "Buenos Aires III",
+    "description": "Tapachula Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "5f2d11b27a181f95f271328f9e9b26aa",
+    "name": "Buenos Aires Dos",
+    "description": "Actopan",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "6f33f9589fdb567222c3bbbc031a7474",
+    "name": "Buenos Aires II",
+    "description": "Estado de Chiapas",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "ad54ee2ac5ccfdbe802425cc21c090f5",
+    "name": "Buenos Aires II",
+    "description": "Tapachula Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "84019c7216ad19627287c4dc7f7b80d6",
+    "name": "Buenos Aires I",
+    "description": "Tapachula Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "53cd59d2432a84dc1f60ce52eaa89d88",
+    "name": "Los Buenos Aires",
+    "description": "Dolores Hidalgo Cuna de la Independencia Nacional",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "a852e74b0ef62057413aa857dcc6f261",
+    "name": "Tamatan y Buenos Aires",
+    "description": "El Mante",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "5fda3459b4d61082b6f5c8164d478f8d",
+    "name": "Altamira Buenos Aires",
+    "description": "Estado de Chiapas",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "e6b49d3118f4f57bfd567154fbd72143",
+    "name": "Ampliación Buenos Aires",
+    "description": "Estado Libre y Soberano de Veracruz de Ignacio de la Llave",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "8163f44e3177886c7a55ea14f0de342f",
+    "name": "Loma de Buenos Aires",
+    "description": "Florencio Villarreal Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   }
+  ]
+ }
+}

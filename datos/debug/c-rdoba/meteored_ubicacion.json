@@ -1,0 +1,236 @@
+{
+ "ok": true,
+ "expiracion": 1792242181000,
+ "data": {
+  "locations": [
+   {
+    "hash": "6f58e03ce202c16b1927300a8601b966",
+    "name": "Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "85d2a08418f36e010aa1d49b49d35f56",
+    "name": "Córdoba",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "d361a01ab114a7319a83210abb73ce1d",
+    "name": "Cordoba",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "858256f739fa5b016f5ad3a97d39aa04",
+    "name": "Priego de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "c28b4dd6f624fddfcedc1f892b949045",
+    "name": "Villaviciosa de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "71f2d2063ad421bde88b6dfd81f540e6",
+    "name": "Córdoba (Santa Leticia)",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "9e2e3fb3d0d6b607e40a5fda71c53883",
+    "name": "Cordoba",
+    "description": "Portuguesa",
+    "country_name": "Venezuela"
+   },
+   {
+    "hash": "133b0d4fe1b50a981cba9b43826686b0",
+    "name": "Córdoba",
+    "description": "Bolívar",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "799b0e0085a53006aa9af223e7776423",
+    "name": "Villanueva de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "0d66070f3c794270700288597f0fd548",
+    "name": "Aeropuerto Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "bc6c83910d6077c732ad51599a3f1da4",
+    "name": "Villafranca de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "5d0fbfee9ea20b1ed594f4db8df040ff",
+    "name": "Encinarejo de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "883373e836d2bfafe765fc08efa29e0d",
+    "name": "Montalbán de Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "c2248ad1278a575ae520224c18e03db4",
+    "name": "Los Cordobas",
+    "description": "Córdoba",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "5a42df292da732bc0192d689bfec8327",
+    "name": "Puesto Cordoba",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "ecdff15e24a5813418fc6e01c6a7778b",
+    "name": "Potrero De Los Cordoba",
+    "description": "Catamarca",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "20f84ddb23a0abfa2172628499bff724",
+    "name": "Puerta De Cordoba",
+    "description": "Catamarca",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "5f224ae69bf82aef057b7a0f4d988fe1",
+    "name": "Ixhuatlan Cordoba",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "962226edb37d6225823f994a021be16d",
+    "name": "Villa Cordoba",
+    "description": "Corrientes",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "f7456b983dfc9cd6d027e4b18a6206a0",
+    "name": "Colonia Aquiles Córdoba Morán",
+    "description": "Michoacán",
+    "country_name": "México"
+   },
+   {
+    "hash": "6f58e03ce202c16b1927300a8601b966",
+    "name": "Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "6f58e03ce202c16b1927300a8601b966",
+    "name": "Córdoba",
+    "description": "Córdoba, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "0d66070f3c794270700288597f0fd548",
+    "name": "Aeropuerto de Córdoba",
+    "description": "Cordova, Provincia de Córdoba",
+    "country_name": "Reino de España"
+   },
+   {
+    "hash": "31731fc949b216d958b214411ec4a698",
+    "name": "Córdoba de Arriba",
+    "description": "Estado de Jalisco",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "6630f34da52f728c59718d3b9fd50f30",
+    "name": "Córdoba Residencial",
+    "description": "Hermosillo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "d26dbabc141b7ca8b05d8ca4cd3bdc54",
+    "name": "Córdoba de Abajo",
+    "description": "Tepatitlán Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "e229c3db7c0727a228b13fc072f5771d",
+    "name": "Córdoba Dos Mil",
+    "description": "Estado Libre y Soberano de Veracruz de Ignacio de la Llave",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "6dcc1467aece88663aec872a0ce09ac4",
+    "name": "Córdoba",
+    "description": "Guáimaro",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "289f6ac220b16bd641342aa961c94e7a",
+    "name": "Córdoba",
+    "description": "Provincia de San José",
+    "country_name": "República de Costa Rica"
+   },
+   {
+    "hash": "7b0b9cdad1791d4933b68bb1cae08a46",
+    "name": "Cordova",
+    "description": "Municipality of Amulung, Lalawigan ng Cagayan",
+    "country_name": "Filipinas"
+   },
+   {
+    "hash": "703ac5904c4634b89884555a811b2c49",
+    "name": "Córdoba Curay",
+    "description": "Francisco Pizarro",
+    "country_name": "República de Colombia"
+   },
+   {
+    "hash": "41bd9116eb48dfb62d4afd6c56e27db3",
+    "name": "Cordobanal",
+    "description": "Manicaragua",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "9988d5b283a4b4319e4f55cedcaffa22",
+    "name": "Alta Córdoba",
+    "description": "Departamento de Capital",
+    "country_name": "República Argentina"
+   },
+   {
+    "hash": "682b64b4287ab037678a0c8209f2bc1c",
+    "name": "Cordobang",
+    "description": "Thüringen",
+    "country_name": "Alemania"
+   },
+   {
+    "hash": "bc9506d8475f604641770624fb662161",
+    "name": "La Cordobana Campo Menonita Número 55",
+    "description": "Riva Palacio Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "459002c9c00ef55d45868a073e49ca8c",
+    "name": "Cordobán",
+    "description": "Cueto",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "b76dc431533a4f3b1759cd566d668d9b",
+    "name": "Campo Cincuenta y Cinco",
+    "description": "Riva Palacio Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "5e1d9500ee3499eb7999d24b5bf9e444",
+    "name": "Nuevo Córdoba",
+    "description": "Estado Libre y Soberano de Veracruz de Ignacio de la Llave",
+    "country_name": "Estados Unidos Mexicanos"
+   }
+  ]
+ }
+}

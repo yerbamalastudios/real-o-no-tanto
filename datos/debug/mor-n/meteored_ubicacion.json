@@ -1,0 +1,248 @@
+{
+ "ok": true,
+ "expiracion": 1792242165000,
+ "data": {
+  "locations": [
+   {
+    "hash": "90ee9fb0de8955fe9c4c9213468de4be",
+    "name": "Morón de la Frontera",
+    "description": "Sevilla, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "170b9583bdd32e7f009b1522bdc8ce3f",
+    "name": "Morón de Almazán",
+    "description": "Soria, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "29b57c65fb29097950bd31084e562e18",
+    "name": "Moron",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "6682e2cb608f45fe1e874d781a7ff3e1",
+    "name": "Moronta",
+    "description": "Salamanca, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "e1d9209790dbd43692fc950912c8a8b7",
+    "name": "Morongo Valley",
+    "description": "California",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "9edb4c9df211b97d01451e4b7608bd6a",
+    "name": "Morondava",
+    "description": "Madagascar",
+    "country_name": "Madagascar"
+   },
+   {
+    "hash": "5b48ca321a0389a7353763f217b26041",
+    "name": "Pontfaverger-Moronvilliers",
+    "description": "Marne, Gran Este",
+    "country_name": "Francia"
+   },
+   {
+    "hash": "bde4e4707006ab0ed97ca67966dd0fda",
+    "name": "Moron",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "da08c4ded3e40ca94ffc61f029674679",
+    "name": "Moron",
+    "description": "Carabobo",
+    "country_name": "Venezuela"
+   },
+   {
+    "hash": "21f2f2455b65c95acfbfca784d89b05a",
+    "name": "Morón",
+    "description": "Ciego de Ávila",
+    "country_name": "Cuba"
+   },
+   {
+    "hash": "45fd8a0f0ddd152f1a38265c21f4d9b4",
+    "name": "Moron Viejo",
+    "description": "Mendoza",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e33ace9f83716ae5d0a8c91e80fa2c51",
+    "name": "Moron Chico",
+    "description": "Mendoza",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "0b458d1721d66ffa64de64dc0df42fcb",
+    "name": "Moroncárit",
+    "description": "Sonora",
+    "country_name": "México"
+   },
+   {
+    "hash": "28af71b8ccac8902c59b97a97a29441d",
+    "name": "Moronts",
+    "description": "Illinois",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "6033e56fa5c82b4e88b13198d45d6e9e",
+    "name": "Sainte-Gemme-Moronval",
+    "description": "Eure y Loir, Centro-Valle de Loira",
+    "country_name": "Francia"
+   },
+   {
+    "hash": "e83dffc7a3dc3892ca01900afb5ba9e8",
+    "name": "Little Morongo Heights",
+    "description": "California",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "0d79e74eb9905f8c41ea768f6ee27e4e",
+    "name": "Emiliano Zapata (Morones)",
+    "description": "Zacatecas",
+    "country_name": "México"
+   },
+   {
+    "hash": "544c5c4c670d26137b260463fa33f110",
+    "name": "Moroni",
+    "description": "Utah",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "51aa6c0b522467d9897fc835a9a091bb",
+    "name": "Pieve Porto Morone",
+    "description": "Pavía",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "45ee14d1b896c125bc50e7151854457a",
+    "name": "Châtel-Moron",
+    "description": "Saona y Loira, Borgoña-Franco Condado",
+    "country_name": "Francia"
+   },
+   {
+    "hash": "2e3977ba8c0ef75044157f1fa113eb64",
+    "name": "Morón",
+    "description": "Aldama",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "3ae760d4a53974ea3bbea8fa5c4d4789",
+    "name": "Moronodénuachi",
+    "description": "Huásabas Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "e26359ff1d8d2d6446a035f45e5914c2",
+    "name": "Morongla Creek",
+    "description": "Cowra",
+    "country_name": "Australia"
+   },
+   {
+    "hash": "fa1d5c12684c21ba74eaf89309124882",
+    "name": "Morondavakely",
+    "description": "Ambohibary, Itondy",
+    "country_name": "Madagascar"
+   },
+   {
+    "hash": "e1d9209790dbd43692fc950912c8a8b7",
+    "name": "Morongo Valley",
+    "description": "Condado de San Bernardino",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "9cc632dd3ce120fcda9245b7569ddb8b",
+    "name": "Morontepeque",
+    "description": "Departamento de Cabañas",
+    "country_name": "República de El Salvador"
+   },
+   {
+    "hash": "550e7f2681950ae8a474899a31099641",
+    "name": "Morón",
+    "description": "Paso del Macho",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "e4f2aaf61c50808daf461f130253a8ca",
+    "name": "Mörön",
+    "description": "Nederluleå socken, Nederluleå",
+    "country_name": "Suecia"
+   },
+   {
+    "hash": "a06049c659b514c942b5eea59d8c35a5",
+    "name": "Moron",
+    "description": "Phillaur, Distrito de Jalandhar",
+    "country_name": "India"
+   },
+   {
+    "hash": "97a45187328bf6a2bb3d25651b8a9df0",
+    "name": "Moron",
+    "description": "Gonayiv",
+    "country_name": "Haití"
+   },
+   {
+    "hash": "0cd0e5945d331b179014da495e9f7a9c",
+    "name": "Morontuduwa",
+    "description": "Moronthuduwa North, Kalutara Division",
+    "country_name": "Ceilán"
+   },
+   {
+    "hash": "f96432814a552f4b5c574d5ac5bf1586",
+    "name": "Мöрöн",
+    "description": "Arhangay",
+    "country_name": "Mongolia"
+   },
+   {
+    "hash": "8551a89a3cc31831ecb8f99636976b90",
+    "name": "Moron",
+    "description": "Magdalena",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "c14c8d30664adecfd785e06be3d73ccd",
+    "name": "Morón",
+    "description": "Margarita",
+    "country_name": "República de Colombia"
+   },
+   {
+    "hash": "a94d19300b4b75a4aec95a82f6e8888c",
+    "name": "Moron",
+    "description": "Saint-Vincent, Valle d'Aosta",
+    "country_name": "República Italiana"
+   },
+   {
+    "hash": "3bcf885b96e46c277a62c35aa8747edc",
+    "name": "Moronggauma",
+    "description": "Simbu",
+    "country_name": "Papúa Nueva Guinea"
+   },
+   {
+    "hash": "a052e733b62530a9b631d39a83778713",
+    "name": "Morongkacun",
+    "description": "Nagqu Shi",
+    "country_name": "República Popular China"
+   },
+   {
+    "hash": "7b389b711722968403afcec6f78b3e44",
+    "name": "Murun",
+    "description": "Khövsgöl Province",
+    "country_name": "Mongolia"
+   },
+   {
+    "hash": "82ee28653b367beebdb1eddb8024ee63",
+    "name": "Мöрöн",
+    "description": "Hovd Aymag",
+    "country_name": "Mongolia"
+   },
+   {
+    "hash": "34727f7fca3c13e220f820e54f0ce343",
+    "name": "Moron",
+    "description": "Sihawal, Sidhi",
+    "country_name": "Unión India"
+   }
+  ]
+ }
+}

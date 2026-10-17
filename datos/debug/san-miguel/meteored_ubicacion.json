@@ -1,0 +1,278 @@
+{
+ "ok": true,
+ "expiracion": 1792242174000,
+ "data": {
+  "locations": [
+   {
+    "hash": "bfb8627708997815b43de22bf5a1135c",
+    "name": "San Miguel",
+    "description": "Santiago",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "9b8dffc1fe5986f77e9c68b20f570f31",
+    "name": "San Miguel",
+    "description": "Los Lagos",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "cab8b4d36e466cce4770da6b9b47e99b",
+    "name": "San Miguel de Tucumán",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "14558a070d270da3355ad48df59b0c3b",
+    "name": "San Miguel de Bulí",
+    "description": "Ñuble",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "151f9ed6818278d5492b49dff81b3638",
+    "name": "San Miguel",
+    "description": "Biobío",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "193fb5a97ede34751444203138850457",
+    "name": "San Miguel",
+    "description": "Araucanía",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "66c3c7fd5adea7576d454b815226fc27",
+    "name": "San Miguel de Calleuque",
+    "description": "Libertador Gen. Bernardo O'Higgins",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "215cdc3e58ddc6246d13b9fca5d26bac",
+    "name": "San Miguel del Monte",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c4922ccf6d343080d97603b8dd183fbd",
+    "name": "San Miguel",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "730fec8b4515b45e4e026fcde09dbe5d",
+    "name": "San Miguel De Allende",
+    "description": "Guanajuato",
+    "country_name": "México"
+   },
+   {
+    "hash": "b6e9007f4d0c41a5b9e095c3e06002c7",
+    "name": "Puente San Miguel",
+    "description": "Cantabria",
+    "country_name": "España"
+   },
+   {
+    "hash": "d29f51044752a05169da406abee21794",
+    "name": "San Miguel Tenextatiloyan",
+    "description": "Puebla",
+    "country_name": "México"
+   },
+   {
+    "hash": "e3b1a4d4b699698326934c211f5259f9",
+    "name": "San Miguelito",
+    "description": "Panamá",
+    "country_name": "Panamá"
+   },
+   {
+    "hash": "3376e218c3f883a46a6f92d6bdcd37ec",
+    "name": "San Miguel de Salinas",
+    "description": "Alicante, Comunidad Valenciana",
+    "country_name": "España"
+   },
+   {
+    "hash": "52ad7c1b71b4850c7a7e33667cfb6079",
+    "name": "San Miguel de Aras",
+    "description": "Cantabria",
+    "country_name": "España"
+   },
+   {
+    "hash": "d642cf6030759caba73f22a14e41660b",
+    "name": "Itzoteno (San Miguel)",
+    "description": "Puebla",
+    "country_name": "México"
+   },
+   {
+    "hash": "1e27cde172ceb4969746f43585de863a",
+    "name": "San Miguel",
+    "description": "Nuevo Mexico",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "2814d7adc0d4bfa0faa3d81b64b49589",
+    "name": "San Miguel",
+    "description": "Arizona",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "e2694a7b1f71b45f587359739ef07400",
+    "name": "San Miguel",
+    "description": "Nuevo Mexico",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "2483e2a29c72e0f4b23d28dc326fe1f4",
+    "name": "San Miguel",
+    "description": "Luquillo",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "e88b073db22d41135cd2e52295471552",
+    "name": "San Miguel",
+    "description": "Nuevo León",
+    "country_name": "México"
+   },
+   {
+    "hash": "efcf8198b7345e472bd48c5a138ec2a0",
+    "name": "San Miguel",
+    "description": "Sonora",
+    "country_name": "México"
+   },
+   {
+    "hash": "48536c0f35d576b96cefddee277471a1",
+    "name": "San Miguel",
+    "description": "Colorado",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "1288eeed5bc68e9c283c6ef9a567c203",
+    "name": "San Miguel Xoxtla",
+    "description": "Puebla",
+    "country_name": "México"
+   },
+   {
+    "hash": "2ed6c030895db874f94f78c20587bbac",
+    "name": "Santiago de Chile",
+    "description": "Santiago",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "75cff1fa1075874d2c3cea3b34d5f41d",
+    "name": "San Miguel",
+    "description": "Guerrero",
+    "country_name": "México"
+   },
+   {
+    "hash": "19ecb7d375d26aa046152e452fe7f3aa",
+    "name": "San Miguel",
+    "description": "Huelva, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "cadebc97339f695b5e4cc5941d5dc52b",
+    "name": "San Miguel",
+    "description": "Coahuila",
+    "country_name": "México"
+   },
+   {
+    "hash": "af220df2b519ca38fbc5e3f21d3ed42b",
+    "name": "San Miguel Ajusco",
+    "description": "Distrito Federal",
+    "country_name": "México"
+   },
+   {
+    "hash": "8ed44469c6941eb92c34273a980e378e",
+    "name": "San Miguelito",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "1f3b017ce05b3b4e94e044084787fdd6",
+    "name": "San Miguel de Viluco",
+    "description": "Región del Libertador General Bernardo O'Higgins",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "100531ed26d237c7403901d1b08df402",
+    "name": "San Miguel de Los Llanas",
+    "description": "Región del Libertador General Bernardo O'Higgins",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "f2119ecf251a378475feeba5b5c077d8",
+    "name": "San Miguel de Curipeumo",
+    "description": "VII Región del Maule",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "d2a57d64da62ae608ceacb7a044f25d3",
+    "name": "Cozumel",
+    "description": "Quintana Roo",
+    "country_name": "México"
+   },
+   {
+    "hash": "ce69d1610b54327514eb00b112cdbcf6",
+    "name": "San Miguel de Bernuy",
+    "description": "Segovia, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "3be6671910988a74c6ed7dd10a3300db",
+    "name": "San Miguel del Resgate",
+    "description": "Acaxochitlán Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "50e79e83b03189fa37ce3576d8042497",
+    "name": "San Miguel Allende",
+    "description": "Puebla de Zaragoza",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "d7626f9ed7be5ee05a9bb0fbf36a4fd3",
+    "name": "San Miguel",
+    "description": "Corregimiento Chiguirí Arriba, Penonomé District",
+    "country_name": "República de Panamá"
+   },
+   {
+    "hash": "f674e21403a367f410fd4968e306318e",
+    "name": "San Miguel",
+    "description": "Corregimiento Toabré, Penonomé District",
+    "country_name": "República de Panamá"
+   },
+   {
+    "hash": "ad1d2204e6a1ea22bf006050819975be",
+    "name": "San Miguel",
+    "description": "Inzá",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "695003a229e782d87e5c1f0786d08bd5",
+    "name": "San Miguel",
+    "description": "Castilla la Nueva",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "20b32951c01278e7813e6c3328ce1192",
+    "name": "San Miguel",
+    "description": "Municipio de Nahuatzen",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "adcfb81de0e71d7b5e3c58337240dd59",
+    "name": "San Miguel",
+    "description": "San Fernando Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "b54129b0e79161a3cba0588097975fc2",
+    "name": "San Miguel",
+    "description": "Río Bravo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "619f23038941bb959b4e0ec234f405a7",
+    "name": "San Miguel",
+    "description": "Departamento de Petén",
+    "country_name": "República de Guatemala"
+   }
+  ]
+ }
+}

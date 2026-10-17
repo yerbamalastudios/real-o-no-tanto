@@ -1,0 +1,173 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "1751f8edd24f2c520e02d1151500dc7c",
+  "name": "Aeropuerto Internacional Ezeiza",
+  "url": "https://www.meteored.do/tiempo-en_Aeropuerto+Internacional+Ezeiza-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-322447.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 12,
+    "temperature": {
+     "min": 7.27,
+     "max": 13.06
+    },
+    "wind": {
+     "speed": 16,
+     "gust": 37,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0.1,
+     "rain": 0.1,
+     "probability": 30
+    },
+    "humidity": 71,
+    "pressure": 1023,
+    "snowline": 2100,
+    "uv_index_max": 7.5,
+    "sun": {
+     "in": 1792228155000,
+     "mid": 1792251572000,
+     "out": 1792275023000
+    },
+    "moon": {
+     "in": 1792244629000,
+     "out": 1792210092000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 4,
+    "temperature": {
+     "min": 5.2,
+     "max": 14.35
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 28,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 69,
+    "pressure": 1022,
+    "snowline": 2300,
+    "uv_index_max": 7.7,
+    "sun": {
+     "in": 1792314480000,
+     "mid": 1792337960000,
+     "out": 1792361475000
+    },
+    "moon": {
+     "in": 1792334539000,
+     "out": 1792299014000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 3,
+    "temperature": {
+     "min": 5.89,
+     "max": 16.98
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 23,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 74,
+    "pressure": 1022,
+    "snowline": 2200,
+    "uv_index_max": 8,
+    "sun": {
+     "in": 1792400805000,
+     "mid": 1792424349000,
+     "out": 1792447927000
+    },
+    "moon": {
+     "in": 1792424537000,
+     "out": 1792387596000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 3,
+    "temperature": {
+     "min": 8.68,
+     "max": 18.7
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 37,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 72,
+    "pressure": 1021,
+    "snowline": 3000,
+    "uv_index_max": 8.1,
+    "sun": {
+     "in": 1792487132000,
+     "mid": 1792510738000,
+     "out": 1792534379000
+    },
+    "moon": {
+     "in": 1792514565000,
+     "out": 1792475905000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 12.25,
+     "max": 18.65
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 32,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.7,
+     "rain": 0.7,
+     "probability": 70
+    },
+    "humidity": 77,
+    "pressure": 1021,
+    "snowline": 3200,
+    "uv_index_max": 8.1,
+    "sun": {
+     "in": 1792573459000,
+     "mid": 1792597129000,
+     "out": 1792620832000
+    },
+    "moon": {
+     "in": 1792604613000,
+     "out": 1792564020000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,174 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "838217e4056284d47920f99d6029d046",
+  "name": "Gonzalez Moreno",
+  "url": "https://www.meteored.com.bo/tiempo-en_Gonzalez+Moreno-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-14831.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 3,
+    "temperature": {
+     "min": 4.65,
+     "max": 16.73
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 27,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 70,
+    "pressure": 1024,
+    "snowline": 2200,
+    "uv_index_max": 7.6,
+    "sun": {
+     "in": 1792229267000,
+     "mid": 1792252732000,
+     "out": 1792276231000
+    },
+    "moon": {
+     "in": 1792245687000,
+     "out": 1792211440000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 3,
+    "temperature": {
+     "min": 3.83,
+     "max": 17.92
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 26,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 67,
+    "pressure": 1021,
+    "snowline": 2200,
+    "uv_index_max": 7.7,
+    "sun": {
+     "in": 1792315590000,
+     "mid": 1792339120000,
+     "out": 1792362685000
+    },
+    "moon": {
+     "in": 1792335617000,
+     "out": 1792300342000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 12,
+    "temperature": {
+     "min": 7.04,
+     "max": 18.72
+    },
+    "wind": {
+     "speed": 20,
+     "gust": 39,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.8,
+     "rain": 0.8,
+     "probability": 40
+    },
+    "humidity": 67,
+    "pressure": 1019,
+    "snowline": 2800,
+    "uv_index_max": 8,
+    "sun": {
+     "in": 1792401914000,
+     "mid": 1792425509000,
+     "out": 1792449139000
+    },
+    "moon": {
+     "in": 1792425639000,
+     "out": 1792388898000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 12,
+    "temperature": {
+     "min": 12.02,
+     "max": 20.18
+    },
+    "wind": {
+     "speed": 25,
+     "gust": 51,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.3,
+     "rain": 0.3,
+     "probability": 60
+    },
+    "humidity": 66,
+    "pressure": 1016,
+    "snowline": 2900,
+    "uv_index_max": 7.8,
+    "sun": {
+     "in": 1792488239000,
+     "mid": 1792511898000,
+     "out": 1792535593000
+    },
+    "moon": {
+     "in": 1792515695000,
+     "out": 1792477178000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 34,
+    "temperature": {
+     "min": 12.16,
+     "max": 20.41
+    },
+    "wind": {
+     "speed": 24,
+     "gust": 46,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 8.5,
+     "rain": 8.5,
+     "probability": 80
+    },
+    "humidity": 79,
+    "pressure": 1016,
+    "snowline": 3300,
+    "uv_index_max": 7.6,
+    "sun": {
+     "in": 1792574564000,
+     "mid": 1792598288000,
+     "out": 1792622048000
+    },
+    "moon": {
+     "in": 1792605773000,
+     "out": 1792565264000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

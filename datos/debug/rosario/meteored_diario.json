@@ -1,0 +1,171 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "0ed365e820ff647674aa5dece697e4e9",
+  "name": "Rosario",
+  "url": "https://www.meteored.hn/tiempo-en_Rosario-America+Sur-Argentina-Santa+Fe--1-13586.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 3,
+    "temperature": {
+     "min": 8.3,
+     "max": 15.91
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 32,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 71,
+    "pressure": 1023,
+    "snowline": 2300,
+    "uv_index_max": 8,
+    "sun": {
+     "in": 1792228775000,
+     "mid": 1792252078000,
+     "out": 1792275414000
+    },
+    "moon": {
+     "in": 1792245514000,
+     "out": 1792210248000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 3,
+    "temperature": {
+     "min": 6.39,
+     "max": 16.76
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 25,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 70,
+    "pressure": 1022,
+    "snowline": 2400,
+    "uv_index_max": 8.1,
+    "sun": {
+     "in": 1792315104000,
+     "mid": 1792338467000,
+     "out": 1792361862000
+    },
+    "moon": {
+     "in": 1792335382000,
+     "out": 1792299204000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 3,
+    "temperature": {
+     "min": 8.1,
+     "max": 18.75
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 29,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 10
+    },
+    "humidity": 68,
+    "pressure": 1020,
+    "snowline": 2900,
+    "uv_index_max": 8.5,
+    "sun": {
+     "in": 1792401434000,
+     "mid": 1792424856000,
+     "out": 1792448309000
+    },
+    "moon": {
+     "in": 1792425323000,
+     "out": 1792387836000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 4,
+    "temperature": {
+     "min": 11.05,
+     "max": 20.65
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 33,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 70,
+    "pressure": 1018,
+    "snowline": 3000,
+    "uv_index_max": 8.8,
+    "sun": {
+     "in": 1792487765000,
+     "mid": 1792511245000,
+     "out": 1792534757000
+    },
+    "moon": {
+     "in": 1792515286000,
+     "out": 1792476205000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 4,
+    "temperature": {
+     "min": 13.38,
+     "max": 20.29
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 34,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 74,
+    "pressure": 1017,
+    "snowline": 3300,
+    "uv_index_max": 8.9,
+    "sun": {
+     "in": 1792574096000,
+     "mid": 1792597635000,
+     "out": 1792621206000
+    },
+    "moon": {
+     "in": 1792605263000,
+     "out": 1792564386000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

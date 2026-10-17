@@ -1,0 +1,284 @@
+{
+ "ok": true,
+ "expiracion": 1792242166000,
+ "data": {
+  "locations": [
+   {
+    "hash": "c53116e7067472db7e4c8aac9d6bf1d2",
+    "name": "Gonzalez Catan",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "20211cdd26511e68083c72fadb436c4f",
+    "name": "Catania",
+    "description": "Catania",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "e07a6cc002e5b9fcb8b3fade73d93e4d",
+    "name": "Fresnillo De Gonzalez Echeverria",
+    "description": "Zacatecas",
+    "country_name": "México"
+   },
+   {
+    "hash": "02423a2878114b142e3b767fe7ac528a",
+    "name": "Catanduva",
+    "description": "São Paulo",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "5c5918bc90d293d5f8a1bc921647acc7",
+    "name": "Lucas Gonzalez",
+    "description": "Entre Ríos",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c35b63e176818ba6715421c201026563",
+    "name": "Cuesta de Los González",
+    "description": "Libertador Gen. Bernardo O'Higgins",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "9f7e30496504d9f3d063de9a2922866e",
+    "name": "González",
+    "description": "Tamaulipas",
+    "country_name": "México"
+   },
+   {
+    "hash": "f8c18b89b6b87cb8f32db10b96ccdd89",
+    "name": "Joaquín V. González",
+    "description": "Salta",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "838217e4056284d47920f99d6029d046",
+    "name": "Gonzalez Moreno",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "62a255e6073c7d12a1126ddbbaa4b82e",
+    "name": "Catanele",
+    "description": "Olt",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "50bbe16f09476cd0ec58f9127f1a8612",
+    "name": "Catane",
+    "description": "Dolj",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "419e382839bdb40d1c23a48827f80523",
+    "name": "Catanduvas",
+    "description": "Santa Catarina",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "bd74cecaa40842880fd55e86321dd037",
+    "name": "Catanele",
+    "description": "Dâmboviţa",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "5162217d5ba9b270d4585016a231cadc",
+    "name": "Catanele",
+    "description": "Argeş",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "f6dd250acf53d89b0fad16ff09718022",
+    "name": "Catan Maga",
+    "description": "Guam",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "c6cc174bd10a06a5a3292fedc0ee9d7d",
+    "name": "Catanele Noi",
+    "description": "Dolj",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "60baae0c94580dcb0ca439062febac77",
+    "name": "Sector Catanito",
+    "description": "Barceloneta",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "0d29c07290c0844f2ff99244dc9fb388",
+    "name": "González",
+    "description": "San José",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "f933224eb8478faeba7a1e0577811d57",
+    "name": "La González",
+    "description": "San Sebastián",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "2d2b9f7aa9423d6cd5109857fb41560e",
+    "name": "Catanave",
+    "description": "Arica y Parinacota",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "fee9a1e73aa31e6e1648fcee4a0ab70d",
+    "name": "Cataño",
+    "description": "Cataño",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "cf7fb53d1d5642def99c9dd1e71f1cd8",
+    "name": "Catani",
+    "description": "Victoria",
+    "country_name": "Australia"
+   },
+   {
+    "hash": "e704768233c847d40ee2fe5ba4b28d3a",
+    "name": "Catanduvas",
+    "description": "Paraná",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "8e5364eea325ac2a51660f7e5b8aced7",
+    "name": "Catane",
+    "description": "Argeş",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "7d14ceecb61d5c7e25e06d749455b8d4",
+    "name": "Cataño Zona Urbana",
+    "description": "Cataño",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "e93a1429eeb3ebbfb56d815cb9a66415",
+    "name": "Santa Rosa De Catantal",
+    "description": "San Luis",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "7ca2cb28f4edc0f2e4bec7253664fca0",
+    "name": "Costa Del Catan Lil",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "249de5ef1375f549bae77aec8e718f18",
+    "name": "González Ortega",
+    "description": "Baja California",
+    "country_name": "México"
+   },
+   {
+    "hash": "dfa8afc68971bd97b9e5252d05565caf",
+    "name": "Juan González",
+    "description": "Colonia",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "70099824f6ff59b1dfa35e3adfee6360",
+    "name": "Nova Catanduva",
+    "description": "Mato Grosso",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "20211cdd26511e68083c72fadb436c4f",
+    "name": "Catania",
+    "description": "San Giorgio - Librino - S.G. La Rena - Zia Lisa, Catania",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "fd4dd814358dc2a4532d690a0c750527",
+    "name": "Catán Pueblo",
+    "description": "Departamento de La Paz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "a93c3b95edfe322f0a91c2e6c8b5eef2",
+    "name": "Catán Baja",
+    "description": "Departamento de La Paz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "1554575912a1fb50883e19aea1e6b5e7",
+    "name": "Villa General Gonzalez",
+    "description": "Departamento de La Paz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "6d06f7e09086d1b0e32f800424686bea",
+    "name": "Campamento González",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "c82c9b5312dff3c211a3a3fa45f0743b",
+    "name": "Base Presidente Gabriel González Videla",
+    "description": "Antártida",
+    "country_name": "Antártida"
+   },
+   {
+    "hash": "6dccbbc50e1d685e6bbf906f73bbfd09",
+    "name": "Catanzaro Lido",
+    "description": "Catanzaro, Province of Catanzaro",
+    "country_name": "República Italiana"
+   },
+   {
+    "hash": "221614158892e14043dcc65ae98ffab2",
+    "name": "Ciénega de González",
+    "description": "Santiago",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "fee9a1e73aa31e6e1648fcee4a0ab70d",
+    "name": "Cataño",
+    "description": "Cataño Barrio-Pueblo",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "d46d6773253c52d0e37f741940e5b4b5",
+    "name": "Catan Lil",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "d0c0e9f86c65e6a3cc6a552a93102c0e",
+    "name": "Caraffa Di Catanzaro",
+    "description": "Catanzaro",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "603a1c40df9e6a1ee3980e254dd91f3f",
+    "name": "Catana",
+    "description": "Limones, Zapotillo",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "26c8424c0a1a8f53004e93419e23978f",
+    "name": "Catangara",
+    "description": "Witmarsum",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "e21a94e530233c04ed9979fedf2a2326",
+    "name": "Catana",
+    "description": "Coyuca de Catalán Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "2c39b635ac43971b98e7f75de54775ee",
+    "name": "Cataña",
+    "description": "Caravelí Province",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "93c6247cad22fee37930d22e2dcfc5b2",
+    "name": "El Catán",
+    "description": "Casas",
+    "country_name": "Estados Unidos Mexicanos"
+   }
+  ]
+ }
+}

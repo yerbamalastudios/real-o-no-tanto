@@ -1,0 +1,172 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "85d2a08418f36e010aa1d49b49d35f56",
+  "name": "Cordoba",
+  "url": "https://www.meteored.com.ar/tiempo-en_Cordoba-America+Sur-Argentina-Cordoba-SACO-1-13585.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 13,
+    "temperature": {
+     "min": 10.96,
+     "max": 17.56
+    },
+    "wind": {
+     "speed": 8,
+     "gust": 20,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0.6,
+     "rain": 0.6,
+     "probability": 90
+    },
+    "humidity": 73,
+    "pressure": 1022,
+    "snowline": 2600,
+    "uv_index_max": 9.3,
+    "sun": {
+     "in": 1792229707000,
+     "mid": 1792252922000,
+     "out": 1792276168000
+    },
+    "moon": {
+     "in": 1792246671000,
+     "out": 1792210832000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 4,
+    "temperature": {
+     "min": 9.2,
+     "max": 17.67
+    },
+    "wind": {
+     "speed": 12,
+     "gust": 30,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 69,
+    "pressure": 1020,
+    "snowline": 2900,
+    "uv_index_max": 9.3,
+    "sun": {
+     "in": 1792316039000,
+     "mid": 1792339311000,
+     "out": 1792362612000
+    },
+    "moon": {
+     "in": 1792336507000,
+     "out": 1792299814000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 4,
+    "temperature": {
+     "min": 10.83,
+     "max": 17.52
+    },
+    "wind": {
+     "speed": 16,
+     "gust": 38,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 70,
+    "pressure": 1018,
+    "snowline": 3200,
+    "uv_index_max": 9.4,
+    "sun": {
+     "in": 1792402373000,
+     "mid": 1792425699000,
+     "out": 1792449056000
+    },
+    "moon": {
+     "in": 1792426403000,
+     "out": 1792388483000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 4,
+    "temperature": {
+     "min": 11.26,
+     "max": 19.11
+    },
+    "wind": {
+     "speed": 18,
+     "gust": 44,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 70,
+    "pressure": 1015,
+    "snowline": 3900,
+    "uv_index_max": 9.3,
+    "sun": {
+     "in": 1792488707000,
+     "mid": 1792512089000,
+     "out": 1792535501000
+    },
+    "moon": {
+     "in": 1792516314000,
+     "out": 1792476898000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 4,
+    "temperature": {
+     "min": 12.24,
+     "max": 24.52
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 38,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 69,
+    "pressure": 1014,
+    "snowline": 4100,
+    "uv_index_max": 9.3,
+    "sun": {
+     "in": 1792575042000,
+     "mid": 1792598479000,
+     "out": 1792621946000
+    },
+    "moon": {
+     "in": 1792606236000,
+     "out": 1792565129000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

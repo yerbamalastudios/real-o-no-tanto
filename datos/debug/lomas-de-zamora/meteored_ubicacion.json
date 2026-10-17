@@ -1,0 +1,272 @@
+{
+ "ok": true,
+ "expiracion": 1792242168000,
+ "data": {
+  "locations": [
+   {
+    "hash": "3e061d1c34014d9ced218ef2300aa218",
+    "name": "Lomas de Zamora",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "61c9188f765348d2ba3259023f4c7560",
+    "name": "Lomas De Zamora",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "93353c11201dee175bf24d36d7343bc8",
+    "name": "Mar del Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "9fb1e9bd4c870ee86815890f19cc2a20",
+    "name": "San Carlos de Bariloche",
+    "description": "Río Negro",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "cab8b4d36e466cce4770da6b9b47e99b",
+    "name": "San Miguel de Tucumán",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8a78a89115306a52f4f50616038130d0",
+    "name": "Cataratas del Iguazú",
+    "description": "Misiones",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "fcaac4c5c3b4dd5993e9d2729ffc62a3",
+    "name": "San Salvador de Jujuy",
+    "description": "Jujuy",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "d6ccf4a003dfa58f1c64b32e5cb42c25",
+    "name": "San Martín de los Andes",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8292f7ca1200c5650dc472eedbf965d7",
+    "name": "San Fernando del Valle de Catamarca",
+    "description": "Catamarca",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "b751a615ae2cdcb5982696f3e54f6949",
+    "name": "Santiago del Estero",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "242f8850822d7781499fb3f1ab935711",
+    "name": "Termas de Rio Hondo",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "98406605be26615d7b17fe02503de3e6",
+    "name": "Sierra de la Ventana",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "9093ca263633e74a8b8212821fcd11d6",
+    "name": "Rincon De Los Sauces",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "72a1bc034d1279d030f2d8de3b50d1b5",
+    "name": "Concepcion del Uruguay",
+    "description": "Entre Ríos",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "a2e3e8e61dfc35373271ced4d498d648",
+    "name": "Santa Rosa de Calamuchita",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e0beaeac765a9f122c758ed4d8605b22",
+    "name": "Luján de Cuyo",
+    "description": "Mendoza",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "3d3335fbcc86be808d74dec363b0baec",
+    "name": "Tafí del Valle",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "4b24ed30a399a21ad61e8522e70f33db",
+    "name": "Capilla del Monte",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "1ba7cb849a50703502b4589a8318063f",
+    "name": "Tres Lomas",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e8d81a8c61a1b1703296389225c25371",
+    "name": "San Clemente del Tuyu",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8c66a7a117cad494f9dc31a9654ca2d7",
+    "name": "San Nicolás de los Arroyos",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "2ed6c030895db874f94f78c20587bbac",
+    "name": "Santiago de Chile",
+    "description": "Santiago",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "757fe35bed0e17fee3177ce30488a0cc",
+    "name": "Barrio Lomas De Tafi",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "994f7b65f802f440b0afd2b19f9a1483",
+    "name": "Santa Clara Del Mar",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "26ed07237e9deaf56126a920aad6d99b",
+    "name": "Cruz del Eje",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c7b09fcc582cb850717fd88ad389c6a0",
+    "name": "Del Viso",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "929b5c3585cdf4551f2a087e6dcd9ad9",
+    "name": "Mar De Las Pampas",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "491a32c9a6d1168408c528bb82f7d589",
+    "name": "Villa del Totoral",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "215cdc3e58ddc6246d13b9fca5d26bac",
+    "name": "San Miguel del Monte",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "bc3dacb55a6dd98fa856f9079e903b6a",
+    "name": "Delta del Tigre",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "67648b37efeaade27834b56064c808f4",
+    "name": "Buenos Aires",
+    "description": "Argentina",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "85d2a08418f36e010aa1d49b49d35f56",
+    "name": "Córdoba",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8e70c1902671aab8fe47e9824359af39",
+    "name": "Mendoza",
+    "description": "Mendoza",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "a4fc5ad8d5d6ad71749751caa59322f6",
+    "name": "Lomas de Zamorano",
+    "description": "Alvarado",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "41302e2cdda9b5bb5bbef3b191ec794e",
+    "name": "Salta",
+    "description": "Salta",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "97d0d697d26ea5936a62ac26c39d5d5c",
+    "name": "Neuquén",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "b5e24f23334d373bd76d96a2786eb96b",
+    "name": "Santa Fe",
+    "description": "Santa Fe",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "da39700ef5ffb978d37f60785db26e4f",
+    "name": "Merlo",
+    "description": "San Luis",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "a4d385e0391d8b54124654d5a2fe9010",
+    "name": "San Juan",
+    "description": "San Juan",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e0c50cbaeba7b21a897f1135c5104f20",
+    "name": "San Luis",
+    "description": "San Luis",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "1edef7cd978589bf64946277401c3260",
+    "name": "Corrientes",
+    "description": "Corrientes",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "ef5996f02f3d397caeb5cb977f55bee3",
+    "name": "Santa Rosa",
+    "description": "La Pampa",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "1bd9bff58de1ff94a37c1598933447e3",
+    "name": "Resistencia",
+    "description": "Chaco",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8b405be55d20dc6a18b646b093c5c997",
+    "name": "Río Cuarto",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   }
+  ]
+ }
+}

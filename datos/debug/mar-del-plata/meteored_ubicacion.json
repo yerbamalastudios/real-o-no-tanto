@@ -1,0 +1,290 @@
+{
+ "ok": true,
+ "expiracion": 1792242178000,
+ "data": {
+  "locations": [
+   {
+    "hash": "93353c11201dee175bf24d36d7343bc8",
+    "name": "Mar del Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "9db9e093079198a42e461b82558dac2d",
+    "name": "Barrio Mar Del Plata",
+    "description": "Río Negro",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "2ed6c030895db874f94f78c20587bbac",
+    "name": "Santiago de Chile",
+    "description": "Santiago",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "72e81151000f1f0ec999a9bd9efb70ed",
+    "name": "La Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "741e7899d57df2aeca0c2134f5345ad1",
+    "name": "Viña del Mar",
+    "description": "Valparaíso",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "134712a34c8e8a2469c0cdabf9257700",
+    "name": "Ciudad de México",
+    "description": "Distrito Federal",
+    "country_name": "México"
+   },
+   {
+    "hash": "4bae181bd7a787deab27d96dfeb4a848",
+    "name": "Marsella",
+    "description": "Bocas del Ródano, Provenza-Alpes-Costa Azul",
+    "country_name": "Francia"
+   },
+   {
+    "hash": "2f4200a576d9a560190a092738cecc04",
+    "name": "Marrakech",
+    "description": "Marrakech-Tensift-Al Hauz",
+    "country_name": "Marruecos"
+   },
+   {
+    "hash": "7b7616648bc4329e6f65a4fa3d81af94",
+    "name": "New Delhi",
+    "description": "Delhi",
+    "country_name": "India"
+   },
+   {
+    "hash": "cc586daf2345a0f8fcd708ded8e7180c",
+    "name": "Marbella",
+    "description": "Málaga, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "9703c36d28e57625c9ae7a5b51b0c7ab",
+    "name": "La Manga del Mar Menor",
+    "description": "Murcia",
+    "country_name": "España"
+   },
+   {
+    "hash": "c66a9435d425e69c6bb8ce26d124e218",
+    "name": "Oropesa del Mar",
+    "description": "Castellón, Comunidad Valenciana",
+    "country_name": "España"
+   },
+   {
+    "hash": "8a78a89115306a52f4f50616038130d0",
+    "name": "Cataratas del Iguazú",
+    "description": "Misiones",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "822cbc0e1c793df8ed113d25ae331def",
+    "name": "Playa Del Carmen",
+    "description": "Quintana Roo",
+    "country_name": "México"
+   },
+   {
+    "hash": "211cf9b8a66c1380389e651f35ddeaba",
+    "name": "Santillana del Mar",
+    "description": "Cantabria",
+    "country_name": "España"
+   },
+   {
+    "hash": "9a010b3b19d92d686e195b95a38d3633",
+    "name": "El Puerto de Santa María",
+    "description": "Cádiz, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "8eca80addfda3e94ea999508f346a55f",
+    "name": "Roquetas de Mar",
+    "description": "Almería, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "c3bc544baf65064798af02fe93a9239c",
+    "name": "Fráncfort del Meno",
+    "description": "Hesse",
+    "country_name": "Alemania"
+   },
+   {
+    "hash": "b2fd22b862f7ffa7239636f355af44c2",
+    "name": "Ciudad del Cabo",
+    "description": "Sudáfrica",
+    "country_name": "Sudáfrica"
+   },
+   {
+    "hash": "fac5d870cea1c2454a43fa94e1f1dd77",
+    "name": "Torre del Mar",
+    "description": "Málaga, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "d6ccf4a003dfa58f1c64b32e5cb42c25",
+    "name": "San Martín de los Andes",
+    "description": "Neuquén",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "76462834bd3ea37497e6cd3a90b3d4af",
+    "name": "Ciudad del Este",
+    "description": "Alto Paraná",
+    "country_name": "Paraguay"
+   },
+   {
+    "hash": "994f7b65f802f440b0afd2b19f9a1483",
+    "name": "Santa Clara Del Mar",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "12022f7865b678ebb2021ae09b39e368",
+    "name": "Lloret de Mar",
+    "description": "Girona, Cataluña",
+    "country_name": "España"
+   },
+   {
+    "hash": "b751a615ae2cdcb5982696f3e54f6949",
+    "name": "Santiago del Estero",
+    "description": "Santiago del Estero",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "58a6a1bfa95a471b81d2ef082b6c6a53",
+    "name": "Sant Cugat del Vallès",
+    "description": "Barcelona, Cataluña",
+    "country_name": "España"
+   },
+   {
+    "hash": "29ca346095ccb448b90f1c45309bf768",
+    "name": "Colonia Del Sacramento",
+    "description": "Colonia",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "df6e17044669e1f56ce73ac2d9aa4f80",
+    "name": "Punta del Este",
+    "description": "Maldonado",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "aba8d55f819a229318ae952671a730c3",
+    "name": "San Martín de la Vega",
+    "description": "Madrid",
+    "country_name": "España"
+   },
+   {
+    "hash": "16be51e6ccd95c1236f2d6f2fa0f9c60",
+    "name": "Déleg",
+    "description": "Cañar",
+    "country_name": "Ecuador"
+   },
+   {
+    "hash": "7fabcdb54d00194c86d1e1a9527f23b1",
+    "name": "Mar del Plata",
+    "description": "Neshuya, Padre Abad",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "67648b37efeaade27834b56064c808f4",
+    "name": "Buenos Aires",
+    "description": "Argentina",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "2f4200a576d9a560190a092738cecc04",
+    "name": "Marrakech",
+    "description": "Marrakech-Medina, Marrakesh",
+    "country_name": "Reino de Marruecos"
+   },
+   {
+    "hash": "6d243cb04a4394e92bd7ca7cfeb12296",
+    "name": "Valladolid",
+    "description": "Valladolid, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "a769e7236edfbfbd9ab4c2a7088d8141",
+    "name": "Cádiz",
+    "description": "Cádiz, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "7b7616648bc4329e6f65a4fa3d81af94",
+    "name": "Nueva Delhi",
+    "description": "Chanakya Puri, New Delhi",
+    "country_name": "India"
+   },
+   {
+    "hash": "64de28eecd32ace1d1171533823c77e1",
+    "name": "Platanal",
+    "description": "Nambacola, Gonzanamá",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "10f64bb649c59ec1767c7e103d43693a",
+    "name": "Colón Eloy del María",
+    "description": "Colon Eloy Del Maria, Eloy Alfaro",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "c1e5b2f63ea3a83c87dc3ab308ca9fc9",
+    "name": "Santa María del Toachi",
+    "description": "Santa Maria Del Toachi, Cantón Santo Domingo de los Colorados",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "2a29682c082029bb8a1fb72f942d5aa8",
+    "name": "Santa María del Vergel",
+    "description": "Cuenca, Cuenca",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "1d03f5a1b4a4026df9fe948d2e167e93",
+    "name": "Ávila",
+    "description": "Ávila, Castilla y León",
+    "country_name": "España"
+   },
+   {
+    "hash": "25db62618021020ea788b37f4ffc6a06",
+    "name": "Platanillo",
+    "description": "Saracay, Piñas",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "a46b0a6ee978599effd959f6c6879e6d",
+    "name": "Platanillo",
+    "description": "Tnte. Maximiliano Rodriguez Loaiza, Cantón Celica",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "5f7022af6021ca3d543ba98340750e13",
+    "name": "Platanal",
+    "description": "Nambacola, Gonzanamá",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "3484064dad5eac5fd712d1f72faf45c0",
+    "name": "Estero de Plátano",
+    "description": "Galera, Cantón Muisne",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "95e30566b901313cae8e8a5555212b67",
+    "name": "Mata de Plátano",
+    "description": "Anchayacu, Eloy Alfaro",
+    "country_name": "República del Ecuador"
+   },
+   {
+    "hash": "a661b706995b96b78f71b0c495486ee0",
+    "name": "Los Platanales",
+    "description": "Balzar, Balzar",
+    "country_name": "República del Ecuador"
+   }
+  ]
+ }
+}

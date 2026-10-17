@@ -1,0 +1,20 @@
+{
+ "ok": true,
+ "expiracion": 1792242176000,
+ "data": {
+  "locations": [
+   {
+    "hash": "1751f8edd24f2c520e02d1151500dc7c",
+    "name": "Aeropuerto Internacional Ezeiza",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c0b0d548329132afcc654b5b02c4a96d",
+    "name": "Jose Maria Ezeiza",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   }
+  ]
+ }
+}

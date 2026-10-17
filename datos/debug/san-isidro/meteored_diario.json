@@ -1,0 +1,173 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "c58e3e06abd76c09e3da6bc40c98e51e",
+  "name": "San Isidro",
+  "url": "https://www.meteored.cl/tiempo-en_San+Isidro-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-321754.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 4,
+    "temperature": {
+     "min": 8.27,
+     "max": 13.44
+    },
+    "wind": {
+     "speed": 17,
+     "gust": 35,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 68,
+    "pressure": 1022,
+    "snowline": 2100,
+    "uv_index_max": 7.6,
+    "sun": {
+     "in": 1792228170000,
+     "mid": 1792251566000,
+     "out": 1792274996000
+    },
+    "moon": {
+     "in": 1792244688000,
+     "out": 1792210019000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 3,
+    "temperature": {
+     "min": 6.52,
+     "max": 15.07
+    },
+    "wind": {
+     "speed": 12,
+     "gust": 27,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 65,
+    "pressure": 1022,
+    "snowline": 2300,
+    "uv_index_max": 7.8,
+    "sun": {
+     "in": 1792314495000,
+     "mid": 1792337954000,
+     "out": 1792361447000
+    },
+    "moon": {
+     "in": 1792334591000,
+     "out": 1792298948000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 12,
+    "temperature": {
+     "min": 9.47,
+     "max": 15.98
+    },
+    "wind": {
+     "speed": 12,
+     "gust": 29,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0.4,
+     "rain": 0.4,
+     "probability": 50
+    },
+    "humidity": 74,
+    "pressure": 1022,
+    "snowline": 2300,
+    "uv_index_max": 8,
+    "sun": {
+     "in": 1792400822000,
+     "mid": 1792424343000,
+     "out": 1792447898000
+    },
+    "moon": {
+     "in": 1792424578000,
+     "out": 1792387539000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 3,
+    "temperature": {
+     "min": 10.16,
+     "max": 17.38
+    },
+    "wind": {
+     "speed": 18,
+     "gust": 37,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 78,
+    "pressure": 1021,
+    "snowline": 3000,
+    "uv_index_max": 8.2,
+    "sun": {
+     "in": 1792487149000,
+     "mid": 1792510732000,
+     "out": 1792534350000
+    },
+    "moon": {
+     "in": 1792514594000,
+     "out": 1792475859000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 12.63,
+     "max": 18.14
+    },
+    "wind": {
+     "speed": 18,
+     "gust": 36,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 70
+    },
+    "humidity": 76,
+    "pressure": 1020,
+    "snowline": 3200,
+    "uv_index_max": 8.3,
+    "sun": {
+     "in": 1792573477000,
+     "mid": 1792597123000,
+     "out": 1792620802000
+    },
+    "moon": {
+     "in": 1792604629000,
+     "out": 1792563987000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

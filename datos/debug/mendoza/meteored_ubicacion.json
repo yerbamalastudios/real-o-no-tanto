@@ -1,0 +1,290 @@
+{
+ "ok": true,
+ "expiracion": 1792242182000,
+ "data": {
+  "locations": [
+   {
+    "hash": "8e70c1902671aab8fe47e9824359af39",
+    "name": "Mendoza",
+    "description": "Mendoza",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e946ee11f409f3c759f941d7521cc889",
+    "name": "Mendoza",
+    "description": "Amazonas",
+    "country_name": "Perú"
+   },
+   {
+    "hash": "09f46fe289ad071b913f2e8cd3c26559",
+    "name": "Ciudad Mendoza",
+    "description": "Veracruz",
+    "country_name": "México"
+   },
+   {
+    "hash": "8c8bab9c8bc47737852b257fafae9c88",
+    "name": "Mendoza",
+    "description": "Texas",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "b6b1e2d47299b6a370af3a1c49e6fc53",
+    "name": "Mendoza",
+    "description": "Trujillo",
+    "country_name": "Venezuela"
+   },
+   {
+    "hash": "78244b6ba981f987ec4a2e549b1a48ea",
+    "name": "Mendoza",
+    "description": "Coquimbo",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "731fd05ba9507dfe1ccd93e819c6668e",
+    "name": "Mendoza",
+    "description": "Florida",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "3d154eb0cdc6cde0752a0f5aac9a8162",
+    "name": "Mendoza",
+    "description": "Naguabo",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "eb97f995c201e11a127080980f944c11",
+    "name": "Mendoza",
+    "description": "Florida",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "fe0e31619fb77179fefc15a3b86896b9",
+    "name": "Mendoza Chico",
+    "description": "Florida",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "adf1bd98e845dff0050940acaf895ccd",
+    "name": "Salinas de Garci Mendoza",
+    "description": "Oruro",
+    "country_name": "Bolivia"
+   },
+   {
+    "hash": "a2e58c931c81460d3a1371b07b0a8c07",
+    "name": "Campo Mendoza",
+    "description": "Santa Fe",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "21370f6c7c2a061fbdc361f3cb11455c",
+    "name": "Los Mendoza",
+    "description": "San Luis Potosí",
+    "country_name": "México"
+   },
+   {
+    "hash": "9cf7767776c8dcaa4385996fd483fadc",
+    "name": "Fidencio Mendoza Castillo [Sector de Producción Número 1]",
+    "description": "Coahuila",
+    "country_name": "México"
+   },
+   {
+    "hash": "755c142094f3c57a0f71da1f7c6280fc",
+    "name": "Motozintla De Mendoza",
+    "description": "Chiapas",
+    "country_name": "México"
+   },
+   {
+    "hash": "e82a098cf157bfe9b51c5544dc9a7a50",
+    "name": "Narciso Mendoza",
+    "description": "Morelos",
+    "country_name": "México"
+   },
+   {
+    "hash": "7c03b6b360965df0ce4abbdb3b02652d",
+    "name": "Narciso Mendoza",
+    "description": "Chiapas",
+    "country_name": "México"
+   },
+   {
+    "hash": "319f495b23af18eb39db2eb04afd6f54",
+    "name": "Fortin Gabino Mendoza",
+    "description": "Boquerón",
+    "country_name": "Paraguay"
+   },
+   {
+    "hash": "fcaec84e6da6bc75ea36a4f56ccd6bb3",
+    "name": "Fuente Mendoza",
+    "description": "Almería, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "17435f5d287742d9ccc07c818fdc46b3",
+    "name": "Narciso Mendoza",
+    "description": "Durango",
+    "country_name": "México"
+   },
+   {
+    "hash": "9c33fd04f8d09cce95acdc7d104b8f73",
+    "name": "Sabana de Mendoza",
+    "description": "Trujillo",
+    "country_name": "Venezuela"
+   },
+   {
+    "hash": "19186d461d903f11308b9cee0c644616",
+    "name": "Ojo de Agua de Mendoza",
+    "description": "Guanajuato",
+    "country_name": "México"
+   },
+   {
+    "hash": "29e6efa8c609c986d2ef0ebc700055bd",
+    "name": "San José de Mendoza",
+    "description": "Guanajuato",
+    "country_name": "México"
+   },
+   {
+    "hash": "7a7f9a8005088158610fb0143f37a22d",
+    "name": "Los Mendoza",
+    "description": "Tate, Ica Province",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "2e703d30ed28471f0417c05ec35f4eb2",
+    "name": "Los Mendoza",
+    "description": "Tambo Grande, Piura Province",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "45d5dc0d0fc9547052394771180dfa78",
+    "name": "Mendoza y Cuirindales",
+    "description": "Tuzantla",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "12ce4675bd2fb6fd256337fc35e38443",
+    "name": "Mendoza",
+    "description": "Cabaiguán",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "2860998a5d5eeb5b325193c0cc1dfb01",
+    "name": "Mendoza",
+    "description": "Fresnillo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "c23ba3c440956462c74c17117158735f",
+    "name": "Mendoza",
+    "description": "Provincia de Mayabeque",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "702e1915d9d9f87aa006e730e1e74059",
+    "name": "Mendoza",
+    "description": "Departamento del Beni",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "f4513a2e052bed32592632357d7f4136",
+    "name": "Mendoza",
+    "description": "Cerro",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "961c87ee0230dd67b73910e93596fa24",
+    "name": "Mendoza",
+    "description": "Villa Faro, Santo Domingo Este",
+    "country_name": "Haití Español"
+   },
+   {
+    "hash": "a3d7c96fe28941220cea11e843a59ac6",
+    "name": "Mendoza",
+    "description": "Tacotalpa",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "98dfe80f8809d5fdbe99878df593e30d",
+    "name": "Mendoza",
+    "description": "Cuencamé Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "d76ac4db19eab038c09b574315b47d58",
+    "name": "Mendoza",
+    "description": "Carácuaro Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "5b10cd93f74ca3fa9af3e414bfd4d9d4",
+    "name": "Mendoza",
+    "description": "Ciudad Ixtepec",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "08f85bba2861ea541c63068e0ca6ced9",
+    "name": "Mendoza",
+    "description": "San Juan Lalana",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "dc5b62bb51e96c083cddc2c07c4598fa",
+    "name": "Mendoza",
+    "description": "Nariño",
+    "country_name": "República de Colombia"
+   },
+   {
+    "hash": "a41103cc16978643e48b6622d815ccc6",
+    "name": "Mendoza",
+    "description": "Vitoria, Provincia de Álava",
+    "country_name": "Reino de España"
+   },
+   {
+    "hash": "688da776b43fc88d131ff8da2500dc28",
+    "name": "Mendoza",
+    "description": "Tijuana",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "6eaaf0c97db8cf1bfaaf286d63f56413",
+    "name": "Mendoza",
+    "description": "Armería",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "2b8780139c6e331782ba178576762e00",
+    "name": "Mendoza",
+    "description": "Corregimiento Mendoza, Distrito de La Chorrera",
+    "country_name": "República de Panamá"
+   },
+   {
+    "hash": "5751073c197cb5051060b2bbf6ec65da",
+    "name": "Mendoza",
+    "description": "Departamento de Chuquisaca",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "48f2a3ce3b98a52911ab27f3c29fcff1",
+    "name": "Mendoza",
+    "description": "Departamento de Petén",
+    "country_name": "República de Guatemala"
+   },
+   {
+    "hash": "192fc22a73acadb8c6ec9ab399990a96",
+    "name": "Mendoza",
+    "description": "Celaya Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "4a798f16beca974628c299223b7cc137",
+    "name": "Mendoza",
+    "description": "Santiago Tuxtla",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "51eb0551edf2e611419209ba5d7bf3c7",
+    "name": "Mendoza",
+    "description": "Departamento de Chuquisaca",
+    "country_name": "República de Bolivia"
+   }
+  ]
+ }
+}

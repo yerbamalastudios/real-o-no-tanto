@@ -1,12 +1,12 @@
 {
- "actualizado": "2026-10-16T09:09-03:00",
+ "actualizado": "2026-10-17T09:03-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-10-16",
+     "fecha": "2026-10-17",
      "n": 1
     },
     "meteored_buscado": "Lomas del Mirador",
@@ -81,11 +81,814 @@
        "tmin": 11.14
       }
      }
+    },
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.35,
+       "tmin": 7.76
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.47,
+       "tmin": 6.24
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.36,
+       "tmin": 7.76
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.62,
+       "tmin": 9.87
+      },
+      "2026-10-21": {
+       "lluvia": 0.8,
+       "prob": null,
+       "tmax": 19.22,
+       "tmin": 12.69
+      }
+     }
     }
    },
    "lat": -34.66,
    "lon": -58.53,
    "nombre": "Lomas del Mirador"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Buenos Aires",
+    "meteored_hash": "67648b37efeaade27834b56064c808f4",
+    "meteored_lugar": "Buenos Aires"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.26,
+       "tmin": 7.82
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.72,
+       "tmin": 6.74
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.87,
+       "tmin": 8.5
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.61,
+       "tmin": 10.85
+      },
+      "2026-10-21": {
+       "lluvia": 1.3,
+       "prob": null,
+       "tmax": 18.68,
+       "tmin": 12.92
+      }
+     }
+    }
+   },
+   "lat": -34.61,
+   "lon": -58.38,
+   "nombre": "Buenos Aires (CABA)"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Morón",
+    "meteored_hash": "29b57c65fb29097950bd31084e562e18",
+    "meteored_lugar": "Moron"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.28,
+       "tmin": 7.83
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.26,
+       "tmin": 6.2
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.48,
+       "tmin": 7.72
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.64,
+       "tmin": 9.49
+      },
+      "2026-10-21": {
+       "lluvia": 0.9,
+       "prob": null,
+       "tmax": 18.96,
+       "tmin": 12.56
+      }
+     }
+    }
+   },
+   "lat": -34.65,
+   "lon": -58.62,
+   "nombre": "Morón"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "González Catán",
+    "meteored_hash": "c53116e7067472db7e4c8aac9d6bf1d2",
+    "meteored_lugar": "Gonzalez Catan"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": 0.1,
+       "prob": null,
+       "tmax": 13.15,
+       "tmin": 7.57
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.5,
+       "tmin": 5.53
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.33,
+       "tmin": 6.11
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.7,
+       "tmin": 8.87
+      },
+      "2026-10-21": {
+       "lluvia": 0.6,
+       "prob": null,
+       "tmax": 18.76,
+       "tmin": 12.34
+      }
+     }
+    }
+   },
+   "lat": -34.77,
+   "lon": -58.63,
+   "nombre": "González Catán"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Lomas de Zamora",
+    "meteored_hash": "3e061d1c34014d9ced218ef2300aa218",
+    "meteored_lugar": "Lomas de Zamora"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.18,
+       "tmin": 7.2
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.78,
+       "tmin": 5.62
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.66,
+       "tmin": 6.47
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.61,
+       "tmin": 9.41
+      },
+      "2026-10-21": {
+       "lluvia": 1.0,
+       "prob": null,
+       "tmax": 18.89,
+       "tmin": 12.47
+      }
+     }
+    }
+   },
+   "lat": -34.76,
+   "lon": -58.4,
+   "nombre": "Lomas de Zamora"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Quilmes",
+    "meteored_hash": "77027bc6ac829a041653d7b4ff3a1f30",
+    "meteored_lugar": "Quilmes"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.25,
+       "tmin": 6.9
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.66,
+       "tmin": 5.7
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.37,
+       "tmin": 6.8
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.75,
+       "tmin": 10.22
+      },
+      "2026-10-21": {
+       "lluvia": 1.2,
+       "prob": null,
+       "tmax": 18.44,
+       "tmin": 12.6
+      }
+     }
+    }
+   },
+   "lat": -34.72,
+   "lon": -58.25,
+   "nombre": "Quilmes"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "La Plata",
+    "meteored_hash": "72e81151000f1f0ec999a9bd9efb70ed",
+    "meteored_lugar": "La Plata"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.49,
+       "tmin": 6.41
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.88,
+       "tmin": 5.14
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.58,
+       "tmin": 5.78
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.7,
+       "tmin": 8.92
+      },
+      "2026-10-21": {
+       "lluvia": 1.1,
+       "prob": null,
+       "tmax": 18.25,
+       "tmin": 12.16
+      }
+     }
+    }
+   },
+   "lat": -34.92,
+   "lon": -57.95,
+   "nombre": "La Plata"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "San Isidro",
+    "meteored_hash": "c58e3e06abd76c09e3da6bc40c98e51e",
+    "meteored_lugar": "San Isidro"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.44,
+       "tmin": 8.27
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.07,
+       "tmin": 6.52
+      },
+      "2026-10-19": {
+       "lluvia": 0.4,
+       "prob": null,
+       "tmax": 15.98,
+       "tmin": 9.47
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.38,
+       "tmin": 10.16
+      },
+      "2026-10-21": {
+       "lluvia": 0.5,
+       "prob": null,
+       "tmax": 18.14,
+       "tmin": 12.63
+      }
+     }
+    }
+   },
+   "lat": -34.47,
+   "lon": -58.51,
+   "nombre": "San Isidro"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "San Miguel",
+    "meteored_hash": "215cdc3e58ddc6246d13b9fca5d26bac",
+    "meteored_lugar": "San Miguel del Monte"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 12.73,
+       "tmin": 6.57
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.48,
+       "tmin": 5.28
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.98,
+       "tmin": 4.86
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.58,
+       "tmin": 6.19
+      },
+      "2026-10-21": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.51,
+       "tmin": 10.69
+      }
+     }
+    }
+   },
+   "lat": -34.54,
+   "lon": -58.71,
+   "nombre": "San Miguel"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Pilar",
+    "meteored_hash": "7e39e2716e13a8e53f081813e19aec9f",
+    "meteored_lugar": "Pilar"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 13.3,
+       "tmin": 8.16
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.27,
+       "tmin": 5.71
+      },
+      "2026-10-19": {
+       "lluvia": 0.5,
+       "prob": null,
+       "tmax": 16.53,
+       "tmin": 6.46
+      },
+      "2026-10-20": {
+       "lluvia": 0.3,
+       "prob": null,
+       "tmax": 18.78,
+       "tmin": 8.51
+      },
+      "2026-10-21": {
+       "lluvia": 0.7,
+       "prob": null,
+       "tmax": 18.51,
+       "tmin": 11.36
+      }
+     }
+    }
+   },
+   "lat": -34.46,
+   "lon": -58.91,
+   "nombre": "Pilar"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Ezeiza",
+    "meteored_hash": "1751f8edd24f2c520e02d1151500dc7c",
+    "meteored_lugar": "Aeropuerto Internacional Ezeiza"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": 0.1,
+       "prob": null,
+       "tmax": 13.06,
+       "tmin": 7.27
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 14.35,
+       "tmin": 5.2
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.98,
+       "tmin": 5.89
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.7,
+       "tmin": 8.68
+      },
+      "2026-10-21": {
+       "lluvia": 0.7,
+       "prob": null,
+       "tmax": 18.65,
+       "tmin": 12.25
+      }
+     }
+    }
+   },
+   "lat": -34.85,
+   "lon": -58.52,
+   "nombre": "Ezeiza"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Moreno",
+    "meteored_hash": "838217e4056284d47920f99d6029d046",
+    "meteored_lugar": "Gonzalez Moreno"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.73,
+       "tmin": 4.65
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.92,
+       "tmin": 3.83
+      },
+      "2026-10-19": {
+       "lluvia": 0.8,
+       "prob": null,
+       "tmax": 18.72,
+       "tmin": 7.04
+      },
+      "2026-10-20": {
+       "lluvia": 0.3,
+       "prob": null,
+       "tmax": 20.18,
+       "tmin": 12.02
+      },
+      "2026-10-21": {
+       "lluvia": 8.5,
+       "prob": null,
+       "tmax": 20.41,
+       "tmin": 12.16
+      }
+     }
+    }
+   },
+   "lat": -34.65,
+   "lon": -58.79,
+   "nombre": "Moreno"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Mar del Plata",
+    "meteored_hash": "93353c11201dee175bf24d36d7343bc8",
+    "meteored_lugar": "Mar del Plata"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": 0.5,
+       "prob": null,
+       "tmax": 10.93,
+       "tmin": 8.14
+      },
+      "2026-10-18": {
+       "lluvia": 0.3,
+       "prob": null,
+       "tmax": 10.61,
+       "tmin": 7.91
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 11.3,
+       "tmin": 7.43
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 12.33,
+       "tmin": 7.5
+      },
+      "2026-10-21": {
+       "lluvia": 2.0,
+       "prob": null,
+       "tmax": 14.52,
+       "tmin": 9.32
+      }
+     }
+    }
+   },
+   "lat": -38.0,
+   "lon": -57.55,
+   "nombre": "Mar del Plata"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Rosario",
+    "meteored_hash": "0ed365e820ff647674aa5dece697e4e9",
+    "meteored_lugar": "Rosario"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 15.91,
+       "tmin": 8.3
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 16.76,
+       "tmin": 6.39
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 18.75,
+       "tmin": 8.1
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 20.65,
+       "tmin": 11.05
+      },
+      "2026-10-21": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 20.29,
+       "tmin": 13.38
+      }
+     }
+    }
+   },
+   "lat": -32.95,
+   "lon": -60.65,
+   "nombre": "Rosario"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Córdoba",
+    "meteored_hash": "85d2a08418f36e010aa1d49b49d35f56",
+    "meteored_lugar": "Córdoba"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": 0.6,
+       "prob": null,
+       "tmax": 17.56,
+       "tmin": 10.96
+      },
+      "2026-10-18": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.67,
+       "tmin": 9.2
+      },
+      "2026-10-19": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 17.52,
+       "tmin": 10.83
+      },
+      "2026-10-20": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 19.11,
+       "tmin": 11.26
+      },
+      "2026-10-21": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 24.52,
+       "tmin": 12.24
+      }
+     }
+    }
+   },
+   "lat": -31.42,
+   "lon": -64.18,
+   "nombre": "Córdoba"
+  },
+  {
+   "errores": {},
+   "estado": {
+    "llamadas_meteored": {
+     "fecha": "2026-10-17",
+     "n": 1
+    },
+    "meteored_buscado": "Mendoza",
+    "meteored_hash": "8e70c1902671aab8fe47e9824359af39",
+    "meteored_lugar": "Mendoza"
+   },
+   "hist": {
+    "2026-10-17": {
+     "meteored": {
+      "2026-10-17": {
+       "lluvia": 3.3,
+       "prob": null,
+       "tmax": 17.61,
+       "tmin": 10.51
+      },
+      "2026-10-18": {
+       "lluvia": 0.5,
+       "prob": null,
+       "tmax": 17.98,
+       "tmin": 11.24
+      },
+      "2026-10-19": {
+       "lluvia": 1.5,
+       "prob": null,
+       "tmax": 19.44,
+       "tmin": 10.67
+      },
+      "2026-10-20": {
+       "lluvia": 1.9,
+       "prob": null,
+       "tmax": 20.23,
+       "tmin": 11.51
+      },
+      "2026-10-21": {
+       "lluvia": 0.2,
+       "prob": null,
+       "tmax": 22.94,
+       "tmin": 11.61
+      }
+     }
+    }
+   },
+   "lat": -32.89,
+   "lon": -68.84,
+   "nombre": "Mendoza"
   }
- ]
+ ],
+ "uso_meteored": {
+  "fecha": "2026-10-17",
+  "n": 31
+ }
 }

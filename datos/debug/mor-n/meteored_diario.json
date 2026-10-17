@@ -1,0 +1,172 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "29b57c65fb29097950bd31084e562e18",
+  "name": "Moron",
+  "url": "https://www.tiempo.com/moron.htm",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 4,
+    "temperature": {
+     "min": 7.83,
+     "max": 13.28
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 36,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 10
+    },
+    "humidity": 69,
+    "pressure": 1023,
+    "snowline": 2200,
+    "uv_index_max": 7.5,
+    "sun": {
+     "in": 1792228180000,
+     "mid": 1792251587000,
+     "out": 1792275028000
+    },
+    "moon": {
+     "in": 1792244677000,
+     "out": 1792210076000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 3,
+    "temperature": {
+     "min": 6.2,
+     "max": 15.26
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 28,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 64,
+    "pressure": 1022,
+    "snowline": 2300,
+    "uv_index_max": 7.7,
+    "sun": {
+     "in": 1792314506000,
+     "mid": 1792337975000,
+     "out": 1792361480000
+    },
+    "moon": {
+     "in": 1792334583000,
+     "out": 1792299001000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 4,
+    "temperature": {
+     "min": 7.72,
+     "max": 17.48
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 26,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 10
+    },
+    "humidity": 69,
+    "pressure": 1022,
+    "snowline": 2300,
+    "uv_index_max": 8,
+    "sun": {
+     "in": 1792400832000,
+     "mid": 1792424364000,
+     "out": 1792447931000
+    },
+    "moon": {
+     "in": 1792424576000,
+     "out": 1792387587000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 3,
+    "temperature": {
+     "min": 9.49,
+     "max": 18.64
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 36,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 70,
+    "pressure": 1021,
+    "snowline": 3000,
+    "uv_index_max": 8.1,
+    "sun": {
+     "in": 1792487159000,
+     "mid": 1792510754000,
+     "out": 1792534383000
+    },
+    "moon": {
+     "in": 1792514599000,
+     "out": 1792475902000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 12.56,
+     "max": 18.96
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 35,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.9,
+     "rain": 0.9,
+     "probability": 70
+    },
+    "humidity": 71,
+    "pressure": 1020,
+    "snowline": 3200,
+    "uv_index_max": 8.2,
+    "sun": {
+     "in": 1792573486000,
+     "mid": 1792597144000,
+     "out": 1792620836000
+    },
+    "moon": {
+     "in": 1792604640000,
+     "out": 1792564023000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

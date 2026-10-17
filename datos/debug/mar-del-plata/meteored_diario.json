@@ -1,0 +1,174 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "93353c11201dee175bf24d36d7343bc8",
+  "name": "Mar del Plata",
+  "url": "https://www.meteored.com.bo/tiempo-en_Mar+del+Plata-America+Sur-Argentina-Provincia+de+Buenos+Aires-SAZM-1-16931.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 12,
+    "temperature": {
+     "min": 8.14,
+     "max": 10.93
+    },
+    "wind": {
+     "speed": 25,
+     "gust": 50,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 50
+    },
+    "humidity": 73,
+    "pressure": 1024,
+    "snowline": 2000,
+    "uv_index_max": 6.8,
+    "sun": {
+     "in": 1792227713000,
+     "mid": 1792251335000,
+     "out": 1792274997000
+    },
+    "moon": {
+     "in": 1792243725000,
+     "out": 1792210521000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 13,
+    "temperature": {
+     "min": 7.91,
+     "max": 10.61
+    },
+    "wind": {
+     "speed": 20,
+     "gust": 41,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0.3,
+     "rain": 0.3,
+     "probability": 30
+    },
+    "humidity": 78,
+    "pressure": 1023,
+    "snowline": 1800,
+    "uv_index_max": 6.9,
+    "sun": {
+     "in": 1792314030000,
+     "mid": 1792337724000,
+     "out": 1792361456000
+    },
+    "moon": {
+     "in": 1792333715000,
+     "out": 1792299375000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 4,
+    "temperature": {
+     "min": 7.43,
+     "max": 11.3
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 32,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 74,
+    "pressure": 1023,
+    "snowline": 2000,
+    "uv_index_max": 7.2,
+    "sun": {
+     "in": 1792400348000,
+     "mid": 1792424112000,
+     "out": 1792447916000
+    },
+    "moon": {
+     "in": 1792423819000,
+     "out": 1792387861000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 3,
+    "temperature": {
+     "min": 7.5,
+     "max": 12.33
+    },
+    "wind": {
+     "speed": 25,
+     "gust": 47,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 77,
+    "pressure": 1023,
+    "snowline": 2300,
+    "uv_index_max": 7.2,
+    "sun": {
+     "in": 1792486666000,
+     "mid": 1792510502000,
+     "out": 1792534377000
+    },
+    "moon": {
+     "in": 1792513969000,
+     "out": 1792476058000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 9.32,
+     "max": 14.52
+    },
+    "wind": {
+     "speed": 25,
+     "gust": 49,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 2,
+     "rain": 2,
+     "probability": 80
+    },
+    "humidity": 84,
+    "pressure": 1024,
+    "snowline": 2900,
+    "uv_index_max": 7.6,
+    "sun": {
+     "in": 1792572986000,
+     "mid": 1792596892000,
+     "out": 1792620837000
+    },
+    "moon": {
+     "in": 1792604146000,
+     "out": 1792564052000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,344 @@
+{
+ "ok": true,
+ "expiracion": 1792242171000,
+ "data": {
+  "locations": [
+   {
+    "hash": "72e81151000f1f0ec999a9bd9efb70ed",
+    "name": "La Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "f5f6eb6c58fbb17e0774438cc3d48476",
+    "name": "Almadén de la Plata",
+    "description": "Sevilla, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "c4beb3a4a397d024084f930261cc7bce",
+    "name": "La Plata",
+    "description": "Huila",
+    "country_name": "Colombia"
+   },
+   {
+    "hash": "93353c11201dee175bf24d36d7343bc8",
+    "name": "Mar del Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "4431d9edeed01a11b5251d6855422fca",
+    "name": "La Plata",
+    "description": "Nuevo Mexico",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "3688d9a2354ce0e6c6d529cc7b4e467a",
+    "name": "La Plata",
+    "description": "Missouri",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "3ce25019e04552bd1b3500057bb577ff",
+    "name": "La Plata",
+    "description": "San Luis",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "5f1ebda39474caba3b7eb36e7d350a53",
+    "name": "La Plata",
+    "description": "Aibonito",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "050f56d474f6ba29a19b6143926da0dc",
+    "name": "Aeropuerto Durango-La Plata",
+    "description": "Colorado",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "e9e755332a0196d973e89973d422b471",
+    "name": "La Plata",
+    "description": "Maryland",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "51ba91aff44e2eb8f95b98c64dc08ff2",
+    "name": "La Plata",
+    "description": "Colorado",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "aa94cad003a6780b5ae66d5af0ec8895",
+    "name": "Arroyo de la Plata",
+    "description": "Sevilla, Andalucía",
+    "country_name": "España"
+   },
+   {
+    "hash": "ded77a2fad8f414ea4dc81dde7101537",
+    "name": "Cabezo de la Plata",
+    "description": "Murcia",
+    "country_name": "España"
+   },
+   {
+    "hash": "6f1389f8b2fb4b9cbd2835c2dcea99a7",
+    "name": "Colonia Monte La Plata",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "6138ab4e5d7240db77edab2344dbcb6c",
+    "name": "Platanias",
+    "description": "Creta",
+    "country_name": "Grecia"
+   },
+   {
+    "hash": "84a9fdabc78f401347597357968a9b57",
+    "name": "Minima La Plata",
+    "description": "Comerío",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "fffc14b6681f6505f2bb58f1ade108b3",
+    "name": "Colonia la Plata",
+    "description": "San Luis Potosí",
+    "country_name": "México"
+   },
+   {
+    "hash": "2227a3b120b52ac189225147c71da5e5",
+    "name": "Platava",
+    "description": "Sverdlovsk",
+    "country_name": "Rusia"
+   },
+   {
+    "hash": "2a44f9c9006cd376b357a8c22854d989",
+    "name": "Plătăreşti",
+    "description": "Călăraşi",
+    "country_name": "Rumanía"
+   },
+   {
+    "hash": "5fd59f7c161090c8cff6c7a6fbf2b33d",
+    "name": "Plataforma",
+    "description": "São Paulo",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "e37f4e78933b070417b62f670c150a5e",
+    "name": "Platanillo",
+    "description": "Guerrero",
+    "country_name": "México"
+   },
+   {
+    "hash": "c4e21f4d4797642b939799639d0aeaaa",
+    "name": "Loma Plata",
+    "description": "Boquerón",
+    "country_name": "Paraguay"
+   },
+   {
+    "hash": "dbd5939b9112476031f91c2ed4549e37",
+    "name": "Platanillo",
+    "description": "San José",
+    "country_name": "Costa Rica"
+   },
+   {
+    "hash": "4b705f1fc205796d516aa208ec970fec",
+    "name": "Platation Acres",
+    "description": "Louisiana",
+    "country_name": "Estados Unidos"
+   },
+   {
+    "hash": "cb6e087d16e837b886f9f76351245f88",
+    "name": "Pejelagartero 1a. Sección (Plataforma)",
+    "description": "Tabasco",
+    "country_name": "México"
+   },
+   {
+    "hash": "99ed1d9a98e2f1921c401f831dbaf8dc",
+    "name": "El Platanal",
+    "description": "Michoacán",
+    "country_name": "México"
+   },
+   {
+    "hash": "abec1c8421bacf979f71780352118ddd",
+    "name": "Platania",
+    "description": "Catanzaro",
+    "country_name": "Italia"
+   },
+   {
+    "hash": "6602560074ba1c64d46e58a3673cec86",
+    "name": "Platanos",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "4a6f7e6804e6757473fc9d24038a95df",
+    "name": "Platanar Arriba",
+    "description": "Chiapas",
+    "country_name": "México"
+   },
+   {
+    "hash": "ba974f39c29e6d106cac3a3b139c875c",
+    "name": "Platanos",
+    "description": "Grecia Occidental",
+    "country_name": "Grecia"
+   },
+   {
+    "hash": "19c03cf61dc2ad9b43c73b7c7f7c9404",
+    "name": "Sindicato Agrario la Plata",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "ffd4f228a1275012eaf11debaab66479",
+    "name": "Platanillo",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "7f72187a71c170987a1e0c92025ab50e",
+    "name": "Río de la Plata",
+    "description": "Mascota",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "935f3ab220e413ccdf6d151add0f213e",
+    "name": "La Plata",
+    "description": "Departamento de Lavalleja",
+    "country_name": "República Oriental del Uruguay"
+   },
+   {
+    "hash": "9469e75ea1e63f32b48d3a961f392397",
+    "name": "La Plata",
+    "description": "Provincia de Mayabeque",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "beb109f6d123191bae04ff24ce56f8c5",
+    "name": "La Plata",
+    "description": "Gómez Palacio Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "419d4c46452bb89215efb33abd33473e",
+    "name": "La Plata",
+    "description": "Villa de Tututepec de Melchor Ocampo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "f2d37476b54b2715ef0e72545a2e643f",
+    "name": "La Plata",
+    "description": "Estado de Chihuahua",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "0adae55cfc63629ff44d1f561e7867cf",
+    "name": "La Plata",
+    "description": "Tantoyuca",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "c37f89c88f4703a9c2c2cbc414ba51f6",
+    "name": "La Plata",
+    "description": "Miranda Municipality",
+    "country_name": "República Bolivariana de Venezuela"
+   },
+   {
+    "hash": "a810e3b4c6aaa0ea10bb6b456ee0aaea",
+    "name": "La Plata",
+    "description": "Guama",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "6927abf788946e4a7651b20d0ccc8558",
+    "name": "La Plata",
+    "description": "Corregimiento Cañazas, Distrito de Cañazas",
+    "country_name": "República de Panamá"
+   },
+   {
+    "hash": "47c770fa91d75a801173980dbb38fd25",
+    "name": "La Plata",
+    "description": "Estado de Chihuahua",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "f7666e321b64f8627e5a0edbd98a282d",
+    "name": "Platanillo Brecha Siete",
+    "description": "Departamento de Santa Cruz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "5a31d96853c9871bfb81c746d5f88fdf",
+    "name": "La Plata",
+    "description": "Tarare, Arrondissement of Villefranche-sur-Saône",
+    "country_name": "Francia"
+   },
+   {
+    "hash": "40fa9e30a53f4661970ea0b497b16bcf",
+    "name": "La Plata",
+    "description": "Bahia Honda",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "ae2fe4bc025433ba0eefc32e4c009da6",
+    "name": "La Plata",
+    "description": "Guisa",
+    "country_name": "Isla Juana"
+   },
+   {
+    "hash": "1b3558eda023960ddc0c200c9e3d3042",
+    "name": "La Plata",
+    "description": "General Bravo",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "993e1d609ef9031e9bf48ea2596b52db",
+    "name": "La Plata",
+    "description": "Simón Bolívar Municipality",
+    "country_name": "República Bolivariana de Venezuela"
+   },
+   {
+    "hash": "1d0082de661a366926dd0917ca49dffc",
+    "name": "La Plata",
+    "description": "Uruachi",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "46c28e3300f2eaeab4320caa33af88ad",
+    "name": "La Plata",
+    "description": "Sifontes Municipality",
+    "country_name": "República Bolivariana de Venezuela"
+   },
+   {
+    "hash": "151dad4687043c5826fb52450ad3869c",
+    "name": "La Plata",
+    "description": "Macarena, Sevilla",
+    "country_name": "Reino de España"
+   },
+   {
+    "hash": "ab6fb577290d00fc64af73a5ec617a6f",
+    "name": "La Plata",
+    "description": "Valera Municipality",
+    "country_name": "República Bolivariana de Venezuela"
+   },
+   {
+    "hash": "c1860afd859d8270cb91b732d7e5544e",
+    "name": "La Platanillera",
+    "description": "Coalcomán de Vázquez Pallares",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "d5e4d62abdb6d4c58f113ea208a72abd",
+    "name": "La Plataforma",
+    "description": "Pánuco",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "89bc0c62f685575c3fece839acab202d",
+    "name": "La Platanera",
+    "description": "Culiacán",
+    "country_name": "Estados Unidos Mexicanos"
+   }
+  ]
+ }
+}

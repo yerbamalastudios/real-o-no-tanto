@@ -1,0 +1,44 @@
+{
+ "ok": true,
+ "expiracion": 1792242169000,
+ "data": {
+  "locations": [
+   {
+    "hash": "77027bc6ac829a041653d7b4ff3a1f30",
+    "name": "Quilmes",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "7996b18b3cc33380275ac83fa9dd8cd9",
+    "name": "Quilmes Oeste",
+    "description": "Buenos Aires",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "ca2ba23494091068f943579025813382",
+    "name": "Quilmes",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "ff7d2e03276aad2b778cd3f7406065d4",
+    "name": "Rincon De Quilmes",
+    "description": "Tucumán",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "2f84e7cfb6cd24190f455d32c027827d",
+    "name": "Quilmes Centro",
+    "description": "Departamento de Tafí del Valle",
+    "country_name": "República Argentina"
+   },
+   {
+    "hash": "af77ddc1bc74873871badc1896a1949e",
+    "name": "Quilmes Bajo",
+    "description": "Departamento de Tafí del Valle",
+    "country_name": "República Argentina"
+   }
+  ]
+ }
+}

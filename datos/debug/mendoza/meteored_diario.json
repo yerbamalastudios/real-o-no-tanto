@@ -1,0 +1,176 @@
+{
+ "ok": true,
+ "expiracion": 1792248300000,
+ "data": {
+  "hash": "8e70c1902671aab8fe47e9824359af39",
+  "name": "Mendoza",
+  "url": "https://www.meteored.com.ar/tiempo-en_Mendoza-America+Sur-Argentina-Mendoza-SAME-1-16887.html",
+  "days": [
+   {
+    "start": 1792206000000,
+    "symbol": 12,
+    "temperature": {
+     "min": 10.51,
+     "max": 17.61
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 21,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 3.3,
+     "rain": 3.3,
+     "probability": 90
+    },
+    "humidity": 74,
+    "pressure": 1021,
+    "snowline": 2600,
+    "uv_index_max": 9.1,
+    "sun": {
+     "in": 1792230734000,
+     "mid": 1792254037000,
+     "out": 1792277371000
+    },
+    "moon": {
+     "in": 1792247558000,
+     "out": 1792212260000,
+     "symbol": 22,
+     "illumination": 40.11
+    }
+   },
+   {
+    "start": 1792292400000,
+    "symbol": 12,
+    "temperature": {
+     "min": 11.24,
+     "max": 17.98
+    },
+    "wind": {
+     "speed": 8,
+     "gust": 22,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 70
+    },
+    "humidity": 70,
+    "pressure": 1016,
+    "snowline": 2800,
+    "uv_index_max": 9.2,
+    "sun": {
+     "in": 1792317063000,
+     "mid": 1792340425000,
+     "out": 1792363819000
+    },
+    "moon": {
+     "in": 1792337428000,
+     "out": 1792301210000,
+     "symbol": 21,
+     "illumination": 49.52
+    }
+   },
+   {
+    "start": 1792378800000,
+    "symbol": 12,
+    "temperature": {
+     "min": 10.67,
+     "max": 19.44
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 29,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 1.5,
+     "rain": 1.5,
+     "probability": 60
+    },
+    "humidity": 72,
+    "pressure": 1012,
+    "snowline": 3000,
+    "uv_index_max": 9.2,
+    "sun": {
+     "in": 1792403394000,
+     "mid": 1792426814000,
+     "out": 1792450266000
+    },
+    "moon": {
+     "in": 1792427368000,
+     "out": 1792389836000,
+     "symbol": 20,
+     "illumination": 59.05
+    }
+   },
+   {
+    "start": 1792465200000,
+    "symbol": 12,
+    "temperature": {
+     "min": 11.51,
+     "max": 20.23
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 25,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 1.9,
+     "rain": 1.9,
+     "probability": 90
+    },
+    "humidity": 71,
+    "pressure": 1010,
+    "snowline": 3400,
+    "uv_index_max": 8.4,
+    "sun": {
+     "in": 1792489725000,
+     "mid": 1792513204000,
+     "out": 1792536714000
+    },
+    "moon": {
+     "in": 1792517330000,
+     "out": 1792478201000,
+     "symbol": 19,
+     "illumination": 68.4
+    }
+   },
+   {
+    "start": 1792551600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 11.61,
+     "max": 22.94
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 29,
+     "direction": "W"
+    },
+    "precipitation": {
+     "total": 0.2,
+     "rain": 0.2,
+     "probability": 70
+    },
+    "humidity": 57,
+    "pressure": 1012,
+    "snowline": 3500,
+    "uv_index_max": 8.7,
+    "sun": {
+     "in": 1792576056000,
+     "mid": 1792599594000,
+     "out": 1792623163000
+    },
+    "moon": {
+     "in": 1792607305000,
+     "out": 1792566380000,
+     "symbol": 18,
+     "illumination": 77.26
+    }
+   }
+  ]
+ }
+}

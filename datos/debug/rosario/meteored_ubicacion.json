@@ -1,0 +1,314 @@
+{
+ "ok": true,
+ "expiracion": 1792242180000,
+ "data": {
+  "locations": [
+   {
+    "hash": "0ed365e820ff647674aa5dece697e4e9",
+    "name": "Rosario",
+    "description": "Santa Fe",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "f78e945fcae936f66a150a54b5860036",
+    "name": "Rosario de la Frontera",
+    "description": "Salta",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "fa78c34936cab11367e8182589af8906",
+    "name": "Rosario",
+    "description": "Sinaloa",
+    "country_name": "México"
+   },
+   {
+    "hash": "44b91e789e026bcf08246d00a53ef0d8",
+    "name": "Rosario del Tala",
+    "description": "Entre Ríos",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "c6084f750e106a0730008f79b9b25b5c",
+    "name": "Rosário - Correntina",
+    "description": "Bahia",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "000ae93b4e2bcd77f17b7a048fbc4094",
+    "name": "Rosario Do Sul",
+    "description": "Rio Grande del Sur",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "056477d34065e8e99bd506020f05742b",
+    "name": "Rosário Do Ivaí",
+    "description": "Paraná",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "af4eaf879b5175512345f0a96a5a633b",
+    "name": "Rosario",
+    "description": "Córdoba",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "8db0a42f7caa7fd78076d9f798957902",
+    "name": "Rosario",
+    "description": "Colonia",
+    "country_name": "Uruguay"
+   },
+   {
+    "hash": "5dbb915e484c448a9a1398e86dcc02fd",
+    "name": "El Rosario",
+    "description": "Comayagua",
+    "country_name": "Honduras"
+   },
+   {
+    "hash": "d1d76d3c7667dc14b11dd23eadbe6ef6",
+    "name": "El Rosario",
+    "description": "Olancho",
+    "country_name": "Honduras"
+   },
+   {
+    "hash": "11bf20743ec2c1a80a6240e448d9832a",
+    "name": "Rosario de Lerma",
+    "description": "Salta",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "86a9d224cf8fcd7ff0708757ed2c1c30",
+    "name": "Rosário - João Dias",
+    "description": "Rio Grande del Norte",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "d3b064ff48c412de7a96dd443d206deb",
+    "name": "Rosário - Bom Jardim",
+    "description": "Maranhão",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "d278abf18ecca787c4dcba6342da79ed",
+    "name": "Rosario De Rio Grande",
+    "description": "Jujuy",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "e9ba55b229b8b5731f690ca6e64f6495",
+    "name": "Rosário Do Pontal",
+    "description": "Minas Gerais",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "c8b0157163c1c3ad9e07330a308b74b2",
+    "name": "Rosário - Canudos",
+    "description": "Bahia",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "4d3f909883603b2e2716fc69035be4af",
+    "name": "Rosario Do Catete",
+    "description": "Sergipe",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "6614a9a530e4921fab441f3642bb8b4a",
+    "name": "Rosario del Dorado",
+    "description": "Salta",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "35d5325af4275af775d8b4ef28b8023e",
+    "name": "Rosario del Llano",
+    "description": "Atacama",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "54d09dd5c6597f7f5619afbe97615d07",
+    "name": "Rosario del Ingre",
+    "description": "Chuquisaca",
+    "country_name": "Bolivia"
+   },
+   {
+    "hash": "2ef87b0272633808ec64e871cc4267c2",
+    "name": "Rosario de Colana",
+    "description": "Catamarca",
+    "country_name": "Argentina"
+   },
+   {
+    "hash": "f40de71d1a6fbb7d531158ce84620531",
+    "name": "Rosario",
+    "description": "San Germán",
+    "country_name": "Puerto Rico"
+   },
+   {
+    "hash": "75f5dbe05fdfeae1bf0f1a1cbec20069",
+    "name": "Rosario De Minas",
+    "description": "Minas Gerais",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "4c010bb8cdf35f026e400620ece0c0c6",
+    "name": "Rosario",
+    "description": "San Pedro",
+    "country_name": "Paraguay"
+   },
+   {
+    "hash": "4ff48d70930a92950611d6a3801f1d19",
+    "name": "Rosário",
+    "description": "Ceará",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "7da4864b58bf69a384da2ff4051ac94c",
+    "name": "Rosário",
+    "description": "Minas Gerais",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "e200bf286ece889bdaf880605974943c",
+    "name": "Rosario",
+    "description": "Antofagasta",
+    "country_name": "Chile"
+   },
+   {
+    "hash": "ff186de0656f6f80ea1d066dcfebcfcc",
+    "name": "Rosário",
+    "description": "Rio Grande del Sur",
+    "country_name": "Brasil"
+   },
+   {
+    "hash": "d6980edb9bbf87291cdbf18d55403cef",
+    "name": "Rosario",
+    "description": "Veraguas",
+    "country_name": "Panamá"
+   },
+   {
+    "hash": "2d9e828a0f30235d3a550957973d10c0",
+    "name": "Rosarito",
+    "description": "Baja California",
+    "country_name": "México"
+   },
+   {
+    "hash": "0b9f559760811132dd0d6d102e0f2275",
+    "name": "Rosario de La Unión",
+    "description": "Lalawigan ng La Union",
+    "country_name": "Filipinas"
+   },
+   {
+    "hash": "56292a78f54c2a5f644f8de40738e470",
+    "name": "Colonia Rosario",
+    "description": "Municipio de Distrito Central",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "69e653ba2dd39ec65f0ac2d1ccc53d5f",
+    "name": "Delicias del Rosario",
+    "description": "Departamento de Comayagua",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "672bf443084d967a3dc5006432beb7cf",
+    "name": "Hacienda El Rosario",
+    "description": "Municipio de Nacaome",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "707594c65c4ccf24c317056e93a1bf04",
+    "name": "Plan del Rosario",
+    "description": "Mercedes",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "1c4d9fbfd39cccd4f92c3720e4c088ec",
+    "name": "Potrerito El Rosario",
+    "description": "Municipio de Masaguara",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "0fc347099ecbe66c67e16420e8ee50fd",
+    "name": "San Pedro de El Rosarío",
+    "description": "El Rosario",
+    "country_name": "República de Honduras"
+   },
+   {
+    "hash": "b8d117ac2da353c1ca1b8d36d34d7f53",
+    "name": "Rosario Santillana",
+    "description": "Departamento de Ayacucho",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "61defd6feb3b67b196e417a853c0e024",
+    "name": "Rosario de Coyaguayma",
+    "description": "Rinconada Department",
+    "country_name": "República Argentina"
+   },
+   {
+    "hash": "117f844bcbeeb2b494fed21f0adeeeaa",
+    "name": "Rosario Entre Ríos",
+    "description": "Departamento de La Paz",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "c64554f61f60f726d1cca1c909559065",
+    "name": "Rosario del Tacuaral",
+    "description": "Departamento del Beni",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "0f94079b5b57e31e9944753a1793d65e",
+    "name": "Rosario del Apere",
+    "description": "Departamento del Beni",
+    "country_name": "República de Bolivia"
+   },
+   {
+    "hash": "db11c4853b34bc28b18890bdf27ff92b",
+    "name": "Rosario de Chingama",
+    "description": "Bellavista District, Jaén Province",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "7e8a6bb168020be4b7692d00494dc957",
+    "name": "Rosario Central",
+    "description": "Arapa, Azángaro Province",
+    "country_name": "República del Perú"
+   },
+   {
+    "hash": "1a26b28392ee265ab332a374b8744da6",
+    "name": "Rosario 1ra. Sección",
+    "description": "Amatán Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "a0416252651a2a373e7c9bf340be25c2",
+    "name": "Rosario Río Blanco",
+    "description": "Ocosingo Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "ef1424e8b6d2eec5f37ddfa8b12e8c0a",
+    "name": "Rosario Sarandí",
+    "description": "Caazapa",
+    "country_name": "República del Paraguay"
+   },
+   {
+    "hash": "93dfc255ee44b3d3c395f8cac14ac745",
+    "name": "Rosario Guavirá",
+    "description": "Caazapa",
+    "country_name": "República del Paraguay"
+   },
+   {
+    "hash": "c9a6fb2f78d88efca830e4675c9af3e1",
+    "name": "Rosario las Marías",
+    "description": "La Trinitaria",
+    "country_name": "Estados Unidos Mexicanos"
+   },
+   {
+    "hash": "c60d3ca5507b2cd27ad94dce7fa31445",
+    "name": "Rosario la Pacaya",
+    "description": "Ocosingo Municipality",
+    "country_name": "Estados Unidos Mexicanos"
+   }
+  ]
+ }
+}
