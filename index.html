@@ -89,6 +89,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .prendas{display:flex;flex-wrap:wrap;gap:6px}
 .prenda{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:var(--vidrio-2);font-size:.88rem;white-space:nowrap}
 .ropa-dia p{margin:0;font:italic 400 .95rem var(--body)}
+.tramos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.tramos li{display:flex;flex-direction:column;gap:4px;padding-bottom:6px;border-bottom:1px dashed rgba(255,255,255,.15)}
+.tramos li:last-child{border-bottom:0}
+.tramos .mom{font-size:.85rem;color:var(--txt-2)}
+.tramos .mom i{font-size:.8rem;color:var(--txt-3)}
+.tramos .mom b{color:var(--txt);font-family:var(--num);font-weight:500;font-size:1rem}
+.plan{margin-top:10px}
+.plan h4{margin:0 0 6px;font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--txt-2)}
+.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.plan li{background:rgba(255,255,255,.08);border-radius:12px;padding:8px 12px;font-size:.95rem}
+.evento{display:flex;gap:10px;align-items:flex-start;text-align:left;background:rgba(200,40,40,.88);border:1px solid rgba(255,140,130,.7);
+  border-radius:14px;padding:10px 14px;margin:8px auto 0;max-width:420px;box-shadow:0 6px 18px rgba(120,0,0,.25)}
+.evento .ev-ic{font-size:1.6rem;line-height:1}
+.evento b{font-size:1rem}
+.evento .ev-txt{font-size:.9rem;opacity:.95}
+.evento .ev-tag{display:inline-block;font:700 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#a01818;border-radius:4px;padding:1px 5px;vertical-align:2px}
+.dia .ev{font-size:.72rem;font-weight:600;color:#ffd0cb}
 /* tira de horas */
 .horas{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin:0 -6px;padding-inline:6px;scrollbar-width:none}
 .horas::-webkit-scrollbar{display:none}
@@ -253,6 +270,7 @@ body.grande .app{zoom:1.18}
     <div class="titulo-app">Pronóstico real o no tanto</div>
     <div class="lugar"><span id="lugarTxt">Buscando dónde estás…</span><button class="cambiar" id="cambiarLugar" type="button">cambiar</button></div>
     <div class="chico" id="metDe"></div>
+    <div class="evento" id="evento" role="note" hidden></div>
     <canvas id="escena" width="720" height="378" aria-hidden="true"></canvas>
     <div class="temp-ahora" id="tempAhora">--°</div>
     <div class="cond" id="condAhora">Cebando el pronóstico…</div>
@@ -283,6 +301,7 @@ body.grande .app{zoom:1.18}
     <svg class="grafico" id="grafico" viewBox="0 0 340 150" role="img" aria-label="Temperatura y lluvia hora por hora"></svg>
     <div class="parte" id="parte"></div>
     <div class="datos" id="datosDia"></div>
+    <div class="plan" id="plan"></div>
     <div class="acuerdo" id="acuerdo"></div>
   </section>
 
@@ -637,6 +656,13 @@ function combinarFecha(arch,punt,f,L){
     fuentes:filas.sort((a,b)=>b.peso_temp-a.peso_temp)};
 }
 
+// ---------- intermediario de Meteored en Cloudflare (agrega localidades solas y comparte el dato)
+const WORKER_URL="";
+async function meteoredWorker(){
+  const j=await getJSON(WORKER_URL.replace(/\/$/,"")+"/meteored?"+qs({lat:AJ.lat,lon:AJ.lon,nombre:AJ.lugar==="Mi ubicación"?"":AJ.lugar,alt:AJ.ciudad||""}),undefined,2);
+  if(j.error)throw new Error(j.error);
+  return j;
+}
 // ---------- lugares que el programa diario sigue (SMN y Meteored)
 let LUGARES_SRV=[];
 function distKm(a,b,c,d){const r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)/2*r),y=(c-a)*r;return 6371*Math.hypot(x,y);}
@@ -665,18 +691,25 @@ async function armar(){
       LUGARES_SRV=lista.map(l=>({nombre:l.nombre||"Lomas del Mirador",lat:l.lat,lon:l.lon}));
       srv=lugarCercano(lista);}catch(e){}
   }
+  let mw=null;
+  if(/^http/.test(WORKER_URL)){mw=await intentar("Meteored",meteoredWorker);if(mw&&!mw.lugar){errores["Meteored"]=mw.aviso||"sin datos cerca";mw=null;}}
+  if(mw)srv=null;   // con el intermediario no hace falta el archivo del programa diario
   const [det,mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
     conRespaldo("Detalle del día",fuenteDetalle),
     conRespaldo("Modelos globales",fuenteModelos),
     conRespaldo("Historial de modelos",()=>historialModelos(hoy)),
     conRespaldo("Lo que pasó (ERA5)",()=>observado(hoy)),
-    srv?null:intentar("SMN",()=>fuenteSMN(hoy)),
-    srv?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
+    null,   // SMN: bloqueado para consultas automáticas (Cloudflare)
+    (srv||mw||/^http/.test(WORKER_URL))?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
     srv?null:intentar("AccuWeather",()=>fuenteAccu(hoy)),
     intentar("Efemérides",()=>efemerides(hoy))
   ]);
   const sitios={};let h,estSMN=smn&&smn.est;
-  if(srv){
+  if(mw){
+    h={};for(const[f,serie]of Object.entries(mw.hist||{}))h[f]={meteored:serie};
+    const fut={};for(const[f,v]of Object.entries(mw.serie||{}))if(f>hoy)fut[f]=v;
+    if(Object.keys(fut).length)sitios.meteored=fut;
+  }else if(srv){
     h=srv.hist||{};estSMN=srv.smn_estacion||null;
     for(const[k,v]of Object.entries(srv.errores||{}))errores[k+" (programa diario)"]=v;
     // Lo más nuevo que bajó el programa (hoy, o ayer si todavía no corrió)
@@ -714,19 +747,26 @@ async function armar(){
   for(let L=1;L<=7;L++){const f=addDays(hoy,L),wd=diaSemana(f);
     if(wd===6||wd===0){const r=combinarFecha(arch,punt,f,L);if(r.fuentes.length)finde.push(r);if(wd===0)break;}}
   const nombres={};for(const[k,v]of Object.entries(CFG.modelos))nombres["om_"+k]=v;
-  Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored"+(srv&&DIST_SRV>5?` (de ${srv.nombre}, a ${Math.round(DIST_SRV)} km)`:""),accuweather:"AccuWeather"});
+  Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored"+(mw&&mw.lugar.km>4?` (de ${mw.lugar.nombre}, a ${mw.lugar.km} km)`:srv&&DIST_SRV>5?` (de ${srv.nombre}, a ${Math.round(DIST_SRV)} km)`:""),accuweather:"AccuWeather"});
   const base=["Detalle del día","Modelos globales","Historial de modelos","Lo que pasó (ERA5)","Efemérides"];
   if(!det&&!mod&&!histMod&&!obs&&!efe&&base.every(k=>errores[k])){
     for(const k of Object.keys(errores))delete errores[k];
     errores["Sin conexión"]="la página no pudo salir a internet. Si la abriste desde la vista previa de Claude, WhatsApp o un visor de archivos, abrila con el link o en Chrome";
   }
-  return{meteoredDe:srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null,lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  return{meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
 
 
 // ===================== condición del cielo =====================
+// Si el modelo marca llovizna/lluvia pero la chance es baja y casi no cae nada, se muestra nublado
+function codigoReal(code,prob,mm){
+  if(code==null)return code;
+  const moja=(code>=51&&code<=67)||(code>=80&&code<=82)||code>=95;
+  if(moja&&(prob??0)<30&&(mm??0)<.5)return code>=95&&(prob??0)>=15?code:3;
+  return code;
+}
 function tipoCielo(code,tmax){
   if(code==null)return"nublado";
   if(code>=95)return"tormenta";
@@ -906,7 +946,7 @@ function tramo(d,a,b){
   const h=S.detalle&&S.detalle.hourly;if(!h)return null;
   const ix=h.time.map((t,i)=>t.startsWith(d.fecha)&&+t.slice(11,13)>=a&&+t.slice(11,13)<b?i:-1).filter(i=>i>=0);
   if(!ix.length)return null;
-  const cods=ix.map(i=>h.weather_code[i]),T=ix.map(i=>h.temperature_2m[i]);
+  const cods=ix.map(i=>codigoReal(h.weather_code[i],h.precipitation_probability[i],(h.precipitation[i]??0)*5)),T=ix.map(i=>h.temperature_2m[i]);
   const conteo={};cods.forEach(c=>{const k=SEV(c);conteo[k]=(conteo[k]||0)+1;});
   const peor=Math.max(...cods.map(SEV));
   const comun=+Object.entries(conteo).sort((x,y)=>y[1]-x[1])[0][0];
@@ -994,7 +1034,7 @@ function diasCompletos(){
     out.push({fecha:f,L,
       tmax:w.tmax??g("temperature_2m_max"),tmin:w.tmin??g("temperature_2m_min"),
       lluvia:w.lluvia??g("precipitation_sum"),chance_lluvia:w.chance_lluvia,prob:g("precipitation_probability_max"),
-      code:g("weather_code"),viento:g("wind_speed_10m_max"),rafagas:g("wind_gusts_10m_max"),dir:g("wind_direction_10m_dominant"),
+      code:codigoReal(g("weather_code"),g("precipitation_probability_max")??(w.chance_lluvia!=null?w.chance_lluvia*100:null),w.lluvia??g("precipitation_sum")),viento:g("wind_speed_10m_max"),rafagas:g("wind_gusts_10m_max"),dir:g("wind_direction_10m_dominant"),
       uv:g("uv_index_max"),sale:g("sunrise"),pone:g("sunset"),
       rango_tmax:w.rango_tmax,fuentes:w.fuentes||[],ponderado:!!w.fuentes,...humedadDia(f)});
   });
@@ -1010,43 +1050,124 @@ function nombreDia(d){return d.L===0?"Hoy":d.L===1?"Mañana":new Date(d.fecha+"T
 function probDe(d){return d.prob!=null?d.prob:(d.chance_lluvia!=null?Math.round(d.chance_lluvia*100):null);}
 
 // ===================== ¿qué me pongo? =====================
+function abrigo(t){
+  if(t>=30)return[["🩳","Bermuda"],["🎽","Musculosa"]];
+  if(t>=25)return[["👕","Remera"],["🩳","Bermuda"]];
+  if(t>=20)return[["👕","Remera"],["👖","Pantalón liviano"]];
+  if(t>=16)return[["👕","Remera"],["🧥","Buzo"]];
+  if(t>=12)return[["🧥","Buzo o campera liviana"]];
+  if(t>=7)return[["🧥","Campera"],["🧣","Bufanda"]];
+  return[["🧥","Campera gruesa"],["🧣","Bufanda"],["🧤","Guantes"]];
+}
 function ropa(d){
   if(!d||d.tmax==null)return null;
-  const tx=d.tmax,tn=d.tmin??tx-8,amp=tx-tn,p=probDe(d)??0,mm=d.lluvia||0,raf=d.rafagas||0,uv=d.uv||0;
-  const items=[],add=(e,t)=>items.push(`<span class="prenda">${e} ${t}</span>`);
-  const loco=amp>=12||(tn<=11&&tx>=24);
-  // abrigo según la temperatura
-  if(tx>=30){add("🩳","Bermuda");add("🎽","Musculosa");add("🧢","Gorra");}
-  else if(tx>=25){add("👕","Remera");add("🩳","Bermuda o algo liviano");}
-  else if(tx>=19){add("👕","Remera");add("👖","Pantalón");if(tn<15)add("🧥","Buzo a mano");}
-  else if(tx>=13){add("👖","Pantalón largo");add("🧥","Buzo o campera liviana");}
-  else if(tx>=7){add("🧥","Campera");add("🧣","Bufanda");}
-  else{add("🧥","Campera gruesa");add("🧣","Bufanda");add("🧤","Guantes");add("🧶","Gorro");}
-  // lluvia y viento
-  if(mm>=20){add("☔","Paraguas");add("🥾","Calzado que se pueda mojar");}
-  else if(p>=50||mm>=2)add("☔","Paraguas");
-  else if(p>=30)add("🌂","Paraguas chico, por las dudas");
-  if(raf>=50)add("🌬️","Rompeviento");
-  if(uv>=8&&p<40)add("🕶️","Anteojos y protector");
-  if(loco)add("🧅","Capas");
-  // la frase, según el día y sin repetir otras de la pantalla
-  const ops=[];
-  if(loco)ops.push(`De ${r0(tn)}° a ${r0(tx)}°: llevate el ropero entero. A la mañana pingüino, a la tarde playa.`,`Salís con campera y volvés con ella en la mano. ${r0(amp)}° de diferencia no perdonan.`);
-  if(mm>=20)ops.push("Paraguas, pilotín y paciencia. Hoy el agua gana.","Zapatillas viejas o botas: las de salir hoy se quedan en casa.");
+  const hoyH=d.L===0?new Date().getHours():-1;
+  const tramos=[["🌅","Mañana",6,12,t=>t.tmin],["☀️","Tarde",12,19,t=>t.tmax],["🌙","Noche",19,24,t=>(t.tmin+t.tmax)/2]]
+    .filter(x=>!(d.L===0&&x[3]<=hoyH)).map(([e,n,a,b,f])=>{const t=tramo(d,a,b);return t?{e,n,temp:f(t),t}:null;}).filter(Boolean);
+  const filas=tramos.map(x=>{
+    const pr=abrigo(x.temp).slice();
+    if(x.t.p>=50||x.t.mm>=1)pr.push(["☔","Paraguas"]);else if(x.t.p>=30)pr.push(["🌂","Paraguas chico"]);
+    if(x.t.raf>=50)pr.push(["🌬️","Rompeviento"]);
+    if(x.n==="Tarde"&&(d.uv||0)>=8&&x.t.p<40)pr.push(["🕶️","Anteojos"]);
+    const chistes=x.temp>=30?["modo horno","ni la sombra alcanza"]:x.temp>=25?["ya se siente el verano","calorcito rico"]:x.temp>=19?["temperatura de catálogo","ni frío ni calor"]:x.temp>=14?["fresquito simpático","ideal para el mate"]:x.temp>=8?["no te hagas el valiente","frío de verdad"]:["modo pingüino","se congela el agua del termo"];
+    const ch=chistes[(semilla(d.fecha+x.n))%chistes.length];
+    return`<li><span class="mom">${x.e} ${x.n} <b>${r0(x.temp)}°</b> <i>· ${ch}</i></span><span class="prendas">${pr.map(([e,t])=>`<span class="prenda">${e} ${t}</span>`).join("")}</span></li>`;
+  }).join("");
+  const tx=d.tmax,tn=d.tmin??tx-8,amp=tx-tn,p=probDe(d)??0,mm=d.lluvia||0,raf=d.rafagas||0;
+  const loco=amp>=12||(tn<=11&&tx>=24),ops=[];
+  const ev=eventoDe(d.fecha),porFecha={"Día de la Madre":"Para el almuerzo con mamá, algo prolijo: que no te rete por la facha.","Día del Padre":"La camiseta del club para el asado con el viejo. Obligatorio.","Nochebuena":"Algo fresco pero elegante: Nochebuena con calor es tradición argentina.","Navidad":"Ropa cómoda: hoy la panza manda.","Fin de año":"Algo blanco o amarillo para la suerte, y nada que se arruine con sidra."};
+  if(ev&&porFecha[ev.nombre])return{items:`<ul class="tramos">${filas}</ul>`,frase:porFecha[ev.nombre]};
+  if(loco)ops.push(`De ${r0(tn)}° a ${r0(tx)}°: llevate el ropero. A la mañana pingüino, a la tarde playa.`,`Salís con campera y volvés con ella en la mano: ${r0(amp)}° de diferencia no perdonan.`,"Día cebolla: capas y más capas. Te vas sacando a medida que el sol se agranda.","Ropa de entretiempo: que el buzo se pueda atar a la cintura con dignidad.");
+  if(mm>=20)ops.push("Paraguas, pilotín y paciencia. Hoy el agua gana.","Zapatillas viejas o botas: las nuevas se quedan en casa esperando un día mejor.","Si tenés botas de lluvia, hoy es su día de gloria.");
   if(raf>=60&&p>=50)ops.push("Paraguas sí, pero de los fuertes: el chino de la esquina se da vuelta a la primera ráfaga.");
-  else if(raf>=55)ops.push("Agarrá bien la gorra, que hoy vuela sola.","Nada de pollera larga ni sombrero de ala: el viento no perdona.");
-  if(p>=50&&mm<20)ops.push("Si salís sin paraguas, después no te quejes.","Paraguas en la mochila. El que avisa no traiciona.");
+  else if(raf>=55)ops.push("Agarrá bien la gorra, que hoy vuela sola.","Nada de sombrero de ala: el viento no perdona.");
+  if(p>=50&&mm<20)ops.push("Si salís sin paraguas, después no te quejes.","Paraguas en la mochila. El que avisa no traiciona.","Campera con capucha: la mejor amiga del que se olvida el paraguas.");
   else if(p>=30)ops.push("Llevá el paraguas igual: si lo dejás, llueve seguro.","Un paraguas chiquito no ocupa lugar y te salva el peinado.");
   if(tx>=27&&(d.hum||0)>=70)ops.push("Húmedo como sauna de club de barrio: ropa suelta, de algodón, y un pañuelito para la frente.");
-  if(tx>=33)ops.push("Lo menos posible encima, que hoy el sol no perdona.","Gorra, agua y sombra. Y si podés, la siesta.");
-  else if(tx>=25)ops.push("Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.","Remera y bermuda. Que se vean esas piernas que no ven el sol desde marzo.","Ropa clara y liviana: hoy el negro es para los valientes.","La camiseta de fútbol cuenta como ropa formal con este calor.");
-  else if(tx>=19)ops.push("Clima ideal para no transpirar ni tiritar. Disfrutalo que dura poco.","Remera y un buzo atado a la cintura, por si refresca a la noche.","Jean y remera: el uniforme oficial del argentino promedio.","Mangas cortas de día, algo encima cuando baja el sol.");
-  else if(tx>=13)ops.push(`Con ${r0(tn)}° a la mañana, el buzo no es opcional.`,"Campera liviana: a la tarde te la sacás, a la noche la extrañás.","Buzo sí, campera tal vez. Andá en capas.","Buzo canguro y a la calle. Si tiene capucha, mejor.","Ese camperón de jean que nunca usás: hoy es su día.");
-  else if(tx<=14&&(d.hum||0)>=85)ops.push("Frío húmedo de ese que se mete en los huesos. Una capa más de la que pensabas.");
-  if(tx<13&&tx>=7)ops.push("Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.",`${r0(tx)}° de máxima: campera, bufanda y nada de hacerse el valiente.`,"Camiseta térmica abajo y nadie se entera.","Medias de lana y campera hasta el cuello. Hoy no se negocia.");
-  else if(tx<7)ops.push("Salí vestido de oso. Si podés, no salgas.","Guantes, gorro y bufanda. Hoy el pingüino sos vos.");
-  const f=elegirFrase(ops,d.fecha+"ropa");
-  return{items:items.join(""),frase:f};
+  if(tx>=33)ops.push("Lo menos posible encima, que hoy el sol no perdona.","Gorra, agua y sombra. Y si se puede, siesta.");
+  else if(tx>=25)ops.push("Ojotas homologadas. Medias con sandalias, bajo tu responsabilidad.","Remera y bermuda: que esas piernas vean el sol.","Ropa clara y liviana: hoy el negro es para los valientes.","La camiseta del club cuenta como ropa formal con este calor.");
+  else if(tx>=19)ops.push("Jean y remera: el uniforme oficial del argentino promedio.","Mangas cortas de día, algo encima cuando baja el sol.","Ni mucho ni poco: el clima perfecto para estrenar algo.");
+  else if(tx>=13)ops.push("Buzo canguro y a la calle. Si tiene capucha, mejor.","Ese camperón de jean que nunca usás: hoy es su día.","Campera liviana: a la tarde te la sacás, a la noche la extrañás.");
+  if(tx<13&&tx>=7)ops.push("Bufanda de la abuela obligatoria. Si te la tejió ella, mejor.","Camiseta térmica abajo y nadie se entera.","Medias de lana y campera hasta el cuello. Hoy no se negocia.");
+  else if(tx<7)ops.push("Salí vestido de oso. Si podés, no salgas.","Guantes, gorro y bufanda: hoy el pingüino sos vos.");
+  if(tx<=14&&(d.hum||0)>=85)ops.push("Frío húmedo de ese que se mete en los huesos: una capa más de la que pensabas.");
+  return{items:`<ul class="tramos">${filas}</ul>`,frase:elegirFrase(ops,d.fecha+"ropa")};
+}
+
+// ===================== plan del día (bien argento) =====================
+function plan(d){
+  const r=rasgos(d),wd=new Date(d.fecha+"T12:00:00").getDay(),finde=wd===0||wd===6,ops=[];
+  const secoDespues=diasCompletos().filter(x=>x.L>d.L&&x.L<=d.L+2).every(x=>(probDe(x)??0)<30);
+  const ev=eventoDe(d.fecha);
+  if(ev&&ev.plan)ops.push(ev.plan);
+  if(r.mm>=10||r.p>=70){ops.push("🍲 Guiso de lentejas y mantita en el sillón.","🫓 Tortas fritas con mate: ley de día de lluvia.","📺 Maratón de series o una peli con pochoclos.","🃏 Truco o chinchón con la familia.","🧺 Ordenar el placard que venís pateando desde marzo.");}
+  else if(r.p>=40){ops.push("☕ Mate adentro, por las dudas, mirando por la ventana.","🛒 Hacer los mandados temprano, antes de que se largue.","🍕 Pizza casera a la tarde.");}
+  if(r.tx>=30){ops.push("🏊 Pileta de lona o pileta del club.","🍦 Helado de la heladería del barrio (el de dulce de leche granizado, obvio).","😴 Siesta con ventilador de pie.","🧉 Tereré bien frío con limón y menta.","🔥 Asado, pero a la noche cuando baje el sol.");}
+  else if(r.tx>=20&&r.p<40){ops.push(finde?"🔥 Asado al mediodía: el clima no te deja excusa.":"🔥 Choripán en la parrilla a la vuelta del laburo.","🧉 Mateada en la plaza con facturas.","🚲 Vuelta en bici o caminata larga.","🛍️ Paseo por la feria del barrio.");}
+  else if(r.tx>=14&&r.p<40){ops.push("🧉 Mate al sol en el patio o la vereda.","🚶 Caminata a media tarde, cuando calienta.","🥧 Pastafrola o bizcochuelo para la merienda.");}
+  else if(r.tx<14&&r.p<40){ops.push("🥘 Locro o puchero para el almuerzo.","☀️ Caminata al mediodía, que es cuando el sol calienta.","🧉 Mate amargo bien caliente y una manta.");}
+  if(r.p<20&&secoDespues&&(d.hum||0)<75)ops.push("🧺 Lavar y colgar la ropa: se seca en un rato.","🚗 Lavar el auto: no llueve en los próximos días.");
+  if(r.p<30&&r.tx>=15&&!finde)ops.push("🌱 Cortar el pasto antes de que crezca la selva.");
+  if(r.raf>=25&&r.raf<45&&r.p<30)ops.push("🪁 Remontar un barrilete con los chicos.");
+  if(r.raf>=55)ops.push("🪴 Entrar las macetas y atar la reposera.");
+  if(wd===0)ops.push("⚽ Fútbol por la tele (o en la cancha) y ravioles de la abuela.","🍝 Pastas del domingo con la familia.");
+  if(wd===6)ops.push("🍻 Juntada con amigos a la noche.");
+  if(r.p<20&&(r.tn??20)>=10)ops.push("✨ Mirar las estrellas un rato desde la terraza.");
+  const out=[];for(let k=0;k<3&&ops.length;k++){const f=elegirFrase(ops,d.fecha+"plan"+k);if(f&&!out.includes(f))out.push(f);}
+  return out;
+}
+
+// ===================== feriados y fechas especiales =====================
+const FERIADOS_RESPALDO={2026:[["2026-01-01","Año Nuevo"],["2026-02-16","Carnaval"],["2026-02-17","Carnaval"],["2026-03-23","Puente turístico"],["2026-03-24","Día de la Memoria por la Verdad y la Justicia"],["2026-04-02","Día del Veterano y de los Caídos en Malvinas"],["2026-04-03","Viernes Santo"],["2026-05-01","Día del Trabajador"],["2026-05-25","Día de la Revolución de Mayo"],["2026-06-15","Paso a la Inmortalidad de Güemes"],["2026-06-20","Día de la Bandera"],["2026-07-09","Día de la Independencia"],["2026-07-10","Puente turístico"],["2026-08-17","Paso a la Inmortalidad de San Martín"],["2026-10-12","Día del Respeto a la Diversidad Cultural"],["2026-11-09","Visita del papa León XIV"],["2026-11-23","Día de la Soberanía Nacional"],["2026-12-07","Puente turístico"],["2026-12-08","Día de la Inmaculada Concepción"],["2026-12-25","Navidad"]]};
+let FERIADOS={};
+async function cargarFeriados(anio){
+  const k="pp_fer_"+anio,c=LS.get(k,null);if(c){FERIADOS[anio]=c;return;}
+  try{const j=await getJSON("https://api.argentinadatos.com/v1/feriados/"+anio,undefined,1);
+    if(Array.isArray(j)&&j.length){FERIADOS[anio]=j.map(f=>[f.fecha,f.nombre]);LS.set(k,FERIADOS[anio]);return;}}catch(e){}
+  if(FERIADOS_RESPALDO[anio])FERIADOS[anio]=FERIADOS_RESPALDO[anio];
+}
+function nDomingo(anio,mes,n){const d=new Date(Date.UTC(anio,mes-1,1));const primero=(7-d.getUTCDay())%7+1;return`${anio}-${String(mes).padStart(2,"0")}-${String(primero+7*(n-1)).padStart(2,"0")}`;}
+function especiales(anio){
+  const f=(m,d)=>`${anio}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  return[
+    [nDomingo(anio,10,3),"Día de la Madre","💐","Un llamado, unas flores o unas facturas: la vieja se lo merece.","💐 Almuerzo con mamá (y que esta vez no cocine ella).",7],
+    [nDomingo(anio,6,3),"Día del Padre","🔥","El asado lo hace él, como siempre. Vos llevá el vino.","🔥 Asado con el viejo, y que el vacío salga a punto.",7],
+    [nDomingo(anio,8,3),"Día de las Infancias","🎈","Que los chicos elijan el plan, aunque sea ir al pelotero.","🎈 Plaza, pelotero o helado: hoy mandan los chicos.",5],
+    [f(1,6),"Día de Reyes","👑","Pasto y agua para los camellos la noche anterior.",null,2],
+    [f(2,14),"Día de los Enamorados","❤️","Un mensajito lindo no cuesta nada.",null,2],
+    [f(3,8),"Día Internacional de la Mujer","💜",null,null,0],
+    [f(7,20),"Día del Amigo","🍻","Mandá un audio al grupo, que no cuesta nada.","🍻 Juntada con los amigos de siempre.",3],
+    [f(9,11),"Día del Maestro","🍎","Un saludo a esa maestra que te marcó.",null,0],
+    [f(9,21),"Día de la Primavera y del Estudiante","🌼","Picnic en la plaza, como corresponde.","🌼 Picnic y mate en el parque.",2],
+    [f(11,10),"Día de la Tradición","🐎","Empanadas, chamamé y un buen mate.","🥟 Empanadas criollas para festejar.",0],
+    [f(11,30),"Día Nacional del Mate","🧉","Yerba Mala Studios saluda a todos los cebadores del país.","🧉 Ronda de mate larga, como corresponde.",3],
+    [f(12,24),"Nochebuena","🎄","Vitel toné, pan dulce y la sidra bien fría.","🎄 Armar la mesa de Nochebuena y enfriar la sidra.",7],
+    [f(12,31),"Fin de año","🥂","Que el año que viene sea más real que el pronóstico.","🥂 Brindis con la familia y los vecinos.",5],
+  ].map(([fecha,nombre,emoji,frase,planTxt,anticipo])=>({fecha,nombre,emoji,frase,plan:planTxt,anticipo,feriado:false}));
+}
+function eventos(){
+  const anio=+S.hoy.slice(0,4),lista=[];
+  for(const a of[anio,anio+1]){
+    (FERIADOS[a]||[]).forEach(([fecha,nombre])=>{
+      const ya=especiales(a).find(e=>e.fecha===fecha);
+      const big=/Navidad|Año/.test(nombre);
+      const frases={"Navidad":"Que no falte el vitel toné ni el pan dulce.","Año Nuevo":"Feliz año. Hoy se descansa (y se come lo que sobró)."};
+      lista.push({fecha,nombre:nombre.replace(/^Puente turístico.*/,"Día no laborable (puente)"),emoji:/Navidad/.test(nombre)?"🎄":/Año/.test(nombre)?"🎆":"🇦🇷",feriado:true,
+        frase:frases[nombre]||(/puente/i.test(nombre)?"Día no laborable: fin de semana XL.":"Feriado nacional. Disfrutalo."),plan:/Navidad/.test(nombre)?"🎄 Sobremesa larga y siesta navideña.":null,anticipo:big?7:2});
+    });
+    especiales(a).forEach(e=>lista.push(e));
+  }
+  return lista;
+}
+function eventoDe(fecha){return eventos().find(e=>e.fecha===fecha)||null;}
+function renderEvento(){
+  const box=$("evento"),hoy=S.hoy,cerca=eventos().map(e=>({...e,dd:diasEntre(hoy,e.fecha)})).filter(e=>e.dd>=0&&e.dd<=Math.max(1,e.anticipo)).sort((a,b)=>a.dd-b.dd);
+  if(!cerca.length){box.hidden=true;return;}
+  const e=cerca[0],cuando=e.dd===0?"Hoy es":e.dd===1?"Mañana es":`Faltan ${e.dd} días para`;
+  const dia=e.dd>1?" ("+new Date(e.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric"})+")":"";
+  const extra=e.feriado&&e.dd<=7?(()=>{const wd=new Date(e.fecha+"T12:00:00").getDay();return wd===1||wd===5?" Fin de semana largo a la vista.":"";})():"";
+  box.innerHTML=`<span class="ev-ic">${e.emoji}</span><span><b>${cuando} ${e.feriado&&!/Día|Navidad|Año|Carnaval|Viernes/.test(e.nombre)?"feriado: ":""}${esc(e.nombre)}${dia}</b>${e.feriado?' <span class="ev-tag">feriado</span>':""}<br><span class="ev-txt">${esc((e.frase||"")+extra)}</span></span>`;
+  box.hidden=false;
 }
 
 // ===================== alertas =====================
@@ -1076,12 +1197,12 @@ function renderTodo(){
   const hoyD=dias.find(d=>d.L===0)||dias[0];
   // héroe
   const noche=cur?cur.is_day===0:false;
-  const code=cur?cur.weather_code:(hoyD&&hoyD.code);
+  const code=cur?codigoReal(cur.weather_code,hoyD&&probDe(hoyD),(cur.precipitation||0)*10+(hoyD?hoyD.lluvia||0:0)):(hoyD&&hoyD.code);
   const tipo=tipoCielo(code,hoyD&&hoyD.tmax);
   pintarCielo(tipo,noche);
   prepararEscena(tipo,noche,cur?cur.wind_speed_10m:0);
   $("lugarTxt").textContent=(AJ.modo==="fijo"?"":"📍 ")+S.lugar;
-  $("metDe").textContent=S.meteoredDe?`Meteored: dato de ${S.meteoredDe.nombre} (a ${S.meteoredDe.km} km)`:"";
+  $("metDe").textContent=S.meteoredDe?`Meteored: dato de ${S.meteoredDe.nombre}${S.meteoredDe.km?` (a ${S.meteoredDe.km} km)`:""}`:"";
   $("tempAhora").textContent=cur?r0(cur.temperature_2m)+"°":(hoyD?r0(hoyD.tmax)+"°":"--°");
   $("condAhora").textContent=code!=null?textoCielo(code,hoyD&&hoyD.tmax):"Sin datos del cielo";
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
@@ -1105,7 +1226,7 @@ function renderTodo(){
   $("cardRopa").querySelector(".rotulo").innerHTML=wdHoy===5?"👕 ¿Qué me pongo? <span class=\"der\">finde incluido</span>":"👕 ¿Qué me pongo?";
   $("ropa").innerHTML=lista.map(([d,r,n])=>`<div class="ropa-dia">
     <h3>${n}<span>${r0(d.tmin)}° a ${r0(d.tmax)}°${probDe(d)!=null?` · 💧 ${probDe(d)}%`:""}</span></h3>
-    <div class="prendas">${r.items}</div><p>${esc(r.frase)}</p></div>`).join("");
+    ${r.items}<p>${esc(r.frase)}</p></div>`).join("");
 
   // horas
   if(det&&det.hourly){
@@ -1113,7 +1234,7 @@ function renderTodo(){
     const items=[];
     for(let i=ini;i<Math.min(ini+24,h.time.length);i++){
       const hh=+h.time[i].slice(11,13),p=h.precipitation_probability[i];
-      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(h.weather_code[i],h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="p">${p>=10?"💧"+p+"%":""}</span><span class="hu">${h.relative_humidity_2m?r0(h.relative_humidity_2m[i])+"% hum.":""}</span></div>`);
+      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(codigoReal(h.weather_code[i],h.precipitation_probability[i],(h.precipitation[i]??0)*5),h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="p">${p>=10?"💧"+p+"%":""}</span><span class="hu">${h.relative_humidity_2m?r0(h.relative_humidity_2m[i])+"% hum.":""}</span></div>`);
     }
     $("horas").innerHTML=items.join("");
     $("horasNota").textContent="💧 chance de lluvia";
@@ -1122,7 +1243,7 @@ function renderTodo(){
   // días deslizables
   if(!dias.some(d=>d.L===diaSel))diaSel=dias.length>1?dias[1].L:(dias[0]?dias[0].L:0);
   $("dias").innerHTML=dias.map(d=>{const p=probDe(d);return `<button class="dia" type="button" data-l="${d.L}" aria-pressed="${d.L===diaSel}">
-      <span class="n">${nombreDia(d)}</span><span class="f">${new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{day:"numeric",month:"short"})}</span>
+      <span class="n">${nombreDia(d)}</span>${(()=>{const e=eventoDe(d.fecha);return e?`<span class="ev">${e.emoji} ${esc(e.feriado&&/puente/i.test(e.nombre)?"No laborable":e.nombre)}</span>`:"";})()}<span class="f">${new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{day:"numeric",month:"short"})}</span>
       ${icono(d.code,false)}
       <span class="mm"><span class="mx">${r0(d.tmax)}°</span><span class="mn">${r0(d.tmin)}°</span></span>
       <span class="ll"><span>💧 ${p==null?"–":p+"%"}</span><span>${d.lluvia>=.1?f1(d.lluvia)+" mm":""}</span></span>
@@ -1166,6 +1287,8 @@ function renderDia(dias){
       <circle cx="${X(iMin)}" cy="${Y(tmin)}" r="3" fill="#b9e2ff"/><text x="${Math.min(Math.max(X(iMin),20),W-20)}" y="${Y(tmin)+16}" text-anchor="middle">${r0(tmin)}°</text>
       ${horas}`;
   }else svg.innerHTML="";
+  const pl=plan(d);
+  $("plan").innerHTML=pl.length?`<h4>🧉 Plan del día</h4><ul>${pl.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"";
   const pt=parteDia(d);
   $("parte").innerHTML=pt?`<div class="quien"><svg aria-hidden="true"><use href="#ymLogo"/></svg>El parte de Yerba Mala</div>${esc(pt)}`:"";
   const hm=s=>s?s.slice(11,16):"–";
@@ -1275,7 +1398,7 @@ let corriendo=false;
 async function actualizar(){
   if(corriendo)return;corriendo=true;
   $("btnAct").disabled=true;document.body.classList.add("cargando");
-  try{S=await armar();renderTodo();}
+  try{S=await armar();const an=+S.hoy.slice(0,4);await Promise.all([cargarFeriados(an),cargarFeriados(an+1)]);renderTodo();renderEvento();}
   catch(e){console.error(e);$("condAhora").textContent="Se volcó el mate: "+e.message;}
   finally{corriendo=false;$("btnAct").disabled=false;document.body.classList.remove("cargando");pintarAjustes();pintarLugaresSrv();}
 }
@@ -1305,6 +1428,7 @@ function elegirLugar(nombre,lat,lon){AJ.lugar=nombre;AJ.lat=+(+lat).toFixed(3);A
 async function nombreDe(lat,lon){
   const c=LS.get("pp_nombre_"+lat+"_"+lon,null);if(c)return c;
   try{const j=await getJSON("https://api.bigdatacloud.net/data/reverse-geocode-client?"+qs({latitude:lat,longitude:lon,localityLanguage:"es"}),undefined,1);
+    AJ.ciudad=j.city&&j.city!==j.locality?j.city:(j.localityInfo&&j.localityInfo.administrative||[]).map(a=>a.name).reverse().find(n=>n&&n!==j.locality&&!/Argentina|Buenos Aires$/.test(n))||"";
     const n=j.locality||j.city||j.principalSubdivision;if(n){LS.set("pp_nombre_"+lat+"_"+lon,n);return n;}}catch(e){}
   return"Mi ubicación";
 }
