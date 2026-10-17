@@ -259,18 +259,27 @@ def fuente_meteored(estado):
     key = os.environ.get("METEORED_KEY", "").strip()
     if not key:
         return None
-    h = {"x-api-key": key, "Accept": "application/json"}
+    h0 = {"x-api-key": key, "Accept": "application/json"}
     base = "https://api.meteored.com/api"
+
+    def http_met(url, _h=None):
+        if LLAMADAS["meteored"] >= MAX_METEORED_TOTAL:
+            raise RuntimeError("se llegó al tope diario de consultas a Meteored")
+        LLAMADAS["meteored"] += 1
+        return http(url, h0)
+    h = None
     if not estado.get("meteored_hash"):
         intentos = [f"{base}/location/v1/search/txt/{urllib.parse.quote(CFG['lugar'])}"]
         if CFG.get("provincia"):
             intentos.append(f"{base}/location/v1/search/txt/{urllib.parse.quote(CFG['lugar'] + ', ' + CFG['provincia'])}")
         if CFG.get("cp"):
             intentos.append(f"{base}/location/v1/search/postalcode/{urllib.parse.quote(str(CFG['cp']))}")
+        for alt in CFG.get("alternativas") or []:   # si no está, la localidad vecina más cercana
+            intentos.append(f"{base}/location/v1/search/txt/{urllib.parse.quote(alt)}")
         cands, fallas = [], []
         for url in intentos:
             try:
-                j = http(url, h)
+                j = http_met(url)
                 guardar_debug("meteored_ubicacion.json", j)
                 cands = buscar(j, lambda o: isinstance(o, dict) and isinstance(o.get("hash"), str))
                 if cands:
@@ -286,7 +295,7 @@ def fuente_meteored(estado):
         mejor = max(cands, key=puntos)
         estado["meteored_hash"] = mejor["hash"]
         estado["meteored_lugar"] = mejor.get("name") or mejor.get("description")
-    j = http(f"{base}/forecast/v2/daily/{estado['meteored_hash']}", h)
+    j = http_met(f"{base}/forecast/v2/daily/{estado['meteored_hash']}")
     guardar_debug("meteored_diario.json", j)
     serie = extraer_diario(j)
     if not serie:
@@ -329,7 +338,6 @@ def guardar_debug(nombre, contenido):
 
 
 
-MAX_METEORED_POR_LUGAR = 4   # corre 3 veces por día; 1 de margen por si se corre a mano
 MAX_METEORED_TOTAL = 45      # el plan gratis da 50 por día
 LLAMADAS = {"meteored": 0}
 
@@ -342,7 +350,7 @@ def cargar_lugares():
 
 
 def recolectar_lugar(lugar, previo, hoy):
-    CFG.update({"lugar": lugar.get("buscar") or lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"], "cp": lugar.get("cp"), "provincia": lugar.get("provincia")})
+    CFG.update({"lugar": lugar.get("buscar") or lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"], "cp": lugar.get("cp"), "provincia": lugar.get("provincia"), "alternativas": lugar.get("alternativas")})
     datos = dict(previo or {})
     datos.update({"nombre": lugar["nombre"], "lat": lugar["lat"], "lon": lugar["lon"]})
     hist = datos.setdefault("hist", {})
@@ -359,10 +367,10 @@ def recolectar_lugar(lugar, previo, hoy):
     cont = estado.get("llamadas_meteored", {})
     if cont.get("fecha") != hoy_s:
         cont = {"fecha": hoy_s, "n": 0}
-    if cont["n"] < MAX_METEORED_POR_LUGAR and LLAMADAS["meteored"] < MAX_METEORED_TOTAL:
+    limite = int(lugar.get("veces", 1))
+    if cont["n"] < limite and LLAMADAS["meteored"] < MAX_METEORED_TOTAL:
         def _met():
             cont["n"] += 1
-            LLAMADAS["meteored"] += 1 + (0 if estado.get("meteored_hash") else 1)
             return fuente_meteored(estado)
         tareas.append(("Meteored", _met))
     estado["llamadas_meteored"] = cont
@@ -394,6 +402,9 @@ def main():
     previos = {(round(l["lat"], 2), round(l["lon"], 2)): l for l in viejo.get("lugares", [])}
     if "hist" in viejo:   # formato anterior (un solo lugar)
         previos[(round(viejo.get("lat", 0), 2), round(viejo.get("lon", 0), 2))] = viejo
+    hoy_s = hoy.isoformat()
+    uso = viejo.get("uso_meteored", {})
+    LLAMADAS["meteored"] = uso.get("n", 0) if uso.get("fecha") == hoy_s else 0
     salida = []
     for lugar in cargar_lugares():
         global DEBUG_DIR
@@ -401,7 +412,8 @@ def main():
         d = recolectar_lugar(lugar, previos.get((round(lugar["lat"], 2), round(lugar["lon"], 2))), hoy)
         salida.append(d)
         print(lugar["nombre"], json.dumps(d["errores"], ensure_ascii=False))
-    guardar_json(SALIDA, {"lugares": salida, "actualizado": datetime.now(TZ).isoformat(timespec="minutes")})
+    guardar_json(SALIDA, {"lugares": salida, "actualizado": datetime.now(TZ).isoformat(timespec="minutes"),
+                          "uso_meteored": {"fecha": hoy_s, "n": LLAMADAS["meteored"]}})
 
 
 if __name__ == "__main__":

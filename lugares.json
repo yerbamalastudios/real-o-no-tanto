@@ -1,3 +1,18 @@
 [
-  {"nombre": "Lomas del Mirador", "buscar": "Lomas del Mirador", "provincia": "Buenos Aires", "cp": "1752", "lat": -34.66, "lon": -58.53}
+  {"nombre": "Lomas del Mirador", "buscar": "Lomas del Mirador", "provincia": "Buenos Aires", "cp": "1752", "lat": -34.66, "lon": -58.53, "veces": 3, "alternativas": ["San Justo", "Ramos Mejía", "La Matanza"]},
+  {"nombre": "Buenos Aires (CABA)", "buscar": "Buenos Aires", "lat": -34.61, "lon": -58.38},
+  {"nombre": "Morón", "buscar": "Morón", "provincia": "Buenos Aires", "lat": -34.65, "lon": -58.62, "alternativas": ["Haedo", "Castelar"]},
+  {"nombre": "González Catán", "buscar": "González Catán", "provincia": "Buenos Aires", "lat": -34.77, "lon": -58.63, "alternativas": ["La Matanza", "Isidro Casanova"]},
+  {"nombre": "Lomas de Zamora", "buscar": "Lomas de Zamora", "provincia": "Buenos Aires", "lat": -34.76, "lon": -58.40, "alternativas": ["Banfield"]},
+  {"nombre": "Quilmes", "buscar": "Quilmes", "provincia": "Buenos Aires", "lat": -34.72, "lon": -58.25},
+  {"nombre": "La Plata", "buscar": "La Plata", "provincia": "Buenos Aires", "lat": -34.92, "lon": -57.95},
+  {"nombre": "San Isidro", "buscar": "San Isidro", "provincia": "Buenos Aires", "lat": -34.47, "lon": -58.51},
+  {"nombre": "San Miguel", "buscar": "San Miguel", "provincia": "Buenos Aires", "lat": -34.54, "lon": -58.71},
+  {"nombre": "Pilar", "buscar": "Pilar", "provincia": "Buenos Aires", "lat": -34.46, "lon": -58.91},
+  {"nombre": "Ezeiza", "buscar": "Ezeiza", "provincia": "Buenos Aires", "lat": -34.85, "lon": -58.52},
+  {"nombre": "Moreno", "buscar": "Moreno", "provincia": "Buenos Aires", "lat": -34.65, "lon": -58.79},
+  {"nombre": "Mar del Plata", "buscar": "Mar del Plata", "lat": -38.00, "lon": -57.55},
+  {"nombre": "Rosario", "buscar": "Rosario", "lat": -32.95, "lon": -60.65},
+  {"nombre": "Córdoba", "buscar": "Córdoba", "provincia": "Córdoba", "lat": -31.42, "lon": -64.18},
+  {"nombre": "Mendoza", "buscar": "Mendoza", "lat": -32.89, "lon": -68.84}
 ]

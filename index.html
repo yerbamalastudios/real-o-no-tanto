@@ -252,6 +252,7 @@ body.grande .app{zoom:1.18}
   <section class="heroe" aria-live="polite">
     <div class="titulo-app">Pronóstico real o no tanto</div>
     <div class="lugar"><span id="lugarTxt">Buscando dónde estás…</span><button class="cambiar" id="cambiarLugar" type="button">cambiar</button></div>
+    <div class="chico" id="metDe"></div>
     <canvas id="escena" width="720" height="378" aria-hidden="true"></canvas>
     <div class="temp-ahora" id="tempAhora">--°</div>
     <div class="cond" id="condAhora">Cebando el pronóstico…</div>
@@ -639,7 +640,9 @@ function combinarFecha(arch,punt,f,L){
 // ---------- lugares que el programa diario sigue (SMN y Meteored)
 let LUGARES_SRV=[];
 function distKm(a,b,c,d){const r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)/2*r),y=(c-a)*r;return 6371*Math.hypot(x,y);}
-function lugarCercano(lista){let best=null,bd=1e9;for(const l of lista){const d=distKm(AJ.lat,AJ.lon,l.lat,l.lon);if(d<bd){bd=d;best=l;}}return bd<=15?best:null;}
+// El lugar con Meteored más cercano (hasta 120 km: más lejos el clima ya es otro)
+let DIST_SRV=0;
+function lugarCercano(lista){let best=null,bd=1e9;for(const l of lista){if(!l.hist||!Object.keys(l.hist).length)continue;const d=distKm(AJ.lat,AJ.lon,l.lat,l.lon);if(d<bd){bd=d;best=l;}}DIST_SRV=bd;return bd<=120?best:null;}
 // ---------- todo junto
 async function armar(){
   const hoy=ymd(new Date()),errores={};
@@ -683,7 +686,7 @@ async function armar(){
   }else if(LUGARES_SRV.length){
     // En GitHub pero lejos de los lugares de la lista: solo modelos (el SMN y Meteored no se pueden pedir desde el navegador)
     h={};
-    errores["SMN y Meteored"]="este lugar no está en la lista del programa diario. Elegí uno cercano en Ajustes o pedí que lo agreguen";
+    errores["Meteored"]=`el lugar con Meteored más cercano está a ${Math.round(DIST_SRV)} km, demasiado lejos para que sirva. Hay que sumar esta zona a la lista (lugares.json)`;
   }else{
     // Pronósticos de hoy de cada sitio: se guardan en este navegador para compararlos cuando llegue el día
     if(smn)sitios.smn=smn.serie;
@@ -711,13 +714,13 @@ async function armar(){
   for(let L=1;L<=7;L++){const f=addDays(hoy,L),wd=diaSemana(f);
     if(wd===6||wd===0){const r=combinarFecha(arch,punt,f,L);if(r.fuentes.length)finde.push(r);if(wd===0)break;}}
   const nombres={};for(const[k,v]of Object.entries(CFG.modelos))nombres["om_"+k]=v;
-  Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored",accuweather:"AccuWeather"});
+  Object.assign(nombres,{smn:"SMN"+(estSMN?" ("+estSMN+")":""),meteored:"Meteored"+(srv&&DIST_SRV>5?` (de ${srv.nombre}, a ${Math.round(DIST_SRV)} km)`:""),accuweather:"AccuWeather"});
   const base=["Detalle del día","Modelos globales","Historial de modelos","Lo que pasó (ERA5)","Efemérides"];
   if(!det&&!mod&&!histMod&&!obs&&!efe&&base.every(k=>errores[k])){
     for(const k of Object.keys(errores))delete errores[k];
     errores["Sin conexión"]="la página no pudo salir a internet. Si la abriste desde la vista previa de Claude, WhatsApp o un visor de archivos, abrila con el link o en Chrome";
   }
-  return{lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  return{meteoredDe:srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null,lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
@@ -1078,6 +1081,7 @@ function renderTodo(){
   pintarCielo(tipo,noche);
   prepararEscena(tipo,noche,cur?cur.wind_speed_10m:0);
   $("lugarTxt").textContent=(AJ.modo==="fijo"?"":"📍 ")+S.lugar;
+  $("metDe").textContent=S.meteoredDe?`Meteored: dato de ${S.meteoredDe.nombre} (a ${S.meteoredDe.km} km)`:"";
   $("tempAhora").textContent=cur?r0(cur.temperature_2m)+"°":(hoyD?r0(hoyD.tmax)+"°":"--°");
   $("condAhora").textContent=code!=null?textoCielo(code,hoyD&&hoyD.tmax):"Sin datos del cielo";
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
