@@ -306,7 +306,7 @@ body.grande .app{zoom:1.18}
   </section>
 
   <section class="vidrio">
-    <h2 class="rotulo">Lluvia de la semana</h2>
+    <h2 class="rotulo">Lluvia de los próximos 5 días</h2>
     <p class="prox" id="proxLluvia"></p>
     <div class="barras" id="barras"></div>
   </section>
@@ -581,34 +581,40 @@ function limpiarWiki(t){
 function parseEfemerides(texto,fecha){
   const sec={};let act="_";
   for(const l of texto.split("\n")){const m=l.match(/^(=+)\s*(.*?)\s*\1\s*$/);if(m){act=limpiarWiki(m[2]).toLowerCase();sec[act]??=[];}else(sec[act]??=[]).push(l);}
-  const ev=[];let anio=null;
-  const acont=Object.entries(sec).find(([k])=>k.startsWith("acontecimientos"));
-  for(const l of acont?acont[1]:[]){
-    if(!l.startsWith("*"))continue;
-    const m=l.match(/^\*+\s*(?:\[\[)?(\d{1,4})(?:\]\])?(\s*a\.\s*C\.)?\s*[:—–-]?\s*(.*)$/);
-    let txt;
-    if(m&&!l.startsWith("**")){anio=m[1]+(m[2]?" a. C.":"");txt=limpiarWiki(m[3]);}else txt=limpiarWiki(l.replace(/^\*+/,""));
-    if(anio&&txt.length>15)ev.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});
-  }
-  const esAR=e=>CLAVES_AR.some(c=>e.texto.toLowerCase().includes(c));
-  const ar=ev.filter(esAR),resto=ev.filter(e=>!esAR(e));
-  const semilla=parseInt(fecha.replace(/-/g,""));
-  const elegidos=ar.slice(0,3);
-  for(let i=0;i<6&&elegidos.length<3&&resto.length;i++){const e=resto[(semilla*(i+7))%resto.length];if(!elegidos.includes(e))elegidos.push(e);}
+  const leer=nombre=>{const out=[];let anio=null;const s0=Object.entries(sec).find(([k])=>k.startsWith(nombre));
+    for(const l of s0?s0[1]:[]){
+      if(!l.startsWith("*"))continue;
+      const m=l.match(/^\*+\s*(?:\[\[)?(\d{1,4})(?:\]\])?(\s*a\.\s*C\.)?\s*[:—–-]?\s*(.*)$/);
+      let txt;if(m&&!l.startsWith("**")){anio=m[1]+(m[2]?" a. C.":"");txt=limpiarWiki(m[3]);}else txt=limpiarWiki(l.replace(/^\*+/,""));
+      if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});}
+    return out;};
+  const ev=leer("acontecimientos"),nac=leer("nacimientos");
+  // argentino: "argentin..." o un nombre propio del país escrito con mayúscula y como palabra entera
+  const PROPIOS=["Buenos Aires","Río de la Plata","Malvinas","San Martín","Belgrano","Sarmiento","Perón","Yrigoyen","Alfonsín","Rosas","Güemes","Córdoba","Rosario","Mendoza","Tucumán","Salta","La Plata","Patagonia","Maradona","Messi","Boca Juniors","River Plate","Mar del Plata","Santa Fe","Entre Ríos","Corrientes","La Matanza","Ushuaia","Bariloche","Gardel","Borges","Favaloro","Mafalda"];
+  const esAR=e=>/argentin/i.test(e.texto)||PROPIOS.some(n=>new RegExp("(^|[^\\p{L}])"+n+"($|[^\\p{L}])","u").test(e.texto));
+  const esInvento=e=>/invent|patent|descubr|primer[oa]? (vuelo|transmisi|emisi|película|computadora|satélite|llamada|vacuna)|inaugura|se estrena|se lanza|lanzamiento|se funda|crea (el|la)|presenta (el|la)/i.test(e.texto);
+  const sem=parseInt(fecha.replace(/-/g,""));
+  const tomar=(lista,n,ya)=>{const out=[];for(let i=0;i<lista.length*2&&out.length<n;i++){const e=lista[(sem*(i+3)+i)%lista.length];if(e&&!ya.includes(e)&&!out.includes(e))out.push(e);}return out;};
+  const ya=[];
+  const ar=ev.filter(esAR);ya.push(...ar.slice(0,3).map(e=>({...e,tipo:"ar"})));
+  const inv=ev.filter(e=>esInvento(e)&&!esAR(e));ya.push(...tomar(inv,2,ya).map(e=>({...e,tipo:"invento"})));
+  const resto=ev.filter(e=>!esAR(e)&&!esInvento(e));ya.push(...tomar(resto,Math.max(1,6-ya.length),ya).map(e=>({...e,tipo:"mundo"})));
+  const nacAR=nac.filter(esAR).slice(0,2).map(e=>({...e,tipo:"nace",texto:"Nace "+e.texto}));
   let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
   santos=santos.filter(Boolean);
   const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
-  return {fecha,eventos:elegidos.map(e=>({...e,argentina:ar.includes(e)})),santo:santos[0]||null,otros_santos:santos.slice(1,4),
+  const eventos=[...ya.slice(0,6),...nacAR].sort((a,b)=>parseInt(a.anio)-parseInt(b.anio));
+  return {fecha,eventos,santo:santos[0]||null,otros_santos:santos.slice(1,4),
     celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3)};
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efemerides",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe2",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
   const r=parseEfemerides(txt,hoy);
-  LS.set("pp_c_efemerides",r);
+  LS.set("pp_c_efe2",r);
   return r;
 }
 
@@ -763,6 +769,7 @@ async function armar(){
 // Si el modelo marca llovizna/lluvia pero la chance es baja y casi no cae nada, se muestra nublado
 function codigoReal(code,prob,mm){
   if(code==null)return code;
+  if(code<=2&&(prob??0)>=40)return 3;   // "despejado" con 40% de lluvia no cierra: se muestra nublado
   const moja=(code>=51&&code<=67)||(code>=80&&code<=82)||code>=95;
   if(moja&&(prob??0)<30&&(mm??0)<.5)return code>=95&&(prob??0)>=15?code:3;
   return code;
@@ -960,6 +967,7 @@ function cieloTramo(t,n){   // [texto, es plural]; n = madrugada | mañana | tar
   if(t.peor===5&&(t.mm>=.5||t.p>=60))return[t.code>=80?"chaparrones":"lluvias",1];
   if(t.peor===4&&t.p>=40)return["lloviznas",1];
   if(t.p>=60)return[oscuro?"nubes con probables lluvias":"nubes y probables lluvias",1];
+  if(t.p>=30)return[oscuro?"nubes con chances de lluvia":"nubes y sol con chances de lluvia",1];
   if(t.peor===3)return n==="mañana"&&t.comun<=1?["bancos de niebla que después se disipan",1]:["niebla",0];
   if(t.comun===2)return["cielo cubierto",0];
   if(t.comun===1)return oscuro?["algunas nubes",1]:n==="tarde"?["sol entre nubes",0]:["nubes y sol",1];
@@ -998,13 +1006,16 @@ function parteDia(d){
       if(tr.length)frases.push(may(tr.join(", ")).replace(/, ([^,]*)$/," y $1")+".");}
   }else{
     const momento={madrugada:"la madrugada","mañana":"la mañana",tarde:"la tarde",noche:"la noche"};
-    ts.forEach((x,k)=>{const [c,pl]=cielos[k],sens=sensTramo(x.t),tp=temp[x.n](x.t),ll=x.t.p>=30&&x.t.peor<5?` (${x.t.p}% de chance de lluvia)`:"";
+    ts.forEach((x,k)=>{const [c,pl]=cielos[k],sens=sensTramo(x.t),tp=temp[x.n](x.t),ll=x.t.p>=30&&x.t.peor<5?` (${x.t.p}%)`:"";
       frases.push(unoDe([
         `${x.txt} se ${pl?"esperan":"espera"} ${c}, con ambiente ${sens} y ${tp}${ll}.`,
         `${x.txt}, ${c} y ambiente ${sens}: ${tp}${ll}.`,
         `Para ${momento[x.n]}, ${c}, ${tp} y clima ${sens}${ll}.`,
         `${x.txt} tendremos ${c} y ${tp}, ambiente ${sens}${ll}.`],k));});
   }
+  const conLluvia=d.fuentes.filter(f=>(f.lluvia??0)>=1).length,pD=probDe(d)??0;
+  if(conLluvia&&ts.every(x=>x.t.peor<4&&x.t.p<30))frases.push(`Ojo: ${conLluvia} de ${d.fuentes.length} pronósticos dan algo de lluvia${pD>=30?` (${pD}% de chance)`:""}. Por las dudas, paraguas chico.`);
+  else if(pD>=30&&ts.every(x=>x.t.p<30))frases.push(`Algún pronóstico da ${pD}% de chance de lluvia, así que no te confíes.`);
   const raf=Math.max(...ts.map(x=>x.t.raf));
   if(raf>=50)frases.push(elegirFrase([`Ojo con el viento: ráfagas de hasta ${r0(raf)} km/h.`,`Atención a las ráfagas, que pueden llegar a ${r0(raf)} km/h.`,`Sopla fuerte: hasta ${r0(raf)} km/h en ráfagas.`],d.fecha+"viento"));
   if(!frases.length)return"";
@@ -1262,7 +1273,7 @@ function renderTodo(){
 }
 function renderDia(dias){
   const d=dias.find(x=>x.L===diaSel);if(!d)return;
-  $("detTit").textContent=nombreDia(d)+" · "+textoCielo(d.code,d.tmax);
+  $("detTit").textContent=nombreDia(d)+" · "+textoCielo(d.code,d.tmax)+((probDe(d)??0)>=30&&d.code<51?", con chances de lluvia":"");
   $("detSub").textContent=new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
   // gráfico hora por hora: temperatura (línea) y lluvia (barras)
   const h=S.detalle&&S.detalle.hourly,svg=$("grafico");
@@ -1307,18 +1318,25 @@ function renderDia(dias){
   $("acuerdo").innerHTML=(d.fuentes.length?`${d.fuentes.length} fuentes. `:"")+(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
     "";
 }
-function renderLluvia(dias){
+function cuandoDia(f){
+  const L=diasEntre(S.hoy,f);
+  if(L===0)return"hoy";if(L===1)return"mañana";if(L===2)return"pasado mañana";
+  return"el "+new Date(f+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric"});
+}
+function renderLluvia(todos){
+  const dias=todos.filter(d=>d.L<=4);   // 5 días: hoy y los 4 que siguen
   const h=S.detalle&&S.detalle.hourly;let prox="";
-  if(h){const ahora=Date.now();for(let i=0;i<h.time.length;i++){if(new Date(h.time[i]).getTime()<ahora-3600e3)continue;
-    if((h.precipitation_probability[i]??0)>=50&&(h.precipitation[i]??0)>=.2){const f=h.time[i].slice(0,10),L=diasEntre(S.hoy,f);
-      const cuando=L===0?"hoy":L===1?"mañana":new Date(f+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long"});
-      prox=`🌂 Próxima lluvia: ${cuando} a las ${+h.time[i].slice(11,13)} h (${h.precipitation_probability[i]}%).`;break;}}}
+  if(h){const ahora=Date.now(),limite=addDays(S.hoy,5);for(let i=0;i<h.time.length;i++){if(new Date(h.time[i]).getTime()<ahora-3600e3)continue;if(h.time[i].slice(0,10)>=limite)break;
+    if((h.precipitation_probability[i]??0)>=50&&(h.precipitation[i]??0)>=.2){
+      prox=`🌂 Próxima lluvia: ${cuandoDia(h.time[i].slice(0,10))} a las ${+h.time[i].slice(11,13)} h (${h.precipitation_probability[i]}%).`;break;}}}
+  if(!prox){const d=dias.find(x=>(probDe(x)??0)>=40);if(d)prox=`🌂 Puede llover ${cuandoDia(d.fecha)} (${probDe(d)}% de chance, según algunos pronósticos).`;}
   const total=dias.reduce((a,d)=>a+(d.lluvia||0),0);
-  $("proxLluvia").textContent=prox||(total<1?"☀️ No se espera lluvia en los próximos 7 días. Regá las plantas.":"Algunas gotas sueltas, nada importante.");
+  $("proxLluvia").textContent=prox||(total<1?"☀️ No se espera lluvia en los próximos 5 días. Regá las plantas.":"Algunas gotas sueltas, nada importante.");
   const mx=Math.max(10,...dias.map(d=>d.lluvia||0));
+  $("barras").style.gridTemplateColumns=`repeat(${dias.length},minmax(0,1fr))`;
   $("barras").innerHTML=dias.map(d=>{const v=d.lluvia||0,p=probDe(d);return `<div class="barra-d"><span class="v">${v>=.1?f1(v,v>=10?0:1):""}</span>
     <div class="col${v<.1?" nada":""}" style="height:${Math.max(3,v/mx*90)}px" title="${f1(v)} mm"></div>
-    <span class="v" style="color:var(--txt-2)">${p==null?"":p+"%"}</span><span class="d">${d.L===0?"Hoy":new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"short"}).replace(".","")}</span></div>`;}).join("");
+    <span class="v" style="color:var(--txt-2)">${p==null?"":p+"%"}</span><span class="d">${d.L===0?"Hoy":d.L===1?"Mañ.":new Date(d.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"short",day:"numeric"}).replace(".","")}</span></div>`;}).join("");
 }
 function veredictoFinde(fd){
   const ll=fd.map(d=>(probDe(d)??0)/100),tx=fd.map(d=>d.tmax??20);
@@ -1332,18 +1350,21 @@ function veredictoFinde(fd){
   return"Lindo para una vuelta por la plaza con el mate. Llevá un buzo por las dudas.";
 }
 function renderExtras(dias){
-  const fd=[];for(const d of dias){const wd=new Date(d.fecha+"T12:00:00").getDay();if(d.L>=1&&(wd===6||wd===0)){fd.push(d);if(wd===0)break;}}
+  const wdHoy=new Date(S.hoy+"T12:00:00").getDay(),fd=[];
+  if(wdHoy>=3||wdHoy===0)for(const d of dias){const wd=new Date(d.fecha+"T12:00:00").getDay();if(d.L<=4&&(wd===6||wd===0)){fd.push(d);if(wd===0)break;}}
   $("cardFinde").hidden=!fd.length;
   if(fd.length){
     $("veredicto").textContent=veredictoFinde(fd);
     $("finde").innerHTML=fd.map(d=>`<div class="fd">${icono(d.code,false)}<div><div class="chico">${nombreDia(d)}</div><div class="t">${r0(d.tmax)}°<span>${r0(d.tmin)}°</span></div><div class="chico" style="color:var(--lluvia)">💧 ${probDe(d)??"–"}%</div></div></div>`).join("");
     const lejos=Math.max(...fd.map(d=>d.L));
+    if(wdHoy===0)$("veredicto").textContent="Último día del finde: "+$("veredicto").textContent.replace(/^./,c=>c.toLowerCase());
     $("findeNota").textContent=lejos>3?`Faltan ${lejos} días: tomalo con pinzas, esto todavía puede cambiar más que la cotización del dólar.`:"Ya está cerca, así que el pronóstico es bastante confiable.";
   }
   const e=S.efemerides;
   $("cardEfe").hidden=!e||(!(e.eventos||[]).length&&!e.santo);
   if(!e)return;
-  $("efe").innerHTML=(e.eventos||[]).map(x=>`<li><span class="anio">${esc(x.anio)}</span><span class="txt">${esc(x.texto)}</span></li>`).join("");
+  const marca={ar:"🇦🇷",invento:"💡",nace:"🎂",mundo:"🌎"};
+  $("efe").innerHTML=(e.eventos||[]).map(x=>`<li><span class="anio">${esc(x.anio)}</span><span class="txt">${marca[x.tipo]?marca[x.tipo]+" ":""}${esc(x.texto)}</span></li>`).join("");
   $("celebra").textContent=(e.celebraciones||[]).length?"Hoy se celebra: "+e.celebraciones.join(" · "):"";
   if(e.santo){
     const m=e.santo.match(/\b(san|santa|santo|beato|beata)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)/i);
