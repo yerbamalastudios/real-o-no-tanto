@@ -1,62 +1,30 @@
 {
  "ok": true,
- "expiracion": 1792334700000,
+ "expiracion": 1792421220000,
  "data": {
   "hash": "c53116e7067472db7e4c8aac9d6bf1d2",
   "name": "Gonzalez Catan",
   "url": "https://www.meteored.com.bo/tiempo-en_Gonzalez+Catan-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-322227.html",
   "days": [
    {
-    "start": 1792292400000,
-    "symbol": 3,
-    "temperature": {
-     "min": 6.22,
-     "max": 13.86
-    },
-    "wind": {
-     "speed": 14,
-     "gust": 33,
-     "direction": "S"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 70,
-    "pressure": 1022,
-    "snowline": 2100,
-    "uv_index_max": 7.7,
-    "sun": {
-     "in": 1792314503000,
-     "mid": 1792337981000,
-     "out": 1792361493000
-    },
-    "moon": {
-     "in": 1792334568000,
-     "out": 1792299029000,
-     "symbol": 21,
-     "illumination": 49.52
-    }
-   },
-   {
     "start": 1792378800000,
     "symbol": 3,
     "temperature": {
-     "min": 6.28,
-     "max": 17.45
+     "min": 5.94,
+     "max": 16.98
     },
     "wind": {
      "speed": 11,
-     "gust": 24,
+     "gust": 22,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
-     "probability": 0
+     "probability": 20
     },
-    "humidity": 72,
+    "humidity": 76,
     "pressure": 1022,
-    "snowline": 2300,
+    "snowline": 2400,
     "uv_index_max": 8,
     "sun": {
      "in": 1792400829000,
@@ -74,17 +42,17 @@
     "start": 1792465200000,
     "symbol": 12,
     "temperature": {
-     "min": 8.46,
-     "max": 19.29
+     "min": 8.71,
+     "max": 19.48
     },
     "wind": {
      "speed": 14,
-     "gust": 33,
+     "gust": 35,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 0.1,
-     "rain": 0.1,
+     "total": 0.4,
+     "rain": 0.4,
      "probability": 30
     },
     "humidity": 71,
@@ -107,23 +75,23 @@
     "start": 1792551600000,
     "symbol": 12,
     "temperature": {
-     "min": 12.96,
-     "max": 20.02
+     "min": 12.38,
+     "max": 20.35
     },
     "wind": {
-     "speed": 16,
+     "speed": 15,
      "gust": 36,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 1,
-     "rain": 1,
-     "probability": 70
+     "total": 0.3,
+     "rain": 0.3,
+     "probability": 40
     },
     "humidity": 69,
-    "pressure": 1019,
-    "snowline": 3300,
-    "uv_index_max": 8.5,
+    "pressure": 1020,
+    "snowline": 3200,
+    "uv_index_max": 8.7,
     "sun": {
      "in": 1792573483000,
      "mid": 1792597150000,
@@ -138,24 +106,25 @@
    },
    {
     "start": 1792638000000,
-    "symbol": 3,
+    "symbol": 14,
     "temperature": {
-     "min": 12.71,
-     "max": 22.94
+     "min": 13.33,
+     "max": 21.69
     },
     "wind": {
-     "speed": 14,
-     "gust": 34,
-     "direction": "SE"
+     "speed": 15,
+     "gust": 36,
+     "direction": "E"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 20
+     "total": 6,
+     "rain": 6,
+     "probability": 80
     },
-    "humidity": 75,
-    "pressure": 1016,
-    "snowline": 3300,
-    "uv_index_max": 8.8,
+    "humidity": 81,
+    "pressure": 1015,
+    "snowline": 3500,
+    "uv_index_max": 8.9,
     "sun": {
      "in": 1792659812000,
      "mid": 1792683541000,
@@ -166,6 +135,39 @@
      "out": 1792652041000,
      "symbol": 18,
      "illumination": 85.25
+    }
+   },
+   {
+    "start": 1792724400000,
+    "symbol": 12,
+    "temperature": {
+     "min": 14.32,
+     "max": 20.55
+    },
+    "wind": {
+     "speed": 16,
+     "gust": 38,
+     "direction": "S"
+    },
+    "precipitation": {
+     "total": 3.2,
+     "rain": 3.2,
+     "probability": 70
+    },
+    "humidity": 91,
+    "pressure": 1010,
+    "snowline": 3500,
+    "uv_index_max": 8.3,
+    "sun": {
+     "in": 1792746141000,
+     "mid": 1792769932000,
+     "out": 1792793757000
+    },
+    "moon": {
+     "in": 1792784916000,
+     "out": 1792740008000,
+     "symbol": 17,
+     "illumination": 91.95
     }
    }
   ]

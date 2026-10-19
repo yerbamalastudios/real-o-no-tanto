@@ -1,49 +1,17 @@
 {
  "ok": true,
- "expiracion": 1792334700000,
+ "expiracion": 1792421220000,
  "data": {
   "hash": "77027bc6ac829a041653d7b4ff3a1f30",
   "name": "Quilmes",
   "url": "https://www.meteored.mx/clima_Quilmes-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16914.html",
   "days": [
    {
-    "start": 1792292400000,
-    "symbol": 3,
-    "temperature": {
-     "min": 6.17,
-     "max": 14.61
-    },
-    "wind": {
-     "speed": 13,
-     "gust": 30,
-     "direction": "S"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 69,
-    "pressure": 1022,
-    "snowline": 2100,
-    "uv_index_max": 7.7,
-    "sun": {
-     "in": 1792314416000,
-     "mid": 1792337892000,
-     "out": 1792361401000
-    },
-    "moon": {
-     "in": 1792334482000,
-     "out": 1792298930000,
-     "symbol": 21,
-     "illumination": 49.52
-    }
-   },
-   {
     "start": 1792378800000,
-    "symbol": 3,
+    "symbol": 12,
     "temperature": {
-     "min": 7.12,
-     "max": 15.42
+     "min": 7.04,
+     "max": 15.6
     },
     "wind": {
      "speed": 13,
@@ -51,10 +19,11 @@
      "direction": "E"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 10
+     "total": 0.1,
+     "rain": 0.1,
+     "probability": 40
     },
-    "humidity": 74,
+    "humidity": 77,
     "pressure": 1022,
     "snowline": 2200,
     "uv_index_max": 8,
@@ -72,23 +41,24 @@
    },
    {
     "start": 1792465200000,
-    "symbol": 3,
+    "symbol": 12,
     "temperature": {
-     "min": 9.91,
-     "max": 18.2
+     "min": 9.98,
+     "max": 18.3
     },
     "wind": {
-     "speed": 16,
-     "gust": 33,
+     "speed": 17,
+     "gust": 35,
      "direction": "E"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 20
+     "total": 0.1,
+     "rain": 0.1,
+     "probability": 30
     },
     "humidity": 76,
     "pressure": 1021,
-    "snowline": 2900,
+    "snowline": 3000,
     "uv_index_max": 8.3,
     "sun": {
      "in": 1792487069000,
@@ -104,25 +74,24 @@
    },
    {
     "start": 1792551600000,
-    "symbol": 34,
+    "symbol": 3,
     "temperature": {
-     "min": 12.9,
-     "max": 18.6
+     "min": 12.42,
+     "max": 18.82
     },
     "wind": {
-     "speed": 19,
-     "gust": 38,
+     "speed": 20,
+     "gust": 39,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 2.5,
-     "rain": 2.5,
-     "probability": 80
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 76,
-    "pressure": 1019,
-    "snowline": 3300,
-    "uv_index_max": 8.6,
+    "humidity": 73,
+    "pressure": 1020,
+    "snowline": 3200,
+    "uv_index_max": 8.7,
     "sun": {
      "in": 1792573396000,
      "mid": 1792597060000,
@@ -137,25 +106,25 @@
    },
    {
     "start": 1792638000000,
-    "symbol": 34,
+    "symbol": 12,
     "temperature": {
-     "min": 13.16,
-     "max": 20.49
+     "min": 13.51,
+     "max": 20.89
     },
     "wind": {
-     "speed": 16,
-     "gust": 34,
-     "direction": "SE"
+     "speed": 19,
+     "gust": 40,
+     "direction": "E"
     },
     "precipitation": {
-     "total": 0.7,
-     "rain": 0.7,
-     "probability": 50
+     "total": 5.6,
+     "rain": 5.6,
+     "probability": 80
     },
-    "humidity": 79,
-    "pressure": 1017,
-    "snowline": 3300,
-    "uv_index_max": 8.8,
+    "humidity": 82,
+    "pressure": 1016,
+    "snowline": 3600,
+    "uv_index_max": 8.9,
     "sun": {
      "in": 1792659725000,
      "mid": 1792683451000,
@@ -166,6 +135,39 @@
      "out": 1792651948000,
      "symbol": 18,
      "illumination": 85.25
+    }
+   },
+   {
+    "start": 1792724400000,
+    "symbol": 12,
+    "temperature": {
+     "min": 14.56,
+     "max": 20.32
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 31,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 3.8,
+     "rain": 3.8,
+     "probability": 70
+    },
+    "humidity": 90,
+    "pressure": 1010,
+    "snowline": 3500,
+    "uv_index_max": 8.4,
+    "sun": {
+     "in": 1792746054000,
+     "mid": 1792769842000,
+     "out": 1792793664000
+    },
+    "moon": {
+     "in": 1792784822000,
+     "out": 1792739917000,
+     "symbol": 17,
+     "illumination": 91.95
     }
    }
   ]
