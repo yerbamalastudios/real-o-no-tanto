@@ -31,6 +31,21 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 .ym-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.luces{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.luz{padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.18)}
+.luz .k{display:block;font:600 .72rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--txt-2)}
+.luz .v{display:block;font:600 1.7rem var(--body);line-height:1.15}
+.luz .x{display:block;font-size:.78rem;color:var(--txt-2);line-height:1.3;margin-top:2px}
+.luz.alba{box-shadow:inset 3px 0 0 #ffcf6b}.luz.ocaso{box-shadow:inset 3px 0 0 #ff8f5e}
+.arco{width:100%;height:120px;display:block;margin-top:10px}
+.soltimes{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;gap:4px;font-size:.8rem;color:var(--txt-2)}
+.soltimes b{display:block;font-size:1.05rem;color:var(--txt)}
+.aire{display:flex;align-items:center;gap:14px;margin-top:6px}
+.aire b{display:block;font-size:1.15rem}
+.aqi{min-width:62px;height:62px;border-radius:14px;display:grid;place-items:center;font:700 1.6rem var(--body);color:#1b1b1b}
+.escala{position:relative;height:8px;border-radius:99px;margin:16px 4px 6px;
+  background:linear-gradient(90deg,#00b0ff 0%,#2ecc40 12%,#ffdc00 28%,#ff851b 45%,#ff2d2d 62%,#9b30d9 80%,#7e0023 100%)}
+.escala i{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;border:3px solid #fff;background:var(--c,#2ecc40);transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.4)}
 html,body{overscroll-behavior-y:none}
 html{background:var(--cielo-1)}
 .ptr{position:fixed;left:50%;top:calc(-44px + env(safe-area-inset-top,0px));z-index:40;transform:translate(-50%,0);opacity:0;
@@ -291,6 +306,24 @@ body.grande .app{zoom:1.18}
     <div class="horas" id="horas"></div>
   </section>
 
+  <section class="vidrio" id="cardSol" hidden>
+    <h2 class="rotulo">Salida y puesta del sol</h2>
+    <div class="luces" id="luces"></div>
+    <svg class="arco" id="arcoSol" viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="soltimes" id="solTimes"></div>
+    <p class="chico" id="solNota"></p>
+  </section>
+
+  <section class="vidrio" id="cardAire" hidden>
+    <h2 class="rotulo">Calidad del aire</h2>
+    <div class="aire">
+      <div class="aqi" id="aqiNum">–</div>
+      <div><b id="aqiTxt"></b><span class="chico" id="aqiCont"></span></div>
+    </div>
+    <div class="escala"><i id="aqiMarca"></i></div>
+    <p class="chico" id="aqiNota"></p>
+  </section>
+
   <section class="vidrio">
     <h2 class="rotulo">Próximos días <span class="der">deslizá →</span></h2>
     <div class="dias" id="dias" role="group" aria-label="Días"></div>
@@ -447,7 +480,12 @@ async function fuenteDetalle(){
   return getJSON("https://api.open-meteo.com/v1/forecast?"+qs({...baseQ(),forecast_days:8,past_days:1,wind_speed_unit:"kmh",
     current:"temperature_2m,apparent_temperature,weather_code,is_day,wind_speed_10m,wind_gusts_10m,wind_direction_10m,relative_humidity_2m,precipitation",
     hourly:"temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,is_day",
-    daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,uv_index_max"}));
+    daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,daylight_duration,uv_index_max"}));
+}
+// Calidad del aire (Open-Meteo, índice estadounidense: 0-50 buena, 51-100 aceptable...)
+async function fuenteAire(){
+  return getJSON("https://air-quality-api.open-meteo.com/v1/air-quality?"+qs({...baseQ(),forecast_days:2,
+    current:"us_aqi,us_aqi_pm2_5,us_aqi_pm10,us_aqi_ozone,us_aqi_nitrogen_dioxide,pm2_5,pm10,ozone,nitrogen_dioxide",hourly:"us_aqi"}));
 }
 // Lo que pronosticaron los modelos 1 y 2 días antes (para el ranking, sin esperar)
 async function historialModelos(hoy){
@@ -709,7 +747,7 @@ async function armar(){
   let mw=null;
   if(/^http/.test(WORKER_URL)){mw=await intentar("Meteored",meteoredWorker);if(mw&&!mw.lugar){errores["Meteored"]=mw.aviso||"sin datos cerca";mw=null;}}
   if(mw)srv=null;   // con el intermediario no hace falta el archivo del programa diario
-  const [det,mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
+  const [det,mod,histMod,obs,smn,met,acc,efe,aire]=await Promise.all([
     conRespaldo("Detalle del día",fuenteDetalle),
     conRespaldo("Modelos globales",fuenteModelos),
     unaVezPorDia("Historial de modelos",()=>historialModelos(hoy)),
@@ -717,7 +755,8 @@ async function armar(){
     null,   // SMN: bloqueado para consultas automáticas (Cloudflare)
     (srv||mw||/^http/.test(WORKER_URL))?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
     srv?null:intentar("AccuWeather",()=>fuenteAccu(hoy)),
-    intentar("Efemérides",()=>efemerides(hoy))
+    intentar("Efemérides",()=>efemerides(hoy)),
+    intentar("Calidad del aire",fuenteAire)
   ]);
   const sitios={};let h,estSMN=smn&&smn.est;
   if(mw){
@@ -772,7 +811,7 @@ async function armar(){
   const dijo={};
   for(const f of[addDays(hoy,-1),hoy]){const xs=(histMod||[]).filter(e=>e.L===1&&e.fecha===f).map(e=>e.p);
     if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia")};}}
-  return{lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  return{aire,lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
@@ -1357,6 +1396,8 @@ function renderTodo(){
   // lluvia de la semana
   renderLluvia(dias);
   renderExtras(dias);
+  try{renderSol();}catch(e){console.warn(e);$("cardSol").hidden=true;}
+  try{renderAire();}catch(e){console.warn(e);$("cardAire").hidden=true;}
   renderTablas();
   $("avisos").innerHTML=Object.keys(S.errores||{}).length?"<b>No se pudo consultar:</b> "+Object.entries(S.errores).map(([k,v])=>esc(k)+" ("+esc(v).slice(0,200)+")").join("; "):"";
 }
@@ -1439,6 +1480,82 @@ function veredictoFinde(fd){
   if(max>=22)return"Pinta asado. Avisale a tu cuñado que esta vez lleve él el carbón.";
   if(min<6)return"Finde de estufa y frazada. Ideal para un locro.";
   return"Lindo para una vuelta por la plaza con el mate. Llevá un buzo por las dudas.";
+}
+
+// ---------- sol: primera luz, salida, mediodía, puesta, última luz
+const minDe=t=>{const m=String(t).match(/T(\d\d):(\d\d)/);return m?+m[1]*60+ +m[2]:null;};
+const hDe=m=>{m=Math.round(m);return String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");};
+const durTxt=m=>{m=Math.round(m);return`${Math.floor(m/60)} h ${m%60} min`;};
+// Minutos entre la primera luz (sol 6° bajo el horizonte: ya se ve sin linterna) y la salida del sol
+function crepusculo(lat,fechaISO){
+  const d=new Date(fechaISO+"T12:00:00"),N=Math.round((d-new Date(d.getFullYear(),0,0))/864e5);
+  const r=Math.PI/180,dec=23.44*Math.sin(2*Math.PI*(284+N)/365)*r,f=lat*r;
+  const H=alt=>{const c=(Math.sin(alt*r)-Math.sin(f)*Math.sin(dec))/(Math.cos(f)*Math.cos(dec));return Math.acos(Math.max(-1,Math.min(1,c)))/r;};
+  return (H(-6)-H(-0.833))/15*60;
+}
+function renderSol(){
+  const dl=S.detalle&&S.detalle.daily,card=$("cardSol");
+  const i=dl?dl.time.indexOf(S.hoy):-1;
+  if(i<0||!dl.sunrise||minDe(dl.sunrise[i])==null){card.hidden=true;return;}
+  card.hidden=false;
+  const sal=minDe(dl.sunrise[i]),pue=minDe(dl.sunset[i]),med=(sal+pue)/2,cr=crepusculo(S.lat0??AJ.lat,S.hoy);
+  const alba=sal-cr,ocaso=pue+cr,dur=dl.daylight_duration?dl.daylight_duration[i]/60:pue-sal;
+  const ahora=new Date(),mAhora=ahora.getHours()*60+ahora.getMinutes();
+  const paraAlba=alba-mAhora,paraOcaso=ocaso-mAhora;
+  const xAlba=paraAlba>0?(paraAlba<90?`Faltan ${durTxt(paraAlba).replace(/^0 h /,"")}.`:"Ya se ve sin linterna, aunque el sol no salió.")
+    :"Se veía sin linterna desde ahí, aunque el sol no había salido.";
+  const xOcaso=paraOcaso>0?(paraOcaso<120?`Quedan ${durTxt(paraOcaso).replace(/^0 h /,"")} de claridad.`:"Hasta acá se ve sin prender la luz de la vereda.")
+    :"Ya fue: la luz natural se despidió hasta mañana.";
+  $("luces").innerHTML=`<div class="luz alba"><span class="k">Primera luz</span><span class="v">${hDe(alba)}</span><span class="x">${xAlba}</span></div>`+
+    `<div class="luz ocaso"><span class="k">Última luz</span><span class="v">${hDe(ocaso)}</span><span class="x">${xOcaso}</span></div>`;
+  $("solTimes").innerHTML=`<div>Salida del sol<b>${hDe(sal)}</b></div><div>Mediodía solar<b>${hDe(med)}</b></div><div>Puesta del sol<b>${hDe(pue)}</b></div>`;
+  // dibujo: curva del sol en 24 h, día amarillo, noche azul, crepúsculo en el medio
+  const W=320,Y0=78,A=58,X=m=>m/1440*W;
+  const e=m=>Math.cos(2*Math.PI*(m-med)/1440)-Math.cos(2*Math.PI*(pue-med)/1440);
+  const k=A/Math.max(.01,1-Math.cos(2*Math.PI*(pue-med)/1440));
+  const Y=m=>Y0-k*e(m);
+  let curva="";for(let m=0;m<=1440;m+=10)curva+=(m?"L":"M")+X(m).toFixed(1)+" "+Y(m).toFixed(1);
+  const area=curva+`L${W} ${Y0}L0 ${Y0}Z`;
+  const dot=Y(mAhora),esDia=mAhora>sal&&mAhora<pue;
+  $("arcoSol").innerHTML=`<defs><clipPath id="cpA"><path d="${area}"/></clipPath>
+    <linearGradient id="gAl" x1="0" x2="1"><stop offset="0" stop-color="#7d8fc4"/><stop offset="1" stop-color="#f2b866"/></linearGradient>
+    <linearGradient id="gOc" x1="0" x2="1"><stop offset="0" stop-color="#f29a66"/><stop offset="1" stop-color="#9a7fc0"/></linearGradient></defs>
+    <g clip-path="url(#cpA)"><rect x="0" y="0" width="${W}" height="120" fill="#1d3557"/>
+    <rect x="${X(alba)}" y="0" width="${X(sal)-X(alba)}" height="120" fill="url(#gAl)"/>
+    <rect x="${X(sal)}" y="0" width="${X(pue)-X(sal)}" height="120" fill="#e8c77a"/>
+    <rect x="${X(pue)}" y="0" width="${X(ocaso)-X(pue)}" height="120" fill="url(#gOc)"/></g>
+    <path d="${curva}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+    <line x1="0" x2="${W}" y1="${Y0}" y2="${Y0}" stroke="rgba(255,255,255,.45)" stroke-width="1"/>
+    ${[alba,ocaso].map(m=>`<line x1="${X(m)}" x2="${X(m)}" y1="${Y0}" y2="${Math.max(Y(m),Y0)+10}" stroke="rgba(255,255,255,.6)" stroke-dasharray="2 2"/>`).join("")}
+    <circle cx="${X(mAhora)}" cy="${dot}" r="${esDia?7:5}" fill="${esDia?"#ffd34d":"#e6ecff"}" stroke="#fff" stroke-width="2"/>`;
+  // comparación con ayer
+  let nota=`El día dura ${durTxt(dur)} de sol`;
+  if(i>0&&dl.daylight_duration){const dif=Math.round((dl.daylight_duration[i]-dl.daylight_duration[i-1])/60);
+    nota+=dif>0?`, ${dif} min más que ayer. Vamos ganando.`:dif<0?`, ${-dif} min menos que ayer. Se viene el invierno, despacito.`:", igual que ayer.";}
+  else nota+=".";
+  $("solNota").textContent=nota+` Con crepúsculo incluido, hay luz natural ${durTxt(ocaso-alba)}.`;
+}
+// ---------- calidad del aire
+const AQI=[[50,"Buena","#2ecc40",["Aire de campo, pero en el conurbano. Respirá hondo, que es gratis.","Respirable y sin cargo. Aprovechá."]],
+  [100,"Aceptable","#ffdc00",["Se puede respirar. Si sos sensible, no corras detrás del bondi.","Nada grave. Los delicados, tranquis con el ejercicio afuera."]],
+  [150,"Mala para sensibles","#ff851b",["Asmáticos, chicos y abuelos: mejor actividad bajo techo.","Si tenés los bronquios flojos, hoy no es día de trotar."]],
+  [200,"Mala","#ff2d2d",["Hoy el aire viene con tropezones. Ejercicio afuera, mejor otro día.","Ventanas cerradas y pocas corridas afuera."]],
+  [300,"Muy mala","#9b30d9",["Quedate adentro si podés. En serio."]],[1e9,"Peligrosa","#7e0023",["Quedate adentro y seguí las indicaciones oficiales."]]];
+const CONTAM={pm2_5:["PM2,5 (partículas finas)","µg/m³"],pm10:["PM10 (polvo)","µg/m³"],ozone:["O₃ (ozono)","µg/m³"],nitrogen_dioxide:["NO₂ (escapes y tránsito)","µg/m³"]};
+function renderAire(){
+  const a=S.aire&&S.aire.current,card=$("cardAire");
+  if(!a||a.us_aqi==null){card.hidden=true;return;}
+  card.hidden=false;
+  const v=Math.round(a.us_aqi),cat=AQI.find(c=>v<=c[0]);
+  let dom=null,dv=-1;for(const c of Object.keys(CONTAM)){const x=a["us_aqi_"+c];if(x!=null&&x>dv){dv=x;dom=c;}}
+  $("aqiNum").textContent=v;$("aqiNum").style.background=cat[2];
+  $("aqiTxt").textContent=cat[1];
+  $("aqiCont").textContent=dom&&a[dom]!=null?`Lo que más pesa: ${CONTAM[dom][0]}, ${Math.round(a[dom])} ${CONTAM[dom][1]}`:"";
+  const m=$("aqiMarca");m.style.left=Math.min(100,v/300*100)+"%";m.style.setProperty("--c",cat[2]);
+  let nota=cat[3][new Date().getDate()%cat[3].length];
+  const hh=S.aire.hourly;if(hh&&hh.us_aqi){const hoyV=hh.time.map((t,j)=>t.startsWith(S.hoy)?hh.us_aqi[j]:null).filter(x=>x!=null);
+    if(hoyV.length){const mx=Math.round(Math.max(...hoyV));if(mx>v+10)nota+=` Ojo, durante el día puede subir hasta ${mx}.`;}}
+  $("aqiNota").textContent=nota+" (Índice de calidad del aire de EE. UU.: 0 a 50 es bueno.)";
 }
 function renderExtras(dias){
   const wdHoy=new Date(S.hoy+"T12:00:00").getDay(),fd=[];
