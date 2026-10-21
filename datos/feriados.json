@@ -1,12 +1,12 @@
 {
- "actualizado": "2026-10-21T17:06-03:00",
+ "actualizado": "2026-10-21T20:04-03:00",
  "anios": {
   "2026": {
-   "fuente": "ArgentinaDatos (respaldo)",
+   "fuente": "Ministerio del Interior (argentina.gob.ar)",
    "lista": [
     [
      "2026-01-01",
-     "Año nuevo",
+     "Año Nuevo",
      "inamovible"
     ],
     [
@@ -21,8 +21,8 @@
     ],
     [
      "2026-03-23",
-     "Puente turístico no laborable",
-     "puente"
+     "Día no laborable con fines turísticos",
+     "turistico"
     ],
     [
      "2026-03-24",
@@ -36,7 +36,7 @@
     ],
     [
      "2026-04-03",
-     "Viernes Santo",
+     "Viernes Santo Festividad Cristiana",
      "inamovible"
     ],
     [
@@ -51,12 +51,12 @@
     ],
     [
      "2026-06-15",
-     "Paso a la Inmortalidad del General Martín Güemes (17/6)",
+     "Paso a la Inmortalidad del Gral. Don Martín Miguel de Güemes (17/6)",
      "trasladable"
     ],
     [
      "2026-06-20",
-     "Paso a la Inmortalidad del General Manuel Belgrano",
+     "Paso a la Inmortalidad del Gral. Manuel Belgrano",
      "inamovible"
     ],
     [
@@ -66,8 +66,8 @@
     ],
     [
      "2026-07-10",
-     "Puente turístico no laborable",
-     "puente"
+     "Día no laborable con fines turísticos",
+     "turistico"
     ],
     [
      "2026-08-17",
@@ -76,13 +76,23 @@
     ],
     [
      "2026-10-12",
-     "Día del Respeto a la Diversidad Cultural",
+     "Día de la  Raza",
      "trasladable"
     ],
     [
      "2026-11-09",
-     "Visita del papa León XIV",
+     "Visita de Su Santidad el Papa León XIV",
      "inamovible"
+    ],
+    [
+     "2026-11-10",
+     "Visita de Su Santidad el Papa León XIV (<a href=\"/normativa/nacional/norma-430580/texto\">feriado en Córdoba y Ciudad Autónoma de Buenos Aires</a>)",
+     "especial"
+    ],
+    [
+     "2026-11-11",
+     "Visita de Su Santidad el Papa León XIV (<a href=\"/normativa/nacional/norma-430580/texto\">feriado en Provincia de Buenos Aires</a>)",
+     "especial"
     ],
     [
      "2026-11-23",
@@ -91,12 +101,12 @@
     ],
     [
      "2026-12-07",
-     "Puente turístico no laborable",
-     "puente"
+     "Día no laborable con fines turísticos",
+     "turistico"
     ],
     [
      "2026-12-08",
-     "Día de la Inmaculada Concepción de María",
+     "Inmaculada Concepción de María",
      "inamovible"
     ],
     [

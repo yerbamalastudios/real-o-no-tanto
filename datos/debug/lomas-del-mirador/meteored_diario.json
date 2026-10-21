@@ -1,6 +1,6 @@
 {
  "ok": true,
- "expiracion": 1792616100000,
+ "expiracion": 1792636980000,
  "data": {
   "hash": "6f2daba02c3cd38daee6e2e2f572746e",
   "name": "Lomas del Mirador",
@@ -8,19 +8,19 @@
   "days": [
    {
     "start": 1792551600000,
-    "symbol": 34,
+    "symbol": 12,
     "temperature": {
      "min": 12.89,
-     "max": 20.84
+     "max": 20.68
     },
     "wind": {
      "speed": 17,
-     "gust": 43,
+     "gust": 45,
      "direction": "E"
     },
     "precipitation": {
-     "total": 1.1,
-     "rain": 1.1,
+     "total": 0.8,
+     "rain": 0.8,
      "probability": 70
     },
     "humidity": 66,
@@ -43,22 +43,22 @@
     "start": 1792638000000,
     "symbol": 12,
     "temperature": {
-     "min": 13.82,
-     "max": 21.45
+     "min": 13.85,
+     "max": 21.88
     },
     "wind": {
-     "speed": 16,
-     "gust": 41,
+     "speed": 17,
+     "gust": 43,
      "direction": "E"
     },
     "precipitation": {
-     "total": 1.8,
-     "rain": 1.8,
-     "probability": 80
+     "total": 6.4,
+     "rain": 6.4,
+     "probability": 90
     },
-    "humidity": 74,
-    "pressure": 1015,
-    "snowline": 3600,
+    "humidity": 78,
+    "pressure": 1014,
+    "snowline": 3500,
     "uv_index_max": 9.1,
     "sun": {
      "in": 1792659795000,
@@ -76,22 +76,22 @@
     "start": 1792724400000,
     "symbol": 12,
     "temperature": {
-     "min": 15.51,
-     "max": 24.58
+     "min": 14.96,
+     "max": 22.89
     },
     "wind": {
-     "speed": 11,
-     "gust": 27,
-     "direction": "E"
+     "speed": 15,
+     "gust": 35,
+     "direction": "S"
     },
     "precipitation": {
-     "total": 0.5,
-     "rain": 0.5,
-     "probability": 70
+     "total": 1.5,
+     "rain": 1.5,
+     "probability": 60
     },
-    "humidity": 78,
-    "pressure": 1010,
-    "snowline": 3600,
+    "humidity": 81,
+    "pressure": 1009,
+    "snowline": 3500,
     "uv_index_max": 9,
     "sun": {
      "in": 1792746125000,
@@ -109,23 +109,23 @@
     "start": 1792810800000,
     "symbol": 12,
     "temperature": {
-     "min": 12.43,
-     "max": 19.55
+     "min": 12.51,
+     "max": 19.98
     },
     "wind": {
-     "speed": 15,
+     "speed": 16,
      "gust": 41,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 1.3,
-     "rain": 1.3,
-     "probability": 80
+     "total": 0.2,
+     "rain": 0.2,
+     "probability": 60
     },
-    "humidity": 76,
-    "pressure": 1015,
-    "snowline": 2600,
-    "uv_index_max": 8.8,
+    "humidity": 72,
+    "pressure": 1016,
+    "snowline": 2500,
+    "uv_index_max": 9,
     "sun": {
      "in": 1792832455000,
      "mid": 1792856299000,
@@ -143,21 +143,21 @@
     "symbol": 12,
     "temperature": {
      "min": 10.94,
-     "max": 19.46
+     "max": 18
     },
     "wind": {
-     "speed": 15,
-     "gust": 41,
+     "speed": 11,
+     "gust": 30,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 2.1,
-     "rain": 2.1,
+     "total": 1.8,
+     "rain": 1.8,
      "probability": 80
     },
     "humidity": 75,
-    "pressure": 1021,
-    "snowline": 2100,
+    "pressure": 1022,
+    "snowline": 2200,
     "uv_index_max": 8.2,
     "sun": {
      "in": 1792918787000,
