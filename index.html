@@ -30,6 +30,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+.ym-sprite{position:absolute;width:0;height:0;overflow:hidden}
 html,body{overscroll-behavior-y:none}
 html{background:var(--cielo-1)}
 .ptr{position:fixed;left:50%;top:calc(-44px + env(safe-area-inset-top,0px));z-index:40;transform:translate(-50%,0);opacity:0;
@@ -1588,14 +1589,18 @@ letra(LS.get("pp_grande",false));
   addEventListener("touchmove",e=>{
     if(y0==null)return;const dy=e.touches[0].clientY-y0;
     if(dy<=0||scrollY>0){d=0;ind.style.opacity=0;return;}
-    d=Math.min(dy*.55,110);
+    d=Math.min(dy*.6,110);
     ind.style.transform=`translate(-50%,${d}px)`;ind.style.opacity=Math.min(1,d/50);
-    const listo=d>=70;ind.classList.toggle("listo",listo);ind.textContent=listo?"Soltá para cebar de nuevo 🧉":"Tirá para actualizar";
+    const listo=d>=55;ind.classList.toggle("listo",listo);ind.textContent=listo?"Soltá para cebar de nuevo 🧉":"Tirá para actualizar";
   },{passive:true});
   addEventListener("touchend",()=>{
-    if(y0==null)return;const listo=d>=70;y0=null;
-    ind.classList.add("volver");ind.style.transform="translate(-50%,0)";ind.style.opacity=0;
-    if(listo){window.scrollTo({top:0});actualizar();}
+    if(y0==null)return;const listo=d>=55;y0=null;
+    if(!listo){ind.classList.add("volver");ind.style.transform="translate(-50%,0)";ind.style.opacity=0;return;}
+    window.scrollTo({top:0});
+    ind.classList.add("listo");ind.textContent=corriendo?"Ya se está cebando, aguantá 🧉":"Cebando de nuevo… 🧉";
+    ind.style.transform="translate(-50%,70px)";ind.style.opacity=1;
+    actualizar();
+    setTimeout(()=>{ind.classList.add("volver");ind.style.transform="translate(-50%,0)";ind.style.opacity=0;},1400);
   });
 })();
 // instalable: service worker y botón "Instalar" cuando el navegador lo permite
