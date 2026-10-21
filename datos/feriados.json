@@ -1,0 +1,196 @@
+{
+ "actualizado": "2026-10-21T17:06-03:00",
+ "anios": {
+  "2026": {
+   "fuente": "ArgentinaDatos (respaldo)",
+   "lista": [
+    [
+     "2026-01-01",
+     "Año nuevo",
+     "inamovible"
+    ],
+    [
+     "2026-02-16",
+     "Carnaval",
+     "inamovible"
+    ],
+    [
+     "2026-02-17",
+     "Carnaval",
+     "inamovible"
+    ],
+    [
+     "2026-03-23",
+     "Puente turístico no laborable",
+     "puente"
+    ],
+    [
+     "2026-03-24",
+     "Día Nacional de la Memoria por la Verdad y la Justicia",
+     "inamovible"
+    ],
+    [
+     "2026-04-02",
+     "Día del Veterano y de los Caídos en la Guerra de Malvinas",
+     "inamovible"
+    ],
+    [
+     "2026-04-03",
+     "Viernes Santo",
+     "inamovible"
+    ],
+    [
+     "2026-05-01",
+     "Día del Trabajador",
+     "inamovible"
+    ],
+    [
+     "2026-05-25",
+     "Día de la Revolución de Mayo",
+     "inamovible"
+    ],
+    [
+     "2026-06-15",
+     "Paso a la Inmortalidad del General Martín Güemes (17/6)",
+     "trasladable"
+    ],
+    [
+     "2026-06-20",
+     "Paso a la Inmortalidad del General Manuel Belgrano",
+     "inamovible"
+    ],
+    [
+     "2026-07-09",
+     "Día de la Independencia",
+     "inamovible"
+    ],
+    [
+     "2026-07-10",
+     "Puente turístico no laborable",
+     "puente"
+    ],
+    [
+     "2026-08-17",
+     "Paso a la Inmortalidad del Gral. José de San Martín",
+     "trasladable"
+    ],
+    [
+     "2026-10-12",
+     "Día del Respeto a la Diversidad Cultural",
+     "trasladable"
+    ],
+    [
+     "2026-11-09",
+     "Visita del papa León XIV",
+     "inamovible"
+    ],
+    [
+     "2026-11-23",
+     "Día de la Soberanía Nacional (20/11)",
+     "trasladable"
+    ],
+    [
+     "2026-12-07",
+     "Puente turístico no laborable",
+     "puente"
+    ],
+    [
+     "2026-12-08",
+     "Día de la Inmaculada Concepción de María",
+     "inamovible"
+    ],
+    [
+     "2026-12-25",
+     "Navidad",
+     "inamovible"
+    ]
+   ]
+  },
+  "2027": {
+   "fuente": "ArgentinaDatos (respaldo)",
+   "lista": [
+    [
+     "2027-01-01",
+     "Año nuevo",
+     "inamovible"
+    ],
+    [
+     "2027-02-08",
+     "Carnaval",
+     "inamovible"
+    ],
+    [
+     "2027-02-09",
+     "Carnaval",
+     "inamovible"
+    ],
+    [
+     "2027-03-24",
+     "Día Nacional de la Memoria por la Verdad y la Justicia",
+     "inamovible"
+    ],
+    [
+     "2027-03-26",
+     "Viernes Santo",
+     "inamovible"
+    ],
+    [
+     "2027-04-02",
+     "Día del Veterano y de los Caídos en la Guerra de Malvinas",
+     "inamovible"
+    ],
+    [
+     "2027-05-01",
+     "Día del Trabajador",
+     "inamovible"
+    ],
+    [
+     "2027-05-25",
+     "Día de la Revolución de Mayo",
+     "inamovible"
+    ],
+    [
+     "2027-06-17",
+     "Paso a la Inmortalidad del General Martín Güemes",
+     "trasladable"
+    ],
+    [
+     "2027-06-20",
+     "Paso a la Inmortalidad del General Manuel Belgrano",
+     "inamovible"
+    ],
+    [
+     "2027-07-09",
+     "Día de la Independencia",
+     "inamovible"
+    ],
+    [
+     "2027-08-17",
+     "Paso a la Inmortalidad del Gral. José de San Martín",
+     "trasladable"
+    ],
+    [
+     "2027-10-12",
+     "Día del Respeto a la Diversidad Cultural",
+     "trasladable"
+    ],
+    [
+     "2027-11-20",
+     "Día de la Soberanía Nacional",
+     "trasladable"
+    ],
+    [
+     "2027-12-08",
+     "Día de la Inmaculada Concepción de María",
+     "inamovible"
+    ],
+    [
+     "2027-12-25",
+     "Navidad",
+     "inamovible"
+    ]
+   ]
+  }
+ },
+ "errores": {}
+}
