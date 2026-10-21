@@ -115,6 +115,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .meaculpa{background:rgba(255,190,90,.18);border-color:rgba(255,205,120,.5)}
 .meaculpa .perdon{margin:0 0 6px}
 .meaculpa .excusa{margin:0;font-style:italic;color:#ffe3a8}
+.estado{display:inline-flex;align-items:center;gap:6px;margin:6px auto 0;padding:4px 12px;border-radius:999px;background:rgba(0,0,0,.22);font-size:.82rem}
+.estado::before{content:"";width:8px;height:8px;border-radius:50%;background:#ffc56b;animation:titila 1s ease-in-out infinite}
+@keyframes titila{50%{opacity:.25}}
 /* tira de horas */
 .horas{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin:0 -6px;padding-inline:6px;scrollbar-width:none}
 .horas::-webkit-scrollbar{display:none}
@@ -234,37 +237,12 @@ footer svg{width:20px;height:22px;flex:none}
 /* letra grande */
 body.grande .app{zoom:1.18}
 
-/* intro de Yerba Mala */
-.ym-sprite{position:absolute;width:0;height:0;overflow:hidden}
-#intro{position:fixed;inset:0;z-index:50;background:#14100c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:opacity .6s ease;padding:16px}
-#intro.out{opacity:0;pointer-events:none}
-#intro .mate{position:relative;width:min(42vw,170px);animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
-#intro .mate svg{width:100%;height:auto;display:block}
-.vapor{position:absolute;left:30%;top:-34%;width:40%;height:50%;pointer-events:none}
-.vapor i{position:absolute;bottom:0;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.35);filter:blur(4px);animation:vapor 2.2s ease-out infinite}
-.vapor i:nth-child(1){left:10%;animation-delay:.2s}.vapor i:nth-child(2){left:45%;animation-delay:.8s}.vapor i:nth-child(3){left:75%;animation-delay:1.4s}
-#intro .wm{font:700 clamp(2.4rem,11vw,3.6rem)/1 var(--display);letter-spacing:.02em;animation:sube .6s .35s ease both}
-#intro .wm .y{color:#3f9d6c}#intro .wm .m{color:#f2a73b}
-#intro .st{font:600 .9rem var(--body);letter-spacing:.55em;color:#e9dccb;margin-left:.55em;animation:sube .6s .55s ease both}
-#intro .made{font:400 .85rem var(--body);color:#a8957f;margin-top:14px;animation:sube .6s .8s ease both}
-#intro .skip{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));font-size:.75rem;color:#7d6c5a}
-@keyframes pop{from{transform:scale(.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
-@keyframes sube{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
-@keyframes vapor{0%{transform:translateY(0) scale(.6);opacity:0}25%{opacity:1}100%{transform:translateY(-60px) scale(1.8);opacity:0}}
-@media (prefers-reduced-motion:reduce){#intro *{animation:none!important}#intro,body,#cieloFondo{transition:none}}
+@media (prefers-reduced-motion:reduce){body,#cieloFondo{transition:none}}
 </style>
 </head>
 <body>
 <svg class="ym-sprite" aria-hidden="true"><symbol id="ymLogo" viewBox="0 0 120 130"><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="#7a4a24"/><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="none" stroke="#3a2210" stroke-width="3"/><ellipse cx="61" cy="40" rx="31" ry="9" fill="#bb9149"/><ellipse cx="61" cy="40" rx="25" ry="6" fill="#3f9d6c"/><path d="M38 34 Q30 18 44 14 Q46 28 38 34Z M52 30 Q52 12 66 12 Q62 26 52 30Z" fill="#3f9d6c"/><defs><linearGradient id="alpaca" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d949a"/><stop offset=".45" stop-color="#f4f6f7"/><stop offset="1" stop-color="#9aa1a6"/></linearGradient></defs><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="#5f666b" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="url(#alpaca)" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M70.5 33 L80.6 10" stroke="#fff" stroke-opacity=".75" stroke-width="1.2" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#d8b04a" stroke-width="5" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#f3dc8a" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="68" cy="41.5" rx="7" ry="2.6" fill="#2f7d52"/><path d="M62 41 q2 -2 4 0 M69 40 q2 -2 4 0" stroke="#5fbf86" stroke-width="1" fill="none"/><path d="M38 64 L54 70 M84 64 L68 70" stroke="#1a0e05" stroke-width="5" stroke-linecap="round"/><circle cx="47" cy="76" r="5" fill="#f2a73b"/><circle cx="75" cy="76" r="5" fill="#f2a73b"/><path d="M46 96 Q61 88 76 96" stroke="#1a0e05" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M28 98 Q60 120 92 98" stroke="#bb9149" stroke-width="5" fill="none"/></symbol></svg>
 <div id="cieloFondo"></div>
-<div id="intro" role="button" aria-label="Saltear intro">
-  <div class="mate"><div class="vapor"><i></i><i></i><i></i></div><svg viewBox="0 0 120 130" aria-hidden="true"><use href="#ymLogo"/></svg></div>
-  <div class="wm"><span class="y">Yerba</span> <span class="m">Mala</span></div>
-  <div class="st">STUDIOS</div>
-  <div class="made">Hecho en Argentina · con mate</div>
-  <div class="skip">Tocá para saltear</div>
-</div>
-
 <div class="app">
   <div class="barra">
     <div class="marca"><svg aria-hidden="true"><use href="#ymLogo"/></svg><span><span class="y">Yerba</span> <span class="m">Mala</span> presenta</span></div>
@@ -278,6 +256,7 @@ body.grande .app{zoom:1.18}
   <section class="heroe" aria-live="polite">
     <div class="titulo-app">Pronóstico real o no tanto</div>
     <div class="lugar"><span id="lugarTxt">Buscando dónde estás…</span><button class="cambiar" id="cambiarLugar" type="button">cambiar</button></div>
+    <div class="estado" id="estado" hidden></div>
     <div class="chico" id="metDe"></div>
     <div class="evento" id="evento" role="note" hidden></div>
     <canvas id="escena" width="720" height="378" aria-hidden="true"></canvas>
@@ -392,9 +371,7 @@ body.grande .app{zoom:1.18}
 </div>
 
 <script>
-(function(){const el=document.getElementById("intro");let visto=false;try{visto=sessionStorage.getItem("ym_intro")==="1";}catch(e){}
-const cerrar=()=>{el.classList.add("out");setTimeout(()=>el.remove(),650);try{sessionStorage.setItem("ym_intro","1");}catch(e){}};
-if(visto){el.remove();return;}el.addEventListener("click",cerrar);setTimeout(cerrar,2600);})();
+
 
 const $=id=>document.getElementById(id);
 const f1=(v,d=1)=>v==null||isNaN(v)?"–":(+v).toFixed(d);
@@ -588,6 +565,7 @@ function limpiarWiki(t){
   for(let i=0;i<3;i++)t=t.replace(/\{\{[^{}]*\}\}/g,"");
   t=t.replace(/\[\[(?:Archivo|File|Imagen|Image):[^\]]*\]\]/g,"").replace(/\[\[([^\]|]*)\|([^\]]*)\]\]/g,"$2").replace(/\[\[([^\]]*)\]\]/g,"$1")
      .replace(/\[https?:\/\/\S+\s([^\]]*)\]/g,"$1").replace(/'{2,}/g,"").replace(/<[^>]+>/g,"");
+  t=t.replace(/&nbsp;|&#160;/g," ").replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#(\d+);/g,(m,n)=>String.fromCharCode(+n));
   return t.replace(/\s+/g," ").trim().replace(/^[\s:;\-—]+|[\s:;\-—]+$/g,"");
 }
 function parseEfemerides(texto,fecha){
@@ -600,11 +578,15 @@ function parseEfemerides(texto,fecha){
       let txt;if(m&&!l.startsWith("**")){anio=m[1]+(m[2]?" a. C.":"");txt=limpiarWiki(m[3]);}else txt=limpiarWiki(l.replace(/^\*+/,""));
       if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});}
     return out;};
-  const ev=leer("acontecimientos"),nac=leer("nacimientos");
+  const ev0=leer("acontecimientos"),nac0=leer("nacimientos");
   // argentino: "argentin..." o un nombre propio del país escrito con mayúscula y como palabra entera
   const PROPIOS=["Buenos Aires","Río de la Plata","Malvinas","San Martín","Belgrano","Sarmiento","Perón","Yrigoyen","Alfonsín","Rosas","Güemes","Córdoba","Rosario","Mendoza","Tucumán","Salta","La Plata","Patagonia","Maradona","Messi","Boca Juniors","River Plate","Mar del Plata","Santa Fe","Entre Ríos","Corrientes","La Matanza","Ushuaia","Bariloche","Gardel","Borges","Favaloro","Mafalda"];
+  const triste0=/muert|muere|asesin|atentado|masacre|víctimas|derrumba|explosi|bombarde|ejecuta|naufrag|terremoto|accidente|genocid|guerra/i;
+  const ev=ev0.filter(e=>!triste0.test(e.texto)&&e.texto.length<=220),nac=nac0.filter(e=>e.texto.length<=160);
   const esAR=e=>/argentin/i.test(e.texto)||PROPIOS.some(n=>new RegExp("(^|[^\\p{L}])"+n+"($|[^\\p{L}])","u").test(e.texto));
-  const esInvento=e=>/invent|patent|descubr|primer[oa]? (vuelo|transmisi|emisi|película|computadora|satélite|llamada|vacuna)|inaugura|se estrena|se lanza|lanzamiento|se funda|crea (el|la)|presenta (el|la)/i.test(e.texto);
+  const esInvento=e=>/invent|patent|primer[oa]? (vuelo|transmisi|emisi|película|computadora|satélite|llamada|vacuna|radio|televis)|se estrena|lanzamiento|se presenta (el|la) primer/i.test(e.texto);
+  const triste=/muert|muere|asesin|atentado|masacre|víctimas|derrumba|explosi|bombarde|ejecuta|naufrag|terremoto|accidente|genocid|guerra/i;
+  const ok=e=>!triste.test(e.texto)&&e.texto.length<=220;
   const sem=parseInt(fecha.replace(/-/g,""));
   const tomar=(lista,n,ya)=>{const out=[];for(let i=0;i<lista.length*2&&out.length<n;i++){const e=lista[(sem*(i+3)+i)%lista.length];if(e&&!ya.includes(e)&&!out.includes(e))out.push(e);}return out;};
   const ya=[];
@@ -615,18 +597,18 @@ function parseEfemerides(texto,fecha){
   let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
   santos=santos.filter(Boolean);
   const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
-  const eventos=[...ya.slice(0,6),...nacAR].sort((a,b)=>parseInt(a.anio)-parseInt(b.anio));
+  const eventos=[...ya.slice(0,5),...nacAR.slice(0,1)].sort((a,b)=>parseInt(a.anio)-parseInt(b.anio));
   return {fecha,eventos,santo:santos[0]||null,otros_santos:santos.slice(1,4),
     celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3)};
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe2",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe3",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
   const r=parseEfemerides(txt,hoy);
-  LS.set("pp_c_efe2",r);
+  LS.set("pp_c_efe3",r);
   return r;
 }
 
@@ -692,6 +674,11 @@ async function armar(){
   const hoy=ymd(new Date()),errores={};
   const intentar=async(nombre,fn)=>{try{return await fn();}catch(e){errores[nombre]=amigable(e);console.warn(nombre,e);return null;}};
   // Si un servicio falla, usar lo último que bajó bien (hasta 2 días) en lugar de dejar la página vacía
+  const unaVezPorDia=async(nombre,fn)=>{
+    const k="pp_dia_"+nombre+"_"+AJ.lat+"_"+AJ.lon,c=LS.get(k,null);
+    if(c&&c.fecha===hoy)return c.r;
+    const r=await conRespaldo(nombre,fn);if(r)LS.set(k,{fecha:hoy,r});return r;
+  };
   const conRespaldo=async(nombre,fn)=>{
     const k="pp_ok_"+nombre+"_"+AJ.lat+"_"+AJ.lon;
     try{const r=await fn();LS.set(k,{fecha:hoy,r});return r;}
@@ -715,8 +702,8 @@ async function armar(){
   const [det,mod,histMod,obs,smn,met,acc,efe]=await Promise.all([
     conRespaldo("Detalle del día",fuenteDetalle),
     conRespaldo("Modelos globales",fuenteModelos),
-    conRespaldo("Historial de modelos",()=>historialModelos(hoy)),
-    conRespaldo("Lo que pasó (ERA5)",()=>observado(hoy)),
+    unaVezPorDia("Historial de modelos",()=>historialModelos(hoy)),
+    unaVezPorDia("Lo que pasó (ERA5)",()=>observado(hoy)),
     null,   // SMN: bloqueado para consultas automáticas (Cloudflare)
     (srv||mw||/^http/.test(WORKER_URL))?null:intentar("Meteored",()=>fuenteMeteored(hoy)),
     srv?null:intentar("AccuWeather",()=>fuenteAccu(hoy)),
@@ -775,7 +762,7 @@ async function armar(){
   const dijo={};
   for(const f of[addDays(hoy,-1),hoy]){const xs=(histMod||[]).filter(e=>e.L===1&&e.fecha===f).map(e=>e.p);
     if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia")};}}
-  return{dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  return{lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
@@ -1501,11 +1488,20 @@ function pintarAjustes(){
   $("aInfo").textContent=enGithub?"":`Historial guardado en este navegador: ${n} ${n===1?"día":"días"}.`;
 }
 let corriendo=false;
+function estado(txt){$("estado").textContent=txt||"";$("estado").hidden=!txt;}
+function dibujarTodo(){renderTodo();renderEvento();renderCuenta();renderMeaCulpa();}
 async function actualizar(){
   if(corriendo)return;corriendo=true;
-  $("btnAct").disabled=true;document.body.classList.add("cargando");
-  try{S=await armar();const an=+S.hoy.slice(0,4);await Promise.all([cargarFeriados(an),cargarFeriados(an+1)]);renderTodo();renderEvento();renderCuenta();renderMeaCulpa();}
-  catch(e){console.error(e);$("condAhora").textContent="Se volcó el mate: "+e.message;}
+  $("btnAct").disabled=true;
+  if(!S)document.body.classList.add("cargando");
+  estado(S?`Cebando el pronóstico… (por ahora, el de las ${new Date(S.generado).toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"})})`:"Cebando el pronóstico…");
+  try{
+    const an=+ymd(new Date()).slice(0,4);
+    const [nuevo]=await Promise.all([armar(),cargarFeriados(an),cargarFeriados(an+1)]);
+    S=nuevo;dibujarTodo();estado("");
+    LS.set("pp_ultimo",{S,lat:AJ.lat,lon:AJ.lon});   // para abrir al instante la próxima vez
+  }
+  catch(e){console.error(e);estado("No se pudo actualizar. Tocá ↻ para reintentar.");if(!S)$("condAhora").textContent="Se volcó el mate: "+e.message;}
   finally{corriendo=false;$("btnAct").disabled=false;document.body.classList.remove("cargando");pintarAjustes();pintarLugaresSrv();}
 }
 $("btnAct").addEventListener("click",actualizar);
@@ -1576,7 +1572,14 @@ addEventListener("appinstalled",()=>{$("btnInstalar").hidden=true;});
 if(matchMedia("(display-mode: standalone)").matches)$("ayudaInstalar").hidden=true;
 prepararEscena("parcial",false,0);
 (async()=>{
-  if((AJ.modo||"auto")==="auto"){await pedirUbicacion(true);}
+  const c=LS.get("pp_ultimo",null);
+  if(c&&c.S&&c.S.hoy===ymd(new Date())&&Math.abs(c.lat-AJ.lat)<.02&&Math.abs(c.lon-AJ.lon)<.02){
+    S=c.S;const an=+S.hoy.slice(0,4);
+    for(const a of[an,an+1]){const f=LS.get("pp_fer_"+a,null);if(f&&!FERIADOS[a]){FERIADOS[a]=f;}}
+    try{dibujarTodo();}catch(e){console.warn(e);S=null;}
+  }
+  if((AJ.modo||"auto")==="auto"){estado("Cebando el pronóstico…");await pedirUbicacion(true);
+    if(S&&(Math.abs(S.lat0-AJ.lat)>.02))S=null;}
   $("lugarTxt").textContent=(AJ.modo==="fijo"?"":"📍 ")+AJ.lugar;
   actualizar();
 })();
