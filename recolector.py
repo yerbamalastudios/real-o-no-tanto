@@ -349,6 +349,20 @@ MESES_N = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio":
 
 def feriados_oficiales(anio):
     """Lee los feriados de argentina.gob.ar. La página los carga con JavaScript, así que se buscan en el código."""
+    # 1) el archivo oficial que usa la propia página del Ministerio
+    try:
+        j = http(f"https://www.argentina.gob.ar/sites/default/files/holidays-{anio}-es.json", {"User-Agent": "Mozilla/5.0"})
+        lista = []
+        for el in (j.get("mainEntity") or {}).get("itemListElement", []):
+            it = el.get("item") or {}
+            fecha, nombre = it.get("startDate", "")[:10], (it.get("name") or "").strip()
+            tipo = ((it.get("additionalProperty") or {}).get("value") or "").strip()
+            if fecha.startswith(str(anio)) and nombre and tipo != "no_laborable":   # los no laborables son para algunas comunidades
+                lista.append([fecha, nombre, tipo.replace("_", " ")])
+        if len(lista) >= 8:
+            return sorted(lista), "Ministerio del Interior (argentina.gob.ar)"
+    except Exception as e:
+        print("feriados JSON oficial:", e)
     urls = [f"https://www.argentina.gob.ar/interior/feriados-nacionales-{anio}", "https://www.argentina.gob.ar/feriados"]
     for url in urls:
         try:

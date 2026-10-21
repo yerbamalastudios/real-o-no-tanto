@@ -29,6 +29,8 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{overscroll-behavior:none}
 html,body{min-height:100%}
 body{margin:0;color:var(--txt);font:16px/1.45 var(--body);background:var(--cielo-1);
   background-image:linear-gradient(180deg,var(--cielo-1) 0%,var(--cielo-2) 100%);background-attachment:fixed;
@@ -127,6 +129,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .hora svg{width:30px;height:30px}
 .hora .t{font:500 1.1rem var(--num)}
 .hora .p{font:600 .75rem var(--body);color:var(--lluvia);min-height:1em}
+.hora .st{font-size:.68rem;color:#ffd7a8;min-height:1em;white-space:nowrap}
 .hora .hu{font-size:.68rem;color:var(--txt-3);white-space:nowrap}
 
 /* días deslizables */
@@ -830,6 +833,7 @@ function icono(code,noche,cls){
 }
 const flecha=dir=>`<svg class="flecha" viewBox="0 0 14 14" style="transform:rotate(${(dir||0)+180}deg)" aria-hidden="true"><path d="M7 1l4 7H8v5H6V8H3z" fill="currentColor"/></svg>`;
 function rumbo(d){if(d==null)return"";return["N","NE","E","SE","S","SO","O","NO"][Math.round(d/45)%8];}
+function rumboLargo(d){if(d==null)return"";return["del Norte","del Noreste","del Este","del Sudeste","del Sur","del Sudoeste","del Oeste","del Noroeste"][Math.round(d/45)%8];}
 
 // ===================== escena animada (canvas) =====================
 const ESC={tipo:"parcial",noche:false,viento:0,t0:performance.now(),gotas:[],copos:[],rayo:0,raf:0};
@@ -1050,9 +1054,14 @@ function diasCompletos(){
       lluvia:w.lluvia??g("precipitation_sum"),chance_lluvia:w.chance_lluvia,prob:g("precipitation_probability_max"),
       code:codigoReal(g("weather_code"),g("precipitation_probability_max")??(w.chance_lluvia!=null?w.chance_lluvia*100:null),w.lluvia??g("precipitation_sum")),viento:g("wind_speed_10m_max"),rafagas:g("wind_gusts_10m_max"),dir:g("wind_direction_10m_dominant"),
       uv:g("uv_index_max"),sale:g("sunrise"),pone:g("sunset"),
-      rango_tmax:w.rango_tmax,fuentes:w.fuentes||[],ponderado:!!w.fuentes,...humedadDia(f)});
+      rango_tmax:w.rango_tmax,fuentes:w.fuentes||[],ponderado:!!w.fuentes,...humedadDia(f),...sensacionDia(f)});
   });
   return out;
+}
+function sensacionDia(f){
+  const h=S.detalle&&S.detalle.hourly;if(!h||!h.apparent_temperature)return{stMax:null,stMin:null};
+  const v=h.time.map((t,i)=>t.startsWith(f)?h.apparent_temperature[i]:null).filter(x=>x!=null);
+  return v.length?{stMax:Math.max(...v),stMin:Math.min(...v)}:{stMax:null,stMin:null};
 }
 function humedadDia(f){
   const h=S.detalle&&S.detalle.hourly;if(!h||!h.relative_humidity_2m)return{hum:null,humMax:null,humMin:null};
@@ -1289,7 +1298,7 @@ function renderTodo(){
   $("tempAhora").textContent=cur?r0(cur.temperature_2m)+"°":(hoyD?r0(hoyD.tmax)+"°":"--°");
   $("condAhora").textContent=code!=null?textoCielo(code,hoyD&&hoyD.tmax):"Sin datos del cielo";
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
-    (cur?`<span>Sensación <b>${r0(cur.apparent_temperature)}°</b></span><span>Humedad <b>${r0(cur.relative_humidity_2m)}%</b></span><span>Viento <b>${r0(cur.wind_speed_10m)}</b> km/h</span>`:""):"";
+    (cur?`<span>Sensación térmica <b>${r0(cur.apparent_temperature)}°</b></span><span>Humedad <b>${r0(cur.relative_humidity_2m)}%</b></span><span>Viento <b>${r0(cur.wind_speed_10m)}</b> km/h ${rumboLargo(cur.wind_direction_10m)}</span>`:""):"";
   const man=dias.find(d=>d.L===1);
   $("frase").textContent=hoyD?chiste(hoyD):"";
 
@@ -1317,10 +1326,10 @@ function renderTodo(){
     const items=[];
     for(let i=ini;i<Math.min(ini+24,h.time.length);i++){
       const hh=+h.time[i].slice(11,13),p=h.precipitation_probability[i];
-      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(codigoReal(h.weather_code[i],h.precipitation_probability[i],(h.precipitation[i]??0)*5),h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="p">${p>=10?"💧"+p+"%":""}</span><span class="hu">${h.relative_humidity_2m?r0(h.relative_humidity_2m[i])+"% hum.":""}</span></div>`);
+      items.push(`<div class="hora${i===ini?" ahora":""}"><span class="h">${i===ini?"Ahora":hh+" h"}</span>${icono(codigoReal(h.weather_code[i],h.precipitation_probability[i],(h.precipitation[i]??0)*5),h.is_day[i]===0,"")}<span class="t">${r0(h.temperature_2m[i])}°</span><span class="st">${h.apparent_temperature&&Math.abs(h.apparent_temperature[i]-h.temperature_2m[i])>=1.5?"ST "+r0(h.apparent_temperature[i])+"°":""}</span><span class="p">${p>=10?"💧"+p+"%":""}</span><span class="hu">${h.relative_humidity_2m?r0(h.relative_humidity_2m[i])+"% hum.":""}</span></div>`);
     }
     $("horas").innerHTML=items.join("");
-    $("horasNota").textContent="💧 chance de lluvia";
+    $("horasNota").textContent="ST = sensación térmica";
   }else $("horas").innerHTML=`<p class="chico">Sin datos hora por hora.</p>`;
 
   // días deslizables
@@ -1331,7 +1340,8 @@ function renderTodo(){
       <span class="mm"><span class="mx">${r0(d.tmax)}°</span><span class="mn">${r0(d.tmin)}°</span></span>
       <span class="ll"><span>💧 ${p==null?"–":p+"%"}</span><span>${d.lluvia>=.1?f1(d.lluvia)+" mm":""}</span></span>
       <span class="barrita"><i style="width:${p||0}%"></i></span>
-      <span class="vi">${flecha(d.dir)} ${r0(d.viento)} km/h${d.rafagas>=40?` · ráf. ${r0(d.rafagas)}`:""}</span>
+      <span class="vi">${flecha(d.dir)} ${r0(d.viento)} km/h ${rumbo(d.dir)}${d.rafagas>=40?` · ráf. ${r0(d.rafagas)}`:""}</span>
+      ${d.stMax!=null?`<span class="chico">Sensación ${r0(d.stMin)}° a ${r0(d.stMax)}°</span>`:""}
       <span class="chico">Humedad ${d.hum==null?"–":r0(d.hum)+"%"}</span>
     </button>`;}).join("");
   $("puntos").innerHTML=dias.map(d=>`<i class="${d.L===diaSel?"on":""}"></i>`).join("");
@@ -1380,14 +1390,16 @@ function renderDia(dias){
     ["Máx / mín",`${r0(d.tmax)}° <small>/ ${r0(d.tmin)}°</small>`],
     ["Lluvia",`${f1(d.lluvia)} <small>mm</small>`],
     ["Chance",p==null?"–":`${p}<small>%</small>`],
-    ["Viento",`${r0(d.viento)} <small>km/h ${rumbo(d.dir)}</small>`],
+    ["Viento",`${r0(d.viento)} <small>km/h</small><br><small>${rumboLargo(d.dir)}</small>`],
     ["Ráfagas",`${r0(d.rafagas)} <small>km/h</small>`],
+    ["Sensación térmica",d.stMax==null?"–":`${r0(d.stMin)}° <small>a</small> ${r0(d.stMax)}°`],
     ["UV",d.uv==null?"–":r0(d.uv)],
     ["Humedad",d.hum==null?"–":`${r0(d.hum)}<small>% (máx ${r0(d.humMax)})</small>`],
-    ["Sale el sol",hm(d.sale)],["Se pone",hm(d.pone)]
+    ["Sale el sol",hm(d.sale)],["Se pone",hm(d.pone)],["Fuentes",d.fuentes.length||"–"],
+    ["Hora más lluviosa",(()=>{const h=S.detalle&&S.detalle.hourly;if(!h)return"–";let bi=-1,bp=-1;h.time.forEach((t,i)=>{if(t.startsWith(d.fecha)&&(h.precipitation_probability[i]??0)>bp){bp=h.precipitation_probability[i];bi=i;}});return bp>=20?`${+h.time[bi].slice(11,13)} <small>h (${bp}%)</small>`:"–";})()]
   ].map(([k,v])=>`<div class="dato"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
   const r=d.rango_tmax;
-  $("acuerdo").innerHTML=(d.fuentes.length?`${d.fuentes.length} fuentes. `:"")+(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
+  $("acuerdo").innerHTML=(r==null?"":r<=2.5?`<span class="ok">Las fuentes coinciden (±${f1(r/2)}°).</span> `:r<=5?`<span class="mid">Algo de diferencia entre fuentes (${f1(r)}° de rango).</span> `:`<span class="bad">Fuentes muy dispares (${f1(r)}° de rango).</span> `)+
     "";
 }
 function cuandoDia(f){
