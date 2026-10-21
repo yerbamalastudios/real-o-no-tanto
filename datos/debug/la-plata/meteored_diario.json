@@ -1,49 +1,17 @@
 {
  "ok": true,
- "expiracion": 1792507680000,
+ "expiracion": 1792594080000,
  "data": {
   "hash": "72e81151000f1f0ec999a9bd9efb70ed",
   "name": "La Plata",
   "url": "https://www.meteored.com.bo/tiempo-en_La+Plata-America+Sur-Argentina-Provincia+de+Buenos+Aires-SADL-1-16930.html",
   "days": [
    {
-    "start": 1792465200000,
+    "start": 1792551600000,
     "symbol": 3,
     "temperature": {
-     "min": 9.31,
-     "max": 18.6
-    },
-    "wind": {
-     "speed": 16,
-     "gust": 36,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 79,
-    "pressure": 1021,
-    "snowline": 2800,
-    "uv_index_max": 8.3,
-    "sun": {
-     "in": 1792486982000,
-     "mid": 1792510596000,
-     "out": 1792534245000
-    },
-    "moon": {
-     "in": 1792514405000,
-     "out": 1792475774000,
-     "symbol": 19,
-     "illumination": 68.4
-    }
-   },
-   {
-    "start": 1792551600000,
-    "symbol": 4,
-    "temperature": {
-     "min": 12.45,
-     "max": 18.47
+     "min": 11.96,
+     "max": 19.36
     },
     "wind": {
      "speed": 19,
@@ -54,10 +22,10 @@
      "total": 0,
      "probability": 20
     },
-    "humidity": 74,
+    "humidity": 76,
     "pressure": 1020,
     "snowline": 3100,
-    "uv_index_max": 8.4,
+    "uv_index_max": 8.5,
     "sun": {
      "in": 1792573309000,
      "mid": 1792596986000,
@@ -74,22 +42,22 @@
     "start": 1792638000000,
     "symbol": 12,
     "temperature": {
-     "min": 13.21,
-     "max": 20.53
+     "min": 12.92,
+     "max": 20.07
     },
     "wind": {
-     "speed": 18,
-     "gust": 39,
+     "speed": 19,
+     "gust": 42,
      "direction": "E"
     },
     "precipitation": {
-     "total": 4.8,
-     "rain": 4.8,
+     "total": 2.9,
+     "rain": 2.9,
      "probability": 80
     },
-    "humidity": 81,
+    "humidity": 80,
     "pressure": 1016,
-    "snowline": 3400,
+    "snowline": 3500,
     "uv_index_max": 8.9,
     "sun": {
      "in": 1792659637000,
@@ -107,23 +75,23 @@
     "start": 1792724400000,
     "symbol": 12,
     "temperature": {
-     "min": 14.57,
-     "max": 21.12
+     "min": 13.93,
+     "max": 20.8
     },
     "wind": {
-     "speed": 13,
-     "gust": 31,
+     "speed": 14,
+     "gust": 29,
      "direction": "S"
     },
     "precipitation": {
-     "total": 4.7,
-     "rain": 4.7,
-     "probability": 90
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 70
     },
-    "humidity": 91,
+    "humidity": 87,
     "pressure": 1010,
     "snowline": 3500,
-    "uv_index_max": 8.7,
+    "uv_index_max": 9,
     "sun": {
      "in": 1792745966000,
      "mid": 1792769769000,
@@ -138,24 +106,23 @@
    },
    {
     "start": 1792810800000,
-    "symbol": 13,
+    "symbol": 4,
     "temperature": {
-     "min": 12.97,
-     "max": 19.97
+     "min": 11.34,
+     "max": 18.95
     },
     "wind": {
-     "speed": 18,
-     "gust": 44,
+     "speed": 22,
+     "gust": 47,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 1.8,
-     "rain": 1.8,
-     "probability": 80
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 88,
-    "pressure": 1012,
-    "snowline": 2700,
+    "humidity": 79,
+    "pressure": 1016,
+    "snowline": 2800,
     "uv_index_max": 8.7,
     "sun": {
      "in": 1792832296000,
@@ -167,6 +134,39 @@
      "out": 1792827851000,
      "symbol": 16,
      "illumination": 96.88
+    }
+   },
+   {
+    "start": 1792897200000,
+    "symbol": 12,
+    "temperature": {
+     "min": 9.84,
+     "max": 16.09
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 33,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 0.7,
+     "rain": 0.7,
+     "probability": 90
+    },
+    "humidity": 76,
+    "pressure": 1022,
+    "snowline": 2400,
+    "uv_index_max": 8.3,
+    "sun": {
+     "in": 1792918627000,
+     "mid": 1792942554000,
+     "out": 1792966515000
+    },
+    "moon": {
+     "in": 1792965659000,
+     "out": 1792916000000,
+     "symbol": 15,
+     "illumination": 99.59
     }
    }
   ]

@@ -1,61 +1,29 @@
 {
  "ok": true,
- "expiracion": 1792507680000,
+ "expiracion": 1792594080000,
  "data": {
   "hash": "c58e3e06abd76c09e3da6bc40c98e51e",
   "name": "San Isidro",
   "url": "https://www.meteored.cl/tiempo-en_San+Isidro-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-321754.html",
   "days": [
    {
-    "start": 1792465200000,
-    "symbol": 3,
-    "temperature": {
-     "min": 9.79,
-     "max": 18.77
-    },
-    "wind": {
-     "speed": 19,
-     "gust": 37,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 10
-    },
-    "humidity": 78,
-    "pressure": 1020,
-    "snowline": 2900,
-    "uv_index_max": 8.4,
-    "sun": {
-     "in": 1792487149000,
-     "mid": 1792510732000,
-     "out": 1792534350000
-    },
-    "moon": {
-     "in": 1792514594000,
-     "out": 1792475859000,
-     "symbol": 19,
-     "illumination": 68.4
-    }
-   },
-   {
     "start": 1792551600000,
     "symbol": 34,
     "temperature": {
-     "min": 13.15,
-     "max": 19.33
+     "min": 12.74,
+     "max": 19.28
     },
     "wind": {
      "speed": 20,
-     "gust": 40,
-     "direction": "NE"
+     "gust": 41,
+     "direction": "E"
     },
     "precipitation": {
-     "total": 1,
-     "rain": 1,
-     "probability": 50
+     "total": 4.9,
+     "rain": 4.9,
+     "probability": 60
     },
-    "humidity": 71,
+    "humidity": 75,
     "pressure": 1019,
     "snowline": 3200,
     "uv_index_max": 8.8,
@@ -73,25 +41,25 @@
    },
    {
     "start": 1792638000000,
-    "symbol": 14,
+    "symbol": 12,
     "temperature": {
-     "min": 13.67,
-     "max": 19.94
+     "min": 13.35,
+     "max": 19.67
     },
     "wind": {
-     "speed": 20,
-     "gust": 40,
+     "speed": 21,
+     "gust": 39,
      "direction": "E"
     },
     "precipitation": {
-     "total": 6.4,
-     "rain": 6.4,
-     "probability": 80
+     "total": 3,
+     "rain": 3,
+     "probability": 90
     },
-    "humidity": 83,
-    "pressure": 1016,
+    "humidity": 82,
+    "pressure": 1015,
     "snowline": 3600,
-    "uv_index_max": 9.2,
+    "uv_index_max": 9.1,
     "sun": {
      "in": 1792659806000,
      "mid": 1792683513000,
@@ -106,25 +74,24 @@
    },
    {
     "start": 1792724400000,
-    "symbol": 12,
+    "symbol": 4,
     "temperature": {
-     "min": 15.27,
-     "max": 21.62
+     "min": 15.41,
+     "max": 20.96
     },
     "wind": {
-     "speed": 14,
-     "gust": 29,
-     "direction": "S"
+     "speed": 16,
+     "gust": 30,
+     "direction": "E"
     },
     "precipitation": {
-     "total": 3.2,
-     "rain": 3.2,
-     "probability": 80
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 89,
+    "humidity": 86,
     "pressure": 1009,
     "snowline": 3600,
-    "uv_index_max": 8.9,
+    "uv_index_max": 9,
     "sun": {
      "in": 1792746136000,
      "mid": 1792769905000,
@@ -139,25 +106,24 @@
    },
    {
     "start": 1792810800000,
-    "symbol": 12,
+    "symbol": 4,
     "temperature": {
-     "min": 13.75,
-     "max": 19.92
+     "min": 12.73,
+     "max": 18.75
     },
     "wind": {
-     "speed": 19,
-     "gust": 37,
+     "speed": 20,
+     "gust": 40,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 1.7,
-     "rain": 1.7,
-     "probability": 70
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 83,
-    "pressure": 1012,
-    "snowline": 2900,
-    "uv_index_max": 8.7,
+    "humidity": 79,
+    "pressure": 1016,
+    "snowline": 2800,
+    "uv_index_max": 8.8,
     "sun": {
      "in": 1792832467000,
      "mid": 1792856297000,
@@ -168,6 +134,39 @@
      "out": 1792828006000,
      "symbol": 16,
      "illumination": 96.88
+    }
+   },
+   {
+    "start": 1792897200000,
+    "symbol": 12,
+    "temperature": {
+     "min": 11.41,
+     "max": 16.91
+    },
+    "wind": {
+     "speed": 18,
+     "gust": 37,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 0.6,
+     "rain": 0.6,
+     "probability": 80
+    },
+    "humidity": 74,
+    "pressure": 1021,
+    "snowline": 2400,
+    "uv_index_max": 8.4,
+    "sun": {
+     "in": 1792918799000,
+     "mid": 1792942690000,
+     "out": 1792966614000
+    },
+    "moon": {
+     "in": 1792965755000,
+     "out": 1792916174000,
+     "symbol": 15,
+     "illumination": 99.59
     }
    }
   ]
