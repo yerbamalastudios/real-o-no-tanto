@@ -106,6 +106,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .evento .ev-txt{font-size:.9rem;opacity:.95}
 .evento .ev-tag{display:inline-block;font:700 .62rem var(--body);letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#a01818;border-radius:4px;padding:1px 5px;vertical-align:2px}
 .dia .ev{font-size:.72rem;font-weight:600;color:#ffd0cb}
+.cuenta{display:flex;gap:14px;align-items:center}
+.cuenta .num{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:84px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.16)}
+.cuenta .num b{font:300 2.6rem/1 var(--num)}
+.cuenta .num span{font-size:.75rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.08em}
+.cuenta-txt{min-width:0}
+.cuenta .largo{font-weight:600;color:#ffe08a;font-size:.9rem}
+.meaculpa{background:rgba(255,190,90,.18);border-color:rgba(255,205,120,.5)}
+.meaculpa .perdon{margin:0 0 6px}
+.meaculpa .excusa{margin:0;font-style:italic;color:#ffe3a8}
 /* tira de horas */
 .horas{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;margin:0 -6px;padding-inline:6px;scrollbar-width:none}
 .horas::-webkit-scrollbar{display:none}
@@ -278,7 +287,10 @@ body.grande .app{zoom:1.18}
     <p class="frase" id="frase"></p>
   </section>
 
+  <section class="vidrio meaculpa" id="meaCulpa" hidden></section>
   <section class="alertas vidrio" id="alertas" hidden></section>
+
+  <section class="vidrio" id="cardCuenta" hidden></section>
 
   <section class="vidrio" id="cardRopa" hidden>
     <h2 class="rotulo">👕 ¿Qué me pongo?</h2>
@@ -445,7 +457,7 @@ async function fuenteModelos(){
 }
 // Condición del cielo, viento y hora por hora (mejor modelo para el lugar)
 async function fuenteDetalle(){
-  return getJSON("https://api.open-meteo.com/v1/forecast?"+qs({...baseQ(),forecast_days:8,wind_speed_unit:"kmh",
+  return getJSON("https://api.open-meteo.com/v1/forecast?"+qs({...baseQ(),forecast_days:8,past_days:1,wind_speed_unit:"kmh",
     current:"temperature_2m,apparent_temperature,weather_code,is_day,wind_speed_10m,wind_gusts_10m,wind_direction_10m,relative_humidity_2m,precipitation",
     hourly:"temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,is_day",
     daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,sunrise,sunset,uv_index_max"}));
@@ -454,7 +466,7 @@ async function fuenteDetalle(){
 async function historialModelos(hoy){
   const vars=[];for(const v of["temperature_2m","precipitation"])for(const L of[1,2])vars.push(`${v}_previous_day${L}`);
   const j=await getJSON("https://previous-runs-api.open-meteo.com/v1/forecast?"+qs({...baseQ(),hourly:vars.join(","),
-    models:Object.keys(CFG.modelos).join(","),start_date:addDays(hoy,-(CFG.diasEval+2)),end_date:addDays(hoy,-1)}));
+    models:Object.keys(CFG.modelos).join(","),start_date:addDays(hoy,-(CFG.diasEval+2)),end_date:hoy}));
   const h=j.hourly,ent=[];
   for(const m of Object.keys(CFG.modelos))for(const L of[1,2]){
     const T=h[`temperature_2m_previous_day${L}_${m}`],P=h[`precipitation_previous_day${L}_${m}`];
@@ -759,7 +771,11 @@ async function armar(){
     for(const k of Object.keys(errores))delete errores[k];
     errores["Sin conexión"]="la página no pudo salir a internet. Si la abriste desde la vista previa de Claude, WhatsApp o un visor de archivos, abrila con el link o en Chrome";
   }
-  return{meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  // Lo que dijeron los modelos el día anterior para ayer y para hoy (promedio simple), para el "mea culpa"
+  const dijo={};
+  for(const f of[addDays(hoy,-1),hoy]){const xs=(histMod||[]).filter(e=>e.L===1&&e.fecha===f).map(e=>e.p);
+    if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia")};}}
+  return{dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
@@ -1131,11 +1147,16 @@ function plan(d){
 // ===================== feriados y fechas especiales =====================
 const FERIADOS_RESPALDO={2026:[["2026-01-01","Año Nuevo"],["2026-02-16","Carnaval"],["2026-02-17","Carnaval"],["2026-03-23","Puente turístico"],["2026-03-24","Día de la Memoria por la Verdad y la Justicia"],["2026-04-02","Día del Veterano y de los Caídos en Malvinas"],["2026-04-03","Viernes Santo"],["2026-05-01","Día del Trabajador"],["2026-05-25","Día de la Revolución de Mayo"],["2026-06-15","Paso a la Inmortalidad de Güemes"],["2026-06-20","Día de la Bandera"],["2026-07-09","Día de la Independencia"],["2026-07-10","Puente turístico"],["2026-08-17","Paso a la Inmortalidad de San Martín"],["2026-10-12","Día del Respeto a la Diversidad Cultural"],["2026-11-09","Visita del papa León XIV"],["2026-11-23","Día de la Soberanía Nacional"],["2026-12-07","Puente turístico"],["2026-12-08","Día de la Inmaculada Concepción"],["2026-12-25","Navidad"]]};
 let FERIADOS={};
+let FUENTE_FER={};
 async function cargarFeriados(anio){
-  const k="pp_fer_"+anio,c=LS.get(k,null);if(c){FERIADOS[anio]=c;return;}
+  if(/^http/.test(location.protocol)){
+    try{const j=await getJSON("datos/feriados.json?t="+Date.now(),undefined,1);const a=j.anios&&j.anios[anio];
+      if(a&&a.lista&&a.lista.length){FERIADOS[anio]=a.lista.map(x=>[x[0],x[1],x[2]||""]);FUENTE_FER[anio]=a.fuente;return;}}catch(e){}
+  }
+  const k="pp_fer_"+anio,c=LS.get(k,null);if(c){FERIADOS[anio]=c;FUENTE_FER[anio]="ArgentinaDatos";return;}
   try{const j=await getJSON("https://api.argentinadatos.com/v1/feriados/"+anio,undefined,1);
-    if(Array.isArray(j)&&j.length){FERIADOS[anio]=j.map(f=>[f.fecha,f.nombre]);LS.set(k,FERIADOS[anio]);return;}}catch(e){}
-  if(FERIADOS_RESPALDO[anio])FERIADOS[anio]=FERIADOS_RESPALDO[anio];
+    if(Array.isArray(j)&&j.length){FERIADOS[anio]=j.map(f=>[f.fecha,f.nombre,f.tipo||""]);LS.set(k,FERIADOS[anio]);FUENTE_FER[anio]="ArgentinaDatos";return;}}catch(e){}
+  if(FERIADOS_RESPALDO[anio]){FERIADOS[anio]=FERIADOS_RESPALDO[anio];FUENTE_FER[anio]="lista guardada";}
 }
 function nDomingo(anio,mes,n){const d=new Date(Date.UTC(anio,mes-1,1));const primero=(7-d.getUTCDay())%7+1;return`${anio}-${String(mes).padStart(2,"0")}-${String(primero+7*(n-1)).padStart(2,"0")}`;}
 function especiales(anio){
@@ -1178,6 +1199,70 @@ function renderEvento(){
   const dia=e.dd>1?" ("+new Date(e.fecha+"T12:00:00").toLocaleDateString("es-AR",{weekday:"long",day:"numeric"})+")":"";
   const extra=e.feriado&&e.dd<=7?(()=>{const wd=new Date(e.fecha+"T12:00:00").getDay();return wd===1||wd===5?" Fin de semana largo a la vista.":"";})():"";
   box.innerHTML=`<span class="ev-ic">${e.emoji}</span><span><b>${cuando} ${e.feriado&&!/Día|Navidad|Año|Carnaval|Viernes/.test(e.nombre)?"feriado: ":""}${esc(e.nombre)}${dia}</b>${e.feriado?' <span class="ev-tag">feriado</span>':""}<br><span class="ev-txt">${esc((e.frase||"")+extra)}</span></span>`;
+  box.hidden=false;
+}
+
+// ===================== cuenta regresiva al próximo feriado =====================
+function renderCuenta(){
+  const hoy=S.hoy,an=+hoy.slice(0,4);
+  const lista=[...(FERIADOS[an]||[]),...(FERIADOS[an+1]||[])].filter(f=>f[0]>hoy).sort((a,b)=>a[0]<b[0]?-1:1);
+  const box=$("cardCuenta");
+  if(!lista.length){box.hidden=true;return;}
+  const [f,nombre,tipo]=lista[0],dd=diasEntre(hoy,f),fd=new Date(f+"T12:00:00"),wd=fd.getDay();
+  // ¿fin de semana largo? contar días libres seguidos alrededor del feriado
+  const libres=new Set(lista.map(x=>x[0]));const libre=x=>{const w=new Date(x+"T12:00:00").getDay();return w===0||w===6||libres.has(x);};
+  let ini=f,fin=f;while(libre(addDays(ini,-1)))ini=addDays(ini,-1);while(libre(addDays(fin,1)))fin=addDays(fin,1);
+  const largo=diasEntre(ini,fin)+1;
+  const fecha=fd.toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
+  const frases=dd<=1?["¡Ya está! Prepará el mate y la reposera.","Mañana no se labura (salvo que seas de guardia, en ese caso: fuerza)."]:
+    dd<=7?["Ya se siente el aroma a asado.","Andá avisando en el laburo que ese día no contás."]:
+    dd<=30?["Falta poquito. Aguantá, campeón.","Ya podés ir planeando la escapada."]:
+    ["Falta, pero falta menos que ayer.","Paciencia: los feriados también se hacen esperar."];
+  box.innerHTML=`<h2 class="rotulo">🇦🇷 Próximo feriado <span class="der">${esc(FUENTE_FER[+f.slice(0,4)]||"")}</span></h2>
+    <div class="cuenta"><div class="num"><b>${dd}</b><span>${dd===1?"día":"días"}</span></div>
+    <div class="cuenta-txt"><b>${esc(nombre)}</b><br><span class="chico">${fecha}${tipo?` · ${esc(tipo)}`:""}</span>
+    ${largo>=3?`<br><span class="largo">🏖️ Fin de semana largo: ${largo} días seguidos</span>`:""}
+    <br><i class="chico">${esc(elegirFrase(frases,f+"cuenta"))}</i></div></div>`;
+  box.hidden=false;
+}
+
+// ===================== mea culpa: cuando le erramos o el pronóstico cambió mucho =====================
+const CULPABLES=[
+  "el modelo europeo, que dice que entiende el clima de acá y nunca vino",
+  "el satélite, que justo estaba en mantenimiento",
+  "el viento, que cambió de dirección sin avisar a nadie",
+  "el pasante de la estación meteorológica, que se tomó el día",
+  "la humedad, que no figuraba en el contrato",
+  "el modelo americano, que se copió del de al lado",
+  "el gallo de la veleta del vecino, que apuntaba para cualquier lado",
+  "el Río de la Plata, que hace lo que quiere desde 1536",
+  "la corriente de aire que vino de Brasil y no pagó peaje",
+  "el colectivo que no pasó y nos hizo llegar tarde a mirar el cielo",
+];
+function renderMeaCulpa(){
+  const box=$("meaCulpa"),d=S.dijo||{},ayer=addDays(S.hoy,-1);
+  const dd=S.detalle&&S.detalle.daily,i=dd?dd.time.indexOf(ayer):-1,motivos=[];
+  if(d[ayer]&&i>=0){
+    const real={tmax:dd.temperature_2m_max[i],tmin:dd.temperature_2m_min[i],lluvia:dd.precipitation_sum[i]},p=d[ayer];
+    if(p.tmax!=null&&real.tmax!=null&&Math.abs(p.tmax-real.tmax)>=3)motivos.push(`ayer dijimos máxima de ${r0(p.tmax)}° y hizo ${r0(real.tmax)}°`);
+    else if(p.tmin!=null&&real.tmin!=null&&Math.abs(p.tmin-real.tmin)>=3)motivos.push(`ayer dijimos mínima de ${r0(p.tmin)}° y bajó a ${r0(real.tmin)}°`);
+    if(p.lluvia!=null&&real.lluvia!=null){
+      if(p.lluvia<1&&real.lluvia>=3)motivos.push(`ayer no esperábamos lluvia y cayeron ${r0(real.lluvia)} mm`);
+      else if(p.lluvia>=3&&real.lluvia<.3)motivos.push(`ayer anunciamos lluvia y no cayó ni una gota`);
+    }
+  }
+  const hoyD=diasCompletos().find(x=>x.L===0),k="pp_dicho_"+AJ.lat+"_"+AJ.lon,guardado=LS.get(k,{});
+  const primero=d[S.hoy]||guardado[S.hoy];
+  if(hoyD&&primero){
+    if(primero.tmax!=null&&hoyD.tmax!=null&&Math.abs(primero.tmax-hoyD.tmax)>=3)motivos.push(`para hoy veníamos diciendo ${r0(primero.tmax)}° y ahora da ${r0(hoyD.tmax)}°`);
+    if(primero.lluvia!=null&&hoyD.lluvia!=null&&((primero.lluvia<1&&hoyD.lluvia>=3)||(primero.lluvia>=3&&hoyD.lluvia<.3)))motivos.push(hoyD.lluvia>=3?"para hoy no anunciábamos lluvia y ahora sí":"para hoy anunciábamos lluvia y ahora parece que no");
+  }
+  if(hoyD&&!guardado[S.hoy]){guardado[S.hoy]={tmax:hoyD.tmax,tmin:hoyD.tmin,lluvia:hoyD.lluvia};for(const f of Object.keys(guardado))if(diasEntre(f,S.hoy)>3)delete guardado[f];LS.set(k,guardado);}
+  if(!motivos.length){box.hidden=true;return;}
+  const culpa=elegirFrase(CULPABLES,S.hoy+"culpa");
+  const pedido=elegirFrase(["Pedimos disculpas, de corazón y con la mano en el termo.","Le erramos, lo reconocemos. Pero escuchen nuestra versión.","Mea culpa. Bueno, más o menos."],S.hoy+"perdon");
+  box.innerHTML=`<h2 class="rotulo">🙏 Mea culpa de Yerba Mala</h2><p class="perdon">${esc(pedido)} ${esc(motivos.slice(0,2).join(" y ").replace(/^./,c=>c.toUpperCase()))}.</p>
+    <p class="excusa">Igual, la culpa no es nuestra: es de ${esc(culpa)}. 🧉</p>`;
   box.hidden=false;
 }
 
@@ -1419,7 +1504,7 @@ let corriendo=false;
 async function actualizar(){
   if(corriendo)return;corriendo=true;
   $("btnAct").disabled=true;document.body.classList.add("cargando");
-  try{S=await armar();const an=+S.hoy.slice(0,4);await Promise.all([cargarFeriados(an),cargarFeriados(an+1)]);renderTodo();renderEvento();}
+  try{S=await armar();const an=+S.hoy.slice(0,4);await Promise.all([cargarFeriados(an),cargarFeriados(an+1)]);renderTodo();renderEvento();renderCuenta();renderMeaCulpa();}
   catch(e){console.error(e);$("condAhora").textContent="Se volcó el mate: "+e.message;}
   finally{corriendo=false;$("btnAct").disabled=false;document.body.classList.remove("cargando");pintarAjustes();pintarLugaresSrv();}
 }

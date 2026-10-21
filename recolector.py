@@ -342,6 +342,63 @@ MAX_METEORED_TOTAL = 45      # el plan gratis da 50 por día
 LLAMADAS = {"meteored": 0}
 
 
+# ---------------------------------------------------------------- feriados (Ministerio del Interior)
+MESES_N = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
+           "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12}
+
+
+def feriados_oficiales(anio):
+    """Lee los feriados de argentina.gob.ar. La página los carga con JavaScript, así que se buscan en el código."""
+    urls = [f"https://www.argentina.gob.ar/interior/feriados-nacionales-{anio}", "https://www.argentina.gob.ar/feriados"]
+    for url in urls:
+        try:
+            html = http(url, {"User-Agent": "Mozilla/5.0", "Accept": "text/html"}, binario=True, timeout=40).decode("utf-8", "replace")
+        except Exception:
+            continue
+        lista = []
+        # 1) arreglo en el código: holidays2026 = [ {...}, ... ]
+        m = re.search(r"holidays\s*%s\s*=\s*(\[.*?\])\s*;" % anio, html, re.S) or re.search(r"(\[\s*\{[^\]]*?[\"']date[\"']\s*:.*?\])\s*;", html, re.S)
+        if m:
+            bruto = m.group(1)
+            for o in re.finditer(r"\{([^{}]*)\}", bruto):
+                cuerpo = o.group(1)
+                f = re.search(r"[\"']?date[\"']?\s*:\s*[\"'](\d{1,2})/(\d{1,2})(?:/(\d{4}))?[\"']", cuerpo)
+                n = re.search(r"[\"']?(?:label|name|nombre)[\"']?\s*:\s*[\"']([^\"']+)[\"']", cuerpo)
+                t = re.search(r"[\"']?type[\"']?\s*:\s*[\"']([^\"']+)[\"']", cuerpo)
+                if f and n:
+                    d, mth = int(f.group(1)), int(f.group(2))
+                    lista.append([f"{anio}-{mth:02d}-{d:02d}", n.group(1).strip(), t.group(1) if t else ""])
+        # 2) texto del estilo "24 de marzo: Día de la Memoria"
+        if not lista:
+            for d, mes, nombre in re.findall(r"(\d{1,2}) de (%s)[^<:]*?[:\-–]\s*([^<\n]{4,90})" % "|".join(MESES_N), html, re.I):
+                lista.append([f"{anio}-{MESES_N[mes.lower()]:02d}-{int(d):02d}", nombre.strip(), ""])
+        if len(lista) >= 10:
+            vistos, out = set(), []
+            for f, n, t in sorted(lista):
+                if (f, n) not in vistos:
+                    vistos.add((f, n))
+                    out.append([f, n, t])
+            return out, "Ministerio del Interior (argentina.gob.ar)"
+        guardar_debug(f"feriados_{anio}.html", html[:60000])
+    # respaldo: ArgentinaDatos, que publica los mismos datos oficiales
+    j = http(f"https://api.argentinadatos.com/v1/feriados/{anio}")
+    return [[f["fecha"], f["nombre"], f.get("tipo", "")] for f in j], "ArgentinaDatos (respaldo)"
+
+
+def actualizar_feriados(hoy):
+    ruta = os.path.join(RAIZ, "datos", "feriados.json")
+    previo = leer_json(ruta, {})
+    salida = {"actualizado": datetime.now(TZ).isoformat(timespec="minutes"), "anios": previo.get("anios", {}), "errores": {}}
+    for anio in (hoy.year, hoy.year + 1):
+        try:
+            lista, fuente = feriados_oficiales(anio)
+            if lista:
+                salida["anios"][str(anio)] = {"fuente": fuente, "lista": lista}
+        except Exception as e:
+            salida["errores"][str(anio)] = f"{type(e).__name__}: {e}"[:200]
+    guardar_json(ruta, salida)
+
+
 def cargar_lugares():
     """Los lugares salen de lugares.json. Cada uno gasta 1 llamada diaria de Meteored."""
     ruta = os.path.join(RAIZ, "lugares.json")
@@ -405,9 +462,14 @@ def main():
     hoy_s = hoy.isoformat()
     uso = viejo.get("uso_meteored", {})
     LLAMADAS["meteored"] = uso.get("n", 0) if uso.get("fecha") == hoy_s else 0
+    try:
+        global DEBUG_DIR
+        DEBUG_DIR = os.path.join(RAIZ, "datos", "debug")
+        actualizar_feriados(hoy)
+    except Exception as e:
+        print("feriados:", e)
     salida = []
     for lugar in cargar_lugares():
-        global DEBUG_DIR
         DEBUG_DIR = os.path.join(RAIZ, "datos", "debug", re.sub(r"[^a-z0-9]+", "-", lugar["nombre"].lower()).strip("-"))
         d = recolectar_lugar(lugar, previos.get((round(lugar["lat"], 2), round(lugar["lon"], 2))), hoy)
         salida.append(d)
