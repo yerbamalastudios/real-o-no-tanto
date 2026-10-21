@@ -30,7 +30,12 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html,body{overscroll-behavior:none}
+html,body{overscroll-behavior-y:none}
+html{background:var(--cielo-1)}
+.ptr{position:fixed;left:50%;top:calc(-44px + env(safe-area-inset-top,0px));z-index:40;transform:translate(-50%,0);opacity:0;
+  padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font:600 .85rem var(--body);white-space:nowrap;pointer-events:none;transition:opacity .15s}
+.ptr.listo{background:#2f8f5b}
+.ptr.volver{transition:transform .25s ease,opacity .25s ease}
 html,body{min-height:100%}
 body{margin:0;color:var(--txt);font:16px/1.45 var(--body);background:var(--cielo-1);
   background-image:linear-gradient(180deg,var(--cielo-1) 0%,var(--cielo-2) 100%);background-attachment:fixed;
@@ -246,6 +251,7 @@ body.grande .app{zoom:1.18}
 <body>
 <svg class="ym-sprite" aria-hidden="true"><symbol id="ymLogo" viewBox="0 0 120 130"><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="#7a4a24"/><path d="M30 40 Q60 26 92 40 Q104 70 92 98 Q60 128 28 98 Q16 70 30 40Z" fill="none" stroke="#3a2210" stroke-width="3"/><ellipse cx="61" cy="40" rx="31" ry="9" fill="#bb9149"/><ellipse cx="61" cy="40" rx="25" ry="6" fill="#3f9d6c"/><path d="M38 34 Q30 18 44 14 Q46 28 38 34Z M52 30 Q52 12 66 12 Q62 26 52 30Z" fill="#3f9d6c"/><defs><linearGradient id="alpaca" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d949a"/><stop offset=".45" stop-color="#f4f6f7"/><stop offset="1" stop-color="#9aa1a6"/></linearGradient></defs><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="#5f666b" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M68 41 L82 9 Q84.5 3.5 79 2.5" stroke="url(#alpaca)" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M70.5 33 L80.6 10" stroke="#fff" stroke-opacity=".75" stroke-width="1.2" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#d8b04a" stroke-width="5" stroke-linecap="round"/><path d="M74.2 24.2 l5.2 2.3" stroke="#f3dc8a" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="68" cy="41.5" rx="7" ry="2.6" fill="#2f7d52"/><path d="M62 41 q2 -2 4 0 M69 40 q2 -2 4 0" stroke="#5fbf86" stroke-width="1" fill="none"/><path d="M38 64 L54 70 M84 64 L68 70" stroke="#1a0e05" stroke-width="5" stroke-linecap="round"/><circle cx="47" cy="76" r="5" fill="#f2a73b"/><circle cx="75" cy="76" r="5" fill="#f2a73b"/><path d="M46 96 Q61 88 76 96" stroke="#1a0e05" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M28 98 Q60 120 92 98" stroke="#bb9149" stroke-width="5" fill="none"/></symbol></svg>
 <div id="cieloFondo"></div>
+<div class="ptr" id="ptr" aria-hidden="true">Tirá para actualizar</div>
 <div class="app">
   <div class="barra">
     <div class="marca"><svg aria-hidden="true"><use href="#ymLogo"/></svg><span><span class="y">Yerba</span> <span class="m">Mala</span> presenta</span></div>
@@ -1575,6 +1581,23 @@ $("aBorrar").addEventListener("click",()=>{
 function letra(on){document.body.classList.toggle("grande",on);$("btnGrande").setAttribute("aria-pressed",on);$("btnGrande").classList.toggle("on",on);LS.set("pp_grande",on);}
 $("btnGrande").addEventListener("click",()=>letra(!document.body.classList.contains("grande")));
 letra(LS.get("pp_grande",false));
+// "Tirá para actualizar" propio: la página no se estira, se mueve solo el cartel
+(function(){
+  const ind=$("ptr");let y0=null,d=0;
+  addEventListener("touchstart",e=>{if(scrollY<=0&&e.touches.length===1){y0=e.touches[0].clientY;d=0;ind.classList.remove("volver");}},{passive:true});
+  addEventListener("touchmove",e=>{
+    if(y0==null)return;const dy=e.touches[0].clientY-y0;
+    if(dy<=0||scrollY>0){d=0;ind.style.opacity=0;return;}
+    d=Math.min(dy*.55,110);
+    ind.style.transform=`translate(-50%,${d}px)`;ind.style.opacity=Math.min(1,d/50);
+    const listo=d>=70;ind.classList.toggle("listo",listo);ind.textContent=listo?"Soltá para cebar de nuevo 🧉":"Tirá para actualizar";
+  },{passive:true});
+  addEventListener("touchend",()=>{
+    if(y0==null)return;const listo=d>=70;y0=null;
+    ind.classList.add("volver");ind.style.transform="translate(-50%,0)";ind.style.opacity=0;
+    if(listo){window.scrollTo({top:0});actualizar();}
+  });
+})();
 // instalable: service worker y botón "Instalar" cuando el navegador lo permite
 if("serviceWorker" in navigator&&/^https:|^http:\/\/localhost/.test(location.href))navigator.serviceWorker.register("sw.js").catch(()=>{});
 let pedidoInstalar=null;
