@@ -211,6 +211,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .efe li{display:flex;gap:12px;align-items:baseline}
 .efe .anio{font:700 1.15rem var(--display);color:#8fe3b4;min-width:3.2em;font-variant-numeric:tabular-nums}
 .efe .txt{min-width:0}
+.efe .edad{display:block;font-size:.8rem;color:#ffd7a8;margin-top:1px}
+#efeMas{margin-top:10px}
+.efe li.grupo{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--borde);font:700 .78rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--txt-2)}
+.efe li.grupo span{font-weight:500}
+.btn.mas{margin-top:10px;width:100%}
+.diade{padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.16);margin-top:8px}
+.diade b{display:block;font-size:1.1rem}
+.diade span{display:block;font-size:.92rem;color:var(--txt-2);margin-top:2px;line-height:1.4}
 .santo{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--borde)}
 .santo b{color:#ffc56b}
 
@@ -352,9 +360,16 @@ body.grande .app{zoom:1.18}
     <p class="chico" id="findeNota"></p>
   </section>
 
+  <section class="vidrio" id="cardDiaDe" hidden>
+    <h2 class="rotulo">🎉 Hoy es el día de…</h2>
+    <div id="diaDe"></div>
+  </section>
+
   <section class="vidrio" id="cardEfe" hidden>
     <h2 class="rotulo">Un día como hoy</h2>
     <ul class="efe" id="efe"></ul>
+    <ul class="efe" id="efeMas" hidden></ul>
+    <button class="btn mas" id="efeBtn" type="button" hidden></button>
     <p class="chico" id="celebra"></p>
     <p class="santo" id="santo"></p>
   </section>
@@ -634,37 +649,78 @@ function parseEfemerides(texto,fecha){
       if(txt==null)txt=limpiarWiki(cuerpo);
       if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});}
     return out;};
-  const ev0=leer("acontecimientos"),nac0=leer("nacimientos");
+  const anioHoy=+fecha.slice(0,4);
+  const ev0=leer("acontecimientos"),nac0=leer("nacimientos"),fal0=leer("fallecimientos");
   // argentino: "argentin..." o un nombre propio del país escrito con mayúscula y como palabra entera
-  const PROPIOS=["Buenos Aires","Río de la Plata","Malvinas","San Martín","Belgrano","Sarmiento","Perón","Yrigoyen","Alfonsín","Rosas","Güemes","Córdoba","Rosario","Mendoza","Tucumán","Salta","La Plata","Patagonia","Maradona","Messi","Boca Juniors","River Plate","Mar del Plata","Santa Fe","Entre Ríos","Corrientes","La Matanza","Ushuaia","Bariloche","Gardel","Borges","Favaloro","Mafalda"];
-  const triste0=/muert|muere|asesin|atentado|masacre|víctimas|derrumba|explosi|bombarde|ejecuta|naufrag|terremoto|accidente|genocid|guerra/i;
-  const ev=ev0.filter(e=>!triste0.test(e.texto)&&e.texto.length<=220),nac=nac0.filter(e=>e.texto.length<=160);
+  const PROPIOS=["Buenos Aires","Río de la Plata","Malvinas","San Martín","Belgrano","Sarmiento","Perón","Yrigoyen","Alfonsín","Rosas","Güemes","Córdoba","Rosario","Mendoza","Tucumán","Salta","La Plata","Patagonia","Maradona","Messi","Boca Juniors","River Plate","Mar del Plata","Santa Fe","Entre Ríos","Corrientes","La Matanza","Ushuaia","Bariloche","Gardel","Borges","Favaloro","Mafalda","Racing Club","Independiente","San Lorenzo","Huracán","Vélez","Estudiantes de La Plata","AFA"];
   const esAR=e=>/argentin/i.test(e.texto)||PROPIOS.some(n=>new RegExp("(^|[^\\p{L}])"+n+"($|[^\\p{L}])","u").test(e.texto));
-  const esInvento=e=>/invent|patent|primer[oa]? (vuelo|transmisi|emisi|película|computadora|satélite|llamada|vacuna|radio|televis)|se estrena|lanzamiento|se presenta (el|la) primer/i.test(e.texto);
-  const triste=/muert|muere|asesin|atentado|masacre|víctimas|derrumba|explosi|bombarde|ejecuta|naufrag|terremoto|accidente|genocid|guerra/i;
-  const ok=e=>!triste.test(e.texto)&&e.texto.length<=220;
+    const feo=/atentado|masacre|asesin|víctimas|derrumb|explosi|bombarde|genocid|terremoto|naufrag|accidente|ejecuta|incendi|matanza|fusila|tortur/i;
+  const ciencia=/invent|patent|científic|vacuna|penicilina|satélite|nave espacial|astronaut|Apolo|Sputnik|telescopio|NASA|cohete|ADN|átomo|nuclear|electricidad|lámpara|teléfono|telégrafo|Internet|computadora|ordenador|microscopio|rayos X|teoría de|fórmula|elemento químico|premio Nobel de (física|química|medicina)|primer[oa]? (vuelo|transmisi|emisi|película|llamada|trasplante|radio|televis)|descubr(e|ió|en|imiento)\s+(la|el|los|las|un|una)?\s*(vacuna|bacteria|virus|planeta|cometa|elemento|partícula|estrella|galaxia|luna|satélite|ley|fórmula|penicilina|insulina)/i;
+  const pesoAR=e=>(/se funda|fundaci|se inaugura|se crea|independencia|revoluci|cabildo|congreso|constituci|ley |sanciona|asume|presidente|elecci|campeón|mundial|copa|primer|estren|record|récord|patria|bandera|himno|Malvinas|San Martín|Belgrano/i.test(e.texto)?2:0)+(e.texto.length<170?1:0);
+  const ev=ev0;
+  const evAR=ev.filter(esAR).sort((x,y)=>pesoAR(y)-pesoAR(x));
+  const evCi=ev.filter(e=>!esAR(e)&&ciencia.test(e.texto));
+  const evMu=ev.filter(e=>!esAR(e)&&!ciencia.test(e.texto));
   const sem=parseInt(fecha.replace(/-/g,""));
-  const tomar=(lista,n,ya)=>{const out=[];const L=lista.length,paso=L>1?[7,5,3,1].find(p=>L%p!==0)||1:1;for(let i=0;i<L&&out.length<n;i++){const e=lista[(sem+i*paso)%L];if(e&&!ya.includes(e)&&!out.includes(e))out.push(e);}return out;};
-  const ya=[];
-  const ar=ev.filter(esAR);ya.push(...ar.slice(0,3).map(e=>({...e,tipo:"ar"})));
-  const inv=ev.filter(e=>esInvento(e)&&!esAR(e));ya.push(...tomar(inv,2,ya).map(e=>({...e,tipo:"invento"})));
-  const resto=ev.filter(e=>!esAR(e)&&!esInvento(e));ya.push(...tomar(resto,Math.max(1,6-ya.length),ya).map(e=>({...e,tipo:"mundo"})));
-  const nacAR=nac.filter(esAR).slice(0,2).map(e=>({...e,tipo:"nace",texto:"Nace "+e.texto}));
+  const tomar=(lista,n)=>{const out=[];const L=lista.length,paso=L>1?[7,5,3,1].find(p=>L%p!==0)||1:1;for(let i=0;i<L&&out.length<n;i++){const e=lista[(sem+i*paso)%L];if(e&&!out.includes(e))out.push(e);}return out;};
+  // Ciencia: hasta 2, o 3 si hay algo muy grosso
+  const grosso=/Luna|penicilina|vacuna|Internet|ADN|primer vuelo|teléfono|lámpara|Sputnik|rayos X|teoría de la relatividad/i;
+  const ci=[...evCi.filter(e=>grosso.test(e.texto)),...tomar(evCi.filter(e=>!grosso.test(e.texto)),3)].slice(0,evCi.filter(e=>grosso.test(e.texto)).length>=3?3:2);
+  // Personas: "Nombre, ocupación (f. 1896)." -> edad
+  const persona=(e,muerte)=>{
+    const m=e.texto.match(/\((?:f|n)\.\s*(?:en\s*)?(\d{1,4})(\s*a\.\s*C\.)?\)\s*\.?\s*$/);const otro=m&&!m[2]?+m[1]:null;
+    const nom=e.texto.replace(/\s*\((?:f|n)\.[^)]*\)\s*\.?\s*$/,"").replace(/\.\s*$/,"");
+    const a=parseInt(e.anio);if(/a\. C\./.test(e.anio))return{...e,nom,edad:null};
+    let edad;
+    if(!muerte){
+      if(otro)edad=`Hoy tendría ${anioHoy-a} años`;
+      else if(anioHoy-a<=105)edad=`Hoy cumple ${anioHoy-a} años`;
+      else edad=`Hoy tendría ${anioHoy-a} años`;
+    }else edad=otro?`Tenía ${a-otro} años`+(anioHoy-otro<=125?`; hoy tendría ${anioHoy-otro}`:""):null;
+    return{...e,nom,edad};
+  };
+  const prof=/presidente|premio Nobel|físic|químic|matemátic|inventor|científic|astrónom|compositor|pintor|escultor|escritor|poeta|filósof|dramaturgo|cineasta|director de cine|actor|actriz|cantante|músico|guitarrista|futbolista|deportista|tenista|boxeador|piloto|arquitect|médic|rey |reina |emperador|papa |explorador|navegante|astronauta|revolucionari|líder|militar/i;
+  const fama=/premio Nobel|presidente|rey |reina |emperador|papa |compositor|físic|inventor|pintor|astronauta/i;
+  const ptos=e=>(prof.test(e.texto)?2:0)+(fama.test(e.texto)?2:0)+(/\(f\./.test(e.texto)?0:1);
+  const nac=nac0.filter(e=>e.texto.length<=200&&/,/.test(e.texto)),fal=fal0.filter(e=>e.texto.length<=200&&/,/.test(e.texto));
+  const nacAR=nac.filter(esAR),falAR=fal.filter(esAR);
+  const nacMu=nac.filter(e=>!esAR(e)&&prof.test(e.texto)).sort((x,y)=>ptos(y)-ptos(x)),falMu=fal.filter(e=>!esAR(e)&&prof.test(e.texto)).sort((x,y)=>ptos(y)-ptos(x));
+  const top=(l,n)=>tomar(l.slice(0,Math.max(n,4)),n);
+  // Límite por tema, más hasta 2 extra solo si son muy relevantes
+  const elegir=(lista,base,rel)=>{const r=lista.filter(rel),n=lista.filter(e=>!rel(e));
+    const out=[...r,...tomar(n,base)].slice(0,base);
+    for(const e of r)if(!out.includes(e)&&out.length<base+2)out.push(e);return out;};
+  const relMundo=e=>/guerra mundial|revoluci|independencia|tratado|imperio|papa |presidente|rey |reina |Naciones Unidas|ONU|se funda|constituci|muro de Berl|Hitler|Napole|Lincoln|Kennedy|Mandela|Gandhi|Juegos Olímpicos|Copa Mundial|terremoto|atentado|batalla de/i.test(e.texto);
+  const relAR=e=>pesoAR(e)>=2;
+  const famoso=e=>fama.test(e.texto);
+  const eventos=[
+    ...elegir(evAR,6,relAR).map(e=>({...e,tipo:"ar"})),
+    ...elegir(evMu,5,relMundo).map(e=>({...e,tipo:"mundo"})),
+    ...elegir(evCi,2,e=>grosso.test(e.texto)).map(e=>({...e,tipo:"ciencia"})),
+    ...[...elegir(nacAR,3,e=>prof.test(e.texto)),...elegir(nacMu,3,famoso)].map(e=>({...persona(e,false),tipo:"nace",ar:esAR(e)})),
+    ...[...elegir(falAR,2,e=>prof.test(e.texto)),...elegir(falMu,2,famoso)].map(e=>({...persona(e,true),tipo:"muere",ar:esAR(e)}))
+  ];
+  // Importancia, para mostrar primero las 6 que más pesan
+  for(const e of eventos)e.imp=e.tipo==="ar"?6+pesoAR(e):e.tipo==="ciencia"?(grosso.test(e.texto)?6:3):e.tipo==="mundo"?(e.texto.length<170?2:1):
+    (e.ar?5:0)+(fama.test(e.texto)?3:prof.test(e.texto)?1:0)+(e.tipo==="nace"?1:0);
+  eventos.forEach((e,i)=>e.sem=(sem%997+i*37)%101);
+  const nAC=x=>parseInt(x.anio)*(/a\. C\./.test(x.anio)?-1:1);
+  eventos.sort((x,y)=>nAC(x)-nAC(y));
   let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
   santos=santos.filter(Boolean);
   const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
-  const eventos=[...ya.slice(0,6),...nacAR.slice(0,1)].sort((a,b)=>{const n=x=>parseInt(x.anio)*(/a\. C\./.test(x.anio)?-1:1);return n(a)-n(b);});
   return {fecha,eventos,santo:santos[0]||null,otros_santos:santos.slice(1,4),
-    celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3)};
+    celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3),
+    diasDe:cel.map(c=>c.replace(/^[^:]{2,40}:\s*/,"")).filter(c=>/^\s*d[íi]a (del?|de la|de los|de las|internacional|mundial|nacional)\b/i.test(c)).map(c=>c.replace(/\s*\(.*$/,"").trim()).slice(0,8)};
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe4",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe8",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
   const r=parseEfemerides(txt,hoy);
-  LS.set("pp_c_efe4",r);
+  LS.set("pp_c_efe8",r);
   return r;
 }
 
@@ -1406,6 +1462,7 @@ function renderTodo(){
   renderExtras(dias);
   try{renderSol();}catch(e){console.warn(e);$("cardSol").hidden=true;}
   try{renderAire();}catch(e){console.warn(e);$("cardAire").hidden=true;}
+  try{renderDiaDe();}catch(e){console.warn(e);$("cardDiaDe").hidden=true;}
   renderTablas();
   $("avisos").innerHTML=Object.keys(S.errores||{}).length?"<b>No se pudo consultar:</b> "+Object.entries(S.errores).map(([k,v])=>esc(k)+" ("+esc(v).slice(0,200)+")").join("; "):"";
 }
@@ -1490,6 +1547,69 @@ function veredictoFinde(fd){
   return"Lindo para una vuelta por la plaza con el mate. Llevá un buzo por las dudas.";
 }
 
+
+// ---------- "Hoy es el día de…" (Argentina) con saludo yerbamalero
+const DIAS_DE={
+ "04-13":[["Día del Kinesiólogo","Saludá a quien te devolvió la espalda a su lugar. Y hacé los ejercicios, que te los mandó por algo."]],
+ "04-27":[["Día Mundial del Diseño","Un abrazo a los diseñadores: hoy nadie les pide «agrandá el logo»."]],
+ "05-01":[["Día del Trabajador","Feriado para descansar de lo que hacés los otros 364 días. Salud a los laburantes."]],
+ "05-03":[["Día de la Milanesa","Napolitana, a caballo o simple: hoy no se discute, se festeja."]],
+ "05-07":[["Día de la Minería","Saludo a los que bajan a la mina para que vos tengas el celu."]],
+ "05-14":[["Día del Futbolista Argentino","Saludá a ese amigo que jura que «si se cuidaba llegaba a Primera»."]],
+ "06-02":[["Día del Bombero Voluntario","Gente que corre hacia donde todos se escapan. Saludo y aplausos."]],
+ "06-06":[["Día del Ingeniero","¿Conocés algún ingeniero? Mandale un saludo, seguro te lo explica con una servilleta y un cálculo."]],
+ "06-07":[["Día del Periodista","Saludá a los periodistas. Total, si no lo hacés, igual se enteran."]],
+ "06-13":[["Día del Escritor","Saludá a ese amigo que tiene una novela «casi terminada» desde 2009."]],
+ "06-15":[["Día del Libro","Ese que tenés de posavasos también cuenta. Dale una chance."],["Día del Bioquímico","Saludos a los que leen los análisis y no se ríen de tu colesterol."]],
+ "06-27":[["Día del Trabajador del Estado","Saludo a los estatales. Sí, hoy tampoco atienden: es su día."]],
+ "08-03":[["Día del Locutor","Saludá a esa voz que te despierta todas las mañanas con el tránsito y la temperatura."]],
+ "08-04":[["Día del Panadero","Medialunas, bolas de fraile y suspiros: hoy se agradece con la boca llena."]],
+ "08-06":[["Día del Veterinario","Saludá al que atiende a tu perro mejor de lo que te atendés vos."]],
+ "08-11":[["Día del Nutricionista","Saludalo. Pero escondé la factura antes."]],
+ "08-22":[["Día del Folklore","Hoy se zapatea, aunque sea en la cocina."]],
+ "08-25":[["Día del Peluquero","¿Conocés algún peluquero? Saludalo, que es el psicólogo más barato del barrio."]],
+ "08-26":[["Día del Actor","Saludá a los actores. Y a ese tío que actúa de sobrio en las fiestas."]],
+ "08-27":[["Día de la Radiodifusión","Saludo a la radio, que sigue ahí aunque todos digan que ya fue."]],
+ "08-29":[["Día del Abogado","¿Conocés algún abogado? Saludalo, por las dudas. Nunca se sabe."],["Día del Árbol","Si no podés plantar uno, por lo menos no le cuelgues bolsitas."]],
+ "08-30":[["Día del Ferroviario","Saludo a los del tren. Que llegue a horario es casi un milagro: banquemos."]],
+ "09-04":[["Día de la Secretaria","Saludá a quien de verdad maneja la oficina. Vos sabés quién es."],["Día del Inmigrante","Media Argentina tiene un abuelo que bajó de un barco. Saludo a todos."]],
+ "09-13":[["Día del Bibliotecario","Saludá a quien te encuentra el libro antes que Google."]],
+ "09-14":[["Día del Cartero","Saludo a los carteros, que ahora traen más paquetes de compras online que cartas de amor."]],
+ "09-17":[["Día del Profesor","Saludá a ese profe que te aprobó con un 4 de pura bondad."]],
+ "09-21":[["Día de la Sanidad","Saludo a los trabajadores de la salud, que te atienden aunque llegues a las 3 de la mañana por un raspón."]],
+ "09-26":[["Día del Empleado de Comercio","Saludá al que te atiende con paciencia mientras preguntás «¿y en otro color?»."]],
+ "10-02":[["Día del Escribano","Saludá al escribano. Firmá acá, acá y acá."]],
+ "10-03":[["Día del Odontólogo","Saludalo con una sonrisa. Si te da vergüenza la sonrisa, sacá turno."]],
+ "10-08":[["Día del Trabajador Rural","Sin ellos no hay asado. Saludo enorme al campo."]],
+ "10-11":[["Día del Dulce de Leche","Cucharita directo del pote. Hoy está permitido."]],
+ "10-12":[["Día del Farmacéutico","Saludá a quien entiende la letra del médico. Héroes."]],
+ "10-13":[["Día del Psicólogo","¿Conocés algún psicólogo? Saludalo. ¿Y vos qué sentís al respecto?"]],
+ "11-06":[["Día del Bancario","Saludá a los bancarios. Sacá número, eso sí."]],
+ "11-07":[["Día del Canillita","Saludo a los canillitas, que madrugan más que el sol."]],
+ "11-21":[["Día de la Enfermería","Saludá a enfermeros y enfermeras: hacen el trabajo pesado y encima con buena onda."]],
+ "11-22":[["Día de la Música","Hoy ponele play a lo que te guste, aunque el vecino opine distinto."]],
+ "11-24":[["Día del Vino Argentino","Bebida nacional. Brindá con moderación, que mañana se labura."]],
+ "12-03":[["Día del Médico","Saludá a tu médico. Y no le digas «busqué en internet y dice que…»."]],
+ "12-11":[["Día del Tango","Hoy suena Gardel, que cada día canta mejor."]],
+ "12-15":[["Día del Camionero","Saludo a los camioneros, que mueven el país mientras nosotros dormimos."]]
+};
+function diasDeHoy(fechaISO){
+  const k=fechaISO.slice(5),out=[...(DIAS_DE[k]||[])];
+  const d=new Date(fechaISO+"T12:00:00"),n=Math.round((d-new Date(d.getFullYear(),0,0))/864e5);
+  if(n===256)out.push(["Día del Programador","Saludá a ese amigo que «arregla computadoras». No le pidas que te arregle la impresora."]);
+  return out;
+}
+function renderDiaDe(){
+  const hoy=S.hoy,lista=diasDeHoy(hoy),ya=new Set(lista.map(x=>x[0].toLowerCase()));
+  for(const c of(S.efemerides&&S.efemerides.diasDe)||[]){const n=c.replace(/\.$/,"");if(!ya.has(n.toLowerCase())&&lista.length<4){lista.push([n,/mundial|internacional/i.test(n)?"Fecha internacional. Si te sirve de excusa para algo, usala con confianza.":"Si conocés a alguien a quien le toque, mandale un saludo. Queda bien y es gratis."]);ya.add(n.toLowerCase());}}
+  let html=lista.map(([n,t])=>`<div class="diade"><b>${esc(n)}</b><span>${esc(t)}</span></div>`).join("");
+  if(!lista.length){
+    let prox=null;for(let i=1;i<=60&&!prox;i++){const f=ymd(new Date(new Date(hoy+"T12:00:00").getTime()+i*864e5)),l=diasDeHoy(f);if(l.length)prox=[f,l,i];}
+    html=`<p>Hoy no es el día de nadie en particular. O sea, es el tuyo: aprovechalo.</p>`+
+      (prox?`<p class="chico">Se viene: <b>${esc(prox[1].map(x=>x[0]).join(" y "))}</b>, ${prox[2]===1?"mañana":"en "+prox[2]+" días"}. Andá agendando el saludo.</p>`:"");
+  }
+  $("diaDe").innerHTML=html;$("cardDiaDe").hidden=false;
+}
 // ---------- sol: primera luz, salida, mediodía, puesta, última luz
 const minDe=t=>{const m=String(t).match(/T(\d\d):(\d\d)/);return m?+m[1]*60+ +m[2]:null;};
 const hDe=m=>{m=Math.round(m);return String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");};
@@ -1579,9 +1699,22 @@ function renderExtras(dias){
   const e=S.efemerides;
   $("cardEfe").hidden=!e||(!(e.eventos||[]).length&&!e.santo);
   if(!e)return;
-  const marca={ar:"🇦🇷",invento:"💡",nace:"🎂",mundo:"🌎"};
-  $("efe").innerHTML=(e.eventos||[]).map(x=>`<li><span class="anio">${esc(x.anio)}</span><span class="txt">${marca[x.tipo]?marca[x.tipo]+" ":""}${esc(x.texto)}</span></li>`).join("");
-  $("celebra").textContent=(e.celebraciones||[]).length?"Hoy se celebra: "+e.celebraciones.join(" · "):"";
+  const marca={ar:"🇦🇷",invento:"💡",ciencia:"💡",nace:"🎂",muere:"🕯️",mundo:"🌎"};
+  const li=x=>{const pre=x.tipo==="nace"?"Nace ":x.tipo==="muere"?"Se nos va ":"";
+    const flag=(x.tipo==="nace"||x.tipo==="muere")&&x.ar?" 🇦🇷":"";
+    return`<li><span class="anio">${esc(x.anio)}</span><span class="txt">${marca[x.tipo]||""} ${esc(pre+(x.nom||x.texto))}${flag}${x.edad?`<span class="edad">${esc(x.edad)}.</span>`:""}</span></li>`;};
+  const todos=e.eventos||[],orden=[...todos].sort((a,b)=>(b.imp||0)-(a.imp||0)||(a.sem||0)-(b.sem||0));
+  // Las 6 que más pesan (variando un poco según el día); el resto, ordenado por tema
+  const top=new Set(orden.slice(0,6)),resto=todos.filter(x=>!top.has(x));
+  $("efe").innerHTML=todos.filter(x=>top.has(x)).map(li).join("");
+  const GR=[["ar","🇦🇷 En la Argentina"],["mundo","🌎 En el mundo"],["ciencia","💡 Inventos y ciencia"],["nace","🎂 Nacimientos"],["muere","🕯️ Fallecimientos"]];
+  $("efeMas").innerHTML=GR.map(([t,n])=>{const l=resto.filter(x=>x.tipo===t||(t==="ciencia"&&x.tipo==="invento"));
+    if(t==="nace"||t==="muere")l.sort((a,b)=>(b.ar?1:0)-(a.ar?1:0));
+    return l.length?`<li class="grupo">${n} <span>(${l.length})</span></li>`+l.map(li).join(""):"";}).join("");
+  $("efeMas").hidden=true;
+  const bt=$("efeBtn");bt.hidden=!resto.length;const tx=`Ver todo: ${resto.length} más ▾`;bt.textContent=tx;
+  bt.onclick=()=>{const ab=$("efeMas").hidden;$("efeMas").hidden=!ab;bt.textContent=ab?"Ver menos ▴":tx;if(!ab)$("cardEfe").scrollIntoView({block:"start",behavior:"smooth"});};
+  $("celebra").textContent="";
   if(e.santo){
     const m=e.santo.match(/\b(san|santa|santo|beato|beata)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)/i);
     const nombre=m?m[2]:null,fem=m&&/^(santa|beata)$/i.test(m[1]);
