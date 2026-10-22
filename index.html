@@ -622,8 +622,16 @@ function parseEfemerides(texto,fecha){
   const leer=nombre=>{const out=[];let anio=null;const s0=Object.entries(sec).find(([k])=>k.startsWith(nombre));
     for(const l of s0?s0[1]:[]){
       if(!l.startsWith("*"))continue;
-      const m=l.match(/^\*+\s*(?:\[\[)?(\d{1,4})(?:\]\])?(\s*a\.\s*C\.)?\s*[:—–-]?\s*(.*)$/);
-      let txt;if(m&&!l.startsWith("**")){anio=m[1]+(m[2]?" a. C.":"");txt=limpiarWiki(m[3]);}else txt=limpiarWiki(l.replace(/^\*+/,""));
+      // El año viene de muchas formas: [[1921]], [[1921 (año)|1921]], [[Años 1920|1921]], {{plantilla}} 1921, 1921&nbsp;:...
+      const cuerpo=l.replace(/^\*+\s*/,"");let txt=null;
+      if(!l.startsWith("**")){
+        const corte=cuerpo.slice(0,120).search(/\s*(?::|&nbsp;:|\s[—–-]\s|[—–])\s*/);
+        if(corte>0){const pre=limpiarWiki(cuerpo.slice(0,corte)),ma=pre.match(/^(?:c\.\s*|hacia\s+)?(\d{1,4})(\s*a\.\s*C\.)?$/i);
+          if(ma){anio=ma[1]+(ma[2]?" a. C.":"");txt=limpiarWiki(cuerpo.slice(corte).replace(/^\s*(?:&nbsp;)?\s*[:—–-]\s*/,""));}}
+        if(txt==null){const ma=limpiarWiki(cuerpo).match(/^(\d{1,4})(\s*a\.\s*C\.)?\s*[:.,—–-]?\s+(.*)$/);
+          if(ma){anio=ma[1]+(ma[2]?" a. C.":"");txt=ma[3];}}
+      }
+      if(txt==null)txt=limpiarWiki(cuerpo);
       if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});}
     return out;};
   const ev0=leer("acontecimientos"),nac0=leer("nacimientos");
@@ -636,7 +644,7 @@ function parseEfemerides(texto,fecha){
   const triste=/muert|muere|asesin|atentado|masacre|víctimas|derrumba|explosi|bombarde|ejecuta|naufrag|terremoto|accidente|genocid|guerra/i;
   const ok=e=>!triste.test(e.texto)&&e.texto.length<=220;
   const sem=parseInt(fecha.replace(/-/g,""));
-  const tomar=(lista,n,ya)=>{const out=[];for(let i=0;i<lista.length*2&&out.length<n;i++){const e=lista[(sem*(i+3)+i)%lista.length];if(e&&!ya.includes(e)&&!out.includes(e))out.push(e);}return out;};
+  const tomar=(lista,n,ya)=>{const out=[];const L=lista.length,paso=L>1?[7,5,3,1].find(p=>L%p!==0)||1:1;for(let i=0;i<L&&out.length<n;i++){const e=lista[(sem+i*paso)%L];if(e&&!ya.includes(e)&&!out.includes(e))out.push(e);}return out;};
   const ya=[];
   const ar=ev.filter(esAR);ya.push(...ar.slice(0,3).map(e=>({...e,tipo:"ar"})));
   const inv=ev.filter(e=>esInvento(e)&&!esAR(e));ya.push(...tomar(inv,2,ya).map(e=>({...e,tipo:"invento"})));
@@ -645,18 +653,18 @@ function parseEfemerides(texto,fecha){
   let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
   santos=santos.filter(Boolean);
   const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
-  const eventos=[...ya.slice(0,5),...nacAR.slice(0,1)].sort((a,b)=>parseInt(a.anio)-parseInt(b.anio));
+  const eventos=[...ya.slice(0,6),...nacAR.slice(0,1)].sort((a,b)=>{const n=x=>parseInt(x.anio)*(/a\. C\./.test(x.anio)?-1:1);return n(a)-n(b);});
   return {fecha,eventos,santo:santos[0]||null,otros_santos:santos.slice(1,4),
     celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3)};
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe3",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe4",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
   const r=parseEfemerides(txt,hoy);
-  LS.set("pp_c_efe3",r);
+  LS.set("pp_c_efe4",r);
   return r;
 }
 
