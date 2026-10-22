@@ -1,64 +1,31 @@
 {
  "ok": true,
- "expiracion": 1792594080000,
+ "expiracion": 1792680420000,
  "data": {
   "hash": "29b57c65fb29097950bd31084e562e18",
   "name": "Moron",
   "url": "https://www.tiempo.com/moron.htm",
   "days": [
    {
-    "start": 1792551600000,
+    "start": 1792638000000,
     "symbol": 12,
     "temperature": {
-     "min": 12.71,
-     "max": 21.34
+     "min": 14.39,
+     "max": 22.81
     },
     "wind": {
      "speed": 17,
-     "gust": 43,
+     "gust": 39,
      "direction": "E"
     },
     "precipitation": {
-     "total": 1,
-     "rain": 1,
-     "probability": 60
-    },
-    "humidity": 65,
-    "pressure": 1019,
-    "snowline": 3200,
-    "uv_index_max": 8.6,
-    "sun": {
-     "in": 1792573486000,
-     "mid": 1792597144000,
-     "out": 1792620836000
-    },
-    "moon": {
-     "in": 1792604640000,
-     "out": 1792564023000,
-     "symbol": 18,
-     "illumination": 77.26
-    }
-   },
-   {
-    "start": 1792638000000,
-    "symbol": 34,
-    "temperature": {
-     "min": 13.41,
-     "max": 21.12
-    },
-    "wind": {
-     "speed": 16,
-     "gust": 40,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 6.1,
-     "rain": 6.1,
-     "probability": 80
+     "total": 7.5,
+     "rain": 7.5,
+     "probability": 90
     },
     "humidity": 76,
-    "pressure": 1015,
-    "snowline": 3600,
+    "pressure": 1014,
+    "snowline": 3400,
     "uv_index_max": 9.1,
     "sun": {
      "in": 1792659815000,
@@ -76,20 +43,20 @@
     "start": 1792724400000,
     "symbol": 12,
     "temperature": {
-     "min": 15.13,
-     "max": 22.73
+     "min": 15.99,
+     "max": 22.87
     },
     "wind": {
-     "speed": 13,
-     "gust": 27,
-     "direction": "E"
+     "speed": 12,
+     "gust": 31,
+     "direction": "S"
     },
     "precipitation": {
-     "total": 0.4,
-     "rain": 0.4,
-     "probability": 70
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 60
     },
-    "humidity": 81,
+    "humidity": 84,
     "pressure": 1009,
     "snowline": 3600,
     "uv_index_max": 9,
@@ -109,23 +76,23 @@
     "start": 1792810800000,
     "symbol": 12,
     "temperature": {
-     "min": 12.12,
-     "max": 19.47
+     "min": 12.67,
+     "max": 21.47
     },
     "wind": {
-     "speed": 18,
-     "gust": 43,
+     "speed": 16,
+     "gust": 41,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 0.2,
-     "rain": 0.2,
-     "probability": 80
+     "total": 1.9,
+     "rain": 1.9,
+     "probability": 60
     },
-    "humidity": 74,
-    "pressure": 1016,
-    "snowline": 2800,
-    "uv_index_max": 8.8,
+    "humidity": 77,
+    "pressure": 1015,
+    "snowline": 2600,
+    "uv_index_max": 9.1,
     "sun": {
      "in": 1792832475000,
      "mid": 1792856319000,
@@ -142,23 +109,23 @@
     "start": 1792897200000,
     "symbol": 12,
     "temperature": {
-     "min": 10.79,
-     "max": 17.61
+     "min": 10.22,
+     "max": 18.08
     },
     "wind": {
-     "speed": 13,
-     "gust": 34,
+     "speed": 11,
+     "gust": 29,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 0.5,
-     "rain": 0.5,
+     "total": 1.2,
+     "rain": 1.2,
      "probability": 80
     },
-    "humidity": 71,
-    "pressure": 1022,
-    "snowline": 2400,
-    "uv_index_max": 8.4,
+    "humidity": 75,
+    "pressure": 1021,
+    "snowline": 2200,
+    "uv_index_max": 8.3,
     "sun": {
      "in": 1792918807000,
      "mid": 1792942711000,
@@ -169,6 +136,39 @@
      "out": 1792916183000,
      "symbol": 15,
      "illumination": 99.59
+    }
+   },
+   {
+    "start": 1792983600000,
+    "symbol": 12,
+    "temperature": {
+     "min": 10.97,
+     "max": 19.1
+    },
+    "wind": {
+     "speed": 10,
+     "gust": 28,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0.5,
+     "rain": 0.5,
+     "probability": 40
+    },
+    "humidity": 74,
+    "pressure": 1020,
+    "snowline": 2200,
+    "uv_index_max": 9.8,
+    "sun": {
+     "in": 1793005140000,
+     "mid": 1793029105000,
+     "out": 1793053104000
+    },
+    "moon": {
+     "in": 1793056550000,
+     "out": 1793004596000,
+     "symbol": 14,
+     "illumination": 99.72
     }
    }
   ]
