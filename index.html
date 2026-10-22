@@ -216,10 +216,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .efe li.grupo{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--borde);font:700 .78rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--txt-2)}
 .efe li.grupo span{font-weight:500}
 .btn.mas{margin-top:10px;width:100%}
-.diade{padding:7px 0;line-height:1.35}
-.diade+.diade{border-top:1px solid var(--borde)}
-.diade b{font-size:1rem;color:#ffd27a}
-.diade span{font-size:.88rem;color:var(--txt-2)}
+.diade{display:flex;gap:12px;align-items:flex-start;padding:8px 0;line-height:1.4}
+.diade .ic{flex:0 0 2.6em;height:2.6em;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:rgba(255,210,122,.16)}
+.diade .tx{min-width:0}
+.diade b{display:block;font:700 1.05rem var(--body);color:#ffd27a}
+.diade span{display:block;font-size:.9rem;color:var(--txt-2);margin-top:2px}
 #diaDe p{margin:4px 0 0;font-size:.92rem}
 .santo{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--borde)}
 .santo b{color:#ffc56b}
@@ -270,6 +271,8 @@ footer svg{width:20px;height:22px;flex:none}
 
 /* letra grande */
 body.grande .app{zoom:1.18}
+body.enorme .app{zoom:1.38}
+.ico-btn.on2{background:#ffd27a;color:#1b1b1b}
 
 @media (prefers-reduced-motion:reduce){body,#cieloFondo{transition:none}}
 </style>
@@ -726,13 +729,15 @@ function parseEfemerides(texto,fecha,vistas){
   eventos.sort((x,y)=>nAC(x)-nAC(y));
   let santos=[];for(const[k,v]of Object.entries(sec))if(k.includes("santoral"))santos.push(...v.filter(l=>/^\s*[*#]/.test(l)).map(l=>limpiarWiki(l.replace(/^\s*[*#]+/,""))));
   santos=santos.filter(Boolean);
-  const cel=[];for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))cel.push(...v.filter(l=>l.startsWith("*")).map(l=>limpiarWiki(l.replace(/^\*+/,""))));
+  const cel=[],celV={};for(const[k,v]of Object.entries(sec))if(k.startsWith("celebraciones"))for(const l of v.filter(l=>l.startsWith("*"))){
+    const t=limpiarWiki(l.replace(/^\*+/,""));cel.push(t);celV[t]=Math.max(0,...enlacesWiki(l).filter(x=>!/^(Argentina|Iglesia católica|Organización de las Naciones Unidas|ONU|Naciones Unidas)$/i.test(x)).map(x=>vistas[x]||0));}
   return {fecha,eventos,santo:santos[0]||null,otros_santos:santos.slice(1,4),
     celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3),
-    diasDe:cel.map(c=>c.replace(/^[^:]{2,40}:\s*/,"")).filter(c=>/^\s*d[íi]a (del?|de la|de los|de las|internacional|mundial|nacional)\b/i.test(c)).map(c=>c.replace(/\s*\(.*$/,"").trim()).slice(0,8)};
+    // Solo los "Día de…" que la gente busca de verdad (sin datos de visitas, ninguno)
+    diasDe:cel.filter(c=>(celV[c]||0)>=3000).map(c=>c.replace(/^[^:]{2,40}:\s*/,"")).filter(c=>/^\s*d[íi]a (del?|de la|de los|de las|internacional|mundial|nacional)\b/i.test(c)).map(c=>c.replace(/\s*\(.*$/,"").trim()).slice(0,8)};
 }
 async function vistasWiki(txt){
-  const secs=txt.split(/\n(?==+)/).filter(b=>/^=+\s*(acontecimientos|nacimientos|fallecimientos)/i.test(b));
+  const secs=txt.split(/\n(?==+)/).filter(b=>/^=+\s*(acontecimientos|nacimientos|fallecimientos|celebraciones)/i.test(b));
   const titulos=[...new Set(secs.flatMap(b=>b.split("\n").filter(l=>l.startsWith("*")).flatMap(enlacesWiki)))];
   const vistas={},lotes=[];for(let i=0;i<titulos.length;i+=50)lotes.push(titulos.slice(i,i+50));
   await Promise.all(lotes.map(async lote=>{
@@ -753,7 +758,7 @@ async function vistasWiki(txt){
   return vistas;
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe10",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe11",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
@@ -764,7 +769,7 @@ async function efemerides(hoy){
     vistas=await vistasWiki(txt);
   }catch(e){console.warn("visitas wikipedia",e);vistas={};}
   const r=parseEfemerides(txt,hoy,vistas);
-  LS.set("pp_c_efe10",r);
+  LS.set("pp_c_efe11",r);
   return r;
 }
 
@@ -1594,13 +1599,30 @@ function veredictoFinde(fd){
 
 // ---------- "Hoy es el día de…" (Argentina) con saludo yerbamalero
 const DIAS_DE={
- "04-13":[["Día del Kinesiólogo","Saludá a quien te devolvió la espalda a su lugar. Y hacé los ejercicios, que te los mandó por algo."]],
+ "11-19":[["Día Internacional del Hombre", "Sí, existe. Saludá a ese amigo que nunca se pone protector solar."]],
+ "10-01":[["Día Internacional del Café", "Hoy el mate presta el lugar un rato. Un rato nomás."]],
+ "08-08":[["Día Internacional del Gato", "Saludá a tu gato. Te va a ignorar igual, como siempre."]],
+ "08-01":[["Día de la Pachamama", "Caña con ruda para espantar la mala suerte del invierno."]],
+ "07-20":[["Día del Amigo", "Mandale un mensaje a ese amigo que no ves hace mil. Hoy no hay excusa."]],
+ "06-05":[["Día Mundial del Medio Ambiente", "Plantá algo, aunque sea un potus en la cocina."]],
+ "05-28":[["Día Internacional de la Hamburguesa", "Doble cheddar y pan de papa: hoy no se juzga a nadie."]],
+ "04-29":[["Día del Animal", "Abrazá a tu mascota. Y dejale agua al perro del barrio."]],
+ "04-22":[["Día de la Tierra", "La única que tenemos. Separá la basura, aunque sea hoy."]],
+ "04-07":[["Día Mundial de la Salud", "Tomá agua, caminá un poco y sacá ese turno que venís pateando."]],
+ "03-27":[["Día Mundial del Teatro", "Saludo a los que se suben a un escenario. Y a los que actúan en las reuniones de consorcio."]],
+ "03-22":[["Día Mundial del Agua", "Cerrá la canilla mientras te lavás los dientes. Y no, el mate no cuenta como consumo excesivo."]],
+ "03-21":[["Día Mundial de la Poesía", "Hoy vale escribirle un verso a alguien. Aunque rime «amor» con «calor»."]],
+ "03-20":[["Día Internacional de la Felicidad", "Si hoy no te sale, mañana es otro día. Mate de por medio, ayuda."]],
+ "03-08":[["Día Internacional de la Mujer", "Saludo a todas. Y que no sea solo hoy: son 365."]],
+ "02-14":[["Día de los Enamorados", "Saludá a tu media naranja. Y si no hay, saludate a vos, que también vale."]],
+ "02-09":[["Día Mundial de la Pizza", "Muzza, fugazzeta o napolitana. Hoy la porción de más no cuenta."]],
+ "04-13":[["Día Internacional del Beso", "Repartí alguno. Con consentimiento y sin cebolla en el aliento."],["Día del Kinesiólogo","Saludá a quien te devolvió la espalda a su lugar. Y hacé los ejercicios, que te los mandó por algo."]],
  "04-27":[["Día Mundial del Diseño","Un abrazo a los diseñadores: hoy nadie les pide «agrandá el logo»."]],
  "05-01":[["Día del Trabajador","Feriado para descansar de lo que hacés los otros 364 días. Salud a los laburantes."]],
  "05-03":[["Día de la Milanesa","Napolitana, a caballo o simple: hoy no se discute, se festeja."]],
  "05-07":[["Día de la Minería","Saludo a los que bajan a la mina para que vos tengas el celu."]],
  "05-14":[["Día del Futbolista Argentino","Saludá a ese amigo que jura que «si se cuidaba llegaba a Primera»."]],
- "06-02":[["Día del Bombero Voluntario","Gente que corre hacia donde todos se escapan. Saludo y aplausos."]],
+ "06-02":[["Día del Perro", "Hoy el pichicho come asado. Bueno, un poquito, que le hace mal."],["Día del Bombero Voluntario","Gente que corre hacia donde todos se escapan. Saludo y aplausos."]],
  "06-06":[["Día del Ingeniero","¿Conocés algún ingeniero? Mandale un saludo, seguro te lo explica con una servilleta y un cálculo."]],
  "06-07":[["Día del Periodista","Saludá a los periodistas. Total, si no lo hacés, igual se enteran."]],
  "06-13":[["Día del Escritor","Saludá a ese amigo que tiene una novela «casi terminada» desde 2009."]],
@@ -1617,7 +1639,7 @@ const DIAS_DE={
  "08-29":[["Día del Abogado","¿Conocés algún abogado? Saludalo, por las dudas. Nunca se sabe."],["Día del Árbol","Si no podés plantar uno, por lo menos no le cuelgues bolsitas."]],
  "08-30":[["Día del Ferroviario","Saludo a los del tren. Que llegue a horario es casi un milagro: banquemos."]],
  "09-04":[["Día de la Secretaria","Saludá a quien de verdad maneja la oficina. Vos sabés quién es."],["Día del Inmigrante","Media Argentina tiene un abuelo que bajó de un barco. Saludo a todos."]],
- "09-13":[["Día del Bibliotecario","Saludá a quien te encuentra el libro antes que Google."]],
+ "09-13":[["Día Internacional del Chocolate", "Excusa oficial para comer chocolate. Aprovechala."],["Día del Bibliotecario","Saludá a quien te encuentra el libro antes que Google."]],
  "09-14":[["Día del Cartero","Saludo a los carteros, que ahora traen más paquetes de compras online que cartas de amor."]],
  "09-17":[["Día del Profesor","Saludá a ese profe que te aprobó con un 4 de pura bondad."]],
  "09-21":[["Día de la Sanidad","Saludo a los trabajadores de la salud, que te atienden aunque llegues a las 3 de la mañana por un raspón."]],
@@ -1643,12 +1665,18 @@ function diasDeHoy(fechaISO){
   if(n===256)out.push(["Día del Programador","Saludá a ese amigo que «arregla computadoras». No le pidas que te arregle la impresora."]);
   return out;
 }
+const ICONOS_DIA=[[/perro/i,"🐶"],[/gato/i,"🐱"],[/animal/i,"🐾"],[/mujer/i,"👩"],[/hombre/i,"👨"],[/enamorad|beso/i,"❤️"],[/amigo/i,"🤝"],[/m[ée]dic|sanidad|salud|enfermer|kinesi|bioqu|farmac|odont|psic|nutric/i,"🩺"],
+  [/ingenier|arquitect|dise[ñn]/i,"📐"],[/abogad|escriban/i,"⚖️"],[/peluquer/i,"💇"],[/panader/i,"🥐"],[/pizza|hamburguesa|milanesa|dulce de leche|chocolate/i,"😋"],[/vino/i,"🍷"],[/caf[ée]/i,"☕"],
+  [/m[úu]sica|tango|folklore|rock/i,"🎶"],[/libro|escritor|poes[íi]a|bibliotec/i,"📚"],[/teatro|actor/i,"🎭"],[/maestr|profesor|docente|estudiante/i,"🍎"],[/periodis|locutor|radio|canillita/i,"🎙️"],
+  [/bomber/i,"🚒"],[/tierra|ambiente|[áa]rbol|pachamama/i,"🌱"],[/agua/i,"💧"],[/ferrovi|camioner|cartero/i,"🚚"],[/futbol/i,"⚽"],[/program|inform/i,"💻"],[/trabajador|empleado|comercio|bancari|estado|secretari/i,"💼"],[/miner/i,"⛏️"],[/rural|campo/i,"🌾"],[/veterinar/i,"🐾"],[/inmigrante/i,"🚢"],[/felicidad/i,"😊"]];
+const iconoDia=n=>(ICONOS_DIA.find(([r])=>r.test(n))||[0,"🎉"])[1];
 function renderDiaDe(){
-  const hoy=S.hoy,lista=diasDeHoy(hoy),ya=new Set(lista.map(x=>x[0].toLowerCase())),otros=[];
-  for(const c of(S.efemerides&&S.efemerides.diasDe)||[]){const n=c.replace(/\.$/,"");if(!ya.has(n.toLowerCase())&&otros.length<4){otros.push(n);ya.add(n.toLowerCase());}}
-  let html=lista.map(([n,t])=>`<div class="diade"><b>${esc(n)}.</b> <span>${esc(t)}</span></div>`).join("");
-  if(otros.length)html+=`<div class="diade"><span>${lista.length?"También: ":"Hoy es el "}${otros.map(esc).join(" · ")}.${lista.length?"":" Si conocés a alguien a quien le toque, saludo y listo: queda bien y es gratis."}</span></div>`;
-  if(!lista.length&&!otros.length){
+  const hoy=S.hoy,lista=diasDeHoy(hoy),norm=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z ]/g,"").trim();
+  const ya=new Set(lista.map(x=>norm(x[0])));
+  for(const c of(S.efemerides&&S.efemerides.diasDe)||[]){const n=c.replace(/\.$/,"");if(!ya.has(norm(n))&&lista.length<5){
+    lista.push([n,/mundial|internacional/i.test(n)?"Fecha internacional. Si te sirve de excusa para algo, usala con confianza.":"Si conocés a alguien a quien le toque, mandale un saludo. Queda bien y es gratis."]);ya.add(norm(n));}}
+  let html=lista.map(([n,t])=>`<div class="diade"><span class="ic" aria-hidden="true">${iconoDia(n)}</span><div class="tx"><b>${esc(n)}</b><span>${esc(t)}</span></div></div>`).join("");
+  if(!lista.length){
     let prox=null;for(let i=1;i<=60&&!prox;i++){const f=ymd(new Date(new Date(hoy+"T12:00:00").getTime()+i*864e5)),l=diasDeHoy(f);if(l.length)prox=[f,l,i];}
     html=`<p>Hoy no es el día de nadie en particular. O sea, es el tuyo: aprovechalo.</p>`+
       (prox?`<p class="chico">Se viene: <b>${esc(prox[1].map(x=>x[0]).join(" y "))}</b>, ${prox[2]===1?"mañana":"en "+prox[2]+" días"}. Andá agendando el saludo.</p>`:"");
@@ -1882,9 +1910,14 @@ $("aBorrar").addEventListener("click",()=>{
   if(!confirmaBorrar){confirmaBorrar=true;$("aBorrar").textContent="¿Seguro? Tocá de nuevo";setTimeout(()=>{confirmaBorrar=false;$("aBorrar").textContent="Borrar historial";},4000);return;}
   LS.del("pp_hist");confirmaBorrar=false;$("aBorrar").textContent="Borrar historial";$("aInfo").textContent="Historial borrado.";actualizar();
 });
-function letra(on){document.body.classList.toggle("grande",on);$("btnGrande").setAttribute("aria-pressed",on);$("btnGrande").classList.toggle("on",on);LS.set("pp_grande",on);}
-$("btnGrande").addEventListener("click",()=>letra(!document.body.classList.contains("grande")));
-letra(LS.get("pp_grande",false));
+// Letra: normal → grande → muy grande → normal
+function letra(n){n=n===true?1:(+n||0)%3;const b=$("btnGrande");
+  document.body.classList.toggle("grande",n===1);document.body.classList.toggle("enorme",n===2);
+  b.setAttribute("aria-pressed",n>0);b.classList.toggle("on",n===1);b.classList.toggle("on2",n===2);
+  b.textContent=n===1?"A++":n===2?"A":"A+";b.title=n===0?"Letra grande":n===1?"Letra todavía más grande":"Letra normal";
+  LS.set("pp_grande",n);}
+$("btnGrande").addEventListener("click",()=>letra((+LS.get("pp_grande",0)||0)+1));
+letra(LS.get("pp_grande",0));
 // "Tirá para actualizar" propio: la página no se estira, se mueve solo el cartel
 (function(){
   const ind=$("ptr");let y0=null,d=0;
