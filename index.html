@@ -216,9 +216,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .efe li.grupo{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--borde);font:700 .78rem var(--body);text-transform:uppercase;letter-spacing:.06em;color:var(--txt-2)}
 .efe li.grupo span{font-weight:500}
 .btn.mas{margin-top:10px;width:100%}
-.diade{padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.16);margin-top:8px}
-.diade b{display:block;font-size:1.1rem}
-.diade span{display:block;font-size:.92rem;color:var(--txt-2);margin-top:2px;line-height:1.4}
+.diade{padding:7px 0;line-height:1.35}
+.diade+.diade{border-top:1px solid var(--borde)}
+.diade b{font-size:1rem;color:#ffd27a}
+.diade span{font-size:.88rem;color:var(--txt-2)}
+#diaDe p{margin:4px 0 0;font-size:.92rem}
 .santo{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--borde)}
 .santo b{color:#ffc56b}
 
@@ -360,11 +362,6 @@ body.grande .app{zoom:1.18}
     <p class="chico" id="findeNota"></p>
   </section>
 
-  <section class="vidrio" id="cardDiaDe" hidden>
-    <h2 class="rotulo">🎉 Hoy es el día de…</h2>
-    <div id="diaDe"></div>
-  </section>
-
   <section class="vidrio" id="cardEfe" hidden>
     <h2 class="rotulo">Un día como hoy</h2>
     <ul class="efe" id="efe"></ul>
@@ -372,6 +369,11 @@ body.grande .app{zoom:1.18}
     <button class="btn mas" id="efeBtn" type="button" hidden></button>
     <p class="chico" id="celebra"></p>
     <p class="santo" id="santo"></p>
+  </section>
+
+  <section class="vidrio" id="cardDiaDe" hidden>
+    <h2 class="rotulo">🎉 Hoy es el día de…</h2>
+    <div id="diaDe"></div>
   </section>
 
   <details class="vidrio">
@@ -631,7 +633,14 @@ function limpiarWiki(t){
   t=t.replace(/&nbsp;|&#160;/g," ").replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&#(\d+);/g,(m,n)=>String.fromCharCode(+n));
   return t.replace(/\s+/g," ").trim().replace(/^[\s:;\-—]+|[\s:;\-—]+$/g,"");
 }
-function parseEfemerides(texto,fecha){
+// Artículos enlazados en un renglón (sin años ni archivos)
+function enlacesWiki(raw){
+  return[...raw.matchAll(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|[^\]]*)?\]\]/g)].map(m=>m[1].trim().replace(/_/g," "))
+    .filter(t=>t&&!/^(archivo|file|imagen|image|categoría|años? |siglo )/i.test(t)&&!/^\d{1,4}(\s*a\.\s*C\.|\s*\(año\))?$/i.test(t))
+    .map(t=>t[0].toUpperCase()+t.slice(1));
+}
+function parseEfemerides(texto,fecha,vistas){
+  vistas=vistas||{};
   const sec={};let act="_";
   for(const l of texto.split("\n")){const m=l.match(/^(=+)\s*(.*?)\s*\1\s*$/);if(m){act=limpiarWiki(m[2]).toLowerCase();sec[act]??=[];}else(sec[act]??=[]).push(l);}
   const leer=nombre=>{const out=[];let anio=null;const s0=Object.entries(sec).find(([k])=>k.startsWith(nombre));
@@ -647,7 +656,7 @@ function parseEfemerides(texto,fecha){
           if(ma){anio=ma[1]+(ma[2]?" a. C.":"");txt=ma[3];}}
       }
       if(txt==null)txt=limpiarWiki(cuerpo);
-      if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1)});}
+      if(anio&&txt.length>12)out.push({anio,texto:txt[0].toUpperCase()+txt.slice(1),links:enlacesWiki(cuerpo)});}
     return out;};
   const anioHoy=+fecha.slice(0,4);
   const ev0=leer("acontecimientos"),nac0=leer("nacimientos"),fal0=leer("fallecimientos");
@@ -658,14 +667,9 @@ function parseEfemerides(texto,fecha){
   const ciencia=/invent|patent|científic|vacuna|penicilina|satélite|nave espacial|astronaut|Apolo|Sputnik|telescopio|NASA|cohete|ADN|átomo|nuclear|electricidad|lámpara|teléfono|telégrafo|Internet|computadora|ordenador|microscopio|rayos X|teoría de|fórmula|elemento químico|premio Nobel de (física|química|medicina)|primer[oa]? (vuelo|transmisi|emisi|película|llamada|trasplante|radio|televis)|descubr(e|ió|en|imiento)\s+(la|el|los|las|un|una)?\s*(vacuna|bacteria|virus|planeta|cometa|elemento|partícula|estrella|galaxia|luna|satélite|ley|fórmula|penicilina|insulina)/i;
   const pesoAR=e=>(/se funda|fundaci|se inaugura|se crea|independencia|revoluci|cabildo|congreso|constituci|ley |sanciona|asume|presidente|elecci|campeón|mundial|copa|primer|estren|record|récord|patria|bandera|himno|Malvinas|San Martín|Belgrano/i.test(e.texto)?2:0)+(e.texto.length<170?1:0);
   const ev=ev0;
-  const evAR=ev.filter(esAR).sort((x,y)=>pesoAR(y)-pesoAR(x));
-  const evCi=ev.filter(e=>!esAR(e)&&ciencia.test(e.texto));
-  const evMu=ev.filter(e=>!esAR(e)&&!ciencia.test(e.texto));
   const sem=parseInt(fecha.replace(/-/g,""));
   const tomar=(lista,n)=>{const out=[];const L=lista.length,paso=L>1?[7,5,3,1].find(p=>L%p!==0)||1:1;for(let i=0;i<L&&out.length<n;i++){const e=lista[(sem+i*paso)%L];if(e&&!out.includes(e))out.push(e);}return out;};
-  // Ciencia: hasta 2, o 3 si hay algo muy grosso
   const grosso=/Luna|penicilina|vacuna|Internet|ADN|primer vuelo|teléfono|lámpara|Sputnik|rayos X|teoría de la relatividad/i;
-  const ci=[...evCi.filter(e=>grosso.test(e.texto)),...tomar(evCi.filter(e=>!grosso.test(e.texto)),3)].slice(0,evCi.filter(e=>grosso.test(e.texto)).length>=3?3:2);
   // Personas: "Nombre, ocupación (f. 1896)." -> edad
   const persona=(e,muerte)=>{
     const m=e.texto.match(/\((?:f|n)\.\s*(?:en\s*)?(\d{1,4})(\s*a\.\s*C\.)?\)\s*\.?\s*$/);const otro=m&&!m[2]?+m[1]:null;
@@ -681,28 +685,42 @@ function parseEfemerides(texto,fecha){
   };
   const prof=/presidente|premio Nobel|físic|químic|matemátic|inventor|científic|astrónom|compositor|pintor|escultor|escritor|poeta|filósof|dramaturgo|cineasta|director de cine|actor|actriz|cantante|músico|guitarrista|futbolista|deportista|tenista|boxeador|piloto|arquitect|médic|rey |reina |emperador|papa |explorador|navegante|astronauta|revolucionari|líder|militar/i;
   const fama=/premio Nobel|presidente|rey |reina |emperador|papa |compositor|físic|inventor|pintor|astronauta/i;
-  const ptos=e=>(prof.test(e.texto)?2:0)+(fama.test(e.texto)?2:0)+(/\(f\./.test(e.texto)?0:1);
-  const nac=nac0.filter(e=>e.texto.length<=200&&/,/.test(e.texto)),fal=fal0.filter(e=>e.texto.length<=200&&/,/.test(e.texto));
-  const nacAR=nac.filter(esAR),falAR=fal.filter(esAR);
-  const nacMu=nac.filter(e=>!esAR(e)&&prof.test(e.texto)).sort((x,y)=>ptos(y)-ptos(x)),falMu=fal.filter(e=>!esAR(e)&&prof.test(e.texto)).sort((x,y)=>ptos(y)-ptos(x));
-  const top=(l,n)=>tomar(l.slice(0,Math.max(n,4)),n);
-  // Límite por tema, más hasta 2 extra solo si son muy relevantes
-  const elegir=(lista,base,rel)=>{const r=lista.filter(rel),n=lista.filter(e=>!rel(e));
-    const out=[...r,...tomar(n,base)].slice(0,base);
-    for(const e of r)if(!out.includes(e)&&out.length<base+2)out.push(e);return out;};
-  const relMundo=e=>/guerra mundial|revoluci|independencia|tratado|imperio|papa |presidente|rey |reina |Naciones Unidas|ONU|se funda|constituci|muro de Berl|Hitler|Napole|Lincoln|Kennedy|Mandela|Gandhi|Juegos Olímpicos|Copa Mundial|terremoto|atentado|batalla de/i.test(e.texto);
-  const relAR=e=>pesoAR(e)>=2;
-  const famoso=e=>fama.test(e.texto);
+  const relMundo=e=>/guerra mundial|revoluci|independencia|tratado|imperio|papa |presidente|rey |reina |Naciones Unidas|ONU|constituci|muro de Berl|Hitler|Napole|Lincoln|Kennedy|Mandela|Gandhi|Juegos Olímpicos|Copa Mundial|batalla de/i.test(e.texto);
+
+  // ¿Qué tan conocido es? Visitas en Wikipedia de los últimos 30 días.
+  // Personas: su propio artículo. Hechos: el artículo enlazado más visto, sin contar países y
+  // ciudades que aparecen en muchos renglones (Argentina, Estados Unidos...).
+  const conVistas=Object.keys(vistas).length>0;
+  const frec={};for(const e of[...ev0,...nac0,...fal0])for(const t of new Set(e.links||[]))frec[t]=(frec[t]||0)+1;
+  const vis=t=>vistas[t]||0;
+  const vPersona=e=>(e.links&&e.links.length)?vis(e.links[0]):0;
+  const vHecho=e=>Math.max(0,...(e.links||[]).filter(t=>(frec[t]||0)<3).map(vis));
+  // Sin datos de visitas (si Wikipedia no respondió), se usa la pista de las palabras
+  const puntP=e=>conVistas?vPersona(e):(fama.test(e.texto)?3:prof.test(e.texto)?1:0);
+  const puntH=(e,ar)=>conVistas?vHecho(e):(ar?pesoAR(e):relMundo(e)?2:grosso.test(e.texto)?2:0);
+  // Elige por puntaje: "base" lugares con mínimo "min"; hasta 2 más si superan "extra"
+  const elegir=(lista,base,pun,min,extra)=>{
+    const ord=lista.map(e=>[e,pun(e)]).filter(([,p])=>!conVistas||p>=min).sort((a,b)=>b[1]-a[1]);
+    const out=ord.slice(0,base);
+    for(const x of ord.slice(base))if(out.length<base+2&&(conVistas?x[1]>=extra:false))out.push(x);
+    return out.map(([e,p])=>({...e,vistas:conVistas?p:null}));
+  };
+  const evAR=ev.filter(esAR),evCi=ev.filter(e=>!esAR(e)&&ciencia.test(e.texto)),evMu=ev.filter(e=>!esAR(e)&&!ciencia.test(e.texto));
+  const nac=nac0.filter(e=>/,/.test(e.texto)),fal=fal0.filter(e=>/,/.test(e.texto));
+  const nacAR=nac.filter(esAR),falAR=fal.filter(esAR),nacMu=nac.filter(e=>!esAR(e)),falMu=fal.filter(e=>!esAR(e));
   const eventos=[
-    ...elegir(evAR,6,relAR).map(e=>({...e,tipo:"ar"})),
-    ...elegir(evMu,5,relMundo).map(e=>({...e,tipo:"mundo"})),
-    ...elegir(evCi,2,e=>grosso.test(e.texto)).map(e=>({...e,tipo:"ciencia"})),
-    ...[...elegir(nacAR,3,e=>prof.test(e.texto)),...elegir(nacMu,3,famoso)].map(e=>({...persona(e,false),tipo:"nace",ar:esAR(e)})),
-    ...[...elegir(falAR,2,e=>prof.test(e.texto)),...elegir(falMu,2,famoso)].map(e=>({...persona(e,true),tipo:"muere",ar:esAR(e)}))
+    ...elegir(evAR,6,e=>puntH(e,true),1500,10000).map(e=>({...e,tipo:"ar"})),
+    ...elegir(evMu,5,e=>puntH(e,false),4000,40000).map(e=>({...e,tipo:"mundo"})),
+    ...elegir(evCi,2,e=>puntH(e,false),2500,30000).map(e=>({...e,tipo:"ciencia"})),
+    ...[...elegir(nacAR,3,puntP,1500,15000),...elegir(nacMu,3,puntP,8000,60000)].map(e=>({...persona(e,false),tipo:"nace",ar:esAR(e)})),
+    ...[...elegir(falAR,2,puntP,1500,15000),...elegir(falMu,2,puntP,8000,60000)].map(e=>({...persona(e,true),tipo:"muere",ar:esAR(e)}))
   ];
   // Importancia, para mostrar primero las 6 que más pesan
-  for(const e of eventos)e.imp=e.tipo==="ar"?6+pesoAR(e):e.tipo==="ciencia"?(grosso.test(e.texto)?6:3):e.tipo==="mundo"?(e.texto.length<170?2:1):
-    (e.ar?5:0)+(fama.test(e.texto)?3:prof.test(e.texto)?1:0)+(e.tipo==="nace"?1:0);
+  for(const e of eventos){
+    const base=conVistas?Math.log10((e.vistas||0)+10):(e.tipo==="ar"?pesoAR(e):fama.test(e.texto)?2:1);
+    e.imp=base+(e.tipo==="ar"?1.5:0)+(e.ar?1:0)+(e.tipo==="ciencia"&&grosso.test(e.texto)?0.7:0);
+    delete e.links;
+  }
   eventos.forEach((e,i)=>e.sem=(sem%997+i*37)%101);
   const nAC=x=>parseInt(x.anio)*(/a\. C\./.test(x.anio)?-1:1);
   eventos.sort((x,y)=>nAC(x)-nAC(y));
@@ -713,14 +731,40 @@ function parseEfemerides(texto,fecha){
     celebraciones:cel.filter(c=>CLAVES_AR.some(x=>c.toLowerCase().includes(x))).slice(0,3),
     diasDe:cel.map(c=>c.replace(/^[^:]{2,40}:\s*/,"")).filter(c=>/^\s*d[íi]a (del?|de la|de los|de las|internacional|mundial|nacional)\b/i.test(c)).map(c=>c.replace(/\s*\(.*$/,"").trim()).slice(0,8)};
 }
+async function vistasWiki(txt){
+  const secs=txt.split(/\n(?==+)/).filter(b=>/^=+\s*(acontecimientos|nacimientos|fallecimientos)/i.test(b));
+  const titulos=[...new Set(secs.flatMap(b=>b.split("\n").filter(l=>l.startsWith("*")).flatMap(enlacesWiki)))];
+  const vistas={},lotes=[];for(let i=0;i<titulos.length;i+=50)lotes.push(titulos.slice(i,i+50));
+  await Promise.all(lotes.map(async lote=>{
+    let cont={};
+    for(let vuelta=0;vuelta<6;vuelta++){
+      const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"query",prop:"pageviews",pvipdays:"30",titles:lote.join("|"),redirects:"1",format:"json",formatversion:"2",origin:"*",...cont}),undefined,1);
+      const q=j.query||{},alias={};
+      for(const x of[...(q.normalized||[]),...(q.redirects||[])])alias[x.to]=[...(alias[x.to]||[]),x.from];
+      for(const pg of q.pages||[]){
+        if(!pg.pageviews)continue;
+        const tot=Object.values(pg.pageviews).reduce((a,b)=>a+(b||0),0);
+        const nombres=[pg.title];for(let k=0;k<nombres.length;k++)for(const f of alias[nombres[k]]||[])nombres.push(f);
+        for(const n of nombres)vistas[n]=Math.max(vistas[n]||0,tot);
+      }
+      if(!j.continue)break;cont=j.continue;
+    }
+  }));
+  return vistas;
+}
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe8",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe10",null);if(c&&c.fecha===hoy)return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
-  const r=parseEfemerides(txt,hoy);
-  LS.set("pp_c_efe8",r);
+  // Juntar los artículos enlazados y pedir sus visitas (de a 50, que es lo que deja Wikipedia)
+  let vistas={};
+  try{
+    vistas=await vistasWiki(txt);
+  }catch(e){console.warn("visitas wikipedia",e);vistas={};}
+  const r=parseEfemerides(txt,hoy,vistas);
+  LS.set("pp_c_efe10",r);
   return r;
 }
 
@@ -1600,10 +1644,11 @@ function diasDeHoy(fechaISO){
   return out;
 }
 function renderDiaDe(){
-  const hoy=S.hoy,lista=diasDeHoy(hoy),ya=new Set(lista.map(x=>x[0].toLowerCase()));
-  for(const c of(S.efemerides&&S.efemerides.diasDe)||[]){const n=c.replace(/\.$/,"");if(!ya.has(n.toLowerCase())&&lista.length<4){lista.push([n,/mundial|internacional/i.test(n)?"Fecha internacional. Si te sirve de excusa para algo, usala con confianza.":"Si conocés a alguien a quien le toque, mandale un saludo. Queda bien y es gratis."]);ya.add(n.toLowerCase());}}
-  let html=lista.map(([n,t])=>`<div class="diade"><b>${esc(n)}</b><span>${esc(t)}</span></div>`).join("");
-  if(!lista.length){
+  const hoy=S.hoy,lista=diasDeHoy(hoy),ya=new Set(lista.map(x=>x[0].toLowerCase())),otros=[];
+  for(const c of(S.efemerides&&S.efemerides.diasDe)||[]){const n=c.replace(/\.$/,"");if(!ya.has(n.toLowerCase())&&otros.length<4){otros.push(n);ya.add(n.toLowerCase());}}
+  let html=lista.map(([n,t])=>`<div class="diade"><b>${esc(n)}.</b> <span>${esc(t)}</span></div>`).join("");
+  if(otros.length)html+=`<div class="diade"><span>${lista.length?"También: ":"Hoy es el "}${otros.map(esc).join(" · ")}.${lista.length?"":" Si conocés a alguien a quien le toque, saludo y listo: queda bien y es gratis."}</span></div>`;
+  if(!lista.length&&!otros.length){
     let prox=null;for(let i=1;i<=60&&!prox;i++){const f=ymd(new Date(new Date(hoy+"T12:00:00").getTime()+i*864e5)),l=diasDeHoy(f);if(l.length)prox=[f,l,i];}
     html=`<p>Hoy no es el día de nadie en particular. O sea, es el tuyo: aprovechalo.</p>`+
       (prox?`<p class="chico">Se viene: <b>${esc(prox[1].map(x=>x[0]).join(" y "))}</b>, ${prox[2]===1?"mañana":"en "+prox[2]+" días"}. Andá agendando el saludo.</p>`:"");
