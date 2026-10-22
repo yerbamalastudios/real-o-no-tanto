@@ -228,6 +228,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 /* secciones plegables */
 details.vidrio>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--txt-2)}
 details.vidrio>summary::-webkit-details-marker{display:none}
+#cardRopa>summary{font-size:.78rem}
+.fuentes{padding:4px 6px 0;font-size:.8rem;color:var(--txt-2);line-height:1.5}
+.fuentes b{font:600 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase}
+.fuentes ul{margin:4px 0 0;padding-left:1.1em}
+.fuentes a{color:var(--txt);text-decoration:underline;text-underline-offset:2px}
 details.vidrio>summary::after{content:"＋";margin-left:auto;font-size:1rem}
 details.vidrio[open]>summary::after{content:"－"}
 details.vidrio[open]>summary{margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--borde)}
@@ -295,7 +300,6 @@ body.enorme .app{zoom:1.38}
     <div class="titulo-app">Pronóstico real o no tanto</div>
     <div class="lugar"><span id="lugarTxt">Buscando dónde estás…</span><button class="cambiar" id="cambiarLugar" type="button">cambiar</button></div>
     <div class="estado" id="estado" hidden></div>
-    <div class="chico" id="metDe"></div>
     <div class="evento" id="evento" role="note" hidden></div>
     <canvas id="escena" width="720" height="378" aria-hidden="true"></canvas>
     <div class="temp-ahora" id="tempAhora">--°</div>
@@ -309,10 +313,10 @@ body.enorme .app{zoom:1.38}
 
   <section class="vidrio" id="cardCuenta" hidden></section>
 
-  <section class="vidrio" id="cardRopa" hidden>
-    <h2 class="rotulo">👕 ¿Qué me pongo?</h2>
+  <details class="vidrio" id="cardRopa" hidden>
+    <summary>👕 ¿Qué me pongo?</summary>
     <div class="ropa" id="ropa"></div>
-  </section>
+  </details>
 
   <section class="vidrio">
     <h2 class="rotulo">Próximas horas <span class="der" id="horasNota"></span></h2>
@@ -430,7 +434,11 @@ body.enorme .app{zoom:1.38}
     <p><b>¿Te sirvió el pronóstico?</b> Invitame un cafecito y me ayudás a seguir haciendo cosas como esta.</p>
     <a href="https://cafecito.app/yerbamalastudios" target="_blank" rel="noopener">☕ Invitame un cafecito</a>
   </aside>
-  <footer><svg aria-hidden="true"><use href="#ymLogo"/></svg>Yerba Mala Studios · Datos: Open-Meteo, Meteored y Wikipedia</footer>
+  <section class="fuentes" aria-label="Fuentes">
+    <b>Fuentes</b>
+    <ul id="fuentes"></ul>
+  </section>
+  <footer><svg aria-hidden="true"><use href="#ymLogo"/></svg>Yerba Mala Studios</footer>
 </div>
 
 <script>
@@ -699,11 +707,14 @@ function parseEfemerides(texto,fecha,vistas){
   const vPersona=e=>(e.links&&e.links.length)?vis(e.links[0]):0;
   const vHecho=e=>Math.max(0,...(e.links||[]).filter(t=>(frec[t]||0)<3).map(vis));
   // Sin datos de visitas (si Wikipedia no respondió), se usa la pista de las palabras
-  const puntP=e=>conVistas?vPersona(e):(fama.test(e.texto)?3:prof.test(e.texto)?1:0);
-  const puntH=(e,ar)=>conVistas?vHecho(e):(ar?pesoAR(e):relMundo(e)?2:grosso.test(e.texto)?2:0);
+  // Sin visitas: solo lo que seguro importa (nada de reyes de Portugal)
+  const famaFuerte=/premio Nobel|presidente de (los )?Estados Unidos|compositor|físic|inventor|pintor|astronauta|futbolista|cantante|actor|actriz|escritor/i;
+  const mundoFuerte=/guerra mundial|revoluci[óo]n (francesa|rusa|industrial)|independencia de|Naciones Unidas|muro de Berl|Hitler|Napole[óo]n|Lincoln|Kennedy|Mandela|Gandhi|Juegos Olímpicos|Copa Mundial|Titanic|Hiroshima|Torres Gemelas/i;
+  const puntP=e=>conVistas?vPersona(e):(esAR(e)?(prof.test(e.texto)?1:0):(famaFuerte.test(e.texto)&&!/rey |reina |príncipe|princesa|duque|conde|noble|aristócrata/i.test(e.texto)?1:0));
+  const puntH=(e,ar)=>conVistas?vHecho(e):(ar?(pesoAR(e)>=2?1:0):(mundoFuerte.test(e.texto)||grosso.test(e.texto)?1:0));
   // Elige por puntaje: "base" lugares con mínimo "min"; hasta 2 más si superan "extra"
   const elegir=(lista,base,pun,min,extra)=>{
-    const ord=lista.map(e=>[e,pun(e)]).filter(([,p])=>!conVistas||p>=min).sort((a,b)=>b[1]-a[1]);
+    const ord=lista.map(e=>[e,pun(e)]).filter(([,p])=>conVistas?p>=min:p>0).sort((a,b)=>b[1]-a[1]);
     const out=ord.slice(0,base);
     for(const x of ord.slice(base))if(out.length<base+2&&(conVistas?x[1]>=extra:false))out.push(x);
     return out.map(([e,p])=>({...e,vistas:conVistas?p:null}));
@@ -737,13 +748,20 @@ function parseEfemerides(texto,fecha,vistas){
     diasDe:cel.filter(c=>(celV[c]||0)>=3000).map(c=>c.replace(/^[^:]{2,40}:\s*/,"")).filter(c=>/^\s*d[íi]a (del?|de la|de los|de las|internacional|mundial|nacional)\b/i.test(c)).map(c=>c.replace(/\s*\(.*$/,"").trim()).slice(0,8)};
 }
 async function vistasWiki(txt){
+  // Solo los artículos que sirven: la persona (primer enlace) y, en los hechos, los enlaces que no
+  // se repiten en toda la página (países y ciudades no dicen nada de la importancia).
   const secs=txt.split(/\n(?==+)/).filter(b=>/^=+\s*(acontecimientos|nacimientos|fallecimientos|celebraciones)/i.test(b));
-  const titulos=[...new Set(secs.flatMap(b=>b.split("\n").filter(l=>l.startsWith("*")).flatMap(enlacesWiki)))];
-  const vistas={},lotes=[];for(let i=0;i<titulos.length;i+=50)lotes.push(titulos.slice(i,i+50));
-  await Promise.all(lotes.map(async lote=>{
+  const renglones=secs.map(b=>[/^=+\s*(nacimientos|fallecimientos)/i.test(b),b.split("\n").filter(l=>l.startsWith("*")).map(enlacesWiki)]);
+  const frec={};for(const[,ls]of renglones)for(const l of ls)for(const t of new Set(l))frec[t]=(frec[t]||0)+1;
+  const set=new Set();
+  for(const[pers,ls]of renglones)for(const l of ls){if(pers){if(l[0])set.add(l[0]);}else l.filter(t=>frec[t]<3).forEach(t=>set.add(t));}
+  const titulos=[...set],vistas={},lotes=[];for(let i=0;i<titulos.length;i+=50)lotes.push(titulos.slice(i,i+50));
+  let fallos=0;
+  const uno=async lote=>{
     let cont={};
-    for(let vuelta=0;vuelta<6;vuelta++){
-      const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"query",prop:"pageviews",pvipdays:"30",titles:lote.join("|"),redirects:"1",format:"json",formatversion:"2",origin:"*",...cont}),undefined,1);
+    for(let vuelta=0;vuelta<8;vuelta++){
+      const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"query",prop:"pageviews",pvipmetric:"pageviews",pvipdays:"30",titles:lote.join("|"),redirects:"1",format:"json",formatversion:"2",origin:"*",...cont}),undefined,2);
+      if(j.error)throw new Error(j.error.info||j.error.code);
       const q=j.query||{},alias={};
       for(const x of[...(q.normalized||[]),...(q.redirects||[])])alias[x.to]=[...(alias[x.to]||[]),x.from];
       for(const pg of q.pages||[]){
@@ -754,22 +772,26 @@ async function vistasWiki(txt){
       }
       if(!j.continue)break;cont=j.continue;
     }
-  }));
-  return vistas;
+  };
+  // De a dos pedidos por vez: Wikipedia corta si le pedís todo junto
+  const cola=[...lotes];
+  await Promise.all([0,1].map(async()=>{while(cola.length){const l=cola.shift();try{await uno(l);}catch(e){fallos++;console.warn("visitas",e);}}}));
+  return{vistas,fallos,pedidos:lotes.length};
 }
 async function efemerides(hoy){
-  const c=LS.get("pp_c_efe11",null);if(c&&c.fecha===hoy)return c;
+  const c=LS.get("pp_c_efe12",null);
+  // Si la última vez no llegaron las visitas, reintentar cada media hora
+  if(c&&c.fecha===hoy&&(c.conVistas||Date.now()-(c.ts||0)<30*60e3))return c;
   const [a,m,d]=hoy.split("-").map(Number);
   const j=await getJSON("https://es.wikipedia.org/w/api.php?"+qs({action:"parse",page:`${d} de ${MESES_ES[m]}`,prop:"wikitext",format:"json",formatversion:"2",origin:"*",redirects:"1"}));
   const txt=j.parse&&(j.parse.wikitext?.["*"]??j.parse.wikitext);
   if(!txt)throw new Error("no encontré la página del día");
-  // Juntar los artículos enlazados y pedir sus visitas (de a 50, que es lo que deja Wikipedia)
-  let vistas={};
-  try{
-    vistas=await vistasWiki(txt);
-  }catch(e){console.warn("visitas wikipedia",e);vistas={};}
-  const r=parseEfemerides(txt,hoy,vistas);
-  LS.set("pp_c_efe11",r);
+  let v={vistas:{},fallos:1,pedidos:0};
+  try{v=await vistasWiki(txt);}catch(e){console.warn("visitas wikipedia",e);}
+  const conVistas=Object.keys(v.vistas).length>20;
+  const r={...parseEfemerides(txt,hoy,conVistas?v.vistas:{}),conVistas,ts:Date.now()};
+  if(!conVistas)r.aviso="Wikipedia no pasó las visitas: muestro una selección más corta";
+  LS.set("pp_c_efe12",r);
   return r;
 }
 
@@ -1453,7 +1475,7 @@ function renderTodo(){
   pintarCielo(tipo,noche);
   prepararEscena(tipo,noche,cur?cur.wind_speed_10m:0);
   $("lugarTxt").textContent=(AJ.modo==="fijo"?"":"📍 ")+S.lugar;
-  $("metDe").textContent=S.meteoredDe?`Meteored: dato de ${S.meteoredDe.nombre}${S.meteoredDe.km?` (a ${S.meteoredDe.km} km)`:""}`:"";
+  renderFuentes();
   $("tempAhora").textContent=cur?r0(cur.temperature_2m)+"°":(hoyD?r0(hoyD.tmax)+"°":"--°");
   $("condAhora").textContent=code!=null?textoCielo(code,hoyD&&hoyD.tmax):"Sin datos del cielo";
   $("metaAhora").innerHTML=hoyD?`<span>Máx <b>${r0(hoyD.tmax)}°</b></span><span>Mín <b>${r0(hoyD.tmin)}°</b></span>`+
@@ -1474,7 +1496,7 @@ function renderTodo(){
   const lista=paraRopa.filter(Boolean).map(d=>{const wd=new Date(d.fecha+"T12:00:00").getDay();
     const n=d.L===0?"Hoy":(wd===6?"Sábado":wd===0?"Domingo":"Mañana");return[d,ropa(d),n];}).filter(x=>x[1]);
   $("cardRopa").hidden=!lista.length;
-  $("cardRopa").querySelector(".rotulo").innerHTML=wdHoy===5?"👕 ¿Qué me pongo? <span class=\"der\">finde incluido</span>":"👕 ¿Qué me pongo?";
+  $("cardRopa").querySelector("summary").textContent=wdHoy===5?"👕 ¿Qué me pongo? · finde incluido":"👕 ¿Qué me pongo?";
   $("ropa").innerHTML=lista.map(([d,r,n])=>`<div class="ropa-dia">
     <h3>${n}<span>${r0(d.tmin)}° a ${r0(d.tmax)}°${probDe(d)!=null?` · 💧 ${probDe(d)}%`:""}</span></h3>
     ${r.items}<p>${esc(r.frase)}</p></div>`).join("");
@@ -1683,6 +1705,21 @@ function renderDiaDe(){
   }
   $("diaDe").innerHTML=html;$("cardDiaDe").hidden=false;
 }
+
+// ---------- fuentes (abajo de todo, con links)
+function renderFuentes(){
+  const MES=["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const [an,m,d]=(S&&S.hoy||ymd(new Date())).split("-").map(Number);
+  const md=S&&S.meteoredDe,a=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+  $("fuentes").innerHTML=[
+    `${a("https://open-meteo.com/","Open-Meteo")}: siete modelos globales (ECMWF, GFS, ICON y otros), detalle por hora, calidad del aire, salida y puesta del sol`,
+    `${a("https://www.meteored.com.ar/","Meteored")}`+(md?`: dato de ${esc(md.nombre)}${md.km?` (a ${md.km} km)`:""}`:""),
+    `${a("https://cds.climate.copernicus.eu/","Copernicus ERA5")}: lo que pasó de verdad, para ver quién acierta`,
+    `${a(`https://www.argentina.gob.ar/interior/feriados-nacionales-${an}`,"Ministerio del Interior")}: feriados`,
+    `${a(`https://es.wikipedia.org/wiki/${d}_de_${MES[m]}`,"Wikipedia")}: efemérides, santoral y días de…`,
+    `${a("https://www.bigdatacloud.com/","BigDataCloud")}: nombre del lugar`
+  ].map(x=>`<li>${x}</li>`).join("");
+}
 // ---------- sol: primera luz, salida, mediodía, puesta, última luz
 const minDe=t=>{const m=String(t).match(/T(\d\d):(\d\d)/);return m?+m[1]*60+ +m[2]:null;};
 const hDe=m=>{m=Math.round(m);return String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");};
@@ -1787,7 +1824,7 @@ function renderExtras(dias){
   $("efeMas").hidden=true;
   const bt=$("efeBtn");bt.hidden=!resto.length;const tx=`Ver todo: ${resto.length} más ▾`;bt.textContent=tx;
   bt.onclick=()=>{const ab=$("efeMas").hidden;$("efeMas").hidden=!ab;bt.textContent=ab?"Ver menos ▴":tx;if(!ab)$("cardEfe").scrollIntoView({block:"start",behavior:"smooth"});};
-  $("celebra").textContent="";
+  $("celebra").textContent=e.aviso||"";
   if(e.santo){
     const m=e.santo.match(/\b(san|santa|santo|beato|beata)\s+([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)/i);
     const nombre=m?m[2]:null,fem=m&&/^(santa|beata)$/i.test(m[1]);
