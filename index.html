@@ -135,9 +135,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .cuenta .num span{font-size:.75rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.08em}
 .cuenta-txt{min-width:0}
 .cuenta .largo{font-weight:600;color:#ffe08a;font-size:.9rem}
-.meaculpa{background:rgba(255,190,90,.18);border-color:rgba(255,205,120,.5)}
-.meaculpa .perdon{margin:0 0 6px}
-.meaculpa .excusa{margin:0;font-style:italic;color:#ffe3a8}
+.meaculpa.mal{background:rgba(255,190,90,.18);border-color:rgba(255,205,120,.5)}
+.meaculpa.bien{background:rgba(90,220,150,.14);border-color:rgba(120,230,170,.45)}
+.meaculpa.loco{background:rgba(190,120,255,.16);border-color:rgba(200,150,255,.45)}
+.meaculpa .veredicto-ac{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:99px;background:rgba(0,0,0,.22);font-size:.72rem;letter-spacing:.04em;text-transform:none}
+.meaculpa .perdon{margin:0 0 6px;font-size:1.02rem;line-height:1.45}
+.meaculpa .excusa{margin:0;font-style:italic;color:#ffe3a8;line-height:1.4}
+.meaculpa .datos-ac{margin:8px 0 0;font-size:.8rem;color:var(--txt-2)}
 .estado{display:inline-flex;align-items:center;gap:6px;margin:6px auto 0;padding:4px 12px;border-radius:999px;background:rgba(0,0,0,.22);font-size:.82rem}
 .estado::before{content:"";width:8px;height:8px;border-radius:50%;background:#ffc56b;animation:titila 1s ease-in-out infinite}
 @keyframes titila{50%{opacity:.25}}
@@ -308,7 +312,6 @@ body.enorme .app{zoom:1.38}
     <p class="frase" id="frase"></p>
   </section>
 
-  <section class="vidrio meaculpa" id="meaCulpa" hidden></section>
   <section class="alertas vidrio" id="alertas" hidden></section>
 
   <section class="vidrio" id="cardCuenta" hidden></section>
@@ -346,6 +349,8 @@ body.enorme .app{zoom:1.38}
     <div class="dias" id="dias" role="group" aria-label="Días"></div>
     <div class="puntos" id="puntos" aria-hidden="true"></div>
   </section>
+
+  <section class="vidrio meaculpa" id="meaCulpa" hidden></section>
 
   <section class="vidrio" id="detalle">
     <div class="det-tit"><h3 id="detTit"></h3><span class="chico" id="detSub"></span></div>
@@ -945,7 +950,8 @@ async function armar(){
   // Lo que dijeron los modelos el día anterior para ayer y para hoy (promedio simple), para el "mea culpa"
   const dijo={};
   for(const f of[addDays(hoy,-1),hoy]){const xs=(histMod||[]).filter(e=>e.L===1&&e.fecha===f).map(e=>e.p);
-    if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia")};}}
+    if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};const tx=xs.map(x=>x.tmax).filter(x=>x!=null),ll=xs.map(x=>x.lluvia).filter(x=>x!=null);
+      dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia"),n:xs.length,spread:tx.length>1?Math.max(...tx)-Math.min(...tx):0,conLluvia:ll.filter(x=>x>=1).length,nLluvia:ll.length};}}
   return{aire,lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
@@ -1404,42 +1410,103 @@ function renderCuenta(){
 }
 
 // ===================== mea culpa: cuando le erramos o el pronóstico cambió mucho =====================
-const CULPABLES=[
-  "el modelo europeo, que dice que entiende el clima de acá y nunca vino",
-  "el satélite, que justo estaba en mantenimiento",
-  "el viento, que cambió de dirección sin avisar a nadie",
-  "el pasante de la estación meteorológica, que se tomó el día",
-  "la humedad, que no figuraba en el contrato",
-  "el modelo americano, que se copió del de al lado",
-  "el gallo de la veleta del vecino, que apuntaba para cualquier lado",
-  "el Río de la Plata, que hace lo que quiere desde 1536",
-  "la corriente de aire que vino de Brasil y no pagó peaje",
-  "el colectivo que no pasó y nos hizo llegar tarde a mirar el cielo",
-];
+// ===================== ¿La pegamos? (acierto, error o clima loco) =====================
+const FRASES_AC={
+ bien:[
+  "La pegamos. Dijimos {dijimos}° y fueron {hizo}°. Pueden aplaudir, no da vergüenza.",
+  "Dijimos {dijimos}°, hizo {hizo}°. Precisión suiza, pero con mate.",
+  "Otra clavada. A este ritmo nos llaman del noticiero de la noche.",
+  "Si esto fuera el Prode, ya estaríamos cobrando: {dijimos}° dijimos, {hizo}° hizo.",
+  "{modelos} modelos, un promedio y mucha fe. Resultado: al ángulo.",
+  "Nos queremos mucho en este momento. Dijimos {dijimos}° y fueron {hizo}°.",
+  "Lo dijimos y pasó. Guardá esta captura para cuando le erremos.",
+  "Clavada. Que alguien le avise a la competencia."
+ ],
+ bienLluvia:[
+  "Dijimos que llovía y llovió: {mm} mm. El paraguas te manda saludos.",
+  "Anunciamos agua y cayeron {mm} mm. Si saliste sin paraguas, eso ya es tema tuyo.",
+  "Lluvia anunciada, lluvia entregada: {mm} mm. Servicio puerta a puerta."
+ ],
+ casi:[
+  "Casi: dijimos {dijimos}° y fueron {hizo}°. Penal que pega en el palo y entra.",
+  "{dif}° de diferencia. Eso no es error, es redondeo creativo.",
+  "Le erramos por {dif}°, dentro del margen de error del termómetro de la farmacia.",
+  "Cerquita: {dijimos}° dijimos, {hizo}° hizo. No fue clavada, pero aprobamos con 7.",
+  "Por {dif}° no fue perfecto. Igual nos damos una palmadita en la espalda."
+ ],
+ mal:[
+  "Le pifiamos: {hecho}. Los modelos no se ponían de acuerdo y al final era cualquier cosa.",
+  "{Hecho}. Teníamos {modelos} modelos opinando y parecía reunión de consorcio: nadie coincidía.",
+  "Mea culpa: {hecho}. El europeo decía una cosa, el americano otra y el alemán no contestaba los mensajes.",
+  "{Hecho}. Los modelos se pelearon como en el asado cuando sale el tema política.",
+  "Le erramos fiero: {hecho}. En nuestra defensa, los modelos estaban más divididos que la grieta.",
+  "{Hecho}. Promediamos lo que dijo cada modelo y salió un guiso. Ahí está el problema.",
+  "Perdón: {hecho}. Le preguntamos a {modelos} modelos y cada uno dijo lo que se le cantó.",
+  "{Hecho}. La culpa es de los modelos, que esa noche no se ponían de acuerdo ni para pedir pizza."
+ ],
+ loco:[
+  "El clima está más loco que el dólar: {hecho}.",
+  "{Hecho}. Esto no es pronóstico, es ruleta. El clima anda impredecible.",
+  "Con este clima no la pega ni la abuela con la rodilla. {Hecho}.",
+  "{Hecho}. El tiempo está más cambiante que la formación de la Selección.",
+  "Clima bipolar: a la mañana campera, a la tarde remera. {Hecho}.",
+  "{Hecho}. Si alguien entiende al clima esta semana, que nos escriba."
+ ],
+ bonusLoco:[
+  "Y eso que los modelos tenían hasta {spread}° de diferencia entre ellos.",
+  "Con un clima así de loco, esto vale doble.",
+  "Y no era fácil: el clima venía impredecible."
+ ]
+};
+// Elige una frase por día y categoría, sin repetir las últimas usadas
+function fraseAc(cat,vars){
+  const pool=FRASES_AC[cat],st=LS.get("pp_frases_ac",{dia:null,el:{},rec:{}});
+  if(st.dia!==S.hoy){st.dia=S.hoy;st.el={};}
+  let i=st.el[cat];
+  if(i==null||i>=pool.length){
+    const rec=st.rec[cat]||[],evitar=new Set(rec.slice(-Math.min(4,pool.length-1)));
+    const ops=pool.map((_,k)=>k).filter(k=>!evitar.has(k));
+    i=ops[Math.floor(Math.random()*ops.length)];
+    st.el[cat]=i;st.rec[cat]=[...rec,i].slice(-6);LS.set("pp_frases_ac",st);
+  }
+  return pool[i].replace(/\{(\w+)\}/g,(m,k)=>vars[k]!=null?vars[k]:m);
+}
 function renderMeaCulpa(){
   const box=$("meaCulpa"),d=S.dijo||{},ayer=addDays(S.hoy,-1);
-  const dd=S.detalle&&S.detalle.daily,i=dd?dd.time.indexOf(ayer):-1,motivos=[];
-  if(d[ayer]&&i>=0){
-    const real={tmax:dd.temperature_2m_max[i],tmin:dd.temperature_2m_min[i],lluvia:dd.precipitation_sum[i]},p=d[ayer];
-    if(p.tmax!=null&&real.tmax!=null&&Math.abs(p.tmax-real.tmax)>=3)motivos.push(`ayer dijimos máxima de ${r0(p.tmax)}° y hizo ${r0(real.tmax)}°`);
-    else if(p.tmin!=null&&real.tmin!=null&&Math.abs(p.tmin-real.tmin)>=3)motivos.push(`ayer dijimos mínima de ${r0(p.tmin)}° y bajó a ${r0(real.tmin)}°`);
-    if(p.lluvia!=null&&real.lluvia!=null){
-      if(p.lluvia<1&&real.lluvia>=3)motivos.push(`ayer no esperábamos lluvia y cayeron ${r0(real.lluvia)} mm`);
-      else if(p.lluvia>=3&&real.lluvia<.3)motivos.push(`ayer anunciamos lluvia y no cayó ni una gota`);
-    }
-  }
+  const dd=S.detalle&&S.detalle.daily,i=dd?dd.time.indexOf(ayer):-1,p=d[ayer];
+  if(!p||i<0||p.tmax==null){box.hidden=true;return;}
+  const real={tmax:dd.temperature_2m_max[i],tmin:dd.temperature_2m_min[i],lluvia:dd.precipitation_sum[i]};
+  const errT=real.tmax-p.tmax,dif=Math.abs(errT);
+  const llDijo=p.lluvia!=null?p.lluvia>=1:null,llHubo=real.lluvia!=null?real.lluvia>=1:null;
+  const lluviaOk=llDijo==null||llHubo==null||llDijo===llHubo;
+  const hechos=[];
+  if(dif>=2.5)hechos.push(`ayer dijimos ${r0(p.tmax)}° de máxima y hizo ${r0(real.tmax)}°`);
+  else if(p.tmin!=null&&real.tmin!=null&&Math.abs(p.tmin-real.tmin)>=3)hechos.push(`ayer dijimos mínima de ${r0(p.tmin)}° y bajó a ${r0(real.tmin)}°`);
+  if(!lluviaOk)hechos.push(llHubo?`no esperábamos lluvia y cayeron ${r0(real.lluvia)} mm`:`anunciamos lluvia y no cayó ni una gota`);
+  // ¿cambió mucho lo de hoy durante el día?
   const hoyD=diasCompletos().find(x=>x.L===0),k="pp_dicho_"+AJ.lat+"_"+AJ.lon,guardado=LS.get(k,{});
   const primero=d[S.hoy]||guardado[S.hoy];
-  if(hoyD&&primero){
-    if(primero.tmax!=null&&hoyD.tmax!=null&&Math.abs(primero.tmax-hoyD.tmax)>=3)motivos.push(`para hoy veníamos diciendo ${r0(primero.tmax)}° y ahora da ${r0(hoyD.tmax)}°`);
-    if(primero.lluvia!=null&&hoyD.lluvia!=null&&((primero.lluvia<1&&hoyD.lluvia>=3)||(primero.lluvia>=3&&hoyD.lluvia<.3)))motivos.push(hoyD.lluvia>=3?"para hoy no anunciábamos lluvia y ahora sí":"para hoy anunciábamos lluvia y ahora parece que no");
-  }
+  if(hoyD&&primero&&primero.tmax!=null&&hoyD.tmax!=null&&Math.abs(primero.tmax-hoyD.tmax)>=3)hechos.push(`para hoy veníamos diciendo ${r0(primero.tmax)}° y ahora da ${r0(hoyD.tmax)}°`);
   if(hoyD&&!guardado[S.hoy]){guardado[S.hoy]={tmax:hoyD.tmax,tmin:hoyD.tmin,lluvia:hoyD.lluvia};for(const f of Object.keys(guardado))if(diasEntre(f,S.hoy)>3)delete guardado[f];LS.set(k,guardado);}
-  if(!motivos.length){box.hidden=true;return;}
-  const culpa=elegirFrase(CULPABLES,S.hoy+"culpa");
-  const pedido=elegirFrase(["Pedimos disculpas, de corazón y con la mano en el termo.","Le erramos, lo reconocemos. Pero escuchen nuestra versión.","Mea culpa. Bueno, más o menos."],S.hoy+"perdon");
-  box.innerHTML=`<h2 class="rotulo">🙏 Mea culpa de Yerba Mala</h2><p class="perdon">${esc(pedido)} ${esc(motivos.slice(0,2).join(" y ").replace(/^./,c=>c.toUpperCase()))}.</p>
-    <p class="excusa">Igual, la culpa no es nuestra: es de ${esc(culpa)}. 🧉</p>`;
+  // ¿clima loco? modelos muy separados, lluvia "mitad y mitad" o saltos grandes de temperatura
+  const ih=dd.time.indexOf(S.hoy);
+  const salto=ih>=0?Math.abs(dd.temperature_2m_max[ih]-real.tmax):0;
+  const mitad=p.nLluvia>=3&&p.conLluvia/p.nLluvia>=.3&&p.conLluvia/p.nLluvia<=.7;
+  const loco=(p.spread||0)>=5||mitad||salto>=8||(hoyD&&hoyD.tmax-hoyD.tmin>=15);
+  const vars={dijimos:r0(p.tmax),hizo:r0(real.tmax),dif:r0(dif),mm:r0(real.lluvia),modelos:p.n||"varios",spread:r0(p.spread||0)};
+  let cat,txt,extra="";
+  if(!hechos.length&&dif<=1.5){
+    cat="bien";txt=fraseAc(llDijo&&llHubo&&real.lluvia>=2?"bienLluvia":"bien",vars);if(loco)extra=fraseAc("bonusLoco",vars);
+  }else if(!hechos.length){cat="casi";txt=fraseAc("casi",vars);}
+  else{
+    const h=hechos.slice(0,2).join(", y encima ");vars.hecho=h;vars.Hecho=h[0].toUpperCase()+h.slice(1);
+    cat=loco?"loco":"mal";txt=fraseAc(cat,vars);
+  }
+  const tit={bien:"Clavada ✅",casi:"Cerquita 👌",mal:"Le erramos 🙈",loco:"Clima loco 🌀"}[cat];
+  box.className="vidrio meaculpa "+(cat==="bien"||cat==="casi"?"bien":cat==="loco"?"loco":"mal");
+  box.innerHTML=`<h2 class="rotulo">🎯 ¿La pegamos ayer? <span class="veredicto-ac">${tit}</span></h2>
+    <p class="perdon">${esc(txt)}</p>${extra?`<p class="excusa">${esc(extra)}</p>`:""}
+    <p class="datos-ac">Ayer: dijimos ${r0(p.tmax)}° / ${r0(p.tmin)}°${p.lluvia!=null?` y ${p.lluvia>=1?r0(p.lluvia)+" mm":"sin lluvia"}`:""} · pasó ${r0(real.tmax)}° / ${r0(real.tmin)}°${real.lluvia!=null?` y ${real.lluvia>=1?r0(real.lluvia)+" mm":"sin lluvia"}`:""}</p>`;
   box.hidden=false;
 }
 
