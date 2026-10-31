@@ -19,8 +19,8 @@
    Lluvia = azul, calor = naranja, viento = verde menta, alerta = rojo/ámbar. */
 :root{
   --cielo-1:#3b6ea8; --cielo-2:#86b5e0;
-  --txt:#ffffff; --txt-2:rgba(255,255,255,.78); --txt-3:rgba(255,255,255,.58);
-  --vidrio:rgba(255,255,255,.13); --vidrio-2:rgba(255,255,255,.22); --borde:rgba(255,255,255,.2);
+  --txt:#ffffff; --txt-2:rgba(255,255,255,.9); --txt-3:rgba(255,255,255,.76);
+  --vidrio:rgba(8,18,38,.38); --vidrio-2:rgba(255,255,255,.18); --borde:rgba(255,255,255,.22);
   --lluvia:#8fd0ff; --lluvia-fuerte:#4aa8ff; --calor:#ffb35c; --frio:#b9e2ff; --viento:#8ff0c9;
   --alerta:#ff6b5b; --aviso:#ffc94a; --ym-verde:#5fc48d; --ym-naranja:#f2a73b;
   --num:"Barlow","Arial Narrow",system-ui,sans-serif;
@@ -75,7 +75,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .ico-btn.on{background:#fff;color:#1d3557}
 
 /* héroe */
-.heroe{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding-top:4px}
+.heroe{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding-top:4px;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.barra,.fuentes,footer{text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .lugar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;font:600 1.05rem var(--body)}
 .lugar .cambiar{background:none;border:0;padding:0;color:var(--txt-2);text-decoration:underline;cursor:pointer;font:400 .85rem var(--body)}
 .titulo-app{font:600 .8rem var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--txt-3)}
@@ -93,6 +94,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
   padding-bottom:8px;border-bottom:1px solid var(--borde)}
 .rotulo .der{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:400}
 .chico{font-size:.85rem;color:var(--txt-2)}
+.plegable>.rotulo{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.plegable>.rotulo::after{content:"－";margin-left:auto;padding-left:8px;font-size:1rem;letter-spacing:0}
+.plegable>.rotulo:has(.der)::after{margin-left:8px}
+.plegable.cerrada>.rotulo::after{content:"＋"}
+.plegable.cerrada>:not(.rotulo){display:none!important}
+.plegable.cerrada>.rotulo{margin-bottom:0;padding-bottom:0;border-bottom:0}
 
 /* alertas: una sola tarjeta, una fila por aviso */
 .alertas:empty{display:none}
@@ -321,7 +328,7 @@ body.enorme .app{zoom:1.38}
     <div class="ropa" id="ropa"></div>
   </details>
 
-  <section class="vidrio">
+  <section class="vidrio" id="cardHoras">
     <h2 class="rotulo">Próximas horas <span class="der" id="horasNota"></span></h2>
     <div class="horas" id="horas"></div>
   </section>
@@ -344,7 +351,7 @@ body.enorme .app{zoom:1.38}
     <p class="chico" id="aqiNota"></p>
   </section>
 
-  <section class="vidrio">
+  <section class="vidrio" id="cardDias">
     <h2 class="rotulo">Próximos días <span class="der">deslizá →</span></h2>
     <div class="dias" id="dias" role="group" aria-label="Días"></div>
     <div class="puntos" id="puntos" aria-hidden="true"></div>
@@ -361,7 +368,7 @@ body.enorme .app{zoom:1.38}
     <div class="acuerdo" id="acuerdo"></div>
   </section>
 
-  <section class="vidrio">
+  <section class="vidrio" id="cardLluvia">
     <h2 class="rotulo">Lluvia de los próximos 5 días</h2>
     <p class="prox" id="proxLluvia"></p>
     <div class="barras" id="barras"></div>
@@ -388,20 +395,20 @@ body.enorme .app{zoom:1.38}
     <div id="diaDe"></div>
   </section>
 
-  <details class="vidrio">
+  <details class="vidrio" id="detQuien">
     <summary>¿Quién acierta más?</summary>
     <div class="tabs" id="tabsRank"><button data-l="1" class="on" type="button">A 1 día</button><button data-l="2" type="button">A 2 días</button></div>
     <div class="tablewrap"><table id="rank"></table></div>
     <p class="chico" id="rankNote"></p>
   </details>
 
-  <details class="vidrio">
+  <details class="vidrio" id="detFuentes">
     <summary>Qué dice cada fuente</summary>
     <div class="tabs" id="tabsDet"><button data-l="1" class="on" type="button">Mañana</button><button data-l="2" type="button">Pasado</button></div>
     <div class="tablewrap"><table id="det"></table></div>
   </details>
 
-  <details class="vidrio">
+  <details class="vidrio" id="detPaso">
     <summary>Lo que pasó</summary>
     <div class="tablewrap"><table id="obs"></table></div>
   </details>
@@ -428,7 +435,7 @@ body.enorme .app{zoom:1.38}
     </div>
   </details>
 
-  <details class="vidrio nota">
+  <details class="vidrio nota" id="detComo">
     <summary>Cómo funciona</summary>
     <p>Junta los pronósticos de siete modelos meteorológicos del mundo y de Meteored, y arma un promedio donde pesa más el que más viene acertando.</p>
     <p>Para saber quién acierta, compara lo que cada uno pronosticó 1 y 2 días antes con lo que pasó de verdad (reanálisis ERA5, con unos 5 días de demora). El peso de cada fuente es inverso al cuadrado de su error.</p>
@@ -993,8 +1000,8 @@ function textoCielo(code,tmax){
   return TEXTO_CIELO[t];
 }
 const PALETA={
-  despejado:["#2f72c7","#8cc6f2"],calor:["#d9682e","#f6b25f"],parcial:["#4b7fb8","#a7c7e4"],nublado:["#58687c","#95a3b4"],niebla:["#6f7b87","#a9b2bb"],
-  llovizna:["#46607d","#7d93ab"],lluvia:["#34485f","#62778f"],tormenta:["#251f3c","#4e4372"],nieve:["#6d86a1","#b8c9da"],
+  despejado:["#22599e","#4a86c0"],calor:["#a4441a","#cf7834"],parcial:["#35628f","#5c86b0"],nublado:["#435265","#647487"],niebla:["#525e6c","#76818e"],
+  llovizna:["#384f69","#586d86"],lluvia:["#293b50","#475b72"],tormenta:["#251f3c","#4e4372"],nieve:["#4c6581","#7690ab"],
   noche:["#0b1830","#243a5e"],nocheNub:["#141d2b","#38475c"]
 };
 function pintarCielo(tipo,noche){
@@ -1515,7 +1522,7 @@ function renderMeaCulpa(){
     cat=loco?"loco":"mal";txt=fraseAc(cat,vars);
   }
   const tit={bien:"Clavada ✅",casi:"Cerquita 👌",mal:"Le erramos 🙈",loco:"Clima loco 🌀"}[cat];
-  box.className="vidrio meaculpa "+(cat==="bien"||cat==="casi"?"bien":cat==="loco"?"loco":"mal");
+  box.classList.remove("bien","mal","loco");box.classList.add(cat==="bien"||cat==="casi"?"bien":cat==="loco"?"loco":"mal");
   box.innerHTML=`<h2 class="rotulo">🎯 ¿La pegamos ayer? <span class="veredicto-ac">${tit}</span></h2>
     <p class="perdon">${esc(txt)}</p>${extra?`<p class="excusa">${esc(extra)}</p>`:""}${cambioHoy?`<p class="excusa">${esc(cambioHoy)}</p>`:""}
     <p class="datos-ac">Ayer: dijimos ${r0(p.tmax)}° / ${r0(p.tmin)}°${p.lluvia!=null?` y ${p.lluvia>=1?r0(p.lluvia)+" mm":"sin lluvia"}`:""} · pasó ${r0(real.tmax)}° / ${r0(real.tmin)}°${real.llovio!=null?(real.llovio?" y llovió":" y sin lluvia"):""}${ob?` (estación ${esc(ob.nombre)}${ob.km>3?`, a ${ob.km} km`:""})`:" (según los modelos: no hay estación cerca)"}</p>`;
@@ -2035,6 +2042,23 @@ function letra(n){n=n===true?1:(+n||0)%3;const b=$("btnGrande");
   LS.set("pp_grande",n);}
 $("btnGrande").addEventListener("click",()=>letra((+LS.get("pp_grande",0)||0)+1));
 letra(LS.get("pp_grande",0));
+
+// ---------- tarjetas plegables: se recuerda cómo las dejó cada uno
+(function(){
+  const PLEG=LS.get("pp_plegadas",{}),guardar=()=>LS.set("pp_plegadas",PLEG);
+  document.querySelectorAll(".app > section.vidrio[id]").forEach(sec=>{
+    if(sec.id==="detalle")return;
+    sec.classList.add("plegable");if(PLEG[sec.id])sec.classList.add("cerrada");
+  });
+  document.querySelectorAll(".app > details.vidrio[id]").forEach(d=>{
+    if(d.id in PLEG)d.open=!PLEG[d.id];
+    d.addEventListener("toggle",()=>{PLEG[d.id]=!d.open;guardar();});
+  });
+  document.addEventListener("click",e=>{
+    const r=e.target.closest(".plegable > .rotulo");if(!r||e.target.closest("a,button,input"))return;
+    const sec=r.parentElement;sec.classList.toggle("cerrada");PLEG[sec.id]=sec.classList.contains("cerrada");guardar();
+  });
+})();
 // "Tirá para actualizar" propio: la página no se estira, se mueve solo el cartel
 (function(){
   const ind=$("ptr");let y0=null,d=0;
