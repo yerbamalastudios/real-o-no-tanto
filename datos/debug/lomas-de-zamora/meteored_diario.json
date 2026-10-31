@@ -1,64 +1,32 @@
 {
  "ok": true,
- "expiracion": 1793371740000,
+ "expiracion": 1793458380000,
  "data": {
   "hash": "3e061d1c34014d9ced218ef2300aa218",
   "name": "Lomas de Zamora",
   "url": "https://www.meteored.com.bo/tiempo-en_Lomas+de+Zamora-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16905.html",
   "days": [
    {
-    "start": 1793329200000,
+    "start": 1793415600000,
     "symbol": 12,
     "temperature": {
-     "min": 13.98,
-     "max": 23.3
+     "min": 12.56,
+     "max": 23.83
     },
     "wind": {
-     "speed": 12,
-     "gust": 34,
-     "direction": "N"
+     "speed": 11,
+     "gust": 26,
+     "direction": "NE"
     },
     "precipitation": {
-     "total": 6.8,
-     "rain": 6.8,
-     "probability": 90
+     "total": 0.2,
+     "rain": 0.2,
+     "probability": 40
     },
-    "humidity": 78,
-    "pressure": 1013,
-    "snowline": 2600,
-    "uv_index_max": 8.8,
-    "sun": {
-     "in": 1793350428000,
-     "mid": 1793374643000,
-     "out": 1793398891000
-    },
-    "moon": {
-     "in": 0,
-     "out": 1793362905000,
-     "symbol": 9,
-     "illumination": 74.54
-    }
-   },
-   {
-    "start": 1793415600000,
-    "symbol": 9,
-    "temperature": {
-     "min": 11.48,
-     "max": 24.45
-    },
-    "wind": {
-     "speed": 9,
-     "gust": 23,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 10
-    },
-    "humidity": 76,
-    "pressure": 1013,
+    "humidity": 77,
+    "pressure": 1012,
     "snowline": 3000,
-    "uv_index_max": 9.3,
+    "uv_index_max": 9.2,
     "sun": {
      "in": 1793436766000,
      "mid": 1793461040000,
@@ -75,23 +43,23 @@
     "start": 1793502000000,
     "symbol": 34,
     "temperature": {
-     "min": 15.33,
-     "max": 22.72
+     "min": 15.51,
+     "max": 24.14
     },
     "wind": {
-     "speed": 11,
-     "gust": 32,
-     "direction": "N"
+     "speed": 10,
+     "gust": 36,
+     "direction": "NE"
     },
     "precipitation": {
-     "total": 9.4,
-     "rain": 9.4,
+     "total": 5.7,
+     "rain": 5.7,
      "probability": 90
     },
-    "humidity": 86,
+    "humidity": 85,
     "pressure": 1011,
-    "snowline": 3200,
-    "uv_index_max": 10,
+    "snowline": 3300,
+    "uv_index_max": 9.8,
     "sun": {
      "in": 1793523105000,
      "mid": 1793547438000,
@@ -106,25 +74,24 @@
    },
    {
     "start": 1793588400000,
-    "symbol": 12,
+    "symbol": 9,
     "temperature": {
-     "min": 14.61,
-     "max": 25.85
+     "min": 15.03,
+     "max": 26.6
     },
     "wind": {
      "speed": 10,
-     "gust": 26,
+     "gust": 28,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 0.6,
-     "rain": 0.6,
-     "probability": 70
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 74,
+    "humidity": 75,
     "pressure": 1012,
     "snowline": 3200,
-    "uv_index_max": 8.8,
+    "uv_index_max": 9,
     "sun": {
      "in": 1793609446000,
      "mid": 1793633837000,
@@ -141,22 +108,22 @@
     "start": 1793674800000,
     "symbol": 4,
     "temperature": {
-     "min": 15.18,
-     "max": 23.8
+     "min": 15.39,
+     "max": 22.23
     },
     "wind": {
      "speed": 12,
-     "gust": 34,
+     "gust": 32,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 76,
-    "pressure": 1012,
+    "humidity": 77,
+    "pressure": 1013,
     "snowline": 3100,
-    "uv_index_max": 9.1,
+    "uv_index_max": 9.4,
     "sun": {
      "in": 1793695788000,
      "mid": 1793720237000,
@@ -167,6 +134,38 @@
      "out": 1793725276000,
      "symbol": 5,
      "illumination": 30.89
+    }
+   },
+   {
+    "start": 1793761200000,
+    "symbol": 3,
+    "temperature": {
+     "min": 14.17,
+     "max": 25.79
+    },
+    "wind": {
+     "speed": 18,
+     "gust": 47,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 61,
+    "pressure": 1010,
+    "snowline": 3100,
+    "uv_index_max": 9.2,
+    "sun": {
+     "in": 1793782132000,
+     "mid": 1793806638000,
+     "out": 1793831176000
+    },
+    "moon": {
+     "in": 1793772514000,
+     "out": 1793815512000,
+     "symbol": 4,
+     "illumination": 21.44
     }
    }
   ]

@@ -1,64 +1,32 @@
 {
  "ok": true,
- "expiracion": 1793371740000,
+ "expiracion": 1793458380000,
  "data": {
   "hash": "77027bc6ac829a041653d7b4ff3a1f30",
   "name": "Quilmes",
   "url": "https://www.meteored.mx/clima_Quilmes-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16914.html",
   "days": [
    {
-    "start": 1793329200000,
-    "symbol": 34,
-    "temperature": {
-     "min": 14.06,
-     "max": 21.54
-    },
-    "wind": {
-     "speed": 19,
-     "gust": 42,
-     "direction": "N"
-    },
-    "precipitation": {
-     "total": 8.5,
-     "rain": 8.5,
-     "probability": 90
-    },
-    "humidity": 84,
-    "pressure": 1013,
-    "snowline": 2700,
-    "uv_index_max": 8.7,
-    "sun": {
-     "in": 1793350390000,
-     "mid": 1793374603000,
-     "out": 1793398849000
-    },
-    "moon": {
-     "in": 0,
-     "out": 1793362869000,
-     "symbol": 9,
-     "illumination": 74.54
-    }
-   },
-   {
     "start": 1793415600000,
-    "symbol": 9,
+    "symbol": 12,
     "temperature": {
-     "min": 11.81,
-     "max": 22.5
+     "min": 13.52,
+     "max": 21.4
     },
     "wind": {
-     "speed": 13,
+     "speed": 12,
      "gust": 26,
      "direction": "E"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 20
+     "total": 0.6,
+     "rain": 0.6,
+     "probability": 50
     },
-    "humidity": 82,
+    "humidity": 83,
     "pressure": 1013,
     "snowline": 3000,
-    "uv_index_max": 9.3,
+    "uv_index_max": 9.2,
     "sun": {
      "in": 1793436729000,
      "mid": 1793461001000,
@@ -75,23 +43,23 @@
     "start": 1793502000000,
     "symbol": 34,
     "temperature": {
-     "min": 15.28,
-     "max": 21.48
+     "min": 15.47,
+     "max": 22.79
     },
     "wind": {
-     "speed": 13,
-     "gust": 28,
-     "direction": "NE"
+     "speed": 11,
+     "gust": 34,
+     "direction": "N"
     },
     "precipitation": {
-     "total": 6.7,
-     "rain": 6.7,
+     "total": 6,
+     "rain": 6,
      "probability": 80
     },
     "humidity": 89,
     "pressure": 1011,
-    "snowline": 3200,
-    "uv_index_max": 10,
+    "snowline": 3300,
+    "uv_index_max": 9.8,
     "sun": {
      "in": 1793523068000,
      "mid": 1793547399000,
@@ -106,25 +74,24 @@
    },
    {
     "start": 1793588400000,
-    "symbol": 12,
+    "symbol": 9,
     "temperature": {
-     "min": 14.94,
-     "max": 24.57
+     "min": 15.36,
+     "max": 25.55
     },
     "wind": {
      "speed": 11,
-     "gust": 26,
+     "gust": 27,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 1.7,
-     "rain": 1.7,
-     "probability": 70
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 80,
+    "humidity": 82,
     "pressure": 1012,
     "snowline": 3200,
-    "uv_index_max": 8.8,
+    "uv_index_max": 9,
     "sun": {
      "in": 1793609409000,
      "mid": 1793633798000,
@@ -141,8 +108,8 @@
     "start": 1793674800000,
     "symbol": 4,
     "temperature": {
-     "min": 15.41,
-     "max": 22.22
+     "min": 15.62,
+     "max": 21.21
     },
     "wind": {
      "speed": 16,
@@ -153,10 +120,10 @@
      "total": 0,
      "probability": 20
     },
-    "humidity": 80,
-    "pressure": 1012,
-    "snowline": 3200,
-    "uv_index_max": 9.1,
+    "humidity": 81,
+    "pressure": 1013,
+    "snowline": 3100,
+    "uv_index_max": 9.4,
     "sun": {
      "in": 1793695751000,
      "mid": 1793720198000,
@@ -167,6 +134,39 @@
      "out": 1793725236000,
      "symbol": 5,
      "illumination": 30.89
+    }
+   },
+   {
+    "start": 1793761200000,
+    "symbol": 12,
+    "temperature": {
+     "min": 14.53,
+     "max": 24.65
+    },
+    "wind": {
+     "speed": 17,
+     "gust": 38,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 0.3,
+     "rain": 0.3,
+     "probability": 40
+    },
+    "humidity": 65,
+    "pressure": 1010,
+    "snowline": 3100,
+    "uv_index_max": 9.2,
+    "sun": {
+     "in": 1793782095000,
+     "mid": 1793806598000,
+     "out": 1793831134000
+    },
+    "moon": {
+     "in": 1793772472000,
+     "out": 1793815471000,
+     "symbol": 4,
+     "illumination": 21.44
     }
    }
   ]
