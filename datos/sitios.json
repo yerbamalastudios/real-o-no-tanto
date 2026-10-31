@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-10-31T09:16-03:00",
+ "actualizado": "2026-10-31T17:05-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
@@ -7,7 +7,7 @@
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
-     "n": 1
+     "n": 2
     },
     "meteored_buscado": "Lomas del Mirador",
     "meteored_hash": "6f2daba02c3cd38daee6e2e2f572746e",
@@ -563,32 +563,32 @@
       "2026-10-31": {
        "lluvia": null,
        "prob": null,
-       "tmax": 24.38,
-       "tmin": 12.58
+       "tmax": 24.32,
+       "tmin": 13.02
       },
       "2026-11-01": {
-       "lluvia": 8.4,
+       "lluvia": 10.8,
        "prob": null,
-       "tmax": 24.16,
-       "tmin": 15.78
+       "tmax": 24.15,
+       "tmin": 15.89
       },
       "2026-11-02": {
-       "lluvia": null,
+       "lluvia": 2.0,
        "prob": null,
-       "tmax": 26.71,
-       "tmin": 15.41
+       "tmax": 26.38,
+       "tmin": 15.23
       },
       "2026-11-03": {
-       "lluvia": null,
+       "lluvia": 5.2,
        "prob": null,
-       "tmax": 21.94,
-       "tmin": 15.92
+       "tmax": 21.4,
+       "tmin": 15.76
       },
       "2026-11-04": {
        "lluvia": null,
        "prob": null,
-       "tmax": 26.17,
-       "tmin": 14.31
+       "tmax": 25.18,
+       "tmin": 13.47
       }
      }
     }
@@ -5341,9 +5341,7 @@
    "nombre": "Pilar"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/1751f8edd24f2c520e02d1151500dc7c {\"ok\":false,\"expiracion\":1793448976143,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5394,9 +5392,7 @@
    "nombre": "Ezeiza"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/838217e4056284d47920f99d6029d046 {\"ok\":false,\"expiracion\":1793448976687,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5447,9 +5443,7 @@
    "nombre": "Moreno"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/93353c11201dee175bf24d36d7343bc8 {\"ok\":false,\"expiracion\":1793448977310,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5500,9 +5494,7 @@
    "nombre": "Mar del Plata"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/0ed365e820ff647674aa5dece697e4e9 {\"ok\":false,\"expiracion\":1793448977861,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5553,9 +5545,7 @@
    "nombre": "Rosario"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/85d2a08418f36e010aa1d49b49d35f56 {\"ok\":false,\"expiracion\":1793448978393,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5606,9 +5596,7 @@
    "nombre": "Córdoba"
   },
   {
-   "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/8e70c1902671aab8fe47e9824359af39 {\"ok\":false,\"expiracion\":1793448978912,\"info\":{\"message\":\"Quota Exceeded\"}}"
-   },
+   "errores": {},
    "estado": {
     "llamadas_meteored": {
      "fecha": "2026-10-31",
@@ -5661,6 +5649,6 @@
  ],
  "uso_meteored": {
   "fecha": "2026-10-31",
-  "n": 16
+  "n": 17
  }
 }

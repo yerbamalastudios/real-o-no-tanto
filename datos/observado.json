@@ -1,0 +1,217 @@
+{
+ "actualizado": "2026-10-31T17:05-03:00",
+ "errores": {},
+ "estaciones": {
+  "SAAR": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 20,
+     "reportes_lluvia": 5,
+     "tmax": 24.0,
+     "tmin": 13.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 18,
+     "reportes_lluvia": 0,
+     "tmax": 28.0,
+     "tmin": 13.0
+    }
+   },
+   "lat": -32.904,
+   "lon": -60.785,
+   "nombre": "Rosario"
+  },
+  "SABE": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 21,
+     "reportes_lluvia": 8,
+     "tmax": 20.0,
+     "tmin": 16.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 18,
+     "reportes_lluvia": 0,
+     "tmax": 22.0,
+     "tmin": 16.0
+    }
+   },
+   "lat": -34.559,
+   "lon": -58.416,
+   "nombre": "Aeroparque"
+  },
+  "SACO": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": false,
+     "reportes": 20,
+     "reportes_lluvia": 0,
+     "tmax": 27.0,
+     "tmin": 13.0
+    },
+    "2026-10-31": {
+     "llovio": true,
+     "reportes": 20,
+     "reportes_lluvia": 1,
+     "tmax": 28.0,
+     "tmin": 12.0
+    }
+   },
+   "lat": -31.323,
+   "lon": -64.208,
+   "nombre": "Córdoba"
+  },
+  "SADF": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": false,
+     "reportes": 19,
+     "reportes_lluvia": 0,
+     "tmax": 23.0,
+     "tmin": 15.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 21,
+     "reportes_lluvia": 0,
+     "tmax": 24.0,
+     "tmin": 12.0
+    }
+   },
+   "lat": -34.453,
+   "lon": -58.59,
+   "nombre": "San Fernando"
+  },
+  "SADL": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 26,
+     "reportes_lluvia": 9,
+     "tmax": 20.0,
+     "tmin": 13.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 16,
+     "reportes_lluvia": 0,
+     "tmax": 22.0,
+     "tmin": 13.0
+    }
+   },
+   "lat": -34.972,
+   "lon": -57.895,
+   "nombre": "La Plata"
+  },
+  "SADM": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 18,
+     "reportes_lluvia": 2,
+     "tmax": 23.0,
+     "tmin": 15.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 19,
+     "reportes_lluvia": 0,
+     "tmax": 25.0,
+     "tmin": 12.0
+    }
+   },
+   "lat": -34.676,
+   "lon": -58.643,
+   "nombre": "Morón"
+  },
+  "SADP": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 19,
+     "reportes_lluvia": 5,
+     "tmax": 23.0,
+     "tmin": 15.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 16,
+     "reportes_lluvia": 0,
+     "tmax": 25.0,
+     "tmin": 11.0
+    }
+   },
+   "lat": -34.61,
+   "lon": -58.613,
+   "nombre": "El Palomar"
+  },
+  "SAEZ": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 28,
+     "reportes_lluvia": 20,
+     "tmax": 24.0,
+     "tmin": 13.0
+    },
+    "2026-10-31": {
+     "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 26.0,
+     "tmin": 10.0
+    }
+   },
+   "lat": -34.822,
+   "lon": -58.536,
+   "nombre": "Ezeiza"
+  },
+  "SAME": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": false,
+     "reportes": 20,
+     "reportes_lluvia": 0,
+     "tmax": 29.0,
+     "tmin": 16.0
+    },
+    "2026-10-31": {
+     "llovio": true,
+     "reportes": 18,
+     "reportes_lluvia": 2,
+     "tmax": 27.0,
+     "tmin": 17.0
+    }
+   },
+   "lat": -32.832,
+   "lon": -68.793,
+   "nombre": "Mendoza"
+  },
+  "SAZM": {
+   "dias": {
+    "2026-10-30": {
+     "llovio": true,
+     "reportes": 20,
+     "reportes_lluvia": 4,
+     "tmax": 17.0,
+     "tmin": 12.0
+    },
+    "2026-10-31": {
+     "llovio": true,
+     "reportes": 19,
+     "reportes_lluvia": 3,
+     "tmax": 19.0,
+     "tmin": 14.0
+    }
+   },
+   "lat": -37.934,
+   "lon": -57.573,
+   "nombre": "Mar del Plata"
+  }
+ },
+ "fuente": "METAR (aviationweather.gov)"
+}
