@@ -884,6 +884,14 @@ async function armar(){
       LUGARES_SRV=lista.map(l=>({nombre:l.nombre||"Lomas del Mirador",lat:l.lat,lon:l.lon}));
       srv=lugarCercano(lista);}catch(e){}
   }
+  // Lo que pasó ayer de verdad: estación (aeropuerto) más cercana, del archivo que deja el programa diario
+  let obsAyer=null;
+  if(/^https?:/.test(location.protocol)){
+    try{const j=await getJSON("datos/observado.json?t="+Date.now()),ay=addDays(hoy,-1);let bd=1e9;
+      for(const[icao,e]of Object.entries(j.estaciones||{})){const dd=(e.dias||{})[ay];if(!dd||dd.reportes<16)continue;
+        const km=distKm(AJ.lat,AJ.lon,e.lat,e.lon);if(km<bd&&km<=60){bd=km;obsAyer={...dd,icao,nombre:e.nombre,km:Math.round(km)};}}
+    }catch(e){}
+  }
   let mw=null;
   if(/^http/.test(WORKER_URL)){mw=await intentar("Meteored",meteoredWorker);if(mw&&!mw.lugar){errores["Meteored"]=mw.aviso||"sin datos cerca";mw=null;}}
   if(mw)srv=null;   // con el intermediario no hace falta el archivo del programa diario
@@ -952,7 +960,7 @@ async function armar(){
   for(const f of[addDays(hoy,-1),hoy]){const xs=(histMod||[]).filter(e=>e.L===1&&e.fecha===f).map(e=>e.p);
     if(xs.length){const m=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null);return v.length?v.reduce((a,b)=>a+b,0)/v.length:null;};const tx=xs.map(x=>x.tmax).filter(x=>x!=null),ll=xs.map(x=>x.lluvia).filter(x=>x!=null);
       dijo[f]={tmax:m("tmax"),tmin:m("tmin"),lluvia:m("lluvia"),n:xs.length,spread:tx.length>1?Math.max(...tx)-Math.min(...tx):0,conLluvia:ll.filter(x=>x>=1).length,nLluvia:ll.length};}}
-  return{aire,lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
+  return{aire,obsAyer,lat0:AJ.lat,lon0:AJ.lon,dijo,meteoredDe:mw?(mw.lugar.km>4?{nombre:mw.lugar.nombre,km:mw.lugar.km}:(mw.lugar.meteored&&mw.lugar.meteored!==mw.lugar.nombre?{nombre:mw.lugar.meteored,km:null}:null)):(srv&&DIST_SRV>5?{nombre:srv.nombre,km:Math.round(DIST_SRV)}:null),lugar:AJ.lugar,hoy,detalle:det,semana,generado:new Date().toISOString(),nombres,puntajes:punt,dias,finde,efemerides:efe,errores,
     observado_reciente:Object.entries(obs||{}).sort().slice(-10).map(([fecha,v])=>({fecha,...v})),
     diasGuardados:Object.keys(h).length,servidor:!!srv};
 }
@@ -1423,9 +1431,9 @@ const FRASES_AC={
   "Clavada. Que alguien le avise a la competencia."
  ],
  bienLluvia:[
-  "Dijimos que llovía y llovió: {mm} mm. El paraguas te manda saludos.",
-  "Anunciamos agua y cayeron {mm} mm. Si saliste sin paraguas, eso ya es tema tuyo.",
-  "Lluvia anunciada, lluvia entregada: {mm} mm. Servicio puerta a puerta."
+  "Dijimos que llovía y llovió. El paraguas te manda saludos.",
+  "Anunciamos agua y hubo agua. Si saliste sin paraguas, eso ya es tema tuyo.",
+  "Lluvia anunciada, lluvia entregada. Servicio puerta a puerta."
  ],
  casi:[
   "Casi: dijimos {dijimos}° y fueron {hizo}°. Penal que pega en el palo y entra.",
@@ -1475,18 +1483,22 @@ function renderMeaCulpa(){
   const box=$("meaCulpa"),d=S.dijo||{},ayer=addDays(S.hoy,-1);
   const dd=S.detalle&&S.detalle.daily,i=dd?dd.time.indexOf(ayer):-1,p=d[ayer];
   if(!p||i<0||p.tmax==null){box.hidden=true;return;}
-  const real={tmax:dd.temperature_2m_max[i],tmin:dd.temperature_2m_min[i],lluvia:dd.precipitation_sum[i]};
+  // Lo que pasó: si hay estación cerca (METAR), eso; si no, solo la temperatura de los modelos y la lluvia no se juzga
+  const ob=S.obsAyer;
+  const real=ob?{tmax:ob.tmax,tmin:ob.tmin,lluvia:null,llovio:ob.llovio}:{tmax:dd.temperature_2m_max[i],tmin:dd.temperature_2m_min[i],lluvia:null,llovio:null};
   const errT=real.tmax-p.tmax,dif=Math.abs(errT);
-  const llDijo=p.lluvia!=null?p.lluvia>=1:null,llHubo=real.lluvia!=null?real.lluvia>=1:null;
+  const llDijo=p.lluvia!=null?p.lluvia>=1:null,llHubo=real.llovio;
   const lluviaOk=llDijo==null||llHubo==null||llDijo===llHubo;
   const hechos=[];
   if(dif>=2.5)hechos.push(`ayer dijimos ${r0(p.tmax)}° de máxima y hizo ${r0(real.tmax)}°`);
   else if(p.tmin!=null&&real.tmin!=null&&Math.abs(p.tmin-real.tmin)>=3)hechos.push(`ayer dijimos mínima de ${r0(p.tmin)}° y bajó a ${r0(real.tmin)}°`);
-  if(!lluviaOk)hechos.push(llHubo?`no esperábamos lluvia y cayeron ${r0(real.lluvia)} mm`:`anunciamos lluvia y no cayó ni una gota`);
+  if(!lluviaOk)hechos.push(llHubo?`no esperábamos lluvia y llovió igual`:`anunciamos lluvia y no cayó ni una gota`);
   // ¿cambió mucho lo de hoy durante el día?
   const hoyD=diasCompletos().find(x=>x.L===0),k="pp_dicho_"+AJ.lat+"_"+AJ.lon,guardado=LS.get(k,{});
   const primero=d[S.hoy]||guardado[S.hoy];
-  if(hoyD&&primero&&primero.tmax!=null&&hoyD.tmax!=null&&Math.abs(primero.tmax-hoyD.tmax)>=3)hechos.push(`para hoy veníamos diciendo ${r0(primero.tmax)}° y ahora da ${r0(hoyD.tmax)}°`);
+  // Lo de hoy va aparte: no cambia el veredicto de ayer
+  const cambioHoy=hoyD&&primero&&primero.tmax!=null&&hoyD.tmax!=null&&Math.abs(primero.tmax-hoyD.tmax)>=3
+    ?`Ojo con hoy: veníamos diciendo ${r0(primero.tmax)}° y ahora da ${r0(hoyD.tmax)}°. Los modelos cambiaron de idea a mitad de camino.`:"";
   if(hoyD&&!guardado[S.hoy]){guardado[S.hoy]={tmax:hoyD.tmax,tmin:hoyD.tmin,lluvia:hoyD.lluvia};for(const f of Object.keys(guardado))if(diasEntre(f,S.hoy)>3)delete guardado[f];LS.set(k,guardado);}
   // ¿clima loco? modelos muy separados, lluvia "mitad y mitad" o saltos grandes de temperatura
   const ih=dd.time.indexOf(S.hoy);
@@ -1496,7 +1508,7 @@ function renderMeaCulpa(){
   const vars={dijimos:r0(p.tmax),hizo:r0(real.tmax),dif:r0(dif),mm:r0(real.lluvia),modelos:p.n||"varios",spread:r0(p.spread||0)};
   let cat,txt,extra="";
   if(!hechos.length&&dif<=1.5){
-    cat="bien";txt=fraseAc(llDijo&&llHubo&&real.lluvia>=2?"bienLluvia":"bien",vars);if(loco)extra=fraseAc("bonusLoco",vars);
+    cat="bien";txt=fraseAc(llDijo&&llHubo?"bienLluvia":"bien",vars);if(loco)extra=fraseAc("bonusLoco",vars);
   }else if(!hechos.length){cat="casi";txt=fraseAc("casi",vars);}
   else{
     const h=hechos.slice(0,2).join(", y encima ");vars.hecho=h;vars.Hecho=h[0].toUpperCase()+h.slice(1);
@@ -1505,8 +1517,8 @@ function renderMeaCulpa(){
   const tit={bien:"Clavada ✅",casi:"Cerquita 👌",mal:"Le erramos 🙈",loco:"Clima loco 🌀"}[cat];
   box.className="vidrio meaculpa "+(cat==="bien"||cat==="casi"?"bien":cat==="loco"?"loco":"mal");
   box.innerHTML=`<h2 class="rotulo">🎯 ¿La pegamos ayer? <span class="veredicto-ac">${tit}</span></h2>
-    <p class="perdon">${esc(txt)}</p>${extra?`<p class="excusa">${esc(extra)}</p>`:""}
-    <p class="datos-ac">Ayer: dijimos ${r0(p.tmax)}° / ${r0(p.tmin)}°${p.lluvia!=null?` y ${p.lluvia>=1?r0(p.lluvia)+" mm":"sin lluvia"}`:""} · pasó ${r0(real.tmax)}° / ${r0(real.tmin)}°${real.lluvia!=null?` y ${real.lluvia>=1?r0(real.lluvia)+" mm":"sin lluvia"}`:""}</p>`;
+    <p class="perdon">${esc(txt)}</p>${extra?`<p class="excusa">${esc(extra)}</p>`:""}${cambioHoy?`<p class="excusa">${esc(cambioHoy)}</p>`:""}
+    <p class="datos-ac">Ayer: dijimos ${r0(p.tmax)}° / ${r0(p.tmin)}°${p.lluvia!=null?` y ${p.lluvia>=1?r0(p.lluvia)+" mm":"sin lluvia"}`:""} · pasó ${r0(real.tmax)}° / ${r0(real.tmin)}°${real.llovio!=null?(real.llovio?" y llovió":" y sin lluvia"):""}${ob?` (estación ${esc(ob.nombre)}${ob.km>3?`, a ${ob.km} km`:""})`:" (según los modelos: no hay estación cerca)"}</p>`;
   box.hidden=false;
 }
 
@@ -1782,6 +1794,7 @@ function renderFuentes(){
     `${a("https://open-meteo.com/","Open-Meteo")}: siete modelos globales (ECMWF, GFS, ICON y otros), detalle por hora, calidad del aire, salida y puesta del sol`,
     `${a("https://www.meteored.com.ar/","Meteored")}`+(md?`: dato de ${esc(md.nombre)}${md.km?` (a ${md.km} km)`:""}`:""),
     `${a("https://cds.climate.copernicus.eu/","Copernicus ERA5")}: lo que pasó de verdad, para ver quién acierta`,
+    `${a("https://aviationweather.gov/","Reportes METAR de aeropuertos")}: lo que pasó ayer${S&&S.obsAyer?` (estación ${esc(S.obsAyer.nombre)})`:""}, para "¿La pegamos ayer?"`,
     `${a(`https://www.argentina.gob.ar/interior/feriados-nacionales-${an}`,"Ministerio del Interior")}: feriados`,
     `${a(`https://es.wikipedia.org/wiki/${d}_de_${MES[m]}`,"Wikipedia")}: efemérides, santoral y días de…`,
     `${a("https://www.bigdatacloud.com/","BigDataCloud")}: nombre del lugar`

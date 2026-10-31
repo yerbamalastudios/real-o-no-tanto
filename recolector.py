@@ -467,6 +467,75 @@ def recolectar_lugar(lugar, previo, hoy):
     return datos
 
 
+# ---------- lo que pasó de verdad: reportes METAR de los aeropuertos (estaciones con observadores)
+ESTACIONES = {
+    "SABE": ("Aeroparque", -34.559, -58.416), "SAEZ": ("Ezeiza", -34.822, -58.536),
+    "SADM": ("Morón", -34.676, -58.643), "SADP": ("El Palomar", -34.610, -58.613),
+    "SADF": ("San Fernando", -34.453, -58.590), "SADL": ("La Plata", -34.972, -57.895),
+    "SAZM": ("Mar del Plata", -37.934, -57.573), "SAAR": ("Rosario", -32.904, -60.785),
+    "SACO": ("Córdoba", -31.323, -64.208), "SAME": ("Mendoza", -32.832, -68.793),
+}
+SALIDA_OBS = os.path.join(RAIZ, "datos", "observado.json")
+LLUVIA_METAR = re.compile(r"^(?:\+|-)?(?:RE)?(?:TS|SH|FZ)?(?:RA|DZ)")
+
+
+def leer_metar(raw):
+    """Temperatura y si llovía, a partir del texto del METAR."""
+    t = None
+    m = re.search(r"\s(M?\d{2})/(M?\d{2})?\s", " " + raw + " ")
+    if m:
+        t = int(m.group(1).replace("M", "-"))
+    lluvia = any(LLUVIA_METAR.match(tok) and not tok.startswith("VC") for tok in raw.split())
+    return t, lluvia
+
+
+def actualizar_observado(hoy):
+    """Guarda, por estación y por día, máxima, mínima y si llovió (de los METAR de las últimas 48 h)."""
+    viejo = leer_json(SALIDA_OBS, {})
+    est = viejo.get("estaciones", {})
+    errores = {}
+    try:
+        j = http("https://aviationweather.gov/api/data/metar?" + urllib.parse.urlencode(
+            {"ids": ",".join(ESTACIONES), "hours": 48, "format": "json"}))
+    except Exception as e:
+        errores["METAR"] = f"{type(e).__name__}: {e}"[:250]
+        j = []
+    por = {}
+    for o in j if isinstance(j, list) else []:
+        icao = o.get("icaoId")
+        raw = o.get("rawOb") or ""
+        ts = o.get("obsTime")
+        if icao not in ESTACIONES or not raw or ts is None:
+            continue
+        cuando = datetime.fromtimestamp(int(ts), TZ)
+        t, llueve = leer_metar(raw)
+        if o.get("temp") is not None:
+            t = num(o.get("temp"))
+        d = por.setdefault(icao, {}).setdefault(cuando.date().isoformat(), {"ts": set(), "t": [], "ll": 0})
+        if ts in d["ts"]:
+            continue
+        d["ts"].add(ts)
+        if t is not None:
+            d["t"].append(t)
+        if llueve:
+            d["ll"] += 1
+    for icao, dias in por.items():
+        nom, la, lo = ESTACIONES[icao]
+        e = est.setdefault(icao, {"nombre": nom, "lat": la, "lon": lo, "dias": {}})
+        for f, d in dias.items():
+            if not d["t"]:
+                continue
+            nuevo = {"tmax": max(d["t"]), "tmin": min(d["t"]), "reportes": len(d["ts"]), "reportes_lluvia": d["ll"], "llovio": d["ll"] > 0}
+            ant = e["dias"].get(f)
+            if not ant or nuevo["reportes"] >= ant.get("reportes", 0):
+                e["dias"][f] = nuevo
+        corte = (hoy - timedelta(days=12)).isoformat()
+        e["dias"] = {f: v for f, v in e["dias"].items() if f >= corte}
+    guardar_json(SALIDA_OBS, {"actualizado": datetime.now(TZ).isoformat(timespec="minutes"), "fuente": "METAR (aviationweather.gov)",
+                              "estaciones": est, "errores": errores})
+    print("observado:", {k: len(v["dias"]) for k, v in est.items()}, errores)
+
+
 def main():
     hoy = datetime.now(TZ).date()
     viejo = leer_json(SALIDA, {})
@@ -482,6 +551,10 @@ def main():
         actualizar_feriados(hoy)
     except Exception as e:
         print("feriados:", e)
+    try:
+        actualizar_observado(hoy)
+    except Exception as e:
+        print("observado:", e)
     salida = []
     for lugar in cargar_lugares():
         DEBUG_DIR = os.path.join(RAIZ, "datos", "debug", re.sub(r"[^a-z0-9]+", "-", lugar["nombre"].lower()).strip("-"))
