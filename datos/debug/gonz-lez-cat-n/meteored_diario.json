@@ -1,63 +1,29 @@
 {
  "ok": true,
- "expiracion": 1793717280000,
+ "expiracion": 1793803620000,
  "data": {
   "hash": "c53116e7067472db7e4c8aac9d6bf1d2",
   "name": "Gonzalez Catan",
   "url": "https://www.meteored.com.bo/tiempo-en_Gonzalez+Catan-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-322227.html",
   "days": [
    {
-    "start": 1793674800000,
-    "symbol": 14,
-    "temperature": {
-     "min": 14.89,
-     "max": 22.75
-    },
-    "wind": {
-     "speed": 17,
-     "gust": 38,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 7.8,
-     "rain": 7.8,
-     "probability": 90
-    },
-    "humidity": 87,
-    "pressure": 1012,
-    "snowline": 3100,
-    "uv_index_max": 9.5,
-    "sun": {
-     "in": 1793695837000,
-     "mid": 1793720287000,
-     "out": 1793744770000
-    },
-    "moon": {
-     "in": 1793684465000,
-     "out": 1793725327000,
-     "symbol": 5,
-     "illumination": 30.89
-    }
-   },
-   {
     "start": 1793761200000,
-    "symbol": 12,
+    "symbol": 3,
     "temperature": {
-     "min": 14.3,
-     "max": 25.04
+     "min": 13.62,
+     "max": 23.98
     },
     "wind": {
      "speed": 18,
-     "gust": 39,
+     "gust": 41,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 1.3,
-     "rain": 1.3,
-     "probability": 60
+     "total": 0,
+     "probability": 10
     },
-    "humidity": 72,
-    "pressure": 1009,
+    "humidity": 70,
+    "pressure": 1010,
     "snowline": 3000,
     "uv_index_max": 9.2,
     "sun": {
@@ -76,22 +42,22 @@
     "start": 1793847600000,
     "symbol": 1,
     "temperature": {
-     "min": 11.35,
-     "max": 25.39
+     "min": 10.55,
+     "max": 25.37
     },
     "wind": {
      "speed": 11,
-     "gust": 22,
-     "direction": "SW"
+     "gust": 27,
+     "direction": "W"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 59,
-    "pressure": 1011,
-    "snowline": 3300,
-    "uv_index_max": 9.4,
+    "humidity": 60,
+    "pressure": 1012,
+    "snowline": 3100,
+    "uv_index_max": 9.5,
     "sun": {
      "in": 1793868525000,
      "mid": 1793893090000,
@@ -108,23 +74,23 @@
     "start": 1793934000000,
     "symbol": 12,
     "temperature": {
-     "min": 12.04,
-     "max": 20.97
+     "min": 14.24,
+     "max": 24.77
     },
     "wind": {
-     "speed": 22,
-     "gust": 43,
+     "speed": 17,
+     "gust": 37,
      "direction": "S"
     },
     "precipitation": {
-     "total": 9.3,
-     "rain": 9.3,
+     "total": 2.2,
+     "rain": 2.2,
      "probability": 90
     },
-    "humidity": 77,
-    "pressure": 1012,
-    "snowline": 2300,
-    "uv_index_max": 9.4,
+    "humidity": 71,
+    "pressure": 1013,
+    "snowline": 2600,
+    "uv_index_max": 9.8,
     "sun": {
      "in": 1793954871000,
      "mid": 1793979492000,
@@ -141,23 +107,23 @@
     "start": 1794020400000,
     "symbol": 12,
     "temperature": {
-     "min": 9.26,
-     "max": 17.24
+     "min": 9.27,
+     "max": 18.21
     },
     "wind": {
-     "speed": 23,
-     "gust": 53,
+     "speed": 19,
+     "gust": 42,
      "direction": "S"
     },
     "precipitation": {
-     "total": 0.4,
-     "rain": 0.4,
-     "probability": 50
+     "total": 0.3,
+     "rain": 0.3,
+     "probability": 30
     },
-    "humidity": 59,
+    "humidity": 65,
     "pressure": 1023,
-    "snowline": 1800,
-    "uv_index_max": 9,
+    "snowline": 2500,
+    "uv_index_max": 8.8,
     "sun": {
      "in": 1794041219000,
      "mid": 1794065895000,
@@ -168,6 +134,38 @@
      "out": 1794085908000,
      "symbol": 1,
      "illumination": 2.8
+    }
+   },
+   {
+    "start": 1794106800000,
+    "symbol": 1,
+    "temperature": {
+     "min": 8.49,
+     "max": 22.14
+    },
+    "wind": {
+     "speed": 8,
+     "gust": 21,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 58,
+    "pressure": 1024,
+    "snowline": 3100,
+    "uv_index_max": 9.5,
+    "sun": {
+     "in": 1794127568000,
+     "mid": 1794152299000,
+     "out": 1794177061000
+    },
+    "moon": {
+     "in": 1794124695000,
+     "out": 1794176030000,
+     "symbol": 1,
+     "illumination": 0.45
     }
    }
   ]
