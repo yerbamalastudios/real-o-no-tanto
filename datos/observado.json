@@ -1,5 +1,5 @@
 {
- "actualizado": "2026-11-05T09:38-03:00",
+ "actualizado": "2026-11-06T09:35-03:00",
  "errores": {},
  "estaciones": {
   "SAAR": {
@@ -48,10 +48,17 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 26.0,
+     "tmin": 8.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
-     "tmin": 8.0
+     "tmax": 22.0,
+     "tmin": 15.0
     }
    },
    "lat": -32.904,
@@ -104,10 +111,17 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 27.0,
+     "tmin": 16.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
      "tmax": 21.0,
-     "tmin": 16.0
+     "tmin": 20.0
     }
    },
    "lat": -34.559,
@@ -160,10 +174,17 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 25,
+     "reportes_lluvia": 0,
+     "tmax": 27.0,
+     "tmin": 11.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
      "tmax": 21.0,
-     "tmin": 11.0
+     "tmin": 13.0
     }
    },
    "lat": -31.323,
@@ -216,10 +237,17 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 26.0,
+     "tmin": 11.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
-     "tmin": 11.0
+     "tmax": 21.0,
+     "tmin": 14.0
     }
    },
    "lat": -34.453,
@@ -272,10 +300,17 @@
     },
     "2026-11-05": {
      "llovio": false,
-     "reportes": 12,
+     "reportes": 26,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
+     "tmax": 26.0,
      "tmin": 11.0
+    },
+    "2026-11-06": {
+     "llovio": false,
+     "reportes": 10,
+     "reportes_lluvia": 0,
+     "tmax": 21.0,
+     "tmin": 14.0
     }
    },
    "lat": -34.972,
@@ -328,10 +363,17 @@
     },
     "2026-11-05": {
      "llovio": false,
-     "reportes": 10,
+     "reportes": 24,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
+     "tmax": 26.0,
      "tmin": 12.0
+    },
+    "2026-11-06": {
+     "llovio": false,
+     "reportes": 9,
+     "reportes_lluvia": 0,
+     "tmax": 21.0,
+     "tmin": 16.0
     }
    },
    "lat": -34.676,
@@ -384,9 +426,16 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 26.0,
+     "tmin": 10.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
+     "tmax": 21.0,
      "tmin": 10.0
     }
    },
@@ -440,9 +489,16 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 24,
+     "reportes_lluvia": 0,
+     "tmax": 27.0,
+     "tmin": 11.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
+     "tmax": 22.0,
      "tmin": 11.0
     }
    },
@@ -496,10 +552,17 @@
     },
     "2026-11-05": {
      "llovio": false,
+     "reportes": 25,
+     "reportes_lluvia": 0,
+     "tmax": 31.0,
+     "tmin": 13.0
+    },
+    "2026-11-06": {
+     "llovio": false,
      "reportes": 10,
      "reportes_lluvia": 0,
-     "tmax": 19.0,
-     "tmin": 13.0
+     "tmax": 23.0,
+     "tmin": 17.0
     }
    },
    "lat": -32.832,
@@ -552,10 +615,17 @@
     },
     "2026-11-05": {
      "llovio": false,
-     "reportes": 10,
+     "reportes": 24,
      "reportes_lluvia": 0,
-     "tmax": 20.0,
+     "tmax": 24.0,
      "tmin": 8.0
+    },
+    "2026-11-06": {
+     "llovio": true,
+     "reportes": 13,
+     "reportes_lluvia": 9,
+     "tmax": 16.0,
+     "tmin": 11.0
     }
    },
    "lat": -37.934,
