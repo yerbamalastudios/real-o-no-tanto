@@ -1,21 +1,21 @@
 {
  "ok": true,
- "expiracion": 1794149460000,
+ "expiracion": 1794235800000,
  "data": {
   "hash": "c58e3e06abd76c09e3da6bc40c98e51e",
   "name": "San Isidro",
   "url": "https://www.meteored.cl/tiempo-en_San+Isidro-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-321754.html",
   "days": [
    {
-    "start": 1794106800000,
+    "start": 1794193200000,
     "symbol": 1,
     "temperature": {
-     "min": 9.02,
-     "max": 19.67
+     "min": 11.16,
+     "max": 23.88
     },
     "wind": {
-     "speed": 12,
-     "gust": 29,
+     "speed": 19,
+     "gust": 35,
      "direction": "NE"
     },
     "precipitation": {
@@ -23,41 +23,9 @@
      "probability": 0
     },
     "humidity": 64,
-    "pressure": 1026,
-    "snowline": 3000,
-    "uv_index_max": 9.6,
-    "sun": {
-     "in": 1794127574000,
-     "mid": 1794152272000,
-     "out": 1794177000000
-    },
-    "moon": {
-     "in": 1794124702000,
-     "out": 1794175961000,
-     "symbol": 1,
-     "illumination": 0.45
-    }
-   },
-   {
-    "start": 1794193200000,
-    "symbol": 1,
-    "temperature": {
-     "min": 11.09,
-     "max": 23.24
-    },
-    "wind": {
-     "speed": 18,
-     "gust": 34,
-     "direction": "NE"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 66,
-    "pressure": 1024,
+    "pressure": 1023,
     "snowline": 3400,
-    "uv_index_max": 10.5,
+    "uv_index_max": 10.4,
     "sun": {
      "in": 1794213925000,
      "mid": 1794238677000,
@@ -74,22 +42,22 @@
     "start": 1794279600000,
     "symbol": 3,
     "temperature": {
-     "min": 14.82,
-     "max": 25.53
+     "min": 14.93,
+     "max": 26.2
     },
     "wind": {
-     "speed": 16,
-     "gust": 34,
+     "speed": 15,
+     "gust": 32,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
-     "probability": 20
+     "probability": 10
     },
-    "humidity": 67,
+    "humidity": 66,
     "pressure": 1019,
-    "snowline": 3700,
-    "uv_index_max": 10.5,
+    "snowline": 3800,
+    "uv_index_max": 10.4,
     "sun": {
      "in": 1794300278000,
      "mid": 1794325082000,
@@ -104,24 +72,23 @@
    },
    {
     "start": 1794366000000,
-    "symbol": 12,
+    "symbol": 3,
     "temperature": {
-     "min": 18.16,
-     "max": 27.15
+     "min": 18.53,
+     "max": 26.75
     },
     "wind": {
-     "speed": 11,
+     "speed": 12,
      "gust": 30,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 0.5,
-     "rain": 0.5,
-     "probability": 60
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 71,
+    "humidity": 72,
     "pressure": 1016,
-    "snowline": 3400,
+    "snowline": 3200,
     "uv_index_max": 10.3,
     "sun": {
      "in": 1794386632000,
@@ -137,24 +104,24 @@
    },
    {
     "start": 1794452400000,
-    "symbol": 3,
+    "symbol": 1,
     "temperature": {
-     "min": 18.03,
-     "max": 29.28
+     "min": 17.85,
+     "max": 26.99
     },
     "wind": {
-     "speed": 17,
-     "gust": 35,
+     "speed": 19,
+     "gust": 39,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
-     "probability": 10
+     "probability": 0
     },
     "humidity": 68,
     "pressure": 1016,
-    "snowline": 4400,
-    "uv_index_max": 10.4,
+    "snowline": 4500,
+    "uv_index_max": 10.2,
     "sun": {
      "in": 1794472988000,
      "mid": 1794497896000,
@@ -165,6 +132,38 @@
      "out": 1794535230000,
      "symbol": 25,
      "illumination": 10.1
+    }
+   },
+   {
+    "start": 1794538800000,
+    "symbol": 4,
+    "temperature": {
+     "min": 18.96,
+     "max": 28.31
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 36,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 67,
+    "pressure": 1014,
+    "snowline": 4000,
+    "uv_index_max": 10.4,
+    "sun": {
+     "in": 1794559345000,
+     "mid": 1794584304000,
+     "out": 1794609293000
+    },
+    "moon": {
+     "in": 1794569760000,
+     "out": 1794624288000,
+     "symbol": 24,
+     "illumination": 16.48
     }
    }
   ]
