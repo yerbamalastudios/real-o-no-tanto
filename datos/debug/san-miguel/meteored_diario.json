@@ -1,60 +1,28 @@
 {
  "ok": true,
- "expiracion": 1794322260000,
+ "expiracion": 1794408720000,
  "data": {
   "hash": "215cdc3e58ddc6246d13b9fca5d26bac",
   "name": "San Miguel del Monte",
   "url": "https://www.meteored.com.ar/tiempo-en_San+Miguel+del+Monte-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16091.html",
   "days": [
    {
-    "start": 1794279600000,
-    "symbol": 3,
-    "temperature": {
-     "min": 13.71,
-     "max": 25.69
-    },
-    "wind": {
-     "speed": 17,
-     "gust": 35,
-     "direction": "NE"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 67,
-    "pressure": 1018,
-    "snowline": 3600,
-    "uv_index_max": 10.3,
-    "sun": {
-     "in": 1794300235000,
-     "mid": 1794325152000,
-     "out": 1794350100000
-    },
-    "moon": {
-     "in": 1794301659000,
-     "out": 1794356297000,
-     "symbol": 27,
-     "illumination": 1.71
-    }
-   },
-   {
     "start": 1794366000000,
     "symbol": 3,
     "temperature": {
-     "min": 16.4,
-     "max": 28.44
+     "min": 14.93,
+     "max": 28.49
     },
     "wind": {
-     "speed": 13,
-     "gust": 24,
+     "speed": 11,
+     "gust": 25,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 68,
+    "humidity": 67,
     "pressure": 1016,
     "snowline": 3400,
     "uv_index_max": 10.1,
@@ -72,23 +40,23 @@
    },
    {
     "start": 1794452400000,
-    "symbol": 3,
+    "symbol": 1,
     "temperature": {
-     "min": 15.88,
-     "max": 28.98
+     "min": 16.95,
+     "max": 29.77
     },
     "wind": {
-     "speed": 18,
-     "gust": 32,
+     "speed": 17,
+     "gust": 31,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 10
     },
-    "humidity": 70,
+    "humidity": 68,
     "pressure": 1016,
-    "snowline": 4200,
+    "snowline": 4100,
     "uv_index_max": 10.2,
     "sun": {
      "in": 1794472941000,
@@ -104,25 +72,24 @@
    },
    {
     "start": 1794538800000,
-    "symbol": 12,
+    "symbol": 3,
     "temperature": {
-     "min": 18.05,
-     "max": 29.99
+     "min": 18.36,
+     "max": 30.03
     },
     "wind": {
-     "speed": 17,
-     "gust": 35,
+     "speed": 19,
+     "gust": 39,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 0.5,
-     "rain": 0.5,
-     "probability": 70
+     "total": 0,
+     "probability": 20
     },
     "humidity": 64,
     "pressure": 1015,
-    "snowline": 4100,
-    "uv_index_max": 10.2,
+    "snowline": 4300,
+    "uv_index_max": 10.5,
     "sun": {
      "in": 1794559297000,
      "mid": 1794584374000,
@@ -137,23 +104,22 @@
    },
    {
     "start": 1794625200000,
-    "symbol": 12,
+    "symbol": 4,
     "temperature": {
-     "min": 16.01,
-     "max": 27.1
+     "min": 16.28,
+     "max": 27.49
     },
     "wind": {
-     "speed": 16,
-     "gust": 39,
-     "direction": "S"
+     "speed": 18,
+     "gust": 37,
+     "direction": "SE"
     },
     "precipitation": {
-     "total": 0.4,
-     "rain": 0.4,
-     "probability": 80
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 74,
-    "pressure": 1013,
+    "humidity": 71,
+    "pressure": 1012,
     "snowline": 4200,
     "uv_index_max": 10.3,
     "sun": {
@@ -166,6 +132,38 @@
      "out": 0,
      "symbol": 23,
      "illumination": 24.02
+    }
+   },
+   {
+    "start": 1794711600000,
+    "symbol": 4,
+    "temperature": {
+     "min": 13.21,
+     "max": 23.8
+    },
+    "wind": {
+     "speed": 21,
+     "gust": 42,
+     "direction": "E"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 67,
+    "pressure": 1014,
+    "snowline": 4200,
+    "uv_index_max": 10.2,
+    "sun": {
+     "in": 1794732013000,
+     "mid": 1794757193000,
+     "out": 1794782403000
+    },
+    "moon": {
+     "in": 1794749438000,
+     "out": 1794713212000,
+     "symbol": 23,
+     "illumination": 32.49
     }
    }
   ]
