@@ -1,63 +1,31 @@
 {
  "ok": true,
- "expiracion": 1794408720000,
+ "expiracion": 1794495060000,
  "data": {
   "hash": "29b57c65fb29097950bd31084e562e18",
   "name": "Moron",
   "url": "https://www.tiempo.com/moron.htm",
   "days": [
    {
-    "start": 1794366000000,
-    "symbol": 3,
-    "temperature": {
-     "min": 18.75,
-     "max": 29.4
-    },
-    "wind": {
-     "speed": 14,
-     "gust": 37,
-     "direction": "NE"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 20
-    },
-    "humidity": 56,
-    "pressure": 1016,
-    "snowline": 3300,
-    "uv_index_max": 10.4,
-    "sun": {
-     "in": 1794386633000,
-     "mid": 1794411510000,
-     "out": 1794436417000
-    },
-    "moon": {
-     "in": 1794390759000,
-     "out": 1794445854000,
-     "symbol": 26,
-     "illumination": 5.11
-    }
-   },
-   {
     "start": 1794452400000,
     "symbol": 1,
     "temperature": {
-     "min": 19.23,
-     "max": 31.11
+     "min": 18.94,
+     "max": 30.96
     },
     "wind": {
-     "speed": 15,
-     "gust": 35,
+     "speed": 14,
+     "gust": 33,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 60,
-    "pressure": 1015,
-    "snowline": 4300,
-    "uv_index_max": 10.4,
+    "humidity": 59,
+    "pressure": 1016,
+    "snowline": 4200,
+    "uv_index_max": 10.5,
     "sun": {
      "in": 1794472989000,
      "mid": 1794497918000,
@@ -74,11 +42,11 @@
     "start": 1794538800000,
     "symbol": 3,
     "temperature": {
-     "min": 20.93,
-     "max": 32.57
+     "min": 20.06,
+     "max": 30.16
     },
     "wind": {
-     "speed": 15,
+     "speed": 17,
      "gust": 40,
      "direction": "NE"
     },
@@ -86,10 +54,10 @@
      "total": 0,
      "probability": 20
     },
-    "humidity": 51,
+    "humidity": 56,
     "pressure": 1015,
-    "snowline": 4400,
-    "uv_index_max": 10.8,
+    "snowline": 4200,
+    "uv_index_max": 10.7,
     "sun": {
      "in": 1794559346000,
      "mid": 1794584326000,
@@ -104,24 +72,25 @@
    },
    {
     "start": 1794625200000,
-    "symbol": 4,
+    "symbol": 12,
     "temperature": {
-     "min": 20.37,
-     "max": 30.78
+     "min": 19.33,
+     "max": 27.7
     },
     "wind": {
-     "speed": 15,
-     "gust": 39,
+     "speed": 17,
+     "gust": 43,
      "direction": "S"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 20
+     "total": 2.4,
+     "rain": 2.4,
+     "probability": 80
     },
-    "humidity": 57,
-    "pressure": 1012,
-    "snowline": 4300,
-    "uv_index_max": 10.7,
+    "humidity": 65,
+    "pressure": 1010,
+    "snowline": 4100,
+    "uv_index_max": 10.6,
     "sun": {
      "in": 1794645705000,
      "mid": 1794670735000,
@@ -138,22 +107,22 @@
     "start": 1794711600000,
     "symbol": 4,
     "temperature": {
-     "min": 14.44,
-     "max": 25.33
+     "min": 17.16,
+     "max": 27.55
     },
     "wind": {
-     "speed": 18,
-     "gust": 43,
+     "speed": 12,
+     "gust": 35,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 61,
-    "pressure": 1014,
-    "snowline": 4200,
-    "uv_index_max": 10.3,
+    "humidity": 69,
+    "pressure": 1010,
+    "snowline": 4900,
+    "uv_index_max": 10.6,
     "sun": {
      "in": 1794732065000,
      "mid": 1794757145000,
@@ -164,6 +133,39 @@
      "out": 1794713034000,
      "symbol": 23,
      "illumination": 32.49
+    }
+   },
+   {
+    "start": 1794798000000,
+    "symbol": 12,
+    "temperature": {
+     "min": 19.39,
+     "max": 29.15
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 34,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 1.3,
+     "rain": 1.3,
+     "probability": 60
+    },
+    "humidity": 68,
+    "pressure": 1007,
+    "snowline": 3900,
+    "uv_index_max": 11.3,
+    "sun": {
+     "in": 1794818427000,
+     "mid": 1794843556000,
+     "out": 1794868712000
+    },
+    "moon": {
+     "in": 1794839458000,
+     "out": 1794801419000,
+     "symbol": 22,
+     "illumination": 41.67
     }
    }
   ]

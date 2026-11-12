@@ -1,63 +1,30 @@
 {
  "ok": true,
- "expiracion": 1794408720000,
+ "expiracion": 1794495060000,
  "data": {
   "hash": "7e39e2716e13a8e53f081813e19aec9f",
   "name": "Pilar",
   "url": "https://www.meteored.cr/tiempo-en_Pilar-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16910.html",
   "days": [
    {
-    "start": 1794366000000,
-    "symbol": 12,
-    "temperature": {
-     "min": 16.1,
-     "max": 28.69
-    },
-    "wind": {
-     "speed": 13,
-     "gust": 32,
-     "direction": "NE"
-    },
-    "precipitation": {
-     "total": 1,
-     "rain": 1,
-     "probability": 60
-    },
-    "humidity": 69,
-    "pressure": 1016,
-    "snowline": 3400,
-    "uv_index_max": 10.5,
-    "sun": {
-     "in": 1794386726000,
-     "mid": 1794411580000,
-     "out": 1794436464000
-    },
-    "moon": {
-     "in": 1794390871000,
-     "out": 1794445885000,
-     "symbol": 26,
-     "illumination": 5.11
-    }
-   },
-   {
     "start": 1794452400000,
     "symbol": 1,
     "temperature": {
-     "min": 17.41,
-     "max": 30.14
+     "min": 17.25,
+     "max": 30.32
     },
     "wind": {
-     "speed": 17,
-     "gust": 35,
+     "speed": 18,
+     "gust": 33,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
-     "probability": 10
+     "probability": 0
     },
-    "humidity": 69,
+    "humidity": 67,
     "pressure": 1015,
-    "snowline": 4400,
+    "snowline": 4300,
     "uv_index_max": 10.5,
     "sun": {
      "in": 1794473082000,
@@ -75,22 +42,22 @@
     "start": 1794538800000,
     "symbol": 3,
     "temperature": {
-     "min": 19.56,
-     "max": 32.13
+     "min": 18.87,
+     "max": 30.04
     },
     "wind": {
-     "speed": 17,
-     "gust": 37,
+     "speed": 21,
+     "gust": 39,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 60,
-    "pressure": 1014,
-    "snowline": 4400,
-    "uv_index_max": 10.9,
+    "humidity": 64,
+    "pressure": 1015,
+    "snowline": 4100,
+    "uv_index_max": 10.8,
     "sun": {
      "in": 1794559440000,
      "mid": 1794584396000,
@@ -107,22 +74,22 @@
     "start": 1794625200000,
     "symbol": 12,
     "temperature": {
-     "min": 19.94,
-     "max": 31.07
+     "min": 18.19,
+     "max": 27.62
     },
     "wind": {
-     "speed": 19,
-     "gust": 37,
-     "direction": "S"
+     "speed": 21,
+     "gust": 41,
+     "direction": "N"
     },
     "precipitation": {
-     "total": 0.3,
-     "rain": 0.3,
-     "probability": 50
+     "total": 1.7,
+     "rain": 1.7,
+     "probability": 80
     },
-    "humidity": 61,
-    "pressure": 1012,
-    "snowline": 4300,
+    "humidity": 68,
+    "pressure": 1010,
+    "snowline": 4100,
     "uv_index_max": 10.7,
     "sun": {
      "in": 1794645799000,
@@ -140,22 +107,22 @@
     "start": 1794711600000,
     "symbol": 4,
     "temperature": {
-     "min": 14.2,
-     "max": 24.03
+     "min": 15.89,
+     "max": 27.04
     },
     "wind": {
-     "speed": 22,
-     "gust": 47,
+     "speed": 14,
+     "gust": 33,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 65,
-    "pressure": 1013,
-    "snowline": 4000,
-    "uv_index_max": 10.3,
+    "humidity": 75,
+    "pressure": 1010,
+    "snowline": 4900,
+    "uv_index_max": 10.7,
     "sun": {
      "in": 1794732160000,
      "mid": 1794757215000,
@@ -166,6 +133,39 @@
      "out": 1794713073000,
      "symbol": 23,
      "illumination": 32.49
+    }
+   },
+   {
+    "start": 1794798000000,
+    "symbol": 12,
+    "temperature": {
+     "min": 18.59,
+     "max": 29.77
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 32,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 1.5,
+     "rain": 1.5,
+     "probability": 70
+    },
+    "humidity": 73,
+    "pressure": 1007,
+    "snowline": 4000,
+    "uv_index_max": 11.4,
+    "sun": {
+     "in": 1794818522000,
+     "mid": 1794843626000,
+     "out": 1794868756000
+    },
+    "moon": {
+     "in": 1794839554000,
+     "out": 1794801465000,
+     "symbol": 22,
+     "illumination": 41.67
     }
    }
   ]
