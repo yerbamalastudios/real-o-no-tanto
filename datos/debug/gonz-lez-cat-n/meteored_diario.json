@@ -1,60 +1,28 @@
 {
  "ok": true,
- "expiracion": 1794495060000,
+ "expiracion": 1794581520000,
  "data": {
   "hash": "c53116e7067472db7e4c8aac9d6bf1d2",
   "name": "Gonzalez Catan",
   "url": "https://www.meteored.com.bo/tiempo-en_Gonzalez+Catan-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-322227.html",
   "days": [
    {
-    "start": 1794452400000,
-    "symbol": 1,
-    "temperature": {
-     "min": 18.34,
-     "max": 30.66
-    },
-    "wind": {
-     "speed": 14,
-     "gust": 29,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 62,
-    "pressure": 1016,
-    "snowline": 4200,
-    "uv_index_max": 10.4,
-    "sun": {
-     "in": 1794472980000,
-     "mid": 1794497923000,
-     "out": 1794522897000
-    },
-    "moon": {
-     "in": 1794480089000,
-     "out": 1794535318000,
-     "symbol": 25,
-     "illumination": 10.1
-    }
-   },
-   {
     "start": 1794538800000,
     "symbol": 3,
     "temperature": {
-     "min": 19.41,
-     "max": 29.49
+     "min": 20.08,
+     "max": 28.76
     },
     "wind": {
-     "speed": 19,
-     "gust": 39,
+     "speed": 15,
+     "gust": 35,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 59,
+    "humidity": 60,
     "pressure": 1015,
     "snowline": 4100,
     "uv_index_max": 10.7,
@@ -74,21 +42,21 @@
     "start": 1794625200000,
     "symbol": 34,
     "temperature": {
-     "min": 18.28,
-     "max": 26.79
+     "min": 17.91,
+     "max": 26.92
     },
     "wind": {
      "speed": 19,
-     "gust": 42,
-     "direction": "N"
+     "gust": 43,
+     "direction": "SW"
     },
     "precipitation": {
-     "total": 3,
-     "rain": 3,
-     "probability": 80
+     "total": 8,
+     "rain": 8,
+     "probability": 90
     },
-    "humidity": 71,
-    "pressure": 1010,
+    "humidity": 74,
+    "pressure": 1011,
     "snowline": 4100,
     "uv_index_max": 10.5,
     "sun": {
@@ -107,22 +75,22 @@
     "start": 1794711600000,
     "symbol": 4,
     "temperature": {
-     "min": 16.75,
-     "max": 26.84
+     "min": 16.66,
+     "max": 27.04
     },
     "wind": {
-     "speed": 13,
-     "gust": 33,
+     "speed": 14,
+     "gust": 34,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
-     "probability": 20
+     "probability": 10
     },
-    "humidity": 73,
-    "pressure": 1010,
-    "snowline": 4900,
-    "uv_index_max": 10.6,
+    "humidity": 74,
+    "pressure": 1011,
+    "snowline": 4800,
+    "uv_index_max": 10.8,
     "sun": {
      "in": 1794732055000,
      "mid": 1794757151000,
@@ -139,23 +107,23 @@
     "start": 1794798000000,
     "symbol": 12,
     "temperature": {
-     "min": 18.34,
-     "max": 28.72
+     "min": 18.95,
+     "max": 27.4
     },
     "wind": {
-     "speed": 14,
-     "gust": 34,
+     "speed": 13,
+     "gust": 32,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 0.9,
-     "rain": 0.9,
-     "probability": 60
+     "total": 0.8,
+     "rain": 0.8,
+     "probability": 70
     },
-    "humidity": 71,
-    "pressure": 1007,
-    "snowline": 3900,
-    "uv_index_max": 11.3,
+    "humidity": 76,
+    "pressure": 1008,
+    "snowline": 4000,
+    "uv_index_max": 11.5,
     "sun": {
      "in": 1794818417000,
      "mid": 1794843561000,
@@ -166,6 +134,39 @@
      "out": 1794801441000,
      "symbol": 22,
      "illumination": 41.67
+    }
+   },
+   {
+    "start": 1794884400000,
+    "symbol": 34,
+    "temperature": {
+     "min": 18.56,
+     "max": 26.69
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 36,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 3.7,
+     "rain": 3.7,
+     "probability": 90
+    },
+    "humidity": 76,
+    "pressure": 1005,
+    "snowline": 3600,
+    "uv_index_max": 10.7,
+    "sun": {
+     "in": 1794904781000,
+     "mid": 1794929973000,
+     "out": 1794955193000
+    },
+    "moon": {
+     "in": 1794929402000,
+     "out": 1794889594000,
+     "symbol": 21,
+     "illumination": 51.31
     }
    }
   ]

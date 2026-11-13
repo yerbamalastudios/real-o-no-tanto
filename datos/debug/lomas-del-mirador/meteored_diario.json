@@ -1,60 +1,28 @@
 {
  "ok": true,
- "expiracion": 1794495060000,
+ "expiracion": 1794581520000,
  "data": {
   "hash": "6f2daba02c3cd38daee6e2e2f572746e",
   "name": "Lomas del Mirador",
   "url": "https://www.meteored.com.bo/tiempo-en_Lomas+del+Mirador-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-15198.html",
   "days": [
    {
-    "start": 1794452400000,
-    "symbol": 1,
-    "temperature": {
-     "min": 19.45,
-     "max": 31.05
-    },
-    "wind": {
-     "speed": 13,
-     "gust": 34,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 57,
-    "pressure": 1016,
-    "snowline": 4200,
-    "uv_index_max": 10.5,
-    "sun": {
-     "in": 1794472969000,
-     "mid": 1794497898000,
-     "out": 1794522856000
-    },
-    "moon": {
-     "in": 1794480087000,
-     "out": 1794535266000,
-     "symbol": 25,
-     "illumination": 10.1
-    }
-   },
-   {
     "start": 1794538800000,
     "symbol": 3,
     "temperature": {
-     "min": 20.3,
-     "max": 30.26
+     "min": 20.81,
+     "max": 29.38
     },
     "wind": {
-     "speed": 16,
-     "gust": 39,
+     "speed": 13,
+     "gust": 37,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 56,
+    "humidity": 55,
     "pressure": 1015,
     "snowline": 4200,
     "uv_index_max": 10.7,
@@ -74,22 +42,22 @@
     "start": 1794625200000,
     "symbol": 34,
     "temperature": {
-     "min": 19.63,
-     "max": 27.8
+     "min": 18.77,
+     "max": 27.09
     },
     "wind": {
-     "speed": 17,
-     "gust": 43,
+     "speed": 16,
+     "gust": 41,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 3.3,
-     "rain": 3.3,
-     "probability": 80
+     "total": 11.5,
+     "rain": 11.5,
+     "probability": 90
     },
-    "humidity": 65,
-    "pressure": 1010,
-    "snowline": 4100,
+    "humidity": 72,
+    "pressure": 1011,
+    "snowline": 4000,
     "uv_index_max": 10.6,
     "sun": {
      "in": 1794645684000,
@@ -107,22 +75,22 @@
     "start": 1794711600000,
     "symbol": 4,
     "temperature": {
-     "min": 17.23,
-     "max": 26.82
+     "min": 16.94,
+     "max": 26.17
     },
     "wind": {
-     "speed": 12,
-     "gust": 37,
+     "speed": 13,
+     "gust": 35,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 71,
-    "pressure": 1010,
-    "snowline": 4900,
-    "uv_index_max": 10.6,
+    "humidity": 75,
+    "pressure": 1011,
+    "snowline": 4800,
+    "uv_index_max": 10.8,
     "sun": {
      "in": 1794732045000,
      "mid": 1794757125000,
@@ -139,23 +107,23 @@
     "start": 1794798000000,
     "symbol": 12,
     "temperature": {
-     "min": 19.64,
-     "max": 28.7
+     "min": 19.38,
+     "max": 27.09
     },
     "wind": {
-     "speed": 13,
-     "gust": 34,
+     "speed": 12,
+     "gust": 33,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 1,
-     "rain": 1,
+     "total": 0.3,
+     "rain": 0.3,
      "probability": 60
     },
-    "humidity": 69,
-    "pressure": 1007,
-    "snowline": 3900,
-    "uv_index_max": 11.3,
+    "humidity": 74,
+    "pressure": 1008,
+    "snowline": 4000,
+    "uv_index_max": 11.6,
     "sun": {
      "in": 1794818407000,
      "mid": 1794843536000,
@@ -166,6 +134,39 @@
      "out": 1794801399000,
      "symbol": 22,
      "illumination": 41.67
+    }
+   },
+   {
+    "start": 1794884400000,
+    "symbol": 34,
+    "temperature": {
+     "min": 19.25,
+     "max": 26.98
+    },
+    "wind": {
+     "speed": 11,
+     "gust": 37,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 5.1,
+     "rain": 5.1,
+     "probability": 90
+    },
+    "humidity": 75,
+    "pressure": 1005,
+    "snowline": 3600,
+    "uv_index_max": 10.8,
+    "sun": {
+     "in": 1794904771000,
+     "mid": 1794929947000,
+     "out": 1794955151000
+    },
+    "moon": {
+     "in": 1794929385000,
+     "out": 1794889556000,
+     "symbol": 21,
+     "illumination": 51.31
     }
    }
   ]
