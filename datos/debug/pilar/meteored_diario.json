@@ -1,64 +1,32 @@
 {
  "ok": true,
- "expiracion": 1794581520000,
+ "expiracion": 1794667800000,
  "data": {
   "hash": "7e39e2716e13a8e53f081813e19aec9f",
   "name": "Pilar",
   "url": "https://www.meteored.cr/tiempo-en_Pilar-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16910.html",
   "days": [
    {
-    "start": 1794538800000,
-    "symbol": 3,
-    "temperature": {
-     "min": 19.29,
-     "max": 28.92
-    },
-    "wind": {
-     "speed": 14,
-     "gust": 31,
-     "direction": "E"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 20
-    },
-    "humidity": 65,
-    "pressure": 1015,
-    "snowline": 4200,
-    "uv_index_max": 10.9,
-    "sun": {
-     "in": 1794559440000,
-     "mid": 1794584396000,
-     "out": 1794609381000
-    },
-    "moon": {
-     "in": 1794569860000,
-     "out": 1794624377000,
-     "symbol": 24,
-     "illumination": 16.48
-    }
-   },
-   {
     "start": 1794625200000,
-    "symbol": 34,
+    "symbol": 12,
     "temperature": {
-     "min": 18.63,
-     "max": 27.18
+     "min": 18.27,
+     "max": 29.12
     },
     "wind": {
-     "speed": 18,
-     "gust": 40,
+     "speed": 20,
+     "gust": 41,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 14.5,
-     "rain": 14.5,
-     "probability": 90
+     "total": 2.1,
+     "rain": 2.1,
+     "probability": 70
     },
-    "humidity": 75,
-    "pressure": 1011,
-    "snowline": 4200,
-    "uv_index_max": 10.7,
+    "humidity": 70,
+    "pressure": 1012,
+    "snowline": 4100,
+    "uv_index_max": 10.9,
     "sun": {
      "in": 1794645799000,
      "mid": 1794670805000,
@@ -73,25 +41,24 @@
    },
    {
     "start": 1794711600000,
-    "symbol": 12,
+    "symbol": 3,
     "temperature": {
-     "min": 16.38,
-     "max": 26.73
+     "min": 14.79,
+     "max": 27.27
     },
     "wind": {
-     "speed": 14,
-     "gust": 33,
+     "speed": 13,
+     "gust": 26,
      "direction": "E"
     },
     "precipitation": {
-     "total": 0.1,
-     "rain": 0.1,
-     "probability": 30
+     "total": 0,
+     "probability": 0
     },
-    "humidity": 77,
+    "humidity": 73,
     "pressure": 1011,
     "snowline": 4800,
-    "uv_index_max": 10.9,
+    "uv_index_max": 10.8,
     "sun": {
      "in": 1794732160000,
      "mid": 1794757215000,
@@ -108,23 +75,23 @@
     "start": 1794798000000,
     "symbol": 12,
     "temperature": {
-     "min": 18.32,
-     "max": 26.57
+     "min": 18.68,
+     "max": 28.07
     },
     "wind": {
-     "speed": 12,
-     "gust": 25,
+     "speed": 14,
+     "gust": 28,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 1.2,
-     "rain": 1.2,
-     "probability": 70
+     "total": 0.9,
+     "rain": 0.9,
+     "probability": 50
     },
-    "humidity": 81,
-    "pressure": 1008,
-    "snowline": 4000,
-    "uv_index_max": 11.6,
+    "humidity": 77,
+    "pressure": 1007,
+    "snowline": 3900,
+    "uv_index_max": 11.5,
     "sun": {
      "in": 1794818522000,
      "mid": 1794843626000,
@@ -139,25 +106,25 @@
    },
    {
     "start": 1794884400000,
-    "symbol": 34,
+    "symbol": 12,
     "temperature": {
-     "min": 17.78,
-     "max": 26.67
+     "min": 17.93,
+     "max": 28.79
     },
     "wind": {
-     "speed": 15,
-     "gust": 36,
+     "speed": 13,
+     "gust": 29,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 5.7,
-     "rain": 5.7,
-     "probability": 90
+     "total": 1.6,
+     "rain": 1.6,
+     "probability": 80
     },
-    "humidity": 78,
+    "humidity": 70,
     "pressure": 1005,
     "snowline": 3600,
-    "uv_index_max": 10.7,
+    "uv_index_max": 10.5,
     "sun": {
      "in": 1794904886000,
      "mid": 1794930037000,
@@ -168,6 +135,39 @@
      "out": 1794889629000,
      "symbol": 21,
      "illumination": 51.31
+    }
+   },
+   {
+    "start": 1794970800000,
+    "symbol": 34,
+    "temperature": {
+     "min": 15.41,
+     "max": 29.61
+    },
+    "wind": {
+     "speed": 23,
+     "gust": 61,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 0.6,
+     "rain": 0.6,
+     "probability": 40
+    },
+    "humidity": 63,
+    "pressure": 1007,
+    "snowline": 3200,
+    "uv_index_max": 10.3,
+    "sun": {
+     "in": 1794991252000,
+     "mid": 1795016450000,
+     "out": 1795041674000
+    },
+    "moon": {
+     "in": 1795019452000,
+     "out": 1794977646000,
+     "symbol": 20,
+     "illumination": 61.13
     }
    }
   ]
