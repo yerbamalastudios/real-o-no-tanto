@@ -1,61 +1,28 @@
 {
  "ok": true,
- "expiracion": 1794667800000,
+ "expiracion": 1794754200000,
  "data": {
   "hash": "77027bc6ac829a041653d7b4ff3a1f30",
   "name": "Quilmes",
   "url": "https://www.meteored.mx/clima_Quilmes-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16914.html",
   "days": [
    {
-    "start": 1794625200000,
-    "symbol": 12,
-    "temperature": {
-     "min": 19.35,
-     "max": 28.17
-    },
-    "wind": {
-     "speed": 19,
-     "gust": 42,
-     "direction": "SW"
-    },
-    "precipitation": {
-     "total": 0.3,
-     "rain": 0.3,
-     "probability": 60
-    },
-    "humidity": 67,
-    "pressure": 1012,
-    "snowline": 4000,
-    "uv_index_max": 10.7,
-    "sun": {
-     "in": 1794645610000,
-     "mid": 1794670651000,
-     "out": 1794695721000
-    },
-    "moon": {
-     "in": 1794659479000,
-     "out": 0,
-     "symbol": 23,
-     "illumination": 24.02
-    }
-   },
-   {
     "start": 1794711600000,
     "symbol": 3,
     "temperature": {
-     "min": 16,
-     "max": 25.47
+     "min": 16.05,
+     "max": 24.64
     },
     "wind": {
-     "speed": 15,
-     "gust": 32,
+     "speed": 14,
+     "gust": 34,
      "direction": "E"
     },
     "precipitation": {
      "total": 0,
-     "probability": 10
+     "probability": 0
     },
-    "humidity": 75,
+    "humidity": 82,
     "pressure": 1011,
     "snowline": 4800,
     "uv_index_max": 10.7,
@@ -73,25 +40,24 @@
    },
    {
     "start": 1794798000000,
-    "symbol": 12,
+    "symbol": 4,
     "temperature": {
-     "min": 19.58,
-     "max": 26.59
+     "min": 17.9,
+     "max": 25.65
     },
     "wind": {
-     "speed": 15,
-     "gust": 33,
+     "speed": 13,
+     "gust": 31,
      "direction": "NE"
     },
     "precipitation": {
-     "total": 0.1,
-     "rain": 0.1,
-     "probability": 40
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 78,
+    "humidity": 81,
     "pressure": 1008,
     "snowline": 3900,
-    "uv_index_max": 11.4,
+    "uv_index_max": 11.2,
     "sun": {
      "in": 1794818332000,
      "mid": 1794843472000,
@@ -106,24 +72,24 @@
    },
    {
     "start": 1794884400000,
-    "symbol": 12,
+    "symbol": 34,
     "temperature": {
-     "min": 18.45,
-     "max": 27.47
+     "min": 18.01,
+     "max": 25.5
     },
     "wind": {
-     "speed": 9,
-     "gust": 26,
-     "direction": "W"
+     "speed": 17,
+     "gust": 40,
+     "direction": "SW"
     },
     "precipitation": {
-     "total": 6,
-     "rain": 6,
+     "total": 7,
+     "rain": 7,
      "probability": 80
     },
-    "humidity": 73,
+    "humidity": 78,
     "pressure": 1005,
-    "snowline": 3600,
+    "snowline": 3500,
     "uv_index_max": 10.4,
     "sun": {
      "in": 1794904696000,
@@ -139,25 +105,24 @@
    },
    {
     "start": 1794970800000,
-    "symbol": 34,
+    "symbol": 1,
     "temperature": {
-     "min": 16.91,
-     "max": 27.82
+     "min": 17.1,
+     "max": 28.08
     },
     "wind": {
-     "speed": 11,
-     "gust": 33,
-     "direction": "SW"
+     "speed": 21,
+     "gust": 52,
+     "direction": "W"
     },
     "precipitation": {
-     "total": 2.3,
-     "rain": 2.3,
-     "probability": 50
+     "total": 0,
+     "probability": 20
     },
-    "humidity": 68,
+    "humidity": 59,
     "pressure": 1007,
     "snowline": 3200,
-    "uv_index_max": 10.2,
+    "uv_index_max": 10,
     "sun": {
      "in": 1794991061000,
      "mid": 1795016296000,
@@ -168,6 +133,38 @@
      "out": 1794977506000,
      "symbol": 20,
      "illumination": 61.13
+    }
+   },
+   {
+    "start": 1795057200000,
+    "symbol": 4,
+    "temperature": {
+     "min": 15.43,
+     "max": 25.57
+    },
+    "wind": {
+     "speed": 8,
+     "gust": 26,
+     "direction": "SW"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 64,
+    "pressure": 1009,
+    "snowline": 3100,
+    "uv_index_max": 10.2,
+    "sun": {
+     "in": 1795077429000,
+     "mid": 1795102709000,
+     "out": 1795128016000
+    },
+    "moon": {
+     "in": 1795109316000,
+     "out": 1795065445000,
+     "symbol": 19,
+     "illumination": 70.81
     }
    }
   ]
