@@ -1,64 +1,32 @@
 {
  "ok": true,
- "expiracion": 1794949020000,
+ "expiracion": 1795035360000,
  "data": {
   "hash": "215cdc3e58ddc6246d13b9fca5d26bac",
   "name": "San Miguel del Monte",
   "url": "https://www.meteored.com.ar/tiempo-en_San+Miguel+del+Monte-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16091.html",
   "days": [
    {
-    "start": 1794884400000,
+    "start": 1794970800000,
     "symbol": 34,
     "temperature": {
-     "min": 17.32,
-     "max": 26.83
+     "min": 14.96,
+     "max": 25.01
     },
     "wind": {
-     "speed": 21,
-     "gust": 44,
-     "direction": "SW"
-    },
-    "precipitation": {
-     "total": 14.7,
-     "rain": 14.7,
-     "probability": 90
-    },
-    "humidity": 82,
-    "pressure": 1004,
-    "snowline": 3400,
-    "uv_index_max": 10.1,
-    "sun": {
-     "in": 1794904736000,
-     "mid": 1794930016000,
-     "out": 1794955324000
-    },
-    "moon": {
-     "in": 1794929391000,
-     "out": 1794889702000,
-     "symbol": 21,
-     "illumination": 51.31
-    }
-   },
-   {
-    "start": 1794970800000,
-    "symbol": 3,
-    "temperature": {
-     "min": 15.06,
-     "max": 25.67
-    },
-    "wind": {
-     "speed": 21,
-     "gust": 47,
+     "speed": 26,
+     "gust": 54,
      "direction": "W"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 20
+     "total": 0.7,
+     "rain": 0.7,
+     "probability": 30
     },
-    "humidity": 74,
-    "pressure": 1007,
-    "snowline": 3100,
-    "uv_index_max": 10.3,
+    "humidity": 75,
+    "pressure": 1006,
+    "snowline": 3000,
+    "uv_index_max": 10.2,
     "sun": {
      "in": 1794991100000,
      "mid": 1795016428000,
@@ -73,24 +41,25 @@
    },
    {
     "start": 1795057200000,
-    "symbol": 3,
+    "symbol": 12,
     "temperature": {
-     "min": 13.95,
-     "max": 24.61
+     "min": 13.11,
+     "max": 24.4
     },
     "wind": {
-     "speed": 12,
-     "gust": 37,
+     "speed": 17,
+     "gust": 43,
      "direction": "SW"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 10
+     "total": 0.1,
+     "rain": 0.1,
+     "probability": 30
     },
     "humidity": 72,
     "pressure": 1009,
-    "snowline": 3200,
-    "uv_index_max": 10,
+    "snowline": 3100,
+    "uv_index_max": 9.9,
     "sun": {
      "in": 1795077466000,
      "mid": 1795102841000,
@@ -107,23 +76,23 @@
     "start": 1795143600000,
     "symbol": 34,
     "temperature": {
-     "min": 14.1,
-     "max": 26.17
+     "min": 13.12,
+     "max": 24.83
     },
     "wind": {
-     "speed": 17,
-     "gust": 36,
+     "speed": 19,
+     "gust": 41,
      "direction": "W"
     },
     "precipitation": {
-     "total": 0.8,
-     "rain": 0.8,
+     "total": 2.9,
+     "rain": 2.9,
      "probability": 80
     },
-    "humidity": 73,
+    "humidity": 78,
     "pressure": 1010,
-    "snowline": 3000,
-    "uv_index_max": 9.4,
+    "snowline": 2900,
+    "uv_index_max": 9.7,
     "sun": {
      "in": 1795163833000,
      "mid": 1795189255000,
@@ -140,22 +109,22 @@
     "start": 1795230000000,
     "symbol": 3,
     "temperature": {
-     "min": 13.14,
-     "max": 26.62
+     "min": 13.55,
+     "max": 26.13
     },
     "wind": {
-     "speed": 11,
-     "gust": 36,
-     "direction": "SE"
+     "speed": 13,
+     "gust": 24,
+     "direction": "W"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 59,
+    "humidity": 65,
     "pressure": 1010,
-    "snowline": 2900,
-    "uv_index_max": 9.6,
+    "snowline": 2700,
+    "uv_index_max": 10.1,
     "sun": {
      "in": 1795250203000,
      "mid": 1795275670000,
@@ -166,6 +135,38 @@
      "out": 1795241543000,
      "symbol": 17,
      "illumination": 87.98
+    }
+   },
+   {
+    "start": 1795316400000,
+    "symbol": 3,
+    "temperature": {
+     "min": 13.2,
+     "max": 25.92
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 31,
+     "direction": "W"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 20
+    },
+    "humidity": 63,
+    "pressure": 1010,
+    "snowline": 2700,
+    "uv_index_max": 9.5,
+    "sun": {
+     "in": 1795336574000,
+     "mid": 1795362086000,
+     "out": 1795387623000
+    },
+    "moon": {
+     "in": 1795380746000,
+     "out": 1795329774000,
+     "symbol": 16,
+     "illumination": 94.38
     }
    }
   ]
