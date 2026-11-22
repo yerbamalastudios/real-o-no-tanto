@@ -1,62 +1,30 @@
 {
  "ok": true,
- "expiracion": 1795294560000,
+ "expiracion": 1795381080000,
  "data": {
   "hash": "67648b37efeaade27834b56064c808f4",
   "name": "Buenos Aires",
   "url": "https://www.meteored.com.bo/tiempo-en_Buenos+Aires-America+Sur-Argentina-Ciudad+Autonoma+de+Buenos+Aires-SABE-1-13584.html",
   "days": [
    {
-    "start": 1795230000000,
-    "symbol": 3,
-    "temperature": {
-     "min": 16.69,
-     "max": 28.69
-    },
-    "wind": {
-     "speed": 13,
-     "gust": 28,
-     "direction": "S"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 10
-    },
-    "humidity": 46,
-    "pressure": 1009,
-    "snowline": 2700,
-    "uv_index_max": 10.5,
-    "sun": {
-     "in": 1795250220000,
-     "mid": 1795275574000,
-     "out": 1795300953000
-    },
-    "moon": {
-     "in": 1795289904000,
-     "out": 1795241492000,
-     "symbol": 17,
-     "illumination": 87.98
-    }
-   },
-   {
     "start": 1795316400000,
     "symbol": 1,
     "temperature": {
-     "min": 17.73,
-     "max": 28.29
+     "min": 15.56,
+     "max": 26.92
     },
     "wind": {
-     "speed": 15,
-     "gust": 37,
+     "speed": 18,
+     "gust": 42,
      "direction": "SW"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 41,
+    "humidity": 50,
     "pressure": 1009,
-    "snowline": 2700,
+    "snowline": 2800,
     "uv_index_max": 9.8,
     "sun": {
      "in": 1795336593000,
@@ -74,22 +42,22 @@
     "start": 1795402800000,
     "symbol": 3,
     "temperature": {
-     "min": 18.39,
-     "max": 28.6
+     "min": 17.28,
+     "max": 28.63
     },
     "wind": {
-     "speed": 10,
-     "gust": 29,
+     "speed": 12,
+     "gust": 33,
      "direction": "W"
     },
     "precipitation": {
      "total": 0,
-     "probability": 20
+     "probability": 10
     },
-    "humidity": 37,
+    "humidity": 40,
     "pressure": 1009,
-    "snowline": 3200,
-    "uv_index_max": 10.2,
+    "snowline": 3300,
+    "uv_index_max": 10.3,
     "sun": {
      "in": 1795422967000,
      "mid": 1795448406000,
@@ -106,22 +74,22 @@
     "start": 1795489200000,
     "symbol": 3,
     "temperature": {
-     "min": 18.8,
-     "max": 29.75
+     "min": 18.66,
+     "max": 29.25
     },
     "wind": {
      "speed": 21,
-     "gust": 50,
-     "direction": "SW"
+     "gust": 48,
+     "direction": "S"
     },
     "precipitation": {
      "total": 0,
      "probability": 20
     },
-    "humidity": 41,
+    "humidity": 47,
     "pressure": 1010,
-    "snowline": 3000,
-    "uv_index_max": 10.5,
+    "snowline": 3100,
+    "uv_index_max": 10.7,
     "sun": {
      "in": 1795509344000,
      "mid": 1795534823000,
@@ -138,22 +106,22 @@
     "start": 1795575600000,
     "symbol": 1,
     "temperature": {
-     "min": 14.23,
-     "max": 26.09
+     "min": 14.7,
+     "max": 26.61
     },
     "wind": {
-     "speed": 17,
-     "gust": 41,
+     "speed": 20,
+     "gust": 48,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 29,
+    "humidity": 38,
     "pressure": 1018,
     "snowline": 3100,
-    "uv_index_max": 10.7,
+    "uv_index_max": 11,
     "sun": {
      "in": 1795595722000,
      "mid": 1795621241000,
@@ -164,6 +132,38 @@
      "out": 1795597153000,
      "symbol": 13,
      "illumination": 98.48
+    }
+   },
+   {
+    "start": 1795662000000,
+    "symbol": 3,
+    "temperature": {
+     "min": 15.52,
+     "max": 26.23
+    },
+    "wind": {
+     "speed": 14,
+     "gust": 40,
+     "direction": "SE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 55,
+    "pressure": 1020,
+    "snowline": 3300,
+    "uv_index_max": 11,
+    "sun": {
+     "in": 1795682103000,
+     "mid": 1795707660000,
+     "out": 1795733240000
+    },
+    "moon": {
+     "in": 1795743178000,
+     "out": 1795687478000,
+     "symbol": 12,
+     "illumination": 94.05
     }
    }
   ]
