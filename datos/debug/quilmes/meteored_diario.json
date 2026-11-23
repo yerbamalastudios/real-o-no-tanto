@@ -1,64 +1,32 @@
 {
  "ok": true,
- "expiracion": 1795381080000,
+ "expiracion": 1795487880000,
  "data": {
   "hash": "77027bc6ac829a041653d7b4ff3a1f30",
   "name": "Quilmes",
   "url": "https://www.meteored.mx/clima_Quilmes-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16914.html",
   "days": [
    {
-    "start": 1795316400000,
+    "start": 1795402800000,
     "symbol": 12,
     "temperature": {
-     "min": 13.97,
-     "max": 25.24
+     "min": 16.8,
+     "max": 27.82
     },
     "wind": {
-     "speed": 18,
-     "gust": 37,
-     "direction": "SW"
+     "speed": 10,
+     "gust": 28,
+     "direction": "W"
     },
     "precipitation": {
-     "total": 0.4,
-     "rain": 0.4,
+     "total": 0.2,
+     "rain": 0.2,
      "probability": 30
     },
-    "humidity": 62,
-    "pressure": 1009,
-    "snowline": 2800,
-    "uv_index_max": 9.7,
-    "sun": {
-     "in": 1795336541000,
-     "mid": 1795361954000,
-     "out": 1795387391000
-    },
-    "moon": {
-     "in": 1795380518000,
-     "out": 1795329709000,
-     "symbol": 16,
-     "illumination": 94.38
-    }
-   },
-   {
-    "start": 1795402800000,
-    "symbol": 3,
-    "temperature": {
-     "min": 15.5,
-     "max": 27.23
-    },
-    "wind": {
-     "speed": 11,
-     "gust": 28,
-     "direction": "SW"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 10
-    },
-    "humidity": 52,
+    "humidity": 55,
     "pressure": 1009,
     "snowline": 3300,
-    "uv_index_max": 10.2,
+    "uv_index_max": 10.3,
     "sun": {
      "in": 1795422915000,
      "mid": 1795448370000,
@@ -75,12 +43,12 @@
     "start": 1795489200000,
     "symbol": 3,
     "temperature": {
-     "min": 16.83,
-     "max": 28.25
+     "min": 17.6,
+     "max": 28.59
     },
     "wind": {
-     "speed": 21,
-     "gust": 44,
+     "speed": 19,
+     "gust": 42,
      "direction": "SW"
     },
     "precipitation": {
@@ -89,7 +57,7 @@
     },
     "humidity": 53,
     "pressure": 1010,
-    "snowline": 3100,
+    "snowline": 3000,
     "uv_index_max": 10.7,
     "sun": {
      "in": 1795509292000,
@@ -107,22 +75,22 @@
     "start": 1795575600000,
     "symbol": 1,
     "temperature": {
-     "min": 12.69,
-     "max": 25.37
+     "min": 14.84,
+     "max": 27.15
     },
     "wind": {
-     "speed": 16,
-     "gust": 41,
+     "speed": 23,
+     "gust": 47,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 43,
-    "pressure": 1019,
-    "snowline": 3000,
-    "uv_index_max": 10.9,
+    "humidity": 53,
+    "pressure": 1017,
+    "snowline": 2900,
+    "uv_index_max": 11.1,
     "sun": {
      "in": 1795595670000,
      "mid": 1795621206000,
@@ -139,22 +107,22 @@
     "start": 1795662000000,
     "symbol": 1,
     "temperature": {
-     "min": 13.83,
-     "max": 25.12
+     "min": 12.95,
+     "max": 23.51
     },
     "wind": {
-     "speed": 13,
-     "gust": 31,
+     "speed": 18,
+     "gust": 36,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 62,
-    "pressure": 1020,
-    "snowline": 3300,
-    "uv_index_max": 10.9,
+    "humidity": 54,
+    "pressure": 1023,
+    "snowline": 3400,
+    "uv_index_max": 11.1,
     "sun": {
      "in": 1795682050000,
      "mid": 1795707624000,
@@ -165,6 +133,38 @@
      "out": 1795687416000,
      "symbol": 12,
      "illumination": 94.05
+    }
+   },
+   {
+    "start": 1795748400000,
+    "symbol": 1,
+    "temperature": {
+     "min": 16.87,
+     "max": 27.45
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 38,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 10
+    },
+    "humidity": 55,
+    "pressure": 1017,
+    "snowline": 3300,
+    "uv_index_max": 11.3,
+    "sun": {
+     "in": 1795768432000,
+     "mid": 1795794044000,
+     "out": 1795819677000
+    },
+    "moon": {
+     "in": 1795832670000,
+     "out": 1795778177000,
+     "symbol": 11,
+     "illumination": 87.06
     }
    }
   ]

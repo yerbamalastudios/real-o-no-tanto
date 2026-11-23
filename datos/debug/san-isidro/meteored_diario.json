@@ -1,63 +1,31 @@
 {
  "ok": true,
- "expiracion": 1795381080000,
+ "expiracion": 1795487880000,
  "data": {
   "hash": "c58e3e06abd76c09e3da6bc40c98e51e",
   "name": "San Isidro",
   "url": "https://www.meteored.cl/tiempo-en_San+Isidro-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-321754.html",
   "days": [
    {
-    "start": 1795316400000,
-    "symbol": 1,
-    "temperature": {
-     "min": 14.25,
-     "max": 26.71
-    },
-    "wind": {
-     "speed": 15,
-     "gust": 30,
-     "direction": "SW"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 58,
-    "pressure": 1009,
-    "snowline": 2800,
-    "uv_index_max": 9.9,
-    "sun": {
-     "in": 1795336639000,
-     "mid": 1795362016000,
-     "out": 1795387418000
-    },
-    "moon": {
-     "in": 1795380551000,
-     "out": 1795329798000,
-     "symbol": 16,
-     "illumination": 94.38
-    }
-   },
-   {
     "start": 1795402800000,
     "symbol": 3,
     "temperature": {
-     "min": 14.53,
-     "max": 28.13
+     "min": 15.24,
+     "max": 28.41
     },
     "wind": {
-     "speed": 12,
-     "gust": 29,
+     "speed": 10,
+     "gust": 24,
      "direction": "W"
     },
     "precipitation": {
      "total": 0,
-     "probability": 10
+     "probability": 20
     },
-    "humidity": 51,
+    "humidity": 56,
     "pressure": 1009,
     "snowline": 3300,
-    "uv_index_max": 10.3,
+    "uv_index_max": 10.4,
     "sun": {
      "in": 1795423014000,
      "mid": 1795448433000,
@@ -74,12 +42,12 @@
     "start": 1795489200000,
     "symbol": 3,
     "temperature": {
-     "min": 16.99,
-     "max": 28.9
+     "min": 17.8,
+     "max": 28.76
     },
     "wind": {
-     "speed": 19,
-     "gust": 40,
+     "speed": 18,
+     "gust": 37,
      "direction": "SW"
     },
     "precipitation": {
@@ -87,9 +55,9 @@
      "probability": 20
     },
     "humidity": 53,
-    "pressure": 1011,
-    "snowline": 3100,
-    "uv_index_max": 10.7,
+    "pressure": 1010,
+    "snowline": 3000,
+    "uv_index_max": 10.8,
     "sun": {
      "in": 1795509391000,
      "mid": 1795534850000,
@@ -104,24 +72,25 @@
    },
    {
     "start": 1795575600000,
-    "symbol": 1,
+    "symbol": 12,
     "temperature": {
-     "min": 14.68,
-     "max": 26.74
+     "min": 17.04,
+     "max": 28.8
     },
     "wind": {
-     "speed": 17,
-     "gust": 34,
+     "speed": 24,
+     "gust": 50,
      "direction": "SE"
     },
     "precipitation": {
-     "total": 0,
-     "probability": 0
+     "total": 0.1,
+     "rain": 0.1,
+     "probability": 30
     },
-    "humidity": 44,
-    "pressure": 1018,
-    "snowline": 3300,
-    "uv_index_max": 11.1,
+    "humidity": 47,
+    "pressure": 1017,
+    "snowline": 3100,
+    "uv_index_max": 11.2,
     "sun": {
      "in": 1795595769000,
      "mid": 1795621268000,
@@ -136,13 +105,13 @@
    },
    {
     "start": 1795662000000,
-    "symbol": 3,
+    "symbol": 1,
     "temperature": {
-     "min": 16.47,
-     "max": 26.79
+     "min": 14.93,
+     "max": 24.07
     },
     "wind": {
-     "speed": 14,
+     "speed": 22,
      "gust": 42,
      "direction": "SE"
     },
@@ -150,10 +119,10 @@
      "total": 0,
      "probability": 0
     },
-    "humidity": 58,
-    "pressure": 1020,
+    "humidity": 56,
+    "pressure": 1023,
     "snowline": 3300,
-    "uv_index_max": 11,
+    "uv_index_max": 11.2,
     "sun": {
      "in": 1795682150000,
      "mid": 1795707687000,
@@ -164,6 +133,38 @@
      "out": 1795687535000,
      "symbol": 12,
      "illumination": 94.05
+    }
+   },
+   {
+    "start": 1795748400000,
+    "symbol": 1,
+    "temperature": {
+     "min": 16.44,
+     "max": 29.06
+    },
+    "wind": {
+     "speed": 15,
+     "gust": 37,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 50,
+    "pressure": 1017,
+    "snowline": 3400,
+    "uv_index_max": 11.3,
+    "sun": {
+     "in": 1795768532000,
+     "mid": 1795794106000,
+     "out": 1795819702000
+    },
+    "moon": {
+     "in": 1795832691000,
+     "out": 1795778292000,
+     "symbol": 11,
+     "illumination": 87.06
     }
    }
   ]
