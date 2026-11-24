@@ -1,12 +1,12 @@
 {
- "actualizado": "2026-11-23T19:55-03:00",
+ "actualizado": "2026-11-24T18:32-03:00",
  "lugares": [
   {
    "actualizado": "2026-10-15T21:00-03:00",
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Lomas del Mirador",
@@ -1373,6 +1373,40 @@
        "tmin": 17.29
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.72,
+       "tmin": 16.95
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 30.18,
+       "tmin": 16.76
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.04,
+       "tmin": 14.64
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 32.36,
+       "tmin": 18.2
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 34.66,
+       "tmin": 20.41
+      }
+     }
     }
    },
    "lat": -34.66,
@@ -1383,7 +1417,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Buenos Aires",
@@ -2682,6 +2716,40 @@
        "tmin": 18.05
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.64,
+       "tmin": 17.87
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.14,
+       "tmin": 17.71
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 25.21,
+       "tmin": 15.04
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.11,
+       "tmin": 18.99
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 31.79,
+       "tmin": 20.65
+      }
+     }
     }
    },
    "lat": -34.61,
@@ -2692,7 +2760,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Morón",
@@ -3991,6 +4059,40 @@
        "tmin": 16.94
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.29,
+       "tmin": 16.42
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.82,
+       "tmin": 16.29
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.53,
+       "tmin": 14.57
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 32.79,
+       "tmin": 17.88
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 34.6,
+       "tmin": 20.04
+      }
+     }
     }
    },
    "lat": -34.65,
@@ -4001,7 +4103,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "González Catán",
@@ -5300,6 +5402,40 @@
        "tmin": 16.37
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.93,
+       "tmin": 15.63
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.44,
+       "tmin": 14.51
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.73,
+       "tmin": 13.4
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 32.13,
+       "tmin": 17.19
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 33.82,
+       "tmin": 19.15
+      }
+     }
     }
    },
    "lat": -34.77,
@@ -5310,7 +5446,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Lomas de Zamora",
@@ -6609,6 +6745,40 @@
        "tmin": 16.98
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.51,
+       "tmin": 16.56
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 30.06,
+       "tmin": 15.09
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 26.68,
+       "tmin": 13.59
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 31.68,
+       "tmin": 17.81
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 34.46,
+       "tmin": 20.64
+      }
+     }
     }
    },
    "lat": -34.76,
@@ -6619,7 +6789,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Quilmes",
@@ -7918,6 +8088,40 @@
        "tmin": 16.87
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.95,
+       "tmin": 16.82
+      },
+      "2026-11-25": {
+       "lluvia": 0.2,
+       "prob": null,
+       "tmax": 27.26,
+       "tmin": 15.61
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 24.46,
+       "tmin": 13.55
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.07,
+       "tmin": 17.62
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 30.72,
+       "tmin": 20.35
+      }
+     }
     }
    },
    "lat": -34.72,
@@ -7928,7 +8132,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "La Plata",
@@ -9227,6 +9431,40 @@
        "tmin": 15.68
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.61,
+       "tmin": 16.03
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.45,
+       "tmin": 13.56
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 24.32,
+       "tmin": 12.42
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.29,
+       "tmin": 16.49
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 31.89,
+       "tmin": 19.67
+      }
+     }
     }
    },
    "lat": -34.92,
@@ -9237,7 +9475,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "San Isidro",
@@ -10536,6 +10774,40 @@
        "tmin": 16.44
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.84,
+       "tmin": 16.61
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.69,
+       "tmin": 16.89
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 25.15,
+       "tmin": 15.6
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.89,
+       "tmin": 17.29
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 32.49,
+       "tmin": 18.48
+      }
+     }
     }
    },
    "lat": -34.47,
@@ -10546,7 +10818,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "San Miguel",
@@ -11845,6 +12117,40 @@
        "tmin": 13.33
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 26.91,
+       "tmin": 14.41
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.33,
+       "tmin": 12.04
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 25.74,
+       "tmin": 11.04
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 29.85,
+       "tmin": 14.12
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 31.87,
+       "tmin": 17.11
+      }
+     }
     }
    },
    "lat": -34.54,
@@ -11855,7 +12161,7 @@
    "errores": {},
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Pilar",
@@ -13154,6 +13460,40 @@
        "tmin": 14.89
       }
      }
+    },
+    "2026-11-24": {
+     "meteored": {
+      "2026-11-24": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.68,
+       "tmin": 15.49
+      },
+      "2026-11-25": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 28.74,
+       "tmin": 15.06
+      },
+      "2026-11-26": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 27.13,
+       "tmin": 14.48
+      },
+      "2026-11-27": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 31.42,
+       "tmin": 15.65
+      },
+      "2026-11-28": {
+       "lluvia": null,
+       "prob": null,
+       "tmax": 33.44,
+       "tmin": 17.86
+      }
+     }
     }
    },
    "lat": -34.46,
@@ -13162,11 +13502,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/1751f8edd24f2c520e02d1151500dc7c {\"ok\":false,\"expiracion\":1795474520607,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/1751f8edd24f2c520e02d1151500dc7c {\"ok\":false,\"expiracion\":1795555919915,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Ezeiza",
@@ -13215,11 +13555,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/838217e4056284d47920f99d6029d046 {\"ok\":false,\"expiracion\":1795474520739,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/838217e4056284d47920f99d6029d046 {\"ok\":false,\"expiracion\":1795555920219,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Moreno",
@@ -13268,11 +13608,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/93353c11201dee175bf24d36d7343bc8 {\"ok\":false,\"expiracion\":1795474520874,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/93353c11201dee175bf24d36d7343bc8 {\"ok\":false,\"expiracion\":1795555920470,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Mar del Plata",
@@ -13321,11 +13661,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/0ed365e820ff647674aa5dece697e4e9 {\"ok\":false,\"expiracion\":1795474521023,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/0ed365e820ff647674aa5dece697e4e9 {\"ok\":false,\"expiracion\":1795555920755,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Rosario",
@@ -13374,11 +13714,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/85d2a08418f36e010aa1d49b49d35f56 {\"ok\":false,\"expiracion\":1795474521203,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/85d2a08418f36e010aa1d49b49d35f56 {\"ok\":false,\"expiracion\":1795555921034,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Córdoba",
@@ -13427,11 +13767,11 @@
   },
   {
    "errores": {
-    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/8e70c1902671aab8fe47e9824359af39 {\"ok\":false,\"expiracion\":1795474521324,\"info\":{\"message\":\"Quota Exceeded\"}}"
+    "Meteored": "RuntimeError: HTTP 429 en /api/forecast/v2/daily/8e70c1902671aab8fe47e9824359af39 {\"ok\":false,\"expiracion\":1795555921281,\"info\":{\"message\":\"Quota Exceeded\"}}"
    },
    "estado": {
     "llamadas_meteored": {
-     "fecha": "2026-11-23",
+     "fecha": "2026-11-24",
      "n": 1
     },
     "meteored_buscado": "Mendoza",
@@ -13480,7 +13820,7 @@
   }
  ],
  "uso_meteored": {
-  "fecha": "2026-11-23",
+  "fecha": "2026-11-24",
   "n": 16
  }
 }

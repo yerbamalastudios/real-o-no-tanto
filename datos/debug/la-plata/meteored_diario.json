@@ -1,63 +1,31 @@
 {
  "ok": true,
- "expiracion": 1795487880000,
+ "expiracion": 1795574340000,
  "data": {
   "hash": "72e81151000f1f0ec999a9bd9efb70ed",
   "name": "La Plata",
   "url": "https://www.meteored.com.bo/tiempo-en_La+Plata-America+Sur-Argentina-Provincia+de+Buenos+Aires-SADL-1-16930.html",
   "days": [
    {
-    "start": 1795402800000,
-    "symbol": 3,
-    "temperature": {
-     "min": 14.87,
-     "max": 27.85
-    },
-    "wind": {
-     "speed": 12,
-     "gust": 31,
-     "direction": "NW"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 20
-    },
-    "humidity": 57,
-    "pressure": 1008,
-    "snowline": 3200,
-    "uv_index_max": 10.2,
-    "sun": {
-     "in": 1795422814000,
-     "mid": 1795448297000,
-     "out": 1795473803000
-    },
-    "moon": {
-     "in": 1795471342000,
-     "out": 1795418204000,
-     "symbol": 15,
-     "illumination": 98.55
-    }
-   },
-   {
     "start": 1795489200000,
     "symbol": 3,
     "temperature": {
-     "min": 16.62,
-     "max": 28.53
+     "min": 16.03,
+     "max": 28.61
     },
     "wind": {
-     "speed": 19,
-     "gust": 44,
+     "speed": 21,
+     "gust": 49,
      "direction": "SW"
     },
     "precipitation": {
      "total": 0,
-     "probability": 20
+     "probability": 10
     },
-    "humidity": 57,
+    "humidity": 58,
     "pressure": 1010,
     "snowline": 3000,
-    "uv_index_max": 10.6,
+    "uv_index_max": 10.5,
     "sun": {
      "in": 1795509190000,
      "mid": 1795534714000,
@@ -74,11 +42,11 @@
     "start": 1795575600000,
     "symbol": 1,
     "temperature": {
-     "min": 13.58,
-     "max": 27.5
+     "min": 13.56,
+     "max": 27.45
     },
     "wind": {
-     "speed": 21,
+     "speed": 19,
      "gust": 50,
      "direction": "SE"
     },
@@ -86,7 +54,7 @@
      "total": 0,
      "probability": 0
     },
-    "humidity": 51,
+    "humidity": 56,
     "pressure": 1017,
     "snowline": 2900,
     "uv_index_max": 11.1,
@@ -106,21 +74,21 @@
     "start": 1795662000000,
     "symbol": 1,
     "temperature": {
-     "min": 11.76,
-     "max": 23.71
+     "min": 12.42,
+     "max": 24.32
     },
     "wind": {
-     "speed": 16,
-     "gust": 35,
+     "speed": 17,
+     "gust": 36,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 54,
-    "pressure": 1023,
-    "snowline": 3300,
+    "humidity": 60,
+    "pressure": 1022,
+    "snowline": 3400,
     "uv_index_max": 11.1,
     "sun": {
      "in": 1795681948000,
@@ -138,22 +106,22 @@
     "start": 1795748400000,
     "symbol": 1,
     "temperature": {
-     "min": 15.68,
-     "max": 28.33
+     "min": 16.49,
+     "max": 29.29
     },
     "wind": {
-     "speed": 12,
-     "gust": 33,
-     "direction": "N"
+     "speed": 13,
+     "gust": 34,
+     "direction": "NW"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 53,
-    "pressure": 1017,
-    "snowline": 3300,
-    "uv_index_max": 11.3,
+    "humidity": 59,
+    "pressure": 1016,
+    "snowline": 3600,
+    "uv_index_max": 11.5,
     "sun": {
      "in": 1795768330000,
      "mid": 1795793970000,
@@ -164,6 +132,38 @@
      "out": 1795778062000,
      "symbol": 11,
      "illumination": 87.06
+    }
+   },
+   {
+    "start": 1795834800000,
+    "symbol": 1,
+    "temperature": {
+     "min": 19.67,
+     "max": 31.89
+    },
+    "wind": {
+     "speed": 12,
+     "gust": 35,
+     "direction": "N"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 49,
+    "pressure": 1013,
+    "snowline": 3800,
+    "uv_index_max": 11.1,
+    "sun": {
+     "in": 1795854714000,
+     "mid": 1795880390000,
+     "out": 1795906088000
+    },
+    "moon": {
+     "in": 0,
+     "out": 1795868960000,
+     "symbol": 10,
+     "illumination": 78.09
     }
    }
   ]
