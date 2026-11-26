@@ -1,62 +1,30 @@
 {
  "ok": true,
- "expiracion": 1795639920000,
+ "expiracion": 1795726320000,
  "data": {
   "hash": "3e061d1c34014d9ced218ef2300aa218",
   "name": "Lomas de Zamora",
   "url": "https://www.meteored.com.bo/tiempo-en_Lomas+de+Zamora-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-16905.html",
   "days": [
    {
-    "start": 1795575600000,
-    "symbol": 1,
-    "temperature": {
-     "min": 14.3,
-     "max": 29.71
-    },
-    "wind": {
-     "speed": 19,
-     "gust": 44,
-     "direction": "SE"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 43,
-    "pressure": 1017,
-    "snowline": 2900,
-    "uv_index_max": 11,
-    "sun": {
-     "in": 1795595706000,
-     "mid": 1795621245000,
-     "out": 1795646807000
-    },
-    "moon": {
-     "in": 1795653052000,
-     "out": 1795597129000,
-     "symbol": 13,
-     "illumination": 98.48
-    }
-   },
-   {
     "start": 1795662000000,
     "symbol": 1,
     "temperature": {
-     "min": 13.37,
-     "max": 26.06
+     "min": 12.39,
+     "max": 26.35
     },
     "wind": {
-     "speed": 14,
-     "gust": 35,
+     "speed": 13,
+     "gust": 34,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 48,
-    "pressure": 1022,
-    "snowline": 3400,
+    "humidity": 45,
+    "pressure": 1023,
+    "snowline": 3300,
     "uv_index_max": 11,
     "sun": {
      "in": 1795682086000,
@@ -72,24 +40,24 @@
    },
    {
     "start": 1795748400000,
-    "symbol": 1,
+    "symbol": 3,
     "temperature": {
-     "min": 17.52,
-     "max": 31.56
+     "min": 17.47,
+     "max": 32.45
     },
     "wind": {
-     "speed": 13,
-     "gust": 34,
+     "speed": 11,
+     "gust": 31,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 46,
+    "humidity": 44,
     "pressure": 1016,
-    "snowline": 3400,
-    "uv_index_max": 11.5,
+    "snowline": 3200,
+    "uv_index_max": 11.4,
     "sun": {
      "in": 1795768468000,
      "mid": 1795794083000,
@@ -104,24 +72,24 @@
    },
    {
     "start": 1795834800000,
-    "symbol": 1,
+    "symbol": 3,
     "temperature": {
-     "min": 20.57,
-     "max": 34.31
+     "min": 20.56,
+     "max": 34.11
     },
     "wind": {
-     "speed": 12,
-     "gust": 33,
+     "speed": 14,
+     "gust": 39,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
-     "probability": 10
+     "probability": 0
     },
-    "humidity": 38,
-    "pressure": 1013,
-    "snowline": 3800,
-    "uv_index_max": 11.2,
+    "humidity": 37,
+    "pressure": 1014,
+    "snowline": 3900,
+    "uv_index_max": 11.5,
     "sun": {
      "in": 1795854852000,
      "mid": 1795880504000,
@@ -138,21 +106,21 @@
     "start": 1795921200000,
     "symbol": 1,
     "temperature": {
-     "min": 22.3,
-     "max": 34.76
+     "min": 21.84,
+     "max": 34.27
     },
     "wind": {
      "speed": 15,
-     "gust": 41,
+     "gust": 40,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 38,
+    "humidity": 41,
     "pressure": 1015,
-    "snowline": 3900,
+    "snowline": 3800,
     "uv_index_max": 11.2,
     "sun": {
      "in": 1795941238000,
@@ -164,6 +132,38 @@
      "out": 1795959877000,
      "symbol": 9,
      "illumination": 67.82
+    }
+   },
+   {
+    "start": 1796007600000,
+    "symbol": 3,
+    "temperature": {
+     "min": 22.37,
+     "max": 32.85
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 36,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 49,
+    "pressure": 1012,
+    "snowline": 4100,
+    "uv_index_max": 11.3,
+    "sun": {
+     "in": 1796027626000,
+     "mid": 1796053346000,
+     "out": 1796079086000
+    },
+    "moon": {
+     "in": 1796010110000,
+     "out": 1796050419000,
+     "symbol": 8,
+     "illumination": 56.92
     }
    }
   ]

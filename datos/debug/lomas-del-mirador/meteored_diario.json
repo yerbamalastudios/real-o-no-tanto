@@ -1,63 +1,31 @@
 {
  "ok": true,
- "expiracion": 1795639920000,
+ "expiracion": 1795726320000,
  "data": {
   "hash": "6f2daba02c3cd38daee6e2e2f572746e",
   "name": "Lomas del Mirador",
   "url": "https://www.meteored.com.bo/tiempo-en_Lomas+del+Mirador-America+Sur-Argentina-Provincia+de+Buenos+Aires--1-15198.html",
   "days": [
    {
-    "start": 1795575600000,
-    "symbol": 1,
-    "temperature": {
-     "min": 15.87,
-     "max": 29.98
-    },
-    "wind": {
-     "speed": 18,
-     "gust": 45,
-     "direction": "SE"
-    },
-    "precipitation": {
-     "total": 0,
-     "probability": 0
-    },
-    "humidity": 41,
-    "pressure": 1017,
-    "snowline": 2900,
-    "uv_index_max": 11,
-    "sun": {
-     "in": 1795595746000,
-     "mid": 1795621269000,
-     "out": 1795646816000
-    },
-    "moon": {
-     "in": 1795653055000,
-     "out": 1795597176000,
-     "symbol": 13,
-     "illumination": 98.48
-    }
-   },
-   {
     "start": 1795662000000,
     "symbol": 1,
     "temperature": {
-     "min": 14.42,
-     "max": 26.4
+     "min": 13.48,
+     "max": 26.89
     },
     "wind": {
-     "speed": 16,
-     "gust": 39,
+     "speed": 15,
+     "gust": 38,
      "direction": "SE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 47,
+    "humidity": 42,
     "pressure": 1022,
-    "snowline": 3400,
-    "uv_index_max": 11,
+    "snowline": 3300,
+    "uv_index_max": 11.1,
     "sun": {
      "in": 1795682126000,
      "mid": 1795707688000,
@@ -72,24 +40,24 @@
    },
    {
     "start": 1795748400000,
-    "symbol": 1,
+    "symbol": 3,
     "temperature": {
-     "min": 18.04,
-     "max": 32.19
+     "min": 17.94,
+     "max": 32.81
     },
     "wind": {
-     "speed": 11,
-     "gust": 30,
-     "direction": "NE"
+     "speed": 9,
+     "gust": 31,
+     "direction": "NW"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 45,
+    "humidity": 43,
     "pressure": 1016,
-    "snowline": 3400,
-    "uv_index_max": 11.5,
+    "snowline": 3300,
+    "uv_index_max": 11.4,
     "sun": {
      "in": 1795768508000,
      "mid": 1795794108000,
@@ -104,24 +72,24 @@
    },
    {
     "start": 1795834800000,
-    "symbol": 1,
+    "symbol": 3,
     "temperature": {
-     "min": 20.32,
-     "max": 34.56
+     "min": 20.35,
+     "max": 34.45
     },
     "wind": {
-     "speed": 11,
-     "gust": 32,
+     "speed": 13,
+     "gust": 38,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 37,
-    "pressure": 1013,
+    "humidity": 36,
+    "pressure": 1014,
     "snowline": 3900,
-    "uv_index_max": 11.2,
+    "uv_index_max": 11.5,
     "sun": {
      "in": 1795854893000,
      "mid": 1795880528000,
@@ -138,22 +106,22 @@
     "start": 1795921200000,
     "symbol": 1,
     "temperature": {
-     "min": 22.24,
-     "max": 35.05
+     "min": 21.58,
+     "max": 34.54
     },
     "wind": {
      "speed": 14,
-     "gust": 42,
+     "gust": 40,
      "direction": "NE"
     },
     "precipitation": {
      "total": 0,
      "probability": 0
     },
-    "humidity": 37,
+    "humidity": 39,
     "pressure": 1015,
-    "snowline": 3900,
-    "uv_index_max": 11.2,
+    "snowline": 3800,
+    "uv_index_max": 11.3,
     "sun": {
      "in": 1795941279000,
      "mid": 1795966949000,
@@ -164,6 +132,38 @@
      "out": 1795959915000,
      "symbol": 9,
      "illumination": 67.82
+    }
+   },
+   {
+    "start": 1796007600000,
+    "symbol": 3,
+    "temperature": {
+     "min": 22.51,
+     "max": 33.19
+    },
+    "wind": {
+     "speed": 13,
+     "gust": 37,
+     "direction": "NE"
+    },
+    "precipitation": {
+     "total": 0,
+     "probability": 0
+    },
+    "humidity": 48,
+    "pressure": 1012,
+    "snowline": 4100,
+    "uv_index_max": 11.4,
+    "sun": {
+     "in": 1796027667000,
+     "mid": 1796053371000,
+     "out": 1796079094000
+    },
+    "moon": {
+     "in": 1796010125000,
+     "out": 1796050453000,
+     "symbol": 8,
+     "illumination": 56.92
     }
    }
   ]
